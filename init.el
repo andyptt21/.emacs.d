@@ -59,7 +59,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ESS
 (use-package ess
-  :defer t
+  :ensure t
   :config (ess-toggle-underscore nil))
 
 ;; Org mode
@@ -81,7 +81,7 @@
 
 ;; ess-view, REQUIRES "TAD" CSV VIEWER APP
 (use-package ess-view
-  :defer t
+  :ensure t
   :config (setq ess-view--spreadsheet-program "/Applications/Tad.app/Contents/MacOS/Tad"))
 
 ;; Markdown-mode (needed for Rmarkdown)
@@ -94,8 +94,10 @@
           ("\\.markdown\\'" . markdown-mode)))
 
 ;; poly-R and poly-markdown also used for Rmarkdown 
-(use-package poly-markdown)
-(use-package poly-R)
+(use-package poly-markdown
+   :ensure t)
+(use-package poly-R
+   :ensure t)
 
 ;;Magit
 (global-set-key (kbd "C-x g") 'magit-status)
