@@ -1,6 +1,0 @@
-(
- (:id "sha1:85457c729378cc93c732b6a3941c8e4f9c2e60f3" :fingerprint "sha1:ab:a6:d7:6a:b3:d3:63:fa:19:0d:65:41:60:23:6e:ef:d3:2a:46:dc" :host "marmalade-repo.org:443" :conditions (:expired :insecure :unknown-ca :invalid))
- (:id "sha1:ccfd2cc2a08c89a9b10969be8c1e926954d53e28" :fingerprint "sha1:e5:47:3e:0f:21:9b:55:10:d2:78:1c:0a:1b:7d:92:05:2d:f7:4c:e3" :host "stable.melpa.org:443" :conditions (:insecure :unknown-ca :invalid))
- (:id "sha1:694c15e38de2a35cc976e603d6a6728b25d65045" :fingerprint "sha1:92:a5:ee:cb:d2:73:7e:c3:5d:73:51:a2:cf:0c:8d:76:fb:23:65:28" :host "andyptt21.wordpress.com:443" :conditions (:insecure :unknown-ca :invalid))
- (:id "sha1:60580955a2f8bbfc40d97ebbaa2d9c9320eee866" :fingerprint "sha1:92:a5:ee:cb:d2:73:7e:c3:5d:73:51:a2:cf:0c:8d:76:fb:23:65:28" :host "thescientificshrimper.wordpress.com:443" :conditions (:insecure :unknown-ca :invalid))
-)
