@@ -1,0 +1,213 @@
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/"))
+(package-initialize)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (spacemacs-light)))
+ '(custom-safe-themes
+   (quote
+    ("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
+ '(ess-swv-pdflatex-commands (quote ("pdflatex" "texi2pdf" "make")))
+ '(org-agenda-files (quote ("~/Desktop/my-planner.org")))
+ '(org-confirm-babel-evaluate nil)
+ '(package-archives
+   (quote
+    (("melpa-stable" . "https://stable.melpa.org/packages/")
+     ("gnu" . "http://elpa.gnu.org/packages/")
+     ("melpa" . "http://melpa.milkbox.net/packages/"))))
+ '(package-selected-packages
+   (quote
+    (spacemacs-theme magit org2blog openwith org-bullets ess-view markdown-mode markchars))))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;; Set backgrounds to light gray
+(set-background-color "#DCDCDC")
+(set-face-attribute 'fringe nil :background "#DCDCDC" :foreground "#DCDCDC")
+(set-face-background 'linum "#DCDCDC")
+
+
+;; Automatically enter debug mode upon error
+;;(setq debug-on-error t)
+
+;; Always show line numbers
+(global-linum-mode t)
+(setq linum-format "%4d \u2502 ")
+
+;; backup in one place. flat, no tree structure
+(setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
+
+;; Rmarkdown stuff
+(put 'upcase-region 'disabled nil)
+(autoload 'markdown-mode "markdown-mode" "Major mode for editing Markdown files" t) (add-to-list 'auto-mode-alist'("\.text\'" . markdown-mode)) (add-to-list 'auto-mode-alist'("\.markdown\'" . markdown-mode)) (add-to-list 'auto-mode-alist'("\.md\'" . markdown-mode))
+(setq load-path (append '("~/.emacs.d/polymode/" "/home/jsg/.emacs.d/polymode/modes") load-path))
+(require 'poly-R) (require 'poly-markdown)
+(global-unset-key (kbd "C-z"))
+
+(require 'ess-site)
+(ess-toggle-underscore nil)
+
+;;Re-load your buffers from the previous session on startup
+;;(desktop-save-mode 1)
+
+;;ess-view
+(require 'ess-view)
+(setq ess-view--spreadsheet-program "/Applications/Tad.app/Contents/MacOS/Tad")
+
+;; Automatically start up polymode for .Rmd documents
+(add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
+
+;; Connect to Owens (OSC)
+(defun connect-remote ()
+  (interactive)
+  (dired "/ssh:osu8143@owens.osc.edu:/users/PAS1143/osu8143/"))
+
+;; Disable the splash screen (to enable it agin, replace the t with 0)
+(setq inhibit-splash-screen t)
+
+;; Enable transient mark mode
+(transient-mark-mode 1)
+
+;;;;Org mode configuration
+;; Enable Org mode
+(require 'org)
+;; Make Org mode work with files ending in .org
+ (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+;; The above is the default in recent emacsen
+
+;; Fancy org-bullets
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+;; Hide emphasis markers
+(setq org-hide-emphasis-markers t)
+
+;; Useful keybindings for org trees
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\M-Up" 'org-move-subtree-up)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+
+;; Display pdfs inline in org-mode
+(setq image-file-name-extensions
+   (quote
+    ("png" "jpeg" "jpg" "gif" "tiff" "tif" "xbm" "xpm" "pbm" "pgm" "ppm" "pnm" "svg" "pdf" "bmp")))
+
+(setq org-image-actual-width 600)
+
+(setq org-imagemagick-display-command "convert -density 600 \"%s\" -thumbnail \"%sx%s>\" \"%s\"")
+(defun org-display-inline-images (&optional include-linked refresh beg end)
+  "Display inline images.
+Normally only links without a description part are inlined, because this
+is how it will work for export.  When INCLUDE-LINKED is set, also links
+with a description part will be inlined.  This
+can be nice for a quick
+look at those images, but it does not reflect what exported files will look
+like.
+When REFRESH is set, refresh existing images between BEG and END.
+This will create new image displays only if necessary.
+BEG and END default to the buffer boundaries."
+  (interactive "P")
+  (unless refresh
+    (org-remove-inline-images)
+    (if (fboundp 'clear-image-cache) (clear-image-cache)))
+  (save-excursion
+    (save-restriction
+      (widen)
+      (setq beg (or beg (point-min)) end (or end (point-max)))
+      (goto-char beg)
+      (let ((re (concat "\\[\\[\\(\\(file:\\)\\|\\([./~]\\)\\)\\([^]\n]+?"
+                        (substring (org-image-file-name-regexp) 0 -2)
+                        "\\)\\]" (if include-linked "" "\\]")))
+            old file ov img)
+        (while (re-search-forward re end t)
+          (setq old (get-char-property-and-overlay (match-beginning 1)
+                                                   'org-image-overlay)
+        file (expand-file-name
+                      (concat (or (match-string 3) "") (match-string 4))))
+          (when (file-exists-p file)
+            (let ((file-thumb (format "%s%s_thumb.png" (file-name-directory file) (file-name-base file))))
+              (if (file-exists-p file-thumb)
+                  (let ((thumb-time (nth 5 (file-attributes file-thumb 'string)))
+                        (file-time (nth 5 (file-attributes file 'string))))
+                    (if (time-less-p thumb-time file-time)
+            (shell-command (format org-imagemagick-display-command
+                           file org-image-actual-width org-image-actual-width file-thumb) nil nil)))
+                (shell-command (format org-imagemagick-display-command
+                                         file org-image-actual-width org-image-actual-width file-thumb) nil nil))
+              (if (and (car-safe old) refresh)
+                  (image-refresh (overlay-get (cdr old) 'display))
+                (setq img (save-match-data (create-image file-thumb)))
+                (when img
+                  (setq ov (make-overlay (match-beginning 0) (match-end 0)))
+                  (overlay-put ov 'display img)
+                  (overlay-put ov 'face 'default)
+                  (overlay-put ov 'org-image-overlay t)
+                  (overlay-put ov 'modification-hooks
+                               (list 'org-display-inline-remove-overlay))
+                  (push ov org-inline-image-overlays))))))))))
+
+;; Have locate use spotlight search (Mac only)
+(setq locate-command "mdfind")
+
+;; Transpose buffer location with C-x 4 t
+(defun transpose-windows (arg)
+  "Transpose the buffers shown in two windows."
+  (interactive "p")
+  (let ((selector (if (>= arg 0) 'next-window 'previous-window)))
+    (while (/= arg 0)
+      (let ((this-win (window-buffer))
+	    (next-win (window-buffer (funcall selector))))
+	(set-window-buffer (selected-window) next-win)
+	(set-window-buffer (funcall selector) this-win)
+	(select-window (funcall selector)))
+      (setq arg (if (plusp arg) (1- arg) (1+ arg))))))
+
+;; Transpose windows with C-x 4 t
+(define-key ctl-x-4-map (kbd "t") 'transpose-windows)
+
+;; Make Preview the default pdf viewer
+(progn					
+    (require 'openwith)                                                    
+    (openwith-mode t)                                                      
+    (setq openwith-associations '(("\\.pdf\\'" "/Applications/Preview.app/Contents/MacOS/Preview" (file))))          
+)
+
+;;org2blog
+(setq load-path (cons "~/org2blog/" load-path))
+(require 'org2blog-autoloads)
+
+(setq org2blog/wp-blog-alist
+      '(("wordpress"
+         :url "https://thescientificshrimper.wordpress.com/xmlrpc.php"
+         :username "andyptt21"
+         :default-title "The Scientific Shrimper"
+         :default-categories ("org2blog" "emacs")
+         :tags-as-categories nil)))
+
+;;org-babel
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((R . t)))
+(setq org-startup-with-inline-images t)
+
+;;orgMobile
+(setq org-mobile-directory "~/Dropbox/MobileOrg")
+
+;;Magit
+(global-set-key (kbd "C-x g") 'magit-status)
