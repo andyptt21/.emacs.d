@@ -33,7 +33,7 @@
    (quote
     ("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
  '(ess-swv-pdflatex-commands (quote ("pdflatex" "texi2pdf" "make")))
- '(org-agenda-files (quote ("~/Desktop/my-planner.org")))
+ '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(org-confirm-babel-evaluate nil)
  '(package-archives
    (quote
@@ -50,7 +50,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(font-lock-comment-face ((t (:background "#D3D3D3"))))
- '(org-table ((t (:background "#98AFC7" :foreground "#655370")))))
+ '(org-table ((t (:background "#D8C3E5" :foreground "#655370")))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Packages
@@ -72,48 +72,28 @@
 	      '((R . t)))
 	     (setq org-startup-with-inline-images t)
 	     (setq org-log-done t)))
-(define-key global-map "\M-Up" 'org-move-subtree-up)
 
 ;; Fancy org-bullets
 (use-package org-bullets
   :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
-;;ess-view
+;; ess-view, REQUIRES "TAD" CSV VIEWER APP
 (use-package ess-view
   :defer t
   :config (setq ess-view--spreadsheet-program "/Applications/Tad.app/Contents/MacOS/Tad"))
 
 ;; Markdown-mode (needed for Rmarkdown)
-;; (use-package markdown-mode
-;;   :ensure t
-;;   :commands (markdown-mode gfm-mode)
-;;   :mode (("README\\.md\\'" . gfm-mode)
-;;          ("\\.md\\'" . markdown-mode)
-;;          ("\\.markdown\\'" . markdown-mode))
-;;   :init (setq markdown-command "multimarkdown"))
+(use-package markdown-mode
+   :ensure t
+   :commands (markdown-mode gfm-mode)
+   :mode (("\.text\'" . markdown-mode)
+	  ("README\\.md\\'" . gfm-mode)
+          ("\\.md\\'" . markdown-mode)
+          ("\\.markdown\\'" . markdown-mode)))
 
-;; poly-R and poly-markdown also used for Rmarkdown
-;; (use-package poly-R)
-;; (use-package poly-markdown
-;;   :init (setq load-path (append '("~/.emacs.d/polymode/" "/home/jsg/.emacs.d/polymode/modes") load-path))
-;;   :mode (("\\.Rmd" . poly-markdown)
-;; 	 ("\\.Rmd" . r-mode)))
-
-(put 'upcase-region 'disabled nil)
-(autoload 'markdown-mode "markdown-mode" "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist'("\.text\'" . markdown-mode))
-(add-to-list 'auto-mode-alist'("\.markdown\'" . markdown-mode))
-(add-to-list 'auto-mode-alist'("\.md\'" . markdown-mode))
-(setq load-path (append '("~/.emacs.d/polymode/" "/home/jsg/.emacs.d/polymode/modes") load-path))
-(require 'poly-R)
-(require 'poly-markdown)
-(global-unset-key (kbd "C-z"))
-
-(require 'poly-R)
-(require 'poly-markdown)
-(global-unset-key (kbd "C-z"))
-(setq load-path (append '("~/.emacs.d/polymode/" "/home/jsg/.emacs.d/polymode/modes") load-path))
-(add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
+ ;; poly-R and poly-markdown also used for Rmarkdown
+ (use-package poly-R)
+ (use-package poly-markdown)
 
 ;;Magit
 (global-set-key (kbd "C-x g") 'magit-status)
