@@ -37,6 +37,7 @@
  '(ess-swv-pdflatex-commands (quote ("pdflatex" "texi2pdf" "make")))
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(org-confirm-babel-evaluate nil)
+ '(org-tag-faces (quote (("liposarcoma" . "yellow"))))
  '(package-archives
    (quote
     (("melpa-stable" . "https://stable.melpa.org/packages/")
@@ -44,13 +45,14 @@
      ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(package-selected-packages
    (quote
-    (diminish use-package spacemacs-theme magit org org2blog openwith org-bullets ess-view markdown-mode markchars))))
+    (ess ess-view diminish use-package spacemacs-theme magit org org2blog openwith org-bullets markdown-mode markchars))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ess-function-call-face ((t (:foreground "#a65200"))))
  '(font-lock-comment-face ((t (:background "#D3D3D3"))))
  '(org-table ((t (:background "#D8C3E5" :foreground "#655370")))))
 
@@ -59,20 +61,23 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ESS
 (use-package ess
-  :defer t
+  :ensure t
+  :init (require 'ess-site)
   :config (ess-toggle-underscore nil))
+
 
 ;; Org mode
  (use-package org
    :ensure org-plus-contrib
    :bind (("\C-c l" . org-store-link)
- 	 ("\C-c a" . org-agenda))
+	  ("\C-c a" . org-agenda)
+	  ("\C-c i" . org-toggle-inline-images))
    :config (progn
 	     (setq org-hide-emphasis-markers t)
 	     (org-babel-do-load-languages
 	      'org-babel-load-languages
 	      '((R . t)))
-	     (setq org-startup-with-inline-images t)
+	     ;(setq org-startup-with-inline-images t)
 	     (setq org-log-done t)))
 
 ;; Fancy org-bullets
@@ -81,8 +86,9 @@
 
 ;; ess-view, REQUIRES "TAD" CSV VIEWER APP
 (use-package ess-view
-  :defer t
-  :config (setq ess-view--spreadsheet-program "/Applications/Tad.app/Contents/MacOS/Tad"))
+ :ensure t
+ :defer t
+ :config (setq ess-view--spreadsheet-program "/Applications/Tad.app/Contents/MacOS/Tad"))
 
 ;; Markdown-mode (needed for Rmarkdown)
 (use-package markdown-mode
