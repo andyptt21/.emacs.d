@@ -45,7 +45,7 @@
      ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(package-selected-packages
    (quote
-    (ess ess-view diminish use-package spacemacs-theme magit org org2blog openwith org-bullets markdown-mode markchars))))
+    (poly-R poly-markdown ess ess-view diminish use-package spacemacs-theme magit org org2blog openwith org-bullets markdown-mode markchars))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -109,20 +109,21 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Linking to my wordpress blog and OSC account
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; org2blog
-(use-package org2blog
-  :config (setq org2blog/wp-blog-alist
-      '(("wordpress"
-         :url "https://thescientificshrimper.wordpress.com/xmlrpc.php"
-         :username "andyptt21"
-         :default-title "The Scientific Shrimper"
-         :default-categories ("org2blog" "emacs")
-         :tags-as-categories nil))))
+;; ;; org2blog
+;; (use-package org2blog
+;;   :config (setq org2blog/wp-blog-alist
+;;       '(("wordpress"
+;;          :url "https://thescientificshrimper.wordpress.com/xmlrpc.php"
+;;          :username "andyptt21"
+;;          :default-title "The Scientific Shrimper"
+;;          :default-categories ("org2blog" "emacs")
+;;          :tags-as-categories nil))))
 
-;; Connect to Owens (OSC)
-(defun connect-remote ()
-  (interactive)
-  (dired "/ssh:osu8143@owens.osc.edu:/users/PAS1143/osu8143/"))
+;; ;; Connect to Owens (OSC)
+;; (defun connect-remote ()
+;;   (interactive)
+;;   (dired "/ssh:osu8143@owens.osc.edu:/users/PAS1143/osu8143/"))
+(if (file-exists-p "~/.emacs.d/elisp/blog_and_osc_login.el") (load "~/.emacs.d/elisp/blog_and_osc_login.el") nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Aesthetics
@@ -194,9 +195,7 @@
 (setq image-file-name-extensions
    (quote
     ("png" "jpeg" "jpg" "gif" "tiff" "tif" "xbm" "xpm" "pbm" "pgm" "ppm" "pnm" "svg" "pdf" "bmp")))
-
 (setq org-image-actual-width 600)
-
 (setq org-imagemagick-display-command "convert -density 600 \"%s\" -thumbnail \"%sx%s>\" \"%s\"")
 (defun org-display-inline-images (&optional include-linked refresh beg end)
   "Display inline images.
@@ -248,3 +247,17 @@ BEG and END default to the buffer boundaries."
                   (overlay-put ov 'modification-hooks
                                (list 'org-display-inline-remove-overlay))
                   (push ov org-inline-image-overlays))))))))))
+
+;; Add pretty comment boxes to code
+(defun bjm-comment-box (b e)
+"Draw a box comment around the region but arrange for the region to extend to at least the fill column. Place the point after the comment box."
+(interactive "r")
+(let ((e (copy-marker e t)))
+  (goto-char b)
+  (end-of-line)
+  (insert-char ?  (- fill-column (current-column)))
+  (comment-box b e 1)
+  (goto-char e)
+  (set-marker e nil)))
+(global-set-key (kbd "C-c b b") 'bjm-comment-box)
+
