@@ -99,9 +99,11 @@
 
 ;; poly-R and poly-markdown also used for Rmarkdown 
 (use-package poly-markdown
-   :ensure t)
+  :ensure t
+  :pin melpa-stable)
 (use-package poly-R
-   :ensure t)
+  :ensure t
+  :pin melpa-stable)
 
 ;;Magit
 (global-set-key (kbd "C-x g") 'magit-status)
