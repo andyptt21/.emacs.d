@@ -100,7 +100,10 @@
 ;; poly-R and poly-markdown also used for Rmarkdown 
 (use-package poly-markdown
   :ensure t
-  :pin melpa-stable)
+  :pin melpa-stable
+  :commands (poly-markdown-mode)
+  :mode (("\\.rmd\\'" . poly-markdown-mode)
+	 ("\\.Rmd\\'" . poly-markdown-mode)))
 (use-package poly-R
   :ensure t
   :pin melpa-stable)
