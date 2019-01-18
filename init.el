@@ -45,8 +45,7 @@
      ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(package-selected-packages
    (quote
-    (flycheck elpy poly-R poly-markdown ess ess-view diminish use-package spacemacs-theme magit org org2blog openwith org-bullets markdown-mode markchars))))
-
+    (popup-complete auto-complete spaceline-config persp-mode spaceline flycheck openwith org2blog elpy poly-R poly-markdown ess ess-view diminish use-package spacemacs-theme magit org org-bullets markdown-mode markchars))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -64,6 +63,7 @@
   :defer t
   :init (require 'ess-site)
   :config (ess-toggle-underscore nil))
+(setq ess-use-auto-complete t)
 
 ;; elpy (for python editing)
 (use-package elpy
@@ -95,6 +95,15 @@
 (use-package org-bullets
   :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
+;;spaceline
+(use-package spaceline
+  :ensure t)
+(require 'spaceline-config)
+(spaceline-spacemacs-theme)
+
+(use-package persp-mode
+  :ensure t)
+
 ;; ess-view, REQUIRES "TAD" CSV VIEWER APP
 (use-package ess-view
  :defer t
@@ -121,6 +130,8 @@
   :pin melpa-stable)
 
 ;;Magit
+(use-package magit
+  :ensure t)
 (global-set-key (kbd "C-x g") 'magit-status)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

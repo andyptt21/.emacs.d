@@ -1,0 +1,1620 @@
+\documentclass{article}
+\renewenvironment{knitrout}{\begin{minipage}{\columnwidth}}{\end{minipage}}
+\usepackage[margin=0.75in]{geometry}
+%\usepackage{listings}
+%\usepackage[backend=bibtex,sorting=none]{biblatex}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage[normalem]{ulem}
+\title{Metabolomics figures for liposarcoma paper}
+\author{Andrew Patt}
+
+\begin{document}
+
+<<setOpts,echo=FALSE>>=
+opts_chunk$set(comment=NA,fig.width=6,fig.height=4,tidy=TRUE,fig.keep="all",results="asis",tidy.opts=list(width.cutoff=50),echo=FALSE)
+@
+
+\maketitle
+\tableofcontents
+\newpage
+
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+      \textbf{
+        In this document, I will be generating the final figures for our paper
+revealing how MDM2 status reprograms the metabolome and lipidome of
+DDLPS tumors, affecting treatment response to atorvastatin.
+ I have three major narratives:
+        }
+        \begin{enumerate}\bfseries
+          \item Illustrate metabolic reprogramming that occurs as a
+            result of MDM2 amplification level. This will involve
+            QC/preprocessing, unsupervised clustering of samples to search for global
+            differences (hierarchical and PCA), univariate t-tests for
+            differentially expressed metabolites(Volcano plots, box
+            plots and barplot), and pathway analysis
+            through RaMP and Metaboanalyst (tables, barplots and
+            bubble plots).
+          \item Treatment by MDM2 inhibitor does not drastically
+            reprogram metabolites. This will be illustrated by testing
+            treated vs untreated in individual cell lines and pathway
+            analysis of the results. I will also include unsupervised
+            clustering with the treated samples included.
+          \item The lipidome is different between MDM2 high and low
+            cells, explaining the different treatment responses.
+            \begin{enumerate}
+              \item Different lipids are modulated in response to
+                atorvastatin treatment in MDM2 high and low cells
+              \item Lipids are different between MDM2 high and low
+                untreated cells
+              \item Different lipids are modulated in response to the
+                media cells were grown in (sterol-deprived or
+                standard) in MDM2 high and low cells.
+            \end{enumerate}
+        \end{enumerate}
+    }%
+}
+
+\section{Sample Metadata Table (Metabolomics portion)}
+\begin{center}
+\begin{tabular}{|c||c|c|c|c|}
+  \hline
+  Cell Line & MDM2 Status & Untreated & RG1 & RG5 \\
+  \hline \hline
+  141 & High & 3 & 0 & 3 \\
+  224 & High & 5 & 0 & 0 \\
+  224B & High & 3 & 0 & 0 \\
+  246 & High & 5 & 3 & 3 \\
+  815 & Low & 5 & 3 & 3 \\
+  863 & Low & 5 & 3 & 3 \\
+  \hline
+ %\caption{Metadata for patient-derived cell lines analyzed in
+ % metabolomics portion of study}
+\end{tabular}
+\end{center}
+
+\section{Materials and Methods}
+\subsection{Cell lines and metabolomics measurements}
+Data from 6 different patient-derived dedifferentiated liposarcoma
+cell lines were used: Lipo224, Lipo224B, Lipo246, Lipo141, Lipo815,
+Lipo863. As previously reported, the cell lines can be divided into
+MDM2 high (Lipo224, Lipo224B, Lipo246, Lipo141) and MDM2 low (Lipo815,
+Lipo863) based on MDM2 copy number. Metabolomics measurements were
+taken using ultra-high performance liquid phase chromatography coupled
+with tandem mass spectrometry by Metabolon, Inc. 541 metabolites of
+known identity were quantified.
+
+\subsection{Statistical analyses}
+Raw metabolite abundances were normalized by Bradford protein
+concentration by sample, and rescaled so that each metabolite had a
+median abundance of one. Abundances were also normalized in terms of
+raw area counts, effectively normalizing by day run in order to
+minimize batch effect between run days. Missing values were imputed
+with the lowest detected abundance per metabolite. Metabolites with
+50\% missing values or greater were removed on a quality control
+basis, eliminating 33 metabolites. Metabolites with high coefficient
+of variation were also removed, as extremely variable metabolites may
+be a result of technical error rather than actual biological
+variation. 27 metabolites with a coefficient of variation greater than
+150 were removed. Post filtration, 481 metabolites were left for
+statistical analysis.
+
+Metabolites were $log_2$-transformed to fit their abundances to a more
+normal distribution for statistical testing. Metabolite differences
+between MDM2 high and MDM2 low cell lines were assessed using
+two-tailed T tests. False discovery rate (FDR) adjusted p values were
+calculated to adjust for multiple hypothesis testing, and $log_2$ fold
+change between groups was calculated to account for effect
+size. Metabolites with an FDR-adjusted p value less than 0.05 and a
+$log_2$ fold change greater than one or less than negative one were
+considered significantly different between MDM2 high and low groups. Metabolite differences between nutlin treated and
+untreated groups were calculated in a similar way. Filtration was
+re-performed based on the new samples included in the treated
+vs. untreated analysis.
+
+Pathway analysis was performed with the RaMP R package, which uses the
+Fisher's exact test to compute a pathway overrepresentation p value in
+pathways containing two or more significant user metabolites, compared
+to a background distribution of every pathway contained in the
+database. Metabolites identified as significantly different between
+groups were split by directionality of difference, and pathway
+analysis was performed on each list. Pathways with Fisher's p value <
+0.05 were considered to be significantly different.
+
+
+\section{Basic differential expression and clustering analyses between
+MDM2 high and low samples}
+As a preface, we are pretty much starting from the ground up, since
+our previous approach of filtering metabolites by coefficient of
+variation within group was probably biasing our results. We will now
+be filtering by \% missing value (Metabolon imputes missing values
+with the lowest detected value in that metabolite) and variance across DDLPS samples.
+
+<<preprocessing,keep.fig="high">>=
+
+load("~/Desktop/Liposarcoma project/SarcomaLines.Rdata")
+
+mycateg=gsub("_.*","",sampmeta$CLIENT.IDENTIFIER)
+
+library(RColorBrewer)
+library(ggplot2)
+
+getind <- function(subcateg, allcateg) {
+  ind=c()
+  for (i in 1:length(subcateg)) {
+    ind=c(ind, which(allcateg==subcateg[i]))
+  }
+  return(ind)
+}
+
+mdm2lo_groups=c("863","815")
+mdm2hi_groups=c("224","224B","246","141")
+all_groups=c(mdm2hi_groups,mdm2lo_groups)
+
+mdm2lotreated_groups <- c("863RG1","863RG5","815RG1","815RG5")
+mdm2hitreated_groups <- c("246RG1","246RG5","141RG5")
+
+mdm2lo=getind(subcateg=mdm2lo_groups,allcateg=mycateg)
+mdm2hi=getind(subcateg=mdm2hi_groups,allcateg=mycateg)
+
+mdm2loTreated=getind(subcateg=mdm2lotreated_groups,allcateg=mycateg)
+mdm2hiTreated=getind(subcateg=mdm2hitreated_groups,allcateg=mycateg)
+
+#mysamps=which(sampmeta$GROUP=="DDLPS")
+#mysamps=1:26
+mysamps = c(mdm2hi,mdm2lo,mdm2hiTreated,mdm2loTreated)
+groups<-unique(mycateg[mysamps])
+
+metabDDLPS <- metab[,mysamps]
+missingValues <- apply(metabDDLPS,1,function(x) return((length(which(x==min(x)))-1)/length(x)))
+hist(missingValues,breaks=100,main="Missing Values by Metabolite")
+
+# Ewy and I agreed on a cutoff of 0.5 3/9
+metabDDLPSnoMV <- metabDDLPS[which(missingValues < 0.5),]
+#metabDDLPSnoMV<-metabDDLPS
+
+library(raster)
+cv <- apply(metabDDLPSnoMV,1,cv)
+hist(cv,breaks=100,main="Coefficient of variation by Metabolite")
+
+# Cut off metabolites that have a CV more than 150
+metabDDLPSnoMVCV <- metabDDLPSnoMV[which(cv < 150),]
+#metabDDLPSnoMVCV <- metabDDLPSnoMV
+boxplot(metabDDLPSnoMVCV,main="Pre-log transformation")
+# Log it
+metabDDLPSnoMVCVlog <- log(metabDDLPSnoMVCV, base=2)
+metabFiltered <- metabDDLPSnoMVCVlog
+boxplot(metabFiltered,main="Post-log transformation")
+
+@
+
+We have decided to filter all metabolites with a CV greater than 150
+and have more than 50 percent imputed values. This leaves us with 480/541 of
+the original panel. We are also analyzing the log data to meet the
+normal distribution assumptions of the t test and further diminish the
+effects of outliers.
+
+Recycling some code from ``PCA example.R'' here to get a nice PCA figure.
+
+<<multiplot,eval=TRUE,echo=FALSE>>=
+
+multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
+  library(grid)
+  plots <- c(list(...), plotlist)
+  numPlots = length(plots)
+  if (is.null(layout)) {
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                    ncol = cols, nrow = ceiling(numPlots/cols))
+  }
+ if (numPlots==1) {
+    print(plots[[1]])
+  } else {
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+    for (i in 1:numPlots) {
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}
+
+@
+
+
+<<PCA, fig.width = 10>>=
+
+mytitle="MDM2 high and low cell lines, untreated"
+mycell=mycateg[mysamps]
+mystatus=sapply(mycell,function(x) if(x %in% mdm2hi_groups){return("MDM2Hi")}
+                else if(x %in% mdm2hitreated_groups){return("MDM2HiTreated")}
+                else if(x %in% mdm2lo_groups){return("MDM2Lo")}
+                else {return("MDM2LoTreated")})
+mysamps <- c(which(as.vector(mystatus)=="MDM2Hi"),which(as.vector(mystatus)=="MDM2Lo"))
+mycell=mycell[mysamps]
+mystatus <- mystatus[mysamps]
+mypca=prcomp(t(metabFiltered[,mysamps]),center=T,scale=T)
+percvar=round((mypca$sdev)^2 / sum(mypca$sdev^2)*100,2)
+mydf=data.frame(PC1=mypca$x[,"PC1"],PC2=mypca$x[,"PC2"],PC3=mypca$x[,"PC3"],
+                Status=mystatus,Cell=mycell)
+mycol=c("red","blue")
+
+p <- ggplot(mydf,aes(PC1,PC2,color=Status,shape=Cell)) +
+  geom_point(aes(PC1,PC2,shape=Cell),size=4) +
+  scale_color_manual(values=mycol) +
+  xlab(paste0("PC1: ",percvar[1],"% variance")) +
+  ylab(paste0("PC2: ",percvar[2],"% variance")) +
+  theme_bw() +
+  ggtitle(mytitle) +
+  theme(axis.line = element_line(colour = "black"),
+        axis.title=element_text(size=12,face="bold"),
+        plot.title=element_text(size=14,face="bold"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        legend.key=element_blank())
+
+p2 <- ggplot(mydf,aes(PC2,PC3,color=Status,shape=Cell)) +
+  geom_point(aes(PC2,PC3,shape=Cell),size=4) +
+  scale_color_manual(values=mycol) +
+  xlab(paste0("PC2: ",percvar[2],"% variance")) +
+  ylab(paste0("PC3: ",percvar[3],"% variance")) +
+  theme_bw() +
+  ggtitle(mytitle) +
+  theme(axis.line = element_line(colour = "black"),
+        axis.title=element_text(size=12,face="bold"),
+        plot.title=element_text(size=14,face="bold"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        legend.key=element_blank())
+
+multiplot(p,p2,cols=2)
+
+@
+
+Interestingly, we still see that samples cluster more tightly by cell
+line than by MDM2 status. 815, 863, 141 and 224B are unfortunately
+fairly close. It's good to see that 224 and 246 separate from the
+others and are both MDM2Hi. Excitingly, 141 does separate in PC2 and PC3. These could make a nice
+subfigure for figure 1.
+
+Hierarchical clustering has ended up being uninformative. I've left
+the code in the .Rnw, but we don't need to evaluate it here.
+
+<<hclust, fig.height=7,fig.width=9, echo = FALSE, eval =FALSE>>=
+
+groups=unique(mycateg)
+groups <- groups[1:6]
+
+group_indices<-list()
+for(i in 1:length(groups)){
+  group_indices[[i]]<-which(mycateg %in% groups[[i]])
+}
+
+group_metabFiltered<-matrix(ncol=length(groups),nrow = nrow(metabFiltered))
+colnames(group_metabFiltered)<-groups
+rownames(group_metabFiltered)<-rownames(metabFiltered)
+
+for(i in 1:ncol(group_metabFiltered)){
+  for(j in 1:nrow(group_metabFiltered)){
+    group_metabFiltered[j,i]<-mean(as.numeric(metabFiltered[j,group_indices[[i]]]))
+  }
+}
+
+metab_reactive <- group_metabFiltered
+
+mymat=as.matrix(cor(metab_reactive))
+rownames(mymat)=colnames(mymat)=colnames(metab_reactive)
+
+################################################
+# Set up color vectors for color bars on heatmap
+################################################
+mycols.mdm2=c()
+for(i in 1:length(colnames(mymat))){
+  if(gsub("_.*","",colnames(mymat)[i]) %in% mdm2lo_groups||gsub("RG.*","",colnames(mymat)[i]) %in% mdm2lo_groups){
+    #mycols.mdm2[i]<- colorRampPalette(brewer.pal(11,"PiYG"))(10)[9]
+     mycols.mdm2[i] <- mycol[2]
+  } else if(gsub("_.*","",colnames(mymat)[i]) %in% mdm2hi_groups||gsub("RG.*","",colnames(mymat)[i]) %in% mdm2hi_groups){
+    #mycols.mdm2[i]<- colorRampPalette(brewer.pal(11,"PiYG"))(10)[2]
+    mycols.mdm2[i] <- mycol[1]
+  }
+}
+
+tertile_1<- (max(mymat)-min(mymat))/3 + min(mymat)
+tertile_2<- 2*(max(mymat)-min(mymat))/3 + min(mymat)
+colors = c(seq(min(mymat),tertile_1,length=85),seq(tertile_1+.003,tertile_2,length=85),seq(tertile_2+.003,1,length=86))
+mycols<-colorRampPalette(brewer.pal(5,"Blues")) (255)
+
+########################################
+# Do heatmap with heatmap.2
+########################################
+library(gplots)
+heatmap.2(x=mymat,col=mycols, notecol="black", trace = "none",  colsep = 1:ncol(mymat),
+          rowsep = 1:nrow(mymat), sepcolor = "dark gray",sepwidth = c(0.0001,0.0001),dendrogram = "row",
+          density.info = "none",symkey=F, breaks = colors,
+          key.xlab = "Corr", keysize = .75, cexRow = 2.5, cexCol = 2.5,margins=c(12,12),
+          RowSideColors = mycols.mdm2, main =paste0("Global metabolite profile correlations,\nMDM2 high (","red",") vs low (","blue",")"))
+
+@
+
+Now to make a volcano plot to show differences between MDM2 high
+and low.
+
+<<volcanoPlot>>=
+
+mydiff <- function(df,gp1,gp2) {
+  myp=as.numeric(apply(df,1,function(x) {
+    temp<-x[!is.na(x)]
+    gp1<-setdiff(gp1,colnames(df)[is.na(x)])
+    gp2<-setdiff(gp2,colnames(df)[is.na(x)])
+    if(sd(temp[c(gp1,gp2)])==0) {NA}
+    if(sd(temp)==0){NA}
+    else {
+        obj <- try(t.test(temp[gp1],temp[gp2]), silent=TRUE)
+        if (is(obj, "try-error")) return(NA) else return(obj$p.value)
+    }
+  }))
+  myp.adjust=p.adjust(myp,method='fdr')
+  log2fc=as.numeric(apply(df,1,function(x) {
+    temp<-x[!is.na(x)]
+    gp1<-setdiff(gp1,colnames(df)[is.na(x)])
+    gp2<-setdiff(gp2,colnames(df)[is.na(x)])
+    mean(temp[gp1])-mean(temp[gp2])
+  }
+  ))
+   return(data.frame(name=rownames(df),myp=myp,mypadj=myp.adjust,log2fc=log2fc))
+}
+
+volcano_plotter <- function(df,gp1,gp2,title){
+  T_test_results<-mydiff(df,gp1,gp2)
+  keepers=intersect(which(T_test_results$mypadj<0.1),c(which(T_test_results$log2fc>1),which(T_test_results$log2fc< -1)))
+  significant_peaks<-T_test_results[keepers,]
+  T_test_results$threshold = as.factor(abs(T_test_results$log2fc) > 1 & -log10(T_test_results$mypadj) > -log10(0.05))
+  g = ggplot(data=T_test_results, aes(x=log2fc, y=-log10(mypadj), colour=threshold)) +
+    geom_point(alpha=0.4, size=1.75) +
+    scale_color_manual(values = c("black","red")) +
+    theme_bw() +
+    ggtitle(title) +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+    theme(legend.position="none") +
+    ylab("-log10 p-value") +
+    geom_hline(yintercept = -log10(0.05),lty = 2) +
+    geom_vline(xintercept = 1, lty = 2) +
+    geom_vline(xintercept = -1, lty = 2)
+  return(g)
+}
+
+mdm2hi <- which(mystatus=="MDM2Hi")
+mdm2lo <- which(mystatus=="MDM2Lo")
+
+
+volcano_plotter(metabFiltered,mdm2hi,mdm2lo,"MDM2 High vs. Low, Untreated") +
+    xlab("log2(mean(MDM2Hi)) -log2(mean(MDM2Lo))")
+
+## png("~/Desktop/Liposarcoma project/final_figures/highQualityPNGs/mdm2HiLoVP.png",width=4,height=4,units="in",res=300)
+## volcano_plotter(metabFiltered,mdm2hi,mdm2lo,"MDM2 High vs. Low, Untreated") +
+##     xlab("log2(mean(MDM2Hi)) -log2(mean(MDM2Lo))")
+## dev.off()
+
+@
+
+We recovered 23 out of the 30 metabolites identified in the original
+study. Out of the 7 that were lost, 2 were dropped by the more
+stringent p value in this iteration, and 3 missed the upper CV
+cutoff. The remaining 2 may have been dropped due to differences in
+the p value adjustment, since the second panel is larger.
+
+Here's all the significant results summed up in a table
+<<significantMetabs,eval=TRUE,echo=FALSE>>=
+
+resMDM2HiLo <- mydiff(metabFiltered,mdm2hi,mdm2lo)
+keepers=intersect(which(resMDM2HiLo$mypadj<0.05),
+                  c(which(resMDM2HiLo$log2fc>1),which(resMDM2HiLo$log2fc< -1)))
+resMDM2HiLoSig <- resMDM2HiLo[keepers,]
+
+options(kableExtra.latex.load_packages = FALSE)
+library(kableExtra)
+kable(resMDM2HiLoSig[order(resMDM2HiLoSig$log2fc, decreasing=TRUE),],format = "latex",booktabs=T, caption = "All metabolites differentially expressed between MDM2 high (positive FC) and low (negative FC)") %>%
+    kable_styling(latex_options = c("striped", "HOLD_position","scale_down"))
+
+@
+
+Boxplots of all significant metabolites for QC purposes, arranged by FC:
+<<QCboxplot,echo=FALSE,fig.height=7, fig.width = 10>>=
+
+library(reshape)
+analyteInd <- match(resMDM2HiLoSig$name,rownames(metabFiltered))
+analyteInd <- analyteInd[order(resMDM2HiLoSig$log2fc)]
+BPdf <-  t(data.frame(metabFiltered[analyteInd,mysamps]))
+
+BPdf <- melt(BPdf)
+BPdf$log2fc <- apply(BPdf,1, function(x) return(resMDM2HiLoSig$log2fc[which(resMDM2HiLoSig$name==x[2])]))
+
+#BPdf$X2 <- factor(BPdf$X2,levels=BPdf$X2[order(BPdf$log2fc)])
+ p <- ggplot(BPdf,aes(x=reorder(X2,log2fc),y=value,fill=log2fc)) +
+     ggtitle("Significant Metabolite Distributions") +
+     geom_boxplot() +
+     scale_fill_gradient2(low="blue",high="red",mid="white") +
+     theme(plot.title = element_text(size=12),
+           axis.text.x = element_text(angle = 90, hjust = 1)) +
+     labs(x = "Metabolite")
+p
+
+@
+
+Fold change barplot for significant results:
+
+<<fcBP,fig.height = 7,fig.width = 12>>=
+
+metabolite_class<-read.csv("~/Desktop/Liposarcoma project/final_figures/data/metabolites_class.csv")
+mdm2hiMetabs <- read.csv("~/Desktop/Liposarcoma project/final_figures/data/mdm2hiMetabIDs.csv", header=FALSE)
+mdm2loMetabs <- read.csv("~/Desktop/Liposarcoma project/final_figures/data/mdm2loMetabIDs.csv", header=FALSE)
+
+mdm2hiMetabs2<-sapply(mdm2hiMetabs, function(x) return(gsub("hmdb:","",x)))
+mdm2hiMetabs2<-sapply(mdm2hiMetabs2, function(x) return(gsub("kegg:","",x)))
+mdm2loMetabs2<-sapply(mdm2loMetabs, function(x) return(gsub("hmdb:","",x)))
+mdm2loMetabs2<-sapply(mdm2loMetabs2, function(x) return(gsub("kegg:","",x)))
+
+
+metabolites <- rbind(as.matrix(mdm2hiMetabs2),as.matrix(mdm2loMetabs2))
+names(metabolites) <- resMDM2HiLoSig$name[order(resMDM2HiLoSig$log2fc,decreasing=TRUE)]
+metaboliteClasses <- metabolite_class$super_class[match(metabolites,metabolite_class$hmdb_id)]
+names(metaboliteClasses) <- resMDM2HiLoSig$name[order(resMDM2HiLoSig$log2fc,decreasing=TRUE)]
+
+resMDM2HiLoSig<-resMDM2HiLoSig[order(resMDM2HiLoSig$log2fc,decreasing=TRUE),]
+
+resMDM2HiLoSig$Class <- metaboliteClasses
+
+# Manual annotation
+resMDM2HiLoSig$Class[c(1,8,22,24,27,36)] <- "Lipids and lipid-like molecules"
+resMDM2HiLoSig$Class[c(35,45)] <- "Organic acids and derivatives"
+
+#library(Polychrome)
+#library(wesanderson)
+
+#myPalette<-wes_palette(7,name="Darjeeling2",type="continuous")
+#myPalette<-palette36.colors(n=7)
+#myPalette<-brewer.pal(7,"Set1")
+myPalette<-c("#000000","#808080","#008080","#46f0f0","#f58231","#3cb44b","#e6194b")
+
+save(resMDM2HiLoSig,myPalette,file="~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/figure1C.Rda")
+
+#png("~/Desktop/Liposarcoma project/final_figures/highQualityPNGs/metaboliteBarplot.png",width=12,height=8,units="in",res=500)
+ggplot(resMDM2HiLoSig,aes(x=reorder(name,log2fc), y=log2fc, fill = Class)) +
+    ggtitle("Significant MDM2 Hi/Lo Metabolites") +
+    geom_bar(stat = "identity", colour = "black") +
+    coord_flip() +
+    theme_bw() +
+    ylab("log2(mean(MDM2hi)-mean(MDM2lo))") +
+    theme(axis.title.y = element_blank(),axis.title.x = element_text(size=12,face="bold"),axis.text.y=element_text(size=10),axis.text.x=element_text(size=10)) +
+        theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+    #scale_fill_manual(values=c("red4","darkorange4","yellow","green4","navyblue","purple4","hotpink4"))
+    scale_fill_manual(values=as.vector(myPalette)[c(1,2,5,3,4,6,7)])
+    #scale_fill_manual(values=myPalette[c(7,5,6,3,1,2,4)])
+#dev.off()
+
+resMDM2HiLoSig$Status <- sapply(resMDM2HiLoSig$log2fc, function(x) ifelse(x > 0,return("Up in High"), return("Up in Low")))
+
+#png("~/Desktop/Liposarcoma project/final_figures/highQualityPNGs/metaboliteClassBarplot.png",width=7,height=4, units="in",res=300)
+ggplot(resMDM2HiLoSig, aes(x=Class, fill=Status, group = Status)) +
+    geom_bar(stat="count", colour="black",position="dodge") +
+    ggtitle("HMDB Superclass of Altered Metabolites") +
+    theme_bw() +
+    coord_flip() +
+scale_fill_brewer(palette="Set1") +
+        theme(axis.title.y = element_blank(),axis.title.x = element_text(size=12,face="bold"),axis.text.y=element_text(size=10),axis.text.x=element_text(size=10)) +
+        theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+#dev.off()
+
+
+@
+
+\section{Boxplots of metabolites significantly different between
+  MDM2 high and low, untreated only}
+
+<<sigboxplots,fig.height=10,fig.width=8,eval=TRUE,echo=FALSE>>=
+
+boxplotter <- function(analyte) {
+    analyteInd <- match(analyte, rownames(metabFiltered))
+    BPdf <- data.frame(status = mystatus[mysamps], value = t(metabFiltered[analyteInd,
+        mysamps]))
+    colnames(BPdf) <- c("status", "log2Abundance")
+
+    p <- ggplot(BPdf, aes(x = status, y = log2Abundance, fill = status)) +
+        ggtitle(paste0(analyte, ", padj = ", round(resMDM2HiLo$mypadj[analyteInd],
+            digits = 3), ", \nlog2FC = ", round(resMDM2HiLo$log2fc[analyteInd],
+            digits = 3))) + geom_boxplot() +
+        scale_fill_manual(values = mycol) +
+        theme_bw() +
+        theme(plot.title = element_text(size = 8),
+        legend.position = "none",axis.title.x=element_blank(), panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+
+    return(p)
+}
+
+
+plotlist <- lapply(resMDM2HiLoSig$name,boxplotter)
+
+j = 1
+for(i in seq(8,nrow(resMDM2HiLoSig),by=8)){
+    multiplot(plotlist=plotlist[j:i],cols=2)
+    j=i+1
+}
+
+@
+
+\section{Pathway Analysis with RaMP}
+
+Now that we have a slightly different differentially expressed
+metabolite list and a new tool to perform pathway analysis with, maybe
+we can find more support for our lipid pathway dysregulation
+hypothesis. Recall that our prior attempts were based on the
+low-granularity super pathways provided by Metabolon, which we also
+didn't get any significant results on. Metaboanalyst output included
+to assess RaMP's performance.
+
+<<rampAnalysis,eval = FALSE,echo=FALSE>>=
+
+library(RaMP)
+
+# mdm2hiMetabs <- as.vector(resMDM2HiLoSig$name[which(resMDM2HiLoSig$log2fc > 0)])
+# mdm2loMetabs <- as.vector(resMDM2HiLoSig$name[which(resMDM2HiLoSig$log2fc < 0)])
+
+# Run with source ids instead of names
+mdm2hiMetabs <- read.csv("~/Desktop/Liposarcoma project/final_figures/data/mdm2hiMetabIDs.csv", header=FALSE)
+mdm2loMetabs <- read.csv("~/Desktop/Liposarcoma project/final_figures/data/mdm2loMetabIDs.csv")
+
+# mdm2hiMetabs <- sapply(mdm2hiMetabs, function(x) gsub("HMDB","HMDB00",x))
+# mdm2hiMetabs <- sapply(mdm2hiMetabs, function(x) ifelse(grepl("HMDB",x),return(paste0("hmdb:",x)),return(paste0("kegg:",x))))
+
+# mdm2loMetabs <- sapply(mdm2loMetabs, function(x) gsub("HMDB","HMDB00",x))
+# mdm2loMetabs <- sapply(mdm2loMetabs, function(x) ifelse(grepl("HMDB",x),return(paste0("hmdb:",x)),return(paste0("kegg:",x))))
+
+mdm2hiPathways <- getPathwayFromAnalyte(analytes = as.matrix(mdm2hiMetabs), conpass="",NameOrIds="ids")
+mdm2hiFishers <- runCombinedFisherTest(pathwaydf=mdm2hiPathways,conpass="")
+
+mdm2loPathways <- getPathwayFromAnalyte(analytes = as.matrix(mdm2loMetabs), conpass="",NameOrIds="ids")
+mdm2loFishers <- runCombinedFisherTest(pathwaydf=mdm2loPathways,conpass="")
+
+analyte_vector <- rbind(as.matrix(mdm2loMetabs),as.matrix(mdm2hiMetabs))
+analyte_vector <- gsub("HMDB","hmdb:HMDB",analyte_vector)
+analyte_vector <- gsub("C","kegg:C",analyte_vector)
+combinedPathways <- getPathwayFromAnalyte(analytes = analyte_vector, conpass="",NameOrIds="ids")
+combinedFishers <- runCombinedFisherTest(pathwaydf=combinedPathways,conpass="")
+
+save(mdm2hiFishers,mdm2loFishers,combinedFishers,file="~/Desktop/Liposarcoma project/final_figures/data/fishersResults.Rda")
+@
+
+\begin{center}
+<<showFishersResultsHi>>=
+
+library(RaMP)
+load("~/Desktop/Liposarcoma project/final_figures/data/fishersResults.Rda")
+mdm2hiPathwaysSig <- FilterFishersResults(mdm2hiFishers, p_fdradj_cutoff=1)
+kable(mdm2hiPathwaysSig$fishresult[order(mdm2hiPathwaysSig$fishresult[,"Pval_FDR"]),-c(1,8,9)],row.names=FALSE,
+      caption = "Pathways upregulated in MDM2 high cells compared to low",format = "latex", booktabs = T) %>%
+    kable_styling(latex_options = c("striped", "HOLD_position","scale_down"))
+
+metaboanalystOutput <- read.csv("~/Desktop/Liposarcoma project/final_figures/data/metaboanalystResultsHi.csv")
+kable(metaboanalystOutput[which(metaboanalystOutput$Hits!=1),], row.names = FALSE,
+      caption = "Metaboanalyst Fisher test result on metabolites upregulated in MDM2 high cells", format = "latex", booktabs = T) %>%
+    kable_styling(latex_options = c("striped", "HOLD_position","scale_down"))
+
+@
+\end{center}
+
+Now for MDM2 low upregulated pathways:
+
+\begin{center}
+<<showFishersResultsLo>>=
+
+mdm2loPathwaysSig <- FilterFishersResults(mdm2loFishers, p_fdradj_cutoff=1)
+kable(mdm2loPathwaysSig$fishresult[order(mdm2loPathwaysSig$fishresult[,"Pval_FDR"]),-c(1,8,9)],row.names=FALSE,
+      caption = "Pathways upregulated in MDM2 low cells compared to high", format = "latex", booktabs = T) %>%
+    kable_styling(latex_options = c("striped", "HOLD_position","scale_down"))
+
+@
+\end{center}
+
+And combined :
+
+\begin{center}
+<<showFishersResultsCombined>>=
+
+combinedPathwaysSig <- FilterFishersResults(combinedFishers, p_fdradj_cutoff=1)
+kable(combinedPathwaysSig$fishresult[order(combinedPathwaysSig$fishresult[,"Pval_FDR"]),-c(1,8,9)],row.names=FALSE,
+      caption = "Pathways disrupted between MDM2 High and Low cells", format = "latex", booktabs = T) %>%
+    kable_styling(latex_options = c("striped", "HOLD_position","scale_down"))
+
+@
+\end{center}
+
+12/18 - Ewy has requested that I rerun pathway analysis, but use our
+panel of metabolites as a background distribution too. I want to move
+the results over to my master org file as well.
+
+First I need to get source IDs for each metabolite.
+
+<<betterBackground, eval=F>>=
+
+backgroundPathways <- getPathwayFromAnalyte(analytes = rownames(metabFiltered), conpass="",NameOrIds="names")
+
+@
+
+Summarizing the results of pathway analysis in a plot.
+
+<<pathwayPlot,fig.width = 10, fig.height = 6>>=
+threshold <- 0.01
+
+## fishresult <- rbind(mdm2hiPathwaysSig$fishresult,mdm2loPathwaysSig$fishresult,combinedPathwaysSig$fishresult)
+fishresult <- combinedPathwaysSig$fishresult
+fishresult <- fishresult[which(fishresult$Pval <= threshold),]
+
+fishClustering<-list(fishresults=fishresult,analyte_type="metabolites")
+fishClustering<-findCluster(fishClustering,perc_analyte_overlap=0.2,perc_pathway_overlap=0.2)
+length(fishClustering$cluster_list)
+
+fishresult <- fishClustering$fishresults
+##fishresult$test <- c(rep("High",times=length(which(mdm2hiPathwaysSig$fishresult[,2]<=threshold))),rep("Low",times=length(which(mdm2loPathwaysSig$fishresult[,2]<=threshold))), rep("Combined",times=length(which(combinedPathwaysSig$fishresult[,2]<=threshold))))
+
+bubbleDF <- data.frame(x=-log10(fishresult$Pval),y=fishresult$pathwayName, inPath <- fishresult$Num_In_Path, totPath <- fishresult$Total_In_Path,
+                       ##test=fishresult$test,
+                       cluster=fishresult$cluster_assignment)
+
+# mypathwaysdup <- duplicated(bubbleDF$y)
+# for(i in 1:nrow(bubbleDF)){
+#     if(mypathwaysdup[i]){
+#         bubbleDF$y<-as.character(bubbleDF$y)
+#         bubbleDF$y[i] <- paste0(bubbleDF$y[i],".",bubbleDF$test[i])
+#         bubbleDF$y<-as.factor(bubbleDF$y)
+#         }
+#     }
+
+library(dplyr)
+library(tidyr)
+#bubbleDF<-filter(bubbleDF,test!="Combined")
+
+bubbleDF <- bubbleDF[order(bubbleDF$x, decreasing = TRUE),]
+
+bubbleDF <- bubbleDF %>% separate_rows(cluster,sep=", ")
+
+bubbleDF$cluster <- sapply(bubbleDF$cluster, function(x) ifelse(x=="Did not cluster", return(x), return(paste0("Cluster ",x))))
+
+save(bubbleDF,file="~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/figure2b.Rda")
+
+p2 <- ggplot(bubbleDF,aes(y=x,x=reorder(y,x), fill = cluster)) +
+    geom_bar(stat = "identity", colour = "black",position = "dodge", width = 0.75) +
+    geom_hline(yintercept=-log10(0.01),linetype = "dotted") +
+    theme_bw() +
+    coord_flip() +
+    labs(x = "", y = "-log10(pval)") +
+    theme(axis.line = element_line(colour = "black"),
+        axis.title=element_text(size=12,face="bold"),
+        plot.title=element_text(size=14,face="bold"),
+        panel.grid.minor = element_blank(),
+        legend.position = "none",
+        panel.background = element_blank()) +
+        scale_fill_brewer(palette="Set1") +
+    facet_grid(cluster~.,space="free",scales="free") #+
+    #theme(strip.background = element_blank(),strip.text.y = element_blank())
+
+#png("~/Desktop/Liposarcoma project/final_figures/highQualityPNGs/mdm2HiLoPathways.png",width=10,height=6,units="in",res=600)
+p2
+#dev.off()
+
+
+## p3 <- ggplot(bubbleDF,aes(y=x,x=reorder(y,x), fill = test)) +
+##    geom_bar(stat = "identity", colour = "black",position = "dodge", width = 0.75) +
+##    geom_hline(yintercept=-log10(0.01),linetype = "dotted") +
+##    theme_bw() +
+##    coord_flip() +
+##    labs(x = "Pathway", y = "-log10(pval)") +
+##    theme(axis.line = element_line(colour = "black"),
+##        axis.title=element_text(size=12,face="bold"),
+##        plot.title=element_text(size=14,face="bold"),
+##        panel.grid.minor = element_blank(),
+##        panel.background = element_blank()) +
+##        scale_fill_brewer(palette="Set1")
+## p3
+
+@
+
+<<pathwayBubblePlotDeprecated, fig.width = 10, fig.height = 6, eval = FALSE, echo = FALSE>>=
+
+fishresult <- mdm2hiPathwaysSig$fishresult
+bubbleDF <- data.frame(x=-log10(fishresult$Pval_FDR),y=fishresult$pathwayName, inPath <- fishresult$Num_In_Path, totPath <- fishresult$Total_In_Path, superPathway = c("Amino Acid","Amino Acid","Amino Acid","Transport","Transport","Transport","Transport","Lipid","Lipid","Transport","Transport","Amino Acid","Nucleic Acid","Transport","Amino Acid","Lipid","Amino Acid","Transport","Lipid","Amino Acid"))
+
+bubbleDF <- bubbleDF[order(bubbleDF$x, decreasing = TRUE),]
+
+p2 <- ggplot(bubbleDF,aes(x=x,y=reorder(y,x),size=inPath/totPath,color = superPathway)) +
+    geom_vline(xintercept=1,linetype = "dotted") +
+    geom_segment(data = bubbleDF,inherit.aes=FALSE,size = 1, aes(x = x, y = reorder(y,x), xend = 0, yend = reorder(y,x))) +
+    geom_point() +
+    theme_bw() +
+    scale_color_manual(values = c("firebrick","goldenrod","forestgreen","navyblue")) +
+    labs(y = "Pathway", x = "-log10(pval)") +
+    theme(axis.line = element_line(colour = "black"),
+        axis.title=element_text(size=12,face="bold"),
+        plot.title=element_text(size=14,face="bold"),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank()) +
+    scale_size(range = c(3,12))
+
+p2
+
+@
+
+Common names mapped 9 analytes to pathways, IDs (KEGG and HMDB) mapped 13.
+
+\section{Differences between treated and untreated samples with MDM2
+  inhibitor (nutlin)}
+
+Right off the bat there will be further difficulties in this analysis
+since we don't have treatment data for every sample, especially in
+MDM2 high, where there's just 246 for both RG1 and RG5 (141 has RG5
+only). For MDM2 low, we have 815 and 863 for both RG1 and RG5. The
+hypothesis will be that MDM2 high treated will become more similar to
+MDM2 low treated/untreated. We also expect to see that MDM2 high
+has a more dramatic difference between treated/untreated than MDM2
+low. This can be hopefully illustrated with side-by-side volcano
+plots. We will also perform pathway analysis with RaMP again to
+hopefully illustrate differences in pathway activation.
+
+<<treatedFiltration>>=
+
+mycell=sampmeta$CLIENT.IDENTIFIER[match(colnames(metabFiltered),sampmeta$SAMPLE.NAME)]
+mycell=gsub("_.*","",mycell)
+mystatus=sapply(mycell,function(x) if(x %in% mdm2hi_groups){return("MDM2Hi")}
+                else if(x %in% mdm2hitreated_groups){return("MDM2HiTreated")}
+                else if(x %in% mdm2lo_groups){return("MDM2Lo")}
+                else {return("MDM2LoTreated")})
+
+metabMDM2hi <- as.matrix(metabFiltered[,c(which(mystatus=="MDM2Hi"),which(mystatus=="MDM2HiTreated"))])
+colnames(metabMDM2hi) <- sampmeta$CLIENT.IDENTIFIER[match(colnames(metabMDM2hi),sampmeta$SAMPLE.NAME)]
+MDM2hiCells<-gsub("_.*","",colnames(metabMDM2hi))
+
+metabMDM2lo <- as.matrix(metabFiltered[,c(which(mystatus=="MDM2Lo"),which(mystatus=="MDM2LoTreated"))])
+colnames(metabMDM2lo) <- sampmeta$CLIENT.IDENTIFIER[match(colnames(metabMDM2lo),sampmeta$SAMPLE.NAME)]
+MDM2loCells<-gsub("_.*","",colnames(metabMDM2lo))
+
+@
+
+Volcano plots:
+
+<<treatmentRG1VPs,fig.width=10>>=
+
+## for(i in unique(mystatus)){
+##     assign(i, which(mystatus==i))
+##     }
+
+
+treated246 <- volcano_plotter(metabMDM2hi,which(MDM2hiCells=="246RG1"),which(MDM2hiCells=="246"),"246 (MDM2 Hi) RG1 vs. Untreated") + xlab("log2(mean(Untreated)-mean(Treated))")
+treated815 <- volcano_plotter(metabMDM2lo,which(MDM2loCells=="815RG1"),which(MDM2loCells=="815"),"815 (MDM2 Lo) RG1 vs. Untreated") + xlab("log2(mean(Untreated)-mean(Treated))")
+treated863 <- volcano_plotter(metabMDM2lo,which(MDM2loCells=="863RG1"),which(MDM2loCells=="863"),"863 (MDM2 Lo) RG1 vs. Untreated") + xlab("log2(mean(Untreated)-mean(Treated))")
+multiplot(treated246,treated815,treated863,cols=3)
+
+# Tables
+resTreated246RG1 <- mydiff(metabMDM2hi,which(MDM2hiCells=="246RG1"),which(MDM2hiCells=="246"))
+resTreated246RG1Sig <- resTreated246RG1[intersect(which(resTreated246RG1$mypadj<0.05),
+                  c(which(resTreated246RG1$log2fc>1),which(resTreated246RG1$log2fc< -1))),]
+kable(resTreated246RG1Sig,format = "latex",booktabs=T, caption = "Metabolites significantly altered in 246 RG1 (positive FC) vs untreated (negative)") %>%
+    kable_styling(latex_options = c("striped", "HOLD_position"))
+
+resTreated815RG1 <- mydiff(metabMDM2lo,which(MDM2loCells=="815RG1"),which(MDM2loCells=="815"))
+resTreated815RG1Sig <- resTreated815RG1[intersect(which(resTreated815RG1$mypadj<0.05),
+                  c(which(resTreated815RG1$log2fc>1),which(resTreated815RG1$log2fc< -1))),]
+kable(resTreated815RG1Sig,format = "latex",booktabs=T, caption = "Metabolites significantly altered in 815 RG1 (positive FC) vs untreated (negative)") %>%
+    kable_styling(latex_options = c("striped", "HOLD_position"))
+
+resTreated863RG1 <- mydiff(metabMDM2lo,which(MDM2loCells=="863RG1"),which(MDM2loCells=="863"))
+resTreated863RG1Sig <- resTreated863RG1[intersect(which(resTreated863RG1$mypadj<0.05),
+                  c(which(resTreated863RG1$log2fc>1),which(resTreated863RG1$log2fc< -1))),]
+kable(resTreated863RG1Sig,format = "latex",booktabs=T, caption = "Metabolites significantly altered in 863 RG1 (positive FC) vs untreated (negative)") %>%
+    kable_styling(latex_options = c("striped", "HOLD_position"))
+
+@
+
+<<treatmentRG5VPs, fig.width=10,fig.height=8>>=
+
+treated141 <- volcano_plotter(metabMDM2hi,which(MDM2hiCells=="141RG5"),which(MDM2hiCells=="141"),"141 (MDM2 Hi) RG5 vs. untreated") + xlab("log2(mean(Treated))-log2(mean(Untreated))")
+treated246 <- volcano_plotter(metabMDM2hi,which(MDM2hiCells=="246RG5"),which(MDM2hiCells=="246"),"246 (MDM2 Hi) RG5 vs. untreated") + xlab("log2(mean(Treated))-log2(mean(Untreated))")
+treated815 <- volcano_plotter(metabMDM2lo,which(MDM2loCells=="815RG5"),which(MDM2loCells=="815"),"815 (MDM2 Lo) RG5 vs. untreated") + xlab("log2(mean(Treated))-log2(mean(Untreated))")
+treated863 <- volcano_plotter(metabMDM2lo,which(MDM2loCells=="863RG5"),which(MDM2loCells=="863"),"863 (MDM2 Lo) RG5 vs. untreated") + xlab("log2(mean(Treated))-log2(mean(Untreated))")
+
+#png("~/Desktop/Liposarcoma project/final_figures/highQualityPNGs/TreatedRG5VPs.png",width=12,height=8,units="in",res=300)
+multiplot(treated141,treated815,treated246,treated863,cols=2)
+#dev.off()
+
+# Tables
+resTreated141RG5 <- mydiff(metabMDM2hi,which(MDM2hiCells=="141RG5"),which(MDM2hiCells=="141"))
+resTreated141RG5Sig <- resTreated141RG5[intersect(which(resTreated141RG5$mypadj<0.05),
+                  c(which(resTreated141RG5$log2fc>1),which(resTreated141RG5$log2fc< -1))),]
+kable(resTreated141RG5Sig,format = "latex",booktabs=T, caption = "Metabolites significantly altered in 141 RG5 (positive FC) vs untreated (negative)") %>%
+    kable_styling(latex_options = c("striped", "HOLD_position"))
+
+resTreated246RG5 <- mydiff(metabMDM2hi,which(MDM2hiCells=="246RG5"),which(MDM2hiCells=="246"))
+resTreated246RG5Sig <- resTreated246RG5[intersect(which(resTreated246RG5$mypadj<0.05),
+                  c(which(resTreated246RG5$log2fc>1),which(resTreated246RG5$log2fc< -1))),]
+kable(resTreated246RG5Sig,format = "latex",booktabs=T, caption = "Metabolites significantly altered in 246 RG5 (positive FC) vs untreated (negative)") %>%
+    kable_styling(latex_options = c("striped", "HOLD_position"))
+
+resTreated815RG5 <- mydiff(metabMDM2lo,which(MDM2loCells=="815RG5"),which(MDM2loCells=="815"))
+resTreated815RG5Sig <- resTreated815RG5[intersect(which(resTreated815RG5$mypadj<0.05),
+                  c(which(resTreated815RG5$log2fc>1),which(resTreated815RG5$log2fc< -1))),]
+kable(resTreated815RG5Sig,format = "latex",booktabs=T, caption = "Metabolites significantly altered in 815 RG5 (positive FC) vs untreated (negative)",longtable = T) %>%
+    kable_styling(latex_options = c("striped", "HOLD_position"))
+
+resTreated863RG5 <- mydiff(metabMDM2lo,which(MDM2loCells=="863RG5"),which(MDM2loCells=="863"))
+resTreated863RG5Sig <- resTreated863RG5[intersect(which(resTreated863RG5$mypadj<0.05),
+                  c(which(resTreated863RG5$log2fc>1),which(resTreated863RG5$log2fc< -1))),]
+kable(resTreated863RG5Sig,format = "latex",booktabs=T, longtable = T, caption = "Metabolites significantly altered in 863 RG5 (positive FC) vs untreated (negative)") %>%
+    kable_styling(latex_options = c("striped", "HOLD_position"))
+
+@
+
+Not what we were hoping to see. Perhaps pathway analysis will clarify
+some biological differences here.
+
+First let's do that PCA that includes treated samples:
+
+<<PCAall, fig.width = 12, fig.height = 7>>=
+
+mytitle="MDM2 high and low cell lines, All"
+mysamps <- c(mysamps,36:56)
+mycell=mycateg[mysamps]
+mystatus=sapply(mycell,function(x) if(x %in% mdm2hi_groups){return("MDM2Hi")}
+                else if(x %in% mdm2hitreated_groups){return("MDM2HiTreated")}
+                else if(x %in% mdm2lo_groups){return("MDM2Lo")}
+                else {return("MDM2LoTreated")})
+
+metabMDM2treated <- metab[,mysamps]
+missingValuesTreated <- apply(metabMDM2treated,1,function(x) return((length(which(x==min(x)))-1)/length(x)))
+cvTreated <- apply(metabMDM2treated,1,cv)
+metabMDM2treated <- log2(metabMDM2treated[intersect(which(missingValuesTreated < 0.5),which(cvTreated < 150)),])
+
+mypca=prcomp(t(metabMDM2treated),center=T,scale=T)
+percvar=round((mypca$sdev)^2 / sum(mypca$sdev^2)*100,2)
+mydf=data.frame(PC1=mypca$x[,"PC1"],PC2=mypca$x[,"PC2"],PC3=mypca$x[,"PC3"],
+                Status=mystatus,Cell=mycell)
+mycol=c("red","orange","blue","forestgreen")
+shapes = 6:18
+
+p <- ggplot(mydf,aes(PC1,PC2,color=Status,shape=Cell)) +
+  geom_point(aes(PC1,PC2,shape=Cell),size=4) +
+  scale_color_manual(values=mycol) +
+  xlab(paste0("PC1: ",percvar[1],"% variance")) +
+  ylab(paste0("PC2: ",percvar[2],"% variance")) +
+  theme_bw() +
+  ggtitle(mytitle) +
+  theme(axis.line = element_line(colour = "black"),
+        axis.title=element_text(size=12,face="bold"),
+        plot.title=element_text(size=14,face="bold"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        legend.key=element_blank()) +
+        scale_shape_manual(values=shapes) +
+    guides(color=FALSE,shape=FALSE)
+
+p2 <- ggplot(mydf,aes(PC2,PC3,color=Status,shape=Cell)) +
+  geom_point(aes(PC2,PC3,shape=Cell),size=4) +
+  scale_color_manual(values=mycol) +
+  xlab(paste0("PC2: ",percvar[2],"% variance")) +
+  ylab(paste0("PC3: ",percvar[3],"% variance")) +
+  theme_bw() +
+  ggtitle(mytitle) +
+  theme(axis.line = element_line(colour = "black"),
+        axis.title=element_text(size=12,face="bold"),
+        plot.title=element_text(size=14,face="bold"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        legend.key=element_blank()) +
+    scale_shape_manual(values=shapes)
+
+multiplot(p,p2,cols=2)
+
+@
+
+<<Treated only>>=
+
+metabMDM2treated<-metabMDM2treated[,c(which(mystatus=="MDM2HiTreated"),which(mystatus=="MDM2LoTreated"))]
+mycell<-mycell[c(which(mystatus=="MDM2HiTreated"),which(mystatus=="MDM2LoTreated"))]
+mystatus<-mystatus[c(which(mystatus=="MDM2HiTreated"),which(mystatus=="MDM2LoTreated"))]
+
+
+mypca=prcomp(t(metabMDM2treated),center=T,scale=T)
+percvar=round((mypca$sdev)^2 / sum(mypca$sdev^2)*100,2)
+mydf=data.frame(PC1=mypca$x[,"PC1"],PC2=mypca$x[,"PC2"],PC3=mypca$x[,"PC3"],
+                Status=mystatus,Cell=mycell)
+mycol=c("red","blue")
+shapes = 6:18
+
+p <- ggplot(mydf,aes(PC1,PC2,color=Status)) +
+  geom_point(aes(PC1,PC2,shape=Cell),size=4) +
+  scale_color_manual(values=mycol) +
+  xlab(paste0("PC1: ",percvar[1],"% variance")) +
+  ylab(paste0("PC2: ",percvar[2],"% variance")) +
+  theme_bw() +
+  ggtitle(mytitle) +
+  theme(axis.line = element_line(colour = "black"),
+        axis.title=element_text(size=12,face="bold"),
+        plot.title=element_text(size=14,face="bold"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        legend.key=element_blank()) +
+        scale_shape_manual(values=shapes) +
+    guides(color=FALSE,shape=FALSE)
+
+p2 <- ggplot(mydf,aes(PC2,PC3,color=Status,shape=Cell)) +
+  geom_point(aes(PC2,PC3,shape=Cell),size=4) +
+  scale_color_manual(values=mycol) +
+  xlab(paste0("PC2: ",percvar[2],"% variance")) +
+  ylab(paste0("PC3: ",percvar[3],"% variance")) +
+  theme_bw() +
+  ggtitle(mytitle) +
+  theme(axis.line = element_line(colour = "black"),
+        axis.title=element_text(size=12,face="bold"),
+        plot.title=element_text(size=14,face="bold"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        legend.key=element_blank()) +
+    scale_shape_manual(values=shapes)
+
+multiplot(p,p2,cols=2)
+
+
+@
+
+Yikes. There's a lot going on in this figure. In general green
+clusters with blue and red clusters with orange. If MDM2 inhibitor
+worked as intended, we would see orange cluster with green or blue.
+
+Let's investigate the cumulative differences between untreated and RG5
+in high and low.
+
+<<RG5VPs>>=
+
+save(volcano_plotter, mydiff, multiplot, metabMDM2hi, metabMDM2lo, MDM2hiCells, MDM2loCells, file="~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/figure2B.Rda")
+
+p <- volcano_plotter(metabMDM2hi,c(which(MDM2hiCells=="141RG5"),which(MDM2hiCells=="246RG5")),c(which(MDM2hiCells=="141"),which(MDM2hiCells=="246")),"RG5 vs untreated, MDM2 Hi (141,246)") +
+    theme(plot.title = element_text(size=10))
+p2 <- volcano_plotter(metabMDM2lo,c(which(MDM2loCells=="863RG5"),which(MDM2loCells=="815RG5")),c(which(MDM2loCells=="815"),which(MDM2loCells=="863")), "RG5 vs untreated, MDM2 Lo (815,863)") +
+    theme(plot.title = element_text(size=10))
+multiplot(p,p2,cols=2)
+
+@
+
+Metabolite class barplots on treated vs. untreated
+
+<<fcBPTreatedvsUntreated,fig.height = 7,fig.width = 12>>=
+
+mdm2Hi_Treated_vs_Untreated <- mydiff(metabMDM2hi,c(which(MDM2hiCells=="141RG5"),which(MDM2hiCells=="246RG5")),c(which(MDM2hiCells=="141"),which(MDM2hiCells=="246")))
+keepers=intersect(which(mdm2Hi_Treated_vs_Untreated$mypadj<0.05),
+                  c(which(mdm2Hi_Treated_vs_Untreated$log2fc>1),which(mdm2Hi_Treated_vs_Untreated$log2fc< -1)))
+mdm2Hi_Treated_vs_UntreatedSig <- mdm2Hi_Treated_vs_Untreated[keepers,]
+
+mdm2Lo_Treated_vs_Untreated <- mydiff(metabMDM2lo,c(which(MDM2loCells=="863RG5"),which(MDM2loCells=="815RG5")),c(which(MDM2loCells=="815"),which(MDM2loCells=="863")))
+keepers=intersect(which(mdm2Lo_Treated_vs_Untreated$mypadj<0.05),
+                  c(which(mdm2Lo_Treated_vs_Untreated$log2fc>1),which(mdm2Lo_Treated_vs_Untreated$log2fc< -1)))
+mdm2Lo_Treated_vs_UntreatedSig <- mdm2Lo_Treated_vs_Untreated[keepers,]
+
+metabolite_class<-read.csv("~/Desktop/Liposarcoma project/final_figures/data/metabolites_class.csv")
+mdm2hiMetabs <- read.csv("~/Desktop/Liposarcoma project/final_figures/data/TreVsUnTreMDM2HiIds.csv", header=FALSE)
+mdm2loMetabs <- read.csv("~/Desktop/Liposarcoma project/final_figures/data/TreVsUnTreMDM2LoIds.csv", header=FALSE)
+
+metabolites <- t(mdm2hiMetabs)
+names(metabolites) <- mdm2Hi_Treated_vs_UntreatedSig$name[order(mdm2Hi_Treated_vs_UntreatedSig$log2fc,decreasing=TRUE)]
+metaboliteClasses <- metabolite_class$super_class[match(metabolites,metabolite_class$hmdb_id)]
+names(metaboliteClasses) <- mdm2Hi_Treated_vs_UntreatedSig$name[order(mdm2Hi_Treated_vs_UntreatedSig$log2fc,decreasing=TRUE)]
+
+mdm2Hi_Treated_vs_UntreatedSig<-mdm2Hi_Treated_vs_UntreatedSig[order(mdm2Hi_Treated_vs_UntreatedSig$log2fc,decreasing=TRUE),]
+
+mdm2Hi_Treated_vs_UntreatedSig$Class <- metaboliteClasses
+
+myPalette<-c("#008080","#46f0f0","#f58231","#3cb44b","#e6194b")
+
+save(myPalette, mdm2Hi_Treated_vs_UntreatedSig,file="~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/figure2C.Rda")
+
+#png("~/Desktop/Liposarcoma project/final_figures/highQualityPNGs/metaboliteBarplotMDM2HiTreated.png",width=12,height=8,units="in",res=500)
+ggplot(mdm2Hi_Treated_vs_UntreatedSig,aes(x=reorder(name,log2fc), y=log2fc, fill = Class)) +
+    ggtitle("Significant MDM2 Hi Treated vs Untreated Metabolites") +
+    geom_bar(stat = "identity", colour = "black") +
+    coord_flip() +
+    theme_bw() +
+    ylab("log2(mean(Treated)-mean(Untreated))") +
+    theme(axis.title.y = element_blank(),axis.title.x = element_text(size=12,face="bold"),axis.text.y=element_text(size=10),axis.text.x=element_text(size=10)) +
+        theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+    scale_fill_manual(values=as.vector(myPalette)[c(3,1,2,4,5)])
+#dev.off()
+
+metabolites <- t(mdm2loMetabs)
+names(metabolites) <- mdm2Lo_Treated_vs_UntreatedSig$name[order(mdm2Lo_Treated_vs_UntreatedSig$log2fc,decreasing=TRUE)]
+metaboliteClasses <- metabolite_class$super_class[match(metabolites,metabolite_class$hmdb_id)]
+names(metaboliteClasses) <- mdm2Lo_Treated_vs_UntreatedSig$name[order(mdm2Lo_Treated_vs_UntreatedSig$log2fc,decreasing=TRUE)]
+
+mdm2Lo_Treated_vs_UntreatedSig<-mdm2Lo_Treated_vs_UntreatedSig[order(mdm2Lo_Treated_vs_UntreatedSig$log2fc,decreasing=TRUE),]
+
+mdm2Lo_Treated_vs_UntreatedSig$Class <- metaboliteClasses
+
+# Manual annotation
+mdm2Lo_Treated_vs_UntreatedSig$Class[c(1:4,15:17,23,27,43,45,54,62)] <- "Lipids and lipid-like molecules"
+mdm2Lo_Treated_vs_UntreatedSig$Class[c(8)] <- "Organic acids and derivatives"
+mdm2Lo_Treated_vs_UntreatedSig$Class[c(5,21,82)] <- "Nucleosides, nucleotides, and analogues"
+mdm2Lo_Treated_vs_UntreatedSig$Class[c(75)] <- "Organoheterocyclic compounds"
+
+myPalette<-c("#000000","#808080","#008080","#46f0f0","#f58231","#3cb44b","#e6194b")
+
+save(myPalette, mdm2Lo_Treated_vs_UntreatedSig, file="~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/figure2D.Rda")
+
+#png("~/Desktop/Liposarcoma project/final_figures/highQualityPNGs/metaboliteBarplotMDM2LoTreated.png",width=12,height=8,units="in",res=500)
+ggplot(mdm2Lo_Treated_vs_UntreatedSig,aes(x=reorder(name,log2fc), y=log2fc, fill = Class)) +
+    ggtitle("Significant MDM2 Lo Treated vs Untreated Metabolites") +
+    geom_bar(stat = "identity", colour = "black") +
+    coord_flip() +
+    theme_bw() +
+    ylab("log2(mean(Treated)-mean(Untreated))") +
+    theme(axis.title.y = element_blank(),axis.title.x = element_text(size=12,face="bold"),axis.text.y=element_text(size=7),axis.text.x=element_text(size=10)) +
+        theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+    scale_fill_manual(values=as.vector(myPalette)[c(1,5,3,4,6,2,7)])
+#dev.off()
+
+
+@
+
+
+
+Seems to reflect our observations on the cell line level. Nutlin
+treatment seems to impact the MDM2 low metabolome much more than MDM2 high.
+
+On to pathway analysis.
+
+\section{Pathway analysis of treated vs untreated differences}
+\subsection{Cell line pathway analysis}
+
+<<individualPathwayAnalysis, eval=FALSE>>=
+
+pathwayAnalyzer <- function(x){
+    print(head(x))
+    upInGroup1 <- as.vector(x$name[which(x$log2fc > 0)])
+    downInGroup1 <- as.vector(x$name[which(x$log2fc < 0)])
+
+    upInGroup1Pathways <-try(getPathwayFromAnalyte(analytes = upInGroup1, conpass="",NameOrIds="names"), silent=TRUE)
+    if (!is(upInGroup1Pathways, "try-error")){
+    upInGroup1Fishers <- try(runCombinedFisherTest(pathwaydf=upInGroup1Pathways,conpass=""), silent = TRUE)
+    } else {
+        upInGroup1Fishers <- NA
+    }
+    downInGroup1Pathways <-try(getPathwayFromAnalyte(analytes = downInGroup1, conpass="",NameOrIds="names"), silent=TRUE)
+    if (!is(downInGroup1Pathways, "try-error")){
+    downInGroup1Fishers <- try(runCombinedFisherTest(pathwaydf=downInGroup1Pathways,conpass=""), silent = TRUE)
+    } else {
+        downInGroup1Fishers <- NA
+    }
+    return(list(upInGroup1Fishers,downInGroup1Fishers))
+}
+
+fishersList <-lapply(list(resTreated246RG1Sig,resTreated815RG1Sig,resTreated863RG1Sig,resTreated141RG5Sig,resTreated246RG5Sig,resTreated815RG5Sig,resTreated863RG5Sig),pathwayAnalyzer)
+
+save(fishersList, file = "~/Desktop/Liposarcoma project/final_figures/data/fishersResultsTreatedInd.Rda")
+
+@
+
+Print individual tables
+
+<<indTables,eval=FALSE>>=
+load("~/Desktop/Liposarcoma project/final_figures/data/fishersResultsTreatedInd.Rda")
+testList <- c("246RG1","815RG1","863RG1","141RG5","246RG5","815RG5","863RG5")
+
+k=1
+for(i in 1:length(fishersList)){
+    for(j in 1:2){
+        #i=6
+        #j=2
+        obj <- try(fishersList[[i]][[j]]$fishresults,silent = T)
+        if(is.data.frame(obj)&&nrow(obj)!=0){
+            if("Pval_combined_FDR" %in% colnames(obj)){
+            colnames(obj)[match("Pval_combined_FDR",colnames(obj))] <- "Pval_FDR"
+            }
+     print(kable(obj[order(obj[,"Pval_FDR"]),-c(1,8,9)],row.names=FALSE,
+      caption = paste0("Pathways ",ifelse(j==1,"downregulated","upregulated")," in ",testList[k] ," following nutlin treatment"),
+      format = "latex", booktabs = T) %>%
+     kable_styling(latex_options = c("striped", "HOLD_position","scale_down")))
+     }
+   }
+   k = k + 1
+}
+
+@
+
+\subsection{Cumulative pathway analysis}
+<<sigMetabs>>=
+
+
+resMDM2HiTre <- mydiff(metabMDM2hi,c(which(MDM2hiCells=="141RG5"),which(MDM2hiCells=="246RG5")),c(which(MDM2hiCells=="141"),which(MDM2hiCells=="246")))
+keepers=intersect(which(resMDM2HiTre$mypadj<0.05),
+                  c(which(resMDM2HiTre$log2fc>1),which(resMDM2HiTre$log2fc< -1)))
+resMDM2HiTreSig <- resMDM2HiTre[keepers,]
+
+kable(resMDM2HiTreSig,format = "latex",booktabs=T, longtable = T, caption = "Untreated vs RG5, MDM2 Hi (141,246))") %>%
+    kable_styling(latex_options = c("striped", "HOLD_position"))
+
+resMDM2LoTre <- mydiff(metabMDM2lo,c(which(MDM2loCells=="863RG5"),which(MDM2loCells=="815RG5")),c(which(MDM2loCells=="815"),which(MDM2loCells=="863")))
+keepers=intersect(which(resMDM2LoTre$mypadj<0.05),
+                  c(which(resMDM2LoTre$log2fc>1),which(resMDM2LoTre$log2fc< -1)))
+resMDM2LoTreSig <- resMDM2LoTre[keepers,]
+
+kable(resMDM2LoTreSig,format = "latex",booktabs=T, longtable = T, caption = "Untreated vs RG5, MDM2 Lo (815,863))") %>%
+    kable_styling(latex_options = c("striped", "HOLD_position"))
+
+@
+
+12 metabolites different in Hi, and 95 in Lo. Quite the difference!
+
+<<RaMPTre, eval = FALSE>>=
+
+# Find these HMDB IDs
+TreatedHiMetabs<-read.csv("~/Desktop/Liposarcoma project/final_figures/data/TreatedHiMetabs.csv")
+HiUpInTre <- as.vector(TreatedHiMetabs$ids[which(TreatedHiMetabs$log2fc > 0)])
+HiDownInTre <- as.vector(TreatedHiMetabs$ids[which(TreatedHiMetabs$log2fc < 0)])
+
+TreatedLoMetabs<-read.csv("~/Desktop/Liposarcoma project/final_figures/data/TreatedLoMetabs.csv")
+LoUpInTre <- as.vector(TreatedLoMetabs$ids[which(TreatedLoMetabs$log2fc > 0)])
+LoDownInTre <- as.vector(TreatedLoMetabs$ids[which(TreatedLoMetabs$log2fc < 0)])
+
+HiUpInTrePathways <- getPathwayFromAnalyte(analytes = HiUpInTre, conpass="",NameOrIds="ids")
+HiUpInTreFishers <- runCombinedFisherTest(pathwaydf=HiUpInTrePathways,conpass="")
+HiDownInTrePathways <- getPathwayFromAnalyte(analytes = HiDownInTre, conpass="",NameOrIds="ids")
+HiDownInTreFishers <- runCombinedFisherTest(pathwaydf=HiDownInTrePathways,conpass="")
+
+LoUpInTrePathways <- getPathwayFromAnalyte(analytes = LoUpInTre, conpass="",NameOrIds="ids")
+LoUpInTreFishers <- runCombinedFisherTest(pathwaydf=LoUpInTrePathways,conpass="")
+LoDownInTrePathways <- getPathwayFromAnalyte(analytes = LoDownInTre, conpass="",NameOrIds="ids")
+LoDownInTreFishers <- runCombinedFisherTest(pathwaydf=LoDownInTrePathways,conpass="")
+
+HiCombinedTrePathways <- getPathwayFromAnalyte(analytes = as.vector(TreatedHiMetabs$ids), conpass = "", NameOrIds="ids")
+HiCombinedTreFishers <- runCombinedFisherTest(pathwaydf=HiCombinedTrePathways,conpass="")
+
+LoCombinedTrePathways <- getPathwayFromAnalyte(analytes = as.vector(TreatedLoMetabs$ids), conpass = "", NameOrIds="ids")
+LoCombinedTreFishers <- runCombinedFisherTest(pathwaydf=LoCombinedTrePathways,conpass="")
+
+save(HiUpInTreFishers,HiDownInTreFishers,LoUpInTreFishers,LoDownInTreFishers,HiCombinedTreFishers,LoCombinedTreFishers,file="~/Desktop/Liposarcoma project/final_figures/data/fishersTreatedResults.Rda")
+
+@
+
+Tables of pathway analysis results.
+
+<<treatedTables>>=
+load("~/Desktop/Liposarcoma project/final_figures/data/fishersTreatedResults.Rda")
+# Empty
+# HiUpInTrePathwaysSig <- FilterFishersResults(HiUpInTreFishers, p_fdradj_cutoff=1)
+# kable(HiUpInTrePathwaysSig$fishresult[order(HiUpInTrePathwaysSig$fishresult[,"Pval_FDR"]),-c(1,8,9)],row.names=FALSE)
+
+# Empty
+# HiDownInTrePathwaysSig <- FilterFishersResults(HiDownInTreFishers, p_fdradj_cutoff=1)
+# kable(HiDownInTrePathwaysSig$fishresult[order(HiDownInTrePathwaysSig$fishresult[,"Pval_FDR"]),-c(1,8,9)],row.names=FALSE)
+
+
+LoUpInTrePathwaysSig <- FilterFishersResults(LoUpInTreFishers, p_fdradj_cutoff=1)
+kable(LoUpInTrePathwaysSig$fishresult[order(LoUpInTrePathwaysSig$fishresult[,"Pval_FDR"]),-c(1,8,9)],row.names=FALSE,
+      caption = "Pathways upregulated in MDM2 low samples following nutlin treatment", format = "latex", booktabs = T,longtable=T) %>%
+    kable_styling(latex_options = c("striped", "HOLD_position"))
+
+LoDownInTrePathwaysSig <- FilterFishersResults(LoDownInTreFishers, p_fdradj_cutoff=1)
+kable(LoDownInTrePathwaysSig$fishresult[order(LoDownInTrePathwaysSig$fishresult[,"Pval_FDR"]),-c(1,8,9)],row.names=FALSE,
+      caption = "Pathways downregulated in MDM2 low samples following nutlin treatment", format = "latex", booktabs = T,longtable=T) %>%
+    kable_styling(latex_options = c("striped", "HOLD_position"))
+
+# Empty
+## HiCombinedTrePathwaysSig <- FilterFishersResults(HiCombinedTreFishers, p_fdradj_cutoff=1)
+## kable(HiCombinedTrePathwaysSig$fishresult[order(HiCombinedTrePathwaysSig$fishresult[,"Pval_FDR"]),-c(1,8,9)],row.names=FALSE,
+##       caption = "Pathways dysregulated in MDM2 low samples between untreated and RG5 samples", format = "latex", booktabs = T) %>%
+##     kable_styling(latex_options = c("striped", "HOLD_position","scale_down"))
+
+LoCombinedTrePathwaysSig <- FilterFishersResults(LoCombinedTreFishers, p_fdradj_cutoff=1)
+kable(LoCombinedTrePathwaysSig$fishresult[order(LoCombinedTrePathwaysSig$fishresult[,"Pval_FDR"]),-c(1,8,9)],row.names=FALSE,longtable=T,
+      caption = "Pathways dysregulated in MDM2 low samples between untreated and RG5 samples", format = "latex", booktabs = T) %>%
+    kable_styling(latex_options = c("striped", "HOLD_position"))
+
+@
+
+<<pathwayBarplotTreated,fig.width=12,fig.height=16>>=
+
+threshold <- 0.0005
+
+fishresult <- rbind(LoUpInTrePathwaysSig$fishresult,LoDownInTrePathwaysSig$fishresult,LoCombinedTrePathwaysSig$fishresult)
+fishresult <- fishresult[which(fishresult$Pval_Holm <= threshold),]
+
+fishClustering<-list(fishresults=fishresult,analyte_type="metabolites")
+fishClustering<-findCluster(fishClustering,perc_analyte_overlap=0.1,perc_pathway_overlap=0.1)
+length(fishClustering$cluster_list)
+
+fishresult <- fishClustering$fishresults
+fishresult$test <- c(rep("Up in treated",times=length(which(LoUpInTrePathwaysSig$fishresult[,6]<=threshold))),rep("Down in treated",times=length(which(LoDownInTrePathwaysSig$fishresult[,6]<=threshold))), rep("Combined",times=length(which(LoCombinedTrePathwaysSig$fishresult[,6]<=threshold))))
+
+bubbleDF <- data.frame(x=-log10(fishresult$Pval),y=fishresult$pathwayName, inPath <- fishresult$Num_In_Path, totPath <- fishresult$Total_In_Path,test=fishresult$test,cluster=fishresult$cluster_assignment)
+
+
+
+#fishresult$test <- c(rep("Up in treated",times=nrow(LoUpInTrePathwaysSig$fishresult)),rep("Down in treated",times=nrow(LoDownInTrePathwaysSig$fishresult)), rep("Combined",times=nrow(LoCombinedTrePathwaysSig$fishresult)))
+
+bubbleDF <- bubbleDF[order(bubbleDF$x, decreasing = TRUE),]
+p2 <- ggplot(bubbleDF,aes(y=x,x=reorder(y,x), fill = cluster)) +
+    geom_bar(stat = "identity", colour = "black",position = "dodge", width = 0.75) +
+    geom_hline(yintercept=-log10(0.01),linetype = "dotted") +
+    theme_bw() +
+    coord_flip() +
+    labs(x = "Pathway", y = "-log10(pval)") +
+    theme(axis.line = element_line(colour = "black"),
+        axis.title=element_text(size=12,face="bold"),
+        plot.title=element_text(size=14,face="bold"),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank()) +
+        scale_fill_brewer(palette="Set1") +
+    facet_grid(test~.,space="free",scales="free") #+
+#    theme(strip.background = element_blank(),strip.text.y = element_blank())
+
+p2 + theme(axis.text=element_text(size=5))
+
+@
+
+I notice we are consistently getting nucleoside salvage in some of our
+results, this is a hallmark of some kinds of cancers. Pyruvate and
+citric acid cycle dysregulation is also certainly worth making note of
+due to the Warburg effect. Could nutlin be targeting anaerobic
+respiration in MDM2 low cells?
+
+<<UpSetR>>=
+
+library(UpSetR)
+
+library(WriteXLS)
+output <- list(resMDM2HiLoSig,resTreated246RG1Sig,resTreated815RG1Sig,resTreated863RG1Sig,resTreated141RG5Sig,resTreated246RG5Sig,resTreated815RG5Sig,resTreated863RG5Sig,resMDM2HiTreSig,resMDM2LoTreSig)
+names(output) <- c("resMDM2HiLoSig","resTreated246RG1Sig","resTreated815RG1Sig","resTreated863RG1Sig","resTreated141RG5Sig","resTreated246RG5Sig","resTreated815RG5Sig","resTreated863RG5Sig","resMDM2HiTreSig","resMDM2LoTreSig")
+#WriteXLS(output,ExcelFileName = "~/Desktop/Liposarcoma project/final_figures/final_metabolomics_results_042418.xlsx")
+
+listInput<-list(upInHigh=resMDM2HiLoSig$name[which(resMDM2HiLoSig$log2fc>0)],
+                upInLow=resMDM2HiLoSig$name[which(resMDM2HiLoSig$log2fc<0)],
+                hiUpInRG5=resMDM2HiTreSig$name[which(resMDM2HiTreSig$log2fc>0)],
+                hiDownInRG5=resMDM2HiTreSig$name[which(resMDM2HiTreSig$log2fc<0)],
+                loUpInRG5=resMDM2LoTreSig$name[which(resMDM2LoTreSig$log2fc>0)],
+                loDownInRG5=resMDM2LoTreSig$name[which(resMDM2LoTreSig$log2fc<0)])
+#listInput<-lapply(listInput,as.vector)
+upset(fromList(listInput), order.by = "freq",nsets=6)
+
+@
+
+
+
+\section{Linear mixed effect model of MDM2 Hi vs Lo and Treated vs Untreated}
+
+<<linearMixedEffectsModel,eval=FALSE>>=
+
+## MDM2 Hi vs Lo
+
+cell<-c(names(mdm2hi),names(mdm2lo))
+status<-c(rep("Hi",times=length(mdm2hi)),rep("Lo",times=length(mdm2lo)))
+library(lme4)
+
+mdm2HiLoLMME<-apply(metabFiltered,1, function(x){
+    df<-data.frame(y=x[1:26],cell,status)
+    colnames(df)[1]="y"
+    fit.null<-lmer(y ~ (1|cell), data = df,REML=FALSE)
+    fit<-lmer(y ~ status + (1|cell), data = df,REML=FALSE)
+    anovaFit<-anova(fit.null,fit)
+    return(anovaFit$'Pr(>Chisq)'[2])
+})
+
+#mdm2HiLoLMMEAdj<-p.adjust(mdm2HiLoLMME,method="fdr")
+hist(mdm2HiLoLMME,breaks=100)
+
+resMDM2HiLoLMME<-data.frame(resMDM2HiLo,mdm2HiLoLMME)
+resMDM2HiLoLMME<-resMDM2HiLoLMME[order(resMDM2HiLoLMME$mypadj),]
+colnames(resMDM2HiLoLMME)[5]<-"LMME"
+
+kable(resMDM2HiLoLMME[intersect(which(resMDM2HiLoLMME$mypadj < 0.05),which(abs(resMDM2HiLoLMME$log2fc) > 1)),-2],row.names=FALSE,longtable=T,
+      caption = "T test and ANOVA results controlling for cell line in MDM2 Hi vs Lo, untreated", format = "latex", booktabs = T) %>%
+    kable_styling(latex_options = c("striped"))
+
+
+@
+
+\section{T test with technical replicates averaged}
+
+<<averageTTests, eval=F>>=
+
+metabAveraged<-sapply(unique(cell),function(x) {
+    columns<-!is.na(match(cell,x))
+    return(apply(as.matrix(metabFiltered[,which(columns)]),1,mean))
+})
+
+resMDM2HiLoAveraged <- mydiff(metabAveraged,1:4,5:6)
+keepers=intersect(which(resMDM2HiLoAveraged$mypadj<0.05),
+                  c(which(resMDM2HiLoAveraged$log2fc>1),which(resMDM2HiLoAveraged$log2fc< -1)))
+resMDM2HiLoSigAveraged <- resMDM2HiLoAveraged[keepers,]
+
+
+@
+
+<<compMatrix,eval=FALSE>>=
+library(gplots)
+
+compList<-list(resMDM2HiLoSig$name,resMDM2HiLoAveraged$name[which(resMDM2HiLoAveraged$myp<0.05)],names(mdm2HiLoLMME)[intersect(which(mdm2HiLoLMME<0.05),c(which(resMDM2HiLoAveraged$log2fc>1),which(resMDM2HiLoAveraged$log2fc< -1)))])
+compList<-lapply(compList, as.vector)
+
+compMatrix<-t(sapply(unique(unlist(compList)),function(x){
+newrow<-rep(FALSE,times=3)
+for(i in 1:3){
+    if(x %in% compList[[i]]){
+        newrow[i]<-TRUE
+        }
+    }
+    return(newrow)
+}))
+colnames(compMatrix)<-c("t.test","t.test.mean","LMME")
+venn(compMatrix)
+
+@
+
+
+<<colorCodedLipidPlot>>=
+
+library(dplyr)
+library(readxl)
+
+## Lipidomic data
+load("~/Desktop/Liposarcoma project/final_figures/LipidMDM2HiLoSummary.Rdata")
+lipidomicMDM2HiLo<-summary
+
+lipidomic_key<-read_xlsx("~/Desktop/Liposarcoma project/Lipidomics_key.xlsx",sheet=1)
+
+lipidomicMDM2HiLo$MainClass<-lipidomic_key$`LM Main Class`[match(lipidomicMDM2HiLo$name,lipidomic_key$name)]
+
+lipidomicMDM2HiLo$alpha <- ifelse(lipidomicMDM2HiLo$significant,0.05,0.025)
+lipidomicMDM2HiLo$size <- ifelse(lipidomicMDM2HiLo$significant,4,3)
+
+
+## Metabolomic data
+metabLipid <- metabmeta %>% filter(SUPER.PATHWAY=="Lipid")
+lipidMDM2HiLo<-resMDM2HiLo %>% filter(name %in% metabLipid$BIOCHEMICAL)
+
+lipid_key<-read_xlsx("~/Desktop/Liposarcoma project/Lipidomics_key.xlsx",sheet=2)
+
+lipidMDM2HiLo$MainClass<-lipid_key$`LM Main Class`[match(lipidMDM2HiLo$name,lipid_key$name)]
+
+lipidMDM2HiLo$significant = abs(lipidMDM2HiLo$log2fc) > 1 & -log10(lipidMDM2HiLo$mypadj) > -log10(0.05)
+lipidMDM2HiLo$alpha <- ifelse(lipidMDM2HiLo$significant,0.05,0.025)
+lipidMDM2HiLo$size <- ifelse(lipidMDM2HiLo$significant,4,3)
+
+## Barplot
+mytablelipid<-table(lipidomicMDM2HiLo$MainClass)
+mytablemetabolite<-table(lipidMDM2HiLo$MainClass)
+mytablemetabolite<-mytablemetabolite[-match("Non-lipid in lipid pathways",names(mytablemetabolite))]
+
+compmatrix<-t(sapply(sort(unique(c(names(mytablemetabolite),names(mytablelipid)))), function(x){
+    return(c(x %in% names(mytablemetabolite), x %in% names(mytablelipid)))
+}))
+colnames(compmatrix)<-c("Metabolomic","Lipidomic")
+
+#palette=c("#771155", "#AA4488", "#CC99BB", "#114477", "#4477AA", "#77AADD", "#117777", "#44AAAA", "#77CCCC", "#117744", "#44AA77", "#88CCAA", "#777711", "#AAAA44", "#DDDD77", "#774411", "#AA7744", "#DDAA77", "#771122", "#AA4455", "#DD7788")
+
+overlap_palette<-c("#332288", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#CC6677", "#882255", "#AA4499")
+overlap_palette<-brewer.pal(9,"BrBG")
+lipid_palette<-brewer.pal(5,"Reds")
+metabolite_palette<-brewer.pal(7,"YlOrBr")
+
+palette<-c(overlap_palette[1],
+           overlap_palette[2],
+           metabolite_palette[1],
+           metabolite_palette[2],
+           metabolite_palette[3],
+           overlap_palette[3],
+           lipid_palette[1],
+           overlap_palette[4],
+           overlap_palette[5],
+           overlap_palette[6],
+           lipid_palette[2],
+           overlap_palette[7],
+           overlap_palette[8],
+           lipid_palette[3],
+           metabolite_palette[4],
+           metabolite_palette[5],
+           lipid_palette[4],
+           overlap_palette[9],
+           metabolite_palette[6],
+           metabolite_palette[7],
+           lipid_palette[5])
+
+names(palette)<-sort(unique(c(names(mytablemetabolite),names(mytablelipid))))
+
+metabolite_df<-as.data.frame(mytablemetabolite)
+
+lipid_BP_DF<-rbind(as.data.frame(mytablelipid),metabolite_df)
+colnames(lipid_BP_DF)=c("lipid_main_classes","Freq")
+lipid_BP_DF$dataset<-c(rep("Lipidomic",times=length(mytablelipid)),rep("Metabolomic",times=length(mytablemetabolite)))
+lipid_BP_DF$FreqStand<-rep(0,times=nrow(lipid_BP_DF))
+lipid_BP_DF$FreqStand[1:14]<-lipid_BP_DF$Freq[1:14]/sum(lipid_BP_DF$Freq[1:14])
+lipid_BP_DF$FreqStand[15:30]<-lipid_BP_DF$Freq[15:30]/sum(lipid_BP_DF$Freq[15:30])
+lipid_BP_DF$Both<-as.factor(sapply(lipid_BP_DF$lipid_main_classes,function(x) return(x %in% names(which(apply(compmatrix,1,all))))))
+lipid_BP_DF<-arrange(lipid_BP_DF,desc(Both),lipid_main_classes)
+
+
+## png("~/Desktop/Liposarcoma project/final_figures/highQualityPNGs/LipidPanelComposition.png",width=12,height=8,units="in",res=500)
+lipid_BP_DF %>%
+    #filter(dataset=="Lipidomic") %>%
+    mutate(lipid_main_classes = factor(lipid_main_classes, levels =unique(lipid_main_classes))) %>%
+    arrange(lipid_main_classes) %>%
+    ggplot(aes(x=dataset,y=FreqStand,fill=lipid_main_classes)) +
+    geom_bar(stat = "identity") +
+    scale_fill_manual(values = palette) +
+    xlab("") +
+    ylab("% Composition") +
+    ggtitle("Lipid Panel Composition by LipidMaps main class") +
+    guides(fill=guide_legend(title="")) +
+    theme(axis.line = element_line(colour = "black"),
+        axis.title=element_text(size=12,face="bold"),
+        plot.title=element_text(size=14,face="bold"),
+        axis.text=element_text(size=14),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank())
+## dev.off()
+
+save(lipid_BP_DF, file="~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/figure4A.Rda")
+
+#png("~/Desktop/Liposarcoma project/final_figures/highQualityPNGs/LipidPanelComposition.png",width=18,height=8,units="in",res=500)
+lipid_BP_DF %>%
+    #filter(dataset=="Lipidomic") %>%
+    mutate(lipid_main_classes = factor(lipid_main_classes, levels =unique(lipid_main_classes))) %>%
+    arrange(lipid_main_classes) %>%
+    ggplot(aes(x=lipid_main_classes,y=Freq)) +
+    geom_bar(stat = "identity",position="dodge",aes(fill=dataset),colour="black") +
+    scale_fill_manual(values = c("orange","royalblue")) +
+    xlab("") +
+    ylab("# of species") +
+    scale_y_continuous(limits=c(0,250)) +
+    ggtitle("Lipid Panel Composition by LipidMaps main class") +
+    geom_text(x=4.5,y=230,label = "Both Panels") +
+    geom_text(x=12,y=230,label = "Lipidomic Panel Only") +
+    geom_text(x=18,y=230,label = "Metabolomic Panel Only") +
+    geom_vline(xintercept=9.5) +
+    geom_vline(xintercept=14.5) +
+    guides(fill=guide_legend(title="")) +
+    theme(axis.line = element_line(colour = "black"),
+          axis.text.x = element_text(angle = 90, hjust = 1),
+          axis.title=element_text(size=12,face="bold"),
+          plot.title=element_text(size=14,face="bold"),
+          axis.text=element_text(size=14),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank())
+#dev.off()
+
+
+
+
+
+
+
+## Volcano Plots
+lipidomicMDM2HiLo$SigName<-sapply(1:nrow(lipidomicMDM2HiLo),function(x){
+    ifelse(lipidomicMDM2HiLo$significant[x] & lipidomicMDM2HiLo$MainClass[x] %in% lipidMDM2HiLo$MainClass,return(as.vector(lipidomicMDM2HiLo$name[x])),return(''))
+})
+
+lipidomicMDM2HiLo$MainClass<-sapply(1:nrow(lipidomicMDM2HiLo),function(x){
+    ifelse(lipidomicMDM2HiLo$significant[x] & lipidomicMDM2HiLo$MainClass[x] %in% lipidMDM2HiLo$MainClass,return(lipidomicMDM2HiLo$MainClass[x]),return(NA))
+})
+
+lipidMDM2HiLo$SigName<-sapply(1:nrow(lipidMDM2HiLo),function(x){
+    ifelse(lipidMDM2HiLo$significant[x] & lipidMDM2HiLo$MainClass[x] %in% lipidomicMDM2HiLo$MainClass,return(as.vector(lipidMDM2HiLo$name)[x]),return(''))
+})
+
+lipidMDM2HiLo$MainClass<-sapply(1:nrow(lipidMDM2HiLo),function(x){
+    ifelse(lipidMDM2HiLo$significant[x] & lipidMDM2HiLo$MainClass[x] %in% lipidomicMDM2HiLo$MainClass,return(lipidMDM2HiLo$MainClass[x]),return(NA))
+})
+
+
+library(ggrepel)
+library(RColorBrewer)
+
+g = ggplot(data=lipidMDM2HiLo, aes(x=log2fc, y=-log10(mypadj), colour=MainClass, label = SigName)) +
+    geom_point(aes(alpha=alpha, size=size, text=name)) +
+    #geom_text_repel(show.legend = FALSE) +
+    #scale_color_manual(values = palette) +
+    theme_bw() +
+    ggtitle("Lipids in Metabolomics Panel") +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+    ylab("-log10 p-value") +
+    xlab("log2(MDM2Hi)-log2(MDM2Lo)") +
+    geom_hline(yintercept = -log10(0.1),lty = 2) +
+    geom_vline(xintercept = 1, lty = 2) +
+    geom_vline(xintercept = -1, lty = 2) +
+    scale_alpha(range=c(0.2,0.7)) +
+    scale_size(range=c(3,4)) +
+    guides(size=FALSE,alpha=FALSE,label=FALSE)
+g
+
+g2 = ggplot(data=lipidomicMDM2HiLo, aes(x=log2fc, y=-log10(mypadj), colour=MainClass, label = SigName)) +
+    geom_point(aes(alpha=alpha, size=size, text=name)) +
+#    geom_text_repel(show.legend = FALSE) +
+#    scale_color_manual(values = palette) +
+    theme_bw() +
+    ggtitle("Lipids in Lipidomics Panel") +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+    ylab("-log10 p-value") +
+    xlab("log2(MDM2Hi)-log2(MDM2Lo)") +
+    geom_hline(yintercept = -log10(0.1),lty = 2) +
+    geom_vline(xintercept = 1, lty = 2) +
+    geom_vline(xintercept = -1, lty = 2) +
+    scale_alpha(range=c(0.2,0.7)) +
+    scale_size(range=c(3,4)) +
+    guides(size=FALSE,alpha=FALSE,label=FALSE)
+g2
+
+png("~/Desktop/Liposarcoma project/final_figures/highQualityPNGs/LipidOverlapVolcanoPlots.png",width=18,height=8,units="in",res=500)
+multiplot(g,g2,cols=2)
+dev.off()
+
+@
+
+<<UpdatedClassBarPlot>>=
+
+@
+
+<<Spingolipid Metabolism visual, warning=F>>=
+
+# Unfilter missing metabolites
+metabDDLPSnoMVCV <- metabDDLPSnoMV
+metabDDLPSnoMVCVlog <- log(metabDDLPSnoMVCV, base=2)
+metabFiltered <- metabDDLPSnoMVCVlog
+resMDM2HiLo <- mydiff(metabFiltered,mdm2hi,mdm2lo)
+
+
+library(pathview)
+
+#analytes<-getAnalyteFromPathway(pathway="Sphingolipid Metabolism",conpass="")
+#analytes<-analytes %>% filter(pathwayType=="kegg",geneOrCompound=="compound")
+
+kegg_ids<-unlist(strsplit(analytes$sourceCompoundIDs,";"))
+kegg_ids<-kegg_ids[grepl("kegg:",kegg_ids)]
+kegg_ids<-gsub("kegg: ","",kegg_ids)
+kegg_ids<-gsub(" ","",kegg_ids)
+kegg_ids<-sort(kegg_ids)
+
+#compound_data<-c(1,rep(NULL,length(kegg_ids)-1))
+#names(compound_data)<-kegg_ids[1]
+
+compound_data<-c(resMDM2HiLo$log2fc[match("serine",resMDM2HiLo$name)],
+    resMDM2HiLo$log2fc[match("phytosphingosine",resMDM2HiLo$name)],
+    resMDM2HiLo$log2fc[match("phosphoethanolamine",resMDM2HiLo$name)],
+    resMDM2HiLo$log2fc[match("lactosyl-N-palmitoyl-sphingosine",resMDM2HiLo$name)],
+    resMDM2HiLo$log2fc[match("sphingosine",resMDM2HiLo$name)])
+names(compound_data)<-c("C00065",
+    "C12144",
+    "C00346",
+    "C01290",
+    "C00319")
+
+pv.out <- pathview(cpd.data=compound_data,gene.data=c(),pathway.id = "00600",
+                   species = "hsa", out.suffix = "test",
+                   map.null=FALSE, kegg.native=F)
+
+@
+
+\end{document}
+

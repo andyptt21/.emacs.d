@@ -1,5 +1,5 @@
 
-;;;### (autoloads nil "ox-wp" "ox-wp.el" (23604 7093 261754 792000))
+;;;### (autoloads nil "ox-wp" "ox-wp.el" (23618 8934 973945 435000))
 ;;; Generated autoloads from ox-wp.el
 
 (autoload 'org-wp-export-as-wordpress "ox-wp" "\
@@ -26,13 +26,13 @@ non-nil.
 
 ;;;***
 
-;;;### (autoloads nil nil ("org2blog-pkg.el") (23604 7093 253252
-;;;;;;  892000))
+;;;### (autoloads nil nil ("org2blog-pkg.el") (23618 8934 966167
+;;;;;;  782000))
 
 ;;;***
 
-;;;### (autoloads nil "org2blog" "org2blog.el" (23604 7093 256918
-;;;;;;  131000))
+;;;### (autoloads nil "org2blog" "org2blog.el" (23618 8934 970214
+;;;;;;  937000))
 ;;; Generated autoloads from org2blog.el
 
 (autoload 'org2blog/wp-mode "org2blog" "\

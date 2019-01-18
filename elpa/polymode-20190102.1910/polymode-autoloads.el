@@ -3,8 +3,8 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "polymode" "polymode.el" (23608 56633 870790
-;;;;;;  492000))
+;;;### (autoloads nil "polymode" "polymode.el" (23618 8081 116686
+;;;;;;  777000))
 ;;; Generated autoloads from polymode.el
 
 (autoload 'define-polymode "polymode" "\
@@ -79,8 +79,8 @@ most frequently used slots are:
 
 ;;;***
 
-;;;### (autoloads nil "polymode-core" "polymode-core.el" (23608 56633
-;;;;;;  890559 893000))
+;;;### (autoloads nil "polymode-core" "polymode-core.el" (23618 8081
+;;;;;;  131594 171000))
 ;;; Generated autoloads from polymode-core.el
 
 (defvar-local polymode-default-inner-mode nil "\
@@ -91,8 +91,8 @@ Intended to be used as local variable in polymode buffers.")
 
 ;;;***
 
-;;;### (autoloads nil "polymode-debug" "polymode-debug.el" (23608
-;;;;;;  56633 846856 361000))
+;;;### (autoloads nil "polymode-debug" "polymode-debug.el" (23618
+;;;;;;  8081 97803 217000))
 ;;; Generated autoloads from polymode-debug.el
 
 (autoload 'pm-debug-minor-mode "polymode-debug" "\
@@ -155,7 +155,7 @@ Print values of relevant hooks and other variables.
 ;;;### (autoloads nil nil ("poly-lock.el" "polymode-base.el" "polymode-classes.el"
 ;;;;;;  "polymode-compat.el" "polymode-export.el" "polymode-methods.el"
 ;;;;;;  "polymode-pkg.el" "polymode-tangle.el" "polymode-test-utils.el"
-;;;;;;  "polymode-weave.el") (23608 56633 896437 398000))
+;;;;;;  "polymode-weave.el") (23618 8081 135927 709000))
 
 ;;;***
 

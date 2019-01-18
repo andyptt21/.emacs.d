@@ -1,0 +1,17 @@
+#+TITLE: Learning Python
+#+AUTHOR: Andrew Patt
+#+DESCRIPTION: Since I suck at python but love org-mode, maybe this is the way to finally learn
+
+* Testing
+Good news is it looks like I can send individual lines for interactive
+eval with C-enter still. Elpy loads when editing chunks but many of
+the autocomplete features are unavailable.
+
+#+begin_src python :session
+  def foo(bar):
+      return bar + 1
+foo(1)
+#+end_src
+
+#+RESULTS:
+: 2

@@ -3,8 +3,8 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "openwith" "openwith.el" (23557 30068 181343
-;;;;;;  480000))
+;;;### (autoloads nil "openwith" "openwith.el" (23618 8997 943538
+;;;;;;  99000))
 ;;; Generated autoloads from openwith.el
 
 (defvar openwith-mode nil "\

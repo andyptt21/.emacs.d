@@ -1,0 +1,26 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch master
+# Changes to be committed:
+#	deleted:    CV_matrix&metab_low_cv.Rdata
+#	deleted:    TreatedHiMetabs.csv
+#	deleted:    TreatedLoMetabs.csv
+#	renamed:    TreVsUnTreMDM2HiIds.csv -> data/TreVsUnTreMDM2HiIds.csv
+#	renamed:    TreVsUnTreMDM2LoIds.csv -> data/TreVsUnTreMDM2LoIds.csv
+#	renamed:    features_neg_no_dups.csv -> data/features_neg_no_dups.csv
+#	renamed:    features_pos_no_dups.csv -> data/features_pos_no_dups.csv
+#	renamed:    fishersResults.Rda -> data/fishersResults.Rda
+#	renamed:    fishersTreatedResults.Rda -> data/fishersTreatedResults.Rda
+#	renamed:    mdm2hiMetabIDs.csv -> data/mdm2hiMetabIDs.csv
+#	renamed:    mdm2loMetabIDs.csv -> data/mdm2loMetabIDs.csv
+#	renamed:    metabolites_class.csv -> data/metabolites_class.csv
+#	renamed:    pathway_kegg_composition.Rda -> data/pathway_kegg_composition.Rda
+#	deleted:    final_metabolomic_results.xlsx
+#	deleted:    fishersResultsTreatedInd.Rda
+#	deleted:    metaboanalystResults.csv
+#	deleted:    metaboanalystResultsHi.csv
+#	renamed:    lipidomics_preprocessing.Rnw -> scripts/lipidomics_preprocessing.Rnw
+#	renamed:    metabolomics_figures.Rnw -> scripts/metabolomics_figures.Rnw
+#

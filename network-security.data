@@ -1,0 +1,5 @@
+(
+ (:id "sha1:bd3cfd363b80a3bede7578edde9abf90d773679e" :fingerprint "sha1:23:13:03:61:75:2f:bb:29:f6:57:12:39:f5:8e:92:00:65:d9:8b:5e" :host "www.reddit.com:443" :conditions (:insecure :unknown-ca :invalid))
+ (:id "sha1:60580955a2f8bbfc40d97ebbaa2d9c9320eee866" :fingerprint "sha1:92:a5:ee:cb:d2:73:7e:c3:5d:73:51:a2:cf:0c:8d:76:fb:23:65:28" :host "thescientificshrimper.wordpress.com:443" :conditions (:insecure :unknown-ca :invalid))
+ (:id "sha1:ccfd2cc2a08c89a9b10969be8c1e926954d53e28" :fingerprint "sha1:e5:47:3e:0f:21:9b:55:10:d2:78:1c:0a:1b:7d:92:05:2d:f7:4c:e3" :host "stable.melpa.org:443" :conditions (:insecure :unknown-ca :invalid))
+)

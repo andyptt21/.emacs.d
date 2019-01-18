@@ -1,0 +1,41 @@
+#+ORG2BLOG:
+#+DATE: [2018-12-11 Tue 20:53]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
+#+CATEGORY: org2blog, emacs
+#+TAGS: General
+#+DESCRIPTION:
+#+TITLE: Introductions
+
+#+ATTR_HTML: :alt I'm really bad at chess but I like the pretty horsies :title I'm really bad at chess but I like the pretty horsies :alt center
+[[file:~/Documents/The_Scientific_Shrimper/Images/chess-36320_960_720.png]]
+
+I'm a PhD candidate at the Ohio State University in the Biomedical
+Informatics department. I mostly work in R to analyze metabolomic
+data, from processing mass spectrometry data, to performing
+statistical analyses, to integration with other omics data, such as
+transcriptomics. Over the past year I've become an increasingly avid
+user of emacs/ESS for working with R code, building Rmarkdown/LaTeX
+files, and even dabbling in org-mode. In fact, the inspiration for
+this blog came from my discovery of the [[https://github.com/org2blog/org2blog][org2blog]] package, which I'm
+using to write my posts in emacs.
+
+In this blog, I'm hoping to keep track of tips and tricks I pick up as
+I work towards completing my PhD in the next few years. Topics will
+include:
+
+- Metabolomics/lipidomics
+- Machine learning
+- Multiomic integration
+- Tools of the bioinformatics trade (emacs/ESS, git, literate
+  programming, etc.)
+
+Additionally, I might post a little about some of my other
+hobbies. These include:
+
+- Aquariums (I breed freshwater shrimp)
+- Bicycling
+- Fantasy hockey
+- [[https://lichess.org/@/cybersaurus3000][Chess]]
+
+That's about it for now! Stay tuned for more details on my research
+and why I prefer emacs over Rstudio.

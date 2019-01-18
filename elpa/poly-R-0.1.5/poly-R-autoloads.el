@@ -3,7 +3,7 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "poly-R" "poly-R.el" (23608 56638 134807 475000))
+;;;### (autoloads nil "poly-R" "poly-R.el" (23618 8083 833072 901000))
 ;;; Generated autoloads from poly-R.el
  (autoload 'poly-noweb+R-mode "poly-R")
 

@@ -3,8 +3,8 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "poly-noweb" "poly-noweb.el" (23608 56637 752757
-;;;;;;  64000))
+;;;### (autoloads nil "poly-noweb" "poly-noweb.el" (23618 8083 438217
+;;;;;;  13000))
 ;;; Generated autoloads from poly-noweb.el
  (autoload 'poly-noweb-mode "poly-noweb")
 

@@ -4,7 +4,7 @@
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
 ;;;### (autoloads nil nil ("metaweblog-pkg.el" "metaweblog.el" "test-metaweblog.el")
-;;;;;;  (23567 11923 8328 900000))
+;;;;;;  (23618 8914 447357 480000))
 
 ;;;***
 

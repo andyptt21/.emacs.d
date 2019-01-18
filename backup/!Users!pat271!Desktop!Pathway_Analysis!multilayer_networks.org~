@@ -1,0 +1,36 @@
+Multilayer Networks by Mason Porter
+
+* Review Articles
+** Review: Multilayer networks, Journal of Complex Networks. Kivela, Barthelemy, Gleeson, Moreno 
+** Multilayer Networks in a Nutshell (2018)
+
+* Multilayer network basics
+** Multiple dimensions
+*** e.g. Different time points, Different relationships
+*** Intralayer vs interlayer relationships
+*** Node-colored vs edge-colored network
+** M = Multilayer network
+** V = set of nodes
+** L = sequence of sets of possible layers
+** E = sets of edges (?)
+** Represented by an /adjacency tensor/  :: This in turn can be turned into a "flattened" multilayer network, or a supra-adjacency representation
+
+* Multimodal transportation networks
+** Gallotti & Barthelemy /"Anatomy and Efficiency of Urban Multidimensional Mobility"/
+** Used to compare probability of respecting time-tables based on distance travelled and transportation mode
+
+* Community Structure
+** Communities are Cohesive groups/modules
+*** Trying to derive macroscale information from microscale data
+** Rigid vs fuzzy clustering
+** One approach is to optimize a quality function like a modularity function
+** Community detection tends to be NP-hard
+** Example algorithms include spectral and Louvain
+
+* Roll-Call Voting Networks in Congress
+** Intra-Layer connections are the number of times two senators voted the same way on a bill
+** Inter-layer connections are different bills
+** Data stretches from 1800-today
+** Able to detect communities in this data
+
+* R package: MuxVix

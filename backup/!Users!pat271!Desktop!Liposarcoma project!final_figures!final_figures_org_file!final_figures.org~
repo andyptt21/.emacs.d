@@ -1,0 +1,288 @@
+#+TITLE: Final figures for liposarcoma paper
+#+AUTHOR: Andrew Patt
+#+DESCRIPTION: These are just the figures which will be in the final paper, with minor edits to ensure consistency of font size, etc.
+
+# As a reminder: interactively edit R code with C-c '
+# Reference tutorial:[[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html][link]]
+# Toggle inline image display with C-c i
+
+* Figure 1 "Tumors with high or low MDM2 amplification show distinct metabolomics profiles"
+** Figure 1B
+#+begin_src R :session "global" :file Figure1B.pdf :results output graphics :export both
+  library(ggplot2)
+#+end_src
+
+** Figure 1C
+#+header: :width 8 :height 10 :R-dev-args
+#+begin_src R :session "global" :file Figure1C.pdf :results graphics output :exports results
+  load("~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/figure1C.Rda")
+
+  ggplot(resMDM2HiLoSig,aes(x=reorder(name,log2fc), y=log2fc, fill = Class)) +
+      ggtitle("Significant MDM2 Hi/Lo Metabolites") +
+      geom_bar(stat = "identity", colour = "black") +
+      coord_flip() +
+      theme_bw() +
+      ylab("log2(mean(MDM2hi)-mean(MDM2lo))") +
+      theme(axis.title.y = element_blank(),axis.title.x = element_text(size=12,face="bold"),axis.text.y=element_text(size=10,face="bold"),axis.text.x=element_text(size=10)) +
+	  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+      scale_fill_manual(values=as.vector(myPalette)[c(1,2,5,3,4,6,7)]) +
+      theme(legend.position="bottom",legend.direction="vertical")
+#+end_src
+
+#+RESULTS:
+[[file:Figure1C.pdf]]
+* Figure 2: "DDLPS cell lines with high MDM2 amplification respond poorly to MDM2 inhibition" 
+** Figure 2B
+#+header: :width 10 :height 4 :R-dev-args
+#+begin_src R :session "global" :file Figure2B.pdf :results output graphics :exports results
+  library(cowplot)
+  load("~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/figure2B.Rda")
+
+  p <- volcano_plotter(metabMDM2hi,c(which(MDM2hiCells=="141RG5"),which(MDM2hiCells=="246RG5")),
+		       c(which(MDM2hiCells=="141"),which(MDM2hiCells=="246")),
+		       "MDM2 High Cells") +
+      theme(plot.title = element_text(size=10)) +
+      xlab("log2(mean(Treated))-log2(mean(Untreated))")
+  p2 <- volcano_plotter(metabMDM2lo,c(which(MDM2loCells=="863RG5"),which(MDM2loCells=="815RG5")),
+			c(which(MDM2loCells=="815"),which(MDM2loCells=="863")),
+			"MDM2 Low Cells") +
+      theme(plot.title = element_text(size=10))+
+      xlab("log2(mean(Treated))-log2(mean(Untreated))")
+
+  plot_grid(p,p2,align="h",nrow=1)
+#+end_src
+
+#+RESULTS:
+[[file:Figure2B.pdf]]
+
+** Figure 2C
+#+header: :width 6 :height 10 :R-dev-args
+#+begin_src R :session "global" :file Figure2C.pdf :results output graphics :exports results
+  load("~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/figure2C.Rda")
+
+  ggplot(mdm2Hi_Treated_vs_UntreatedSig,aes(x=reorder(name,log2fc), y=log2fc, fill = Class)) +
+      ggtitle("MDM2 High Cells") +
+      geom_bar(stat = "identity", colour = "black") +
+      coord_flip() +
+      theme_bw() +
+      ylab("log2(mean(Treated)-mean(Untreated))") +
+      theme(axis.title.y = element_blank(),axis.title.x = element_text(size=12,face="bold"),axis.text.y=element_text(size=10,face="bold"),axis.text.x=element_text(size=10)) +
+	  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+      scale_fill_manual(values=as.vector(myPalette)[c(3,1,2,4,5)]) +
+	theme(legend.position="bottom",legend.direction="vertical")
+#+end_src
+
+#+RESULTS:
+[[file:Figure2C.pdf]]
+
+** Figure 2D
+#+header: :width 6 :height 12 :R-dev-args
+#+begin_src R :session "global" :file Figure2D.pdf :results output graphics :exports results
+  load("~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/figure2D.Rda")
+  ggplot(mdm2Lo_Treated_vs_UntreatedSig,aes(x=reorder(name,log2fc), y=log2fc, fill = Class)) +
+      ggtitle("MDM2 Low Cells") +
+      geom_bar(stat = "identity", colour = "black") +
+      coord_flip() +
+      theme_bw() +
+      ylab("log2(mean(Treated)-mean(Untreated))") +
+      theme(axis.title.y = element_blank(),axis.title.x = element_text(size=12,face="bold"),axis.text.y=element_text(size=8,face="bold"),axis.text.x=element_text(size=10)) +
+	  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+      scale_fill_manual(values=as.vector(myPalette)[c(1,5,3,4,6,2,7)]) +
+      theme(legend.position="bottom",legend.direction="vertical")
+#+end_src
+
+#+RESULTS:
+[[file:Figure2D.pdf]]
+* Figure 3: "DDLPS cell lines respond to cholesterol inhibition"
+** Figure 3B
+*** Custom version of volcano plotter 
+    #+begin_src R :session "global" :exports none
+      volcano_plotter <- function(df,gp1,gp2,title){
+	  T_test_results<-mydiff(df,gp1,gp2)
+	  ## Make insignificant points smaller and more transparent
+	  T_test_results$significant = abs(T_test_results$log2fc) > 1 & -log10(T_test_results$mypadj) > -log10(0.1)
+	  T_test_results$size <- ifelse(T_test_results$significant,4,2)
+
+	  ## Color code by lipid class
+	  T_test_results$MainClass<-lipidomic_key$`LM Main Class`[match(T_test_results$name,lipidomic_key$name)]
+	  palette_names<-sort(unique(T_test_results$MainClass))
+	  T_test_results$MainClass<-sapply(1:nrow(T_test_results),function(x){
+	      ifelse(T_test_results$significant[x],
+		     return(T_test_results$MainClass[x]),return("Not Significant"))
+	  })
+
+	  legend_labels<-sort(unique(T_test_results$MainClass))
+
+	  palette<-c(brewer.pal(12,"Paired"),"#40E0D0","violet","grey80")
+	  names(palette)<-c(palette_names,"Not Significant")
+	  palette<-palette[unique(T_test_results$MainClass)]
+
+	  if(any(T_test_results$significant)){
+	      g = ggplot(data=T_test_results, aes(x=log2fc, y=-log10(mypadj), colour=MainClass)) +
+		  geom_point(alpha=0.7,aes(size=size, text=name)) +
+		  scale_color_manual(values = palette,
+				     ##na.value="grey80",
+				     labels=legend_labels,
+				     name="LipidMaps Main Class") +
+		  theme_bw() +
+		  ggtitle(title) +
+		  theme(plot.title = element_text(hjust = 0.5)) +
+		  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+		  ylab("-log10 p-value") +
+		  geom_hline(yintercept = -log10(0.1),lty = 2) +
+		  geom_vline(xintercept = 1, lty = 2) +
+		  geom_vline(xintercept = -1, lty = 2) +
+		  scale_size(range=c(2,4)) +
+		  guides(size=FALSE)
+	  }else{
+	      g = ggplot(data=T_test_results, aes(x=log2fc, y=-log10(mypadj))) +
+		  geom_point(alpha=0.4,aes(text=name)) +
+		  scale_color_manual(values = palette) +
+		  theme_bw() +
+		  ggtitle(title) +
+		  theme(plot.title = element_text(hjust = 0.5)) +
+		  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+		  ylab("-log10 p-value") +
+		  geom_hline(yintercept = -log10(0.1),lty = 2) +
+		  geom_vline(xintercept = 1, lty = 2) +
+		  geom_vline(xintercept = -1, lty = 2)
+	      return(g)
+	  }
+
+	  T_test_results_sig<-T_test_results[T_test_results$significant,]
+	  text_size<-round(min(20,350/nrow(T_test_results_sig)),digits=0)
+	  barplot<-ggplot(T_test_results_sig, aes(x=reorder(name,log2fc), y=log2fc ))+
+	      theme_bw() +
+	      geom_bar(stat="identity",colour="black",aes(fill = MainClass)) +
+	      scale_fill_manual(values = palette) +
+	      coord_flip() +
+	      ylab("log2fc") +
+	      theme(axis.title.y = element_blank(),axis.title.x = element_text(size=12,face="bold"),axis.text.y=element_text(size=text_size),axis.text.x=element_text(size=10)) +
+	      theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+
+	  return(list(g,barplot))
+      }
+    #+end_src
+
+*** Figure
+    #+header: :width 12 :height 6 :R-dev-args
+    #+begin_src R :session "global" :file Figure3B.pdf :results output graphics :exports results
+      library(readxl)
+      library(RColorBrewer)
+      load("~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/figure3.Rda")
+      lipidomic_key<-read_xlsx("~/Desktop/Liposarcoma project/Lipidomics_key.xlsx",sheet=1)
+      p1<-volcano_plotter(LM_area,
+			  groupMDM2Hi_Treated_DMEM,
+			  groupMDM2Lo_Treated_DMEM,
+			  "Treated Cells Grown in Normal Media")[[1]] +
+	  xlab("log2(mean(MDM2Hi))-log2(mean(MDM2Lo))")
+
+      p2<-volcano_plotter(LM_area,
+			  groupMDM2Hi_Treated_STDP,
+			  groupMDM2Lo_Treated_STDP,
+			  "Treated Cells Grown in Sterol-Deprived Media")[[1]] +
+	  xlab("log2(mean(MDM2Hi))-log2(mean(MDM2Lo))") +
+	  theme(legend.position="none")
+      plot_grid(p2, p1, align="h", nrow=1, rel_widths = c(0.6,1))
+    #+end_src
+
+    #+RESULTS:
+    [[file:Figure3B.pdf]]
+
+** Figure 3C (Treated vs. Untreated lipids, MDM2 low, sterol-deprived media)
+   #+header: :width 8 :height 12 :R-dev-args
+   #+begin_src R :session "global" :file Figure3C.pdf :results output graphics :exports results
+     volcano_plotter(LM_area,
+		     groupMDM2Lo_Treated_STDP,
+		     groupMDM2Lo_Untreated_STDP,
+		     "Treated Cells Grown in Normal Media")[[2]] +
+	 ylab("log2(mean(MDM2Hi))-log2(mean(MDM2Lo))") +
+	 theme(legend.position="bottom",legend.direction="vertical",axis.text.y = element_text(face="bold"))
+   #+end_src
+
+   #+RESULTS:
+   [[file:Figure3C.pdf]]
+* Figure 4: "Lipidome analysis in DDLPS cell lines"
+** Figure 4A
+   #+header: :width 12 :height 8 :R-dev-args
+   #+begin_src R :session "global" :file Figure4A.pdf :results output graphics :exports results
+      library(tidyverse)
+      load("~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/figure4a.Rda")
+      lipid_BP_DF %>%
+	  #filter(dataset=="Lipidomic") %>%
+	  mutate(lipid_main_classes = factor(lipid_main_classes, levels =unique(lipid_main_classes))) %>%
+	  arrange(lipid_main_classes) %>%
+	  ggplot(aes(x=lipid_main_classes,y=Freq)) +
+	  geom_bar(stat = "identity",position="dodge",aes(fill=dataset),colour="black") +
+	  scale_fill_manual(values = c("orange","royalblue")) +
+	  xlab("") +
+	  ylab("# of species") +
+	  scale_y_continuous(limits=c(0,250)) +
+	  ggtitle("Lipid Panel Composition by LipidMaps main class") +
+	  geom_text(x=4.5,y=230,label = "Both Panels") +
+	  geom_text(x=12,y=230,label = "Lipidomic Panel Only") +
+	  geom_text(x=18,y=230,label = "Metabolomic Panel Only") +
+	  geom_vline(xintercept=9.5) +
+	  geom_vline(xintercept=14.5) +
+	  guides(fill=guide_legend(title="")) +
+	  theme(axis.line = element_line(colour = "black"),
+		axis.text.x = element_text(angle = 45, hjust = 1,face="bold"),
+		axis.title=element_text(size=12,face="bold"),
+		plot.title=element_text(size=14,face="bold"),
+		axis.text=element_text(size=14),
+		panel.grid.minor = element_blank(),
+		panel.background = element_blank())
+
+   #+end_src
+   #+RESULTS:
+   [[file:Figure4A.pdf]]
+** Figure 4B
+   #+header: :width 12 :height 8 :R-dev-args
+   #+begin_src R :session "global" :file Figure4B.pdf :results output graphics :exports results
+     p1<-volcano_plotter(LM_area,
+			 groupMDM2Hi_Untreated_DMEM,
+			 groupMDM2Lo_Untreated_DMEM,
+			 "Untreated Cells Grown in Normal Media")[[1]] +
+	 xlab("log2(mean(MDM2Hi))-log2(mean(MDM2Lo))")
+     p2<-volcano_plotter(LM_area,
+			 groupMDM2Hi_Untreated_STDP,
+			 groupMDM2Lo_Untreated_STDP,
+			 "Treated Cells Grown in Sterol-Deprived Media")[[1]] +
+	 xlab("log2(mean(MDM2Hi))-log2(mean(MDM2Lo))") +
+	 theme(legend.position="none")
+     plot_grid(p2, p1, align="h", nrow=1, rel_widths = c(0.6,1))
+   #+end_src
+
+   #+RESULTS:
+   [[file:Figure4B.pdf]]
+
+** Figure 4C
+   #+header: :width 8 :height 12 :R-dev-args
+   #+begin_src R :session "global" :file Figure4C.pdf :results output graphics :exports results
+     volcano_plotter(LM_area,
+		     groupMDM2Lo_Treated_STDP,
+		     groupMDM2Lo_Untreated_STDP,
+		     "Treated Cells Grown in Normal Media")[[2]] +
+	 ylab("log2(mean(MDM2Hi))-log2(mean(MDM2Lo))") +
+	 theme(legend.position="bottom",legend.direction="vertical",axis.text.y = element_text(face="bold"))
+   #+end_src
+
+   #+RESULTS:
+   [[file:Figure4C.pdf]]
+
+** Figure 4D
+   #+header: :width 8 :height 12 :R-dev-args
+   #+begin_src R :session "global" :file Figure4D.pdf :results output graphics :exports results
+     volcano_plotter(LM_area,
+		     groupMDM2Lo_Treated_STDP,
+		     groupMDM2Lo_Untreated_STDP,
+		     "Treated Cells Grown in Normal Media")[[2]] +
+	 ylab("log2(mean(MDM2Hi))-log2(mean(MDM2Lo))") +
+	 theme(legend.position="bottom",legend.direction="vertical",axis.text.y = element_text(face="bold"))
+   #+end_src
+
+   #+RESULTS:
+   [[file:Figure4D.pdf]]
+* To do list
+** TODO Make bars in bar plots have same vertical height
+** TODO Remove black color from 2c

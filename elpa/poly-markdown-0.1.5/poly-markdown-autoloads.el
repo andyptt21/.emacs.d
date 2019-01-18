@@ -3,8 +3,8 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "poly-markdown" "poly-markdown.el" (23608 56637
-;;;;;;  21513 424000))
+;;;### (autoloads nil "poly-markdown" "poly-markdown.el" (23618 8082
+;;;;;;  692814 195000))
 ;;; Generated autoloads from poly-markdown.el
  (autoload 'poly-markdown-mode "poly-markdown")
 
