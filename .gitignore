@@ -1,4 +1,5 @@
 ~/.emacs.d/backup
+~/.emacs.d/auto-save-list
 ~/.emacs.d/games
 ~/.emacs.d/elisp/blog_and_osc_login.el
 ~/.emacs.d/tramp
