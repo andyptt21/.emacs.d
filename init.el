@@ -45,7 +45,7 @@
      ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(package-selected-packages
    (quote
-    (poly-R poly-markdown ess ess-view diminish use-package spacemacs-theme magit org org2blog openwith org-bullets markdown-mode markchars))))
+    (flycheck elpy poly-R poly-markdown ess ess-view diminish use-package spacemacs-theme magit org org2blog openwith org-bullets markdown-mode markchars))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -65,6 +65,17 @@
   :init (require 'ess-site)
   :config (ess-toggle-underscore nil))
 
+;; elpy (for python editing)
+(use-package elpy
+  :ensure t
+  :config (elpy-enable))
+
+;; flycheck for python syntax checking
+ (use-package flycheck
+   :config (when (require 'flycheck nil t)
+ 	    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+ 	    (add-hook 'elpy-mode-hook 'flycheck-mode)))
+
 ;; Org mode
  (use-package org
    :ensure org-plus-contrib
@@ -75,7 +86,8 @@
 	     (setq org-hide-emphasis-markers t)
 	     (org-babel-do-load-languages
 	      'org-babel-load-languages
-	      '((R . t)))
+	      '((R . t)
+		(python . t)))
 	     ;(setq org-startup-with-inline-images t)
 	     (setq org-log-done t)))
 
@@ -140,6 +152,14 @@
                                (lambda (fg) (set-face-foreground 'mode-line fg))
                                orig-fg))))
 
+;; Open up your init file for editing
+(global-set-key (kbd "C-c I") (lambda() (interactive)(find-file "~/.emacs.d/init.el")))
+
+;; autocomplete paired brackets (don't autocomplete '<')
+(electric-pair-mode 1)
+(setq electric-pair-inhibit-predicate
+      `(lambda (c)
+         (if (char-equal c ?\<) t (,electric-pair-inhibit-predicate c))))
 ;; Re-load your buffers from the previous session on startup
 ;;(desktop-save-mode 1)
 
@@ -252,3 +272,15 @@ BEG and END default to the buffer boundaries."
   (set-marker e nil)))
 (global-set-key (kbd "C-c b b") 'bjm-comment-box)
 
+;; Copy current line
+(defun copy-line (&optional arg)
+  "Do a kill-line but copy rather than kill.  This function directly calls
+    kill-line, so see documentation of kill-line for how to use it including prefix
+    argument and relevant variables.  This function works by temporarily making the
+    buffer read-only."
+  (interactive "P")
+  (let ((buffer-read-only t)
+	(kill-read-only-ok t))
+    (kill-line arg)))
+;; optional key binding
+(global-set-key "\C-c\C-k" 'copy-line)
