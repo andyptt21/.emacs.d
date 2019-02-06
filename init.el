@@ -45,36 +45,46 @@
      ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(package-selected-packages
    (quote
-    (popup-complete auto-complete spaceline-config persp-mode spaceline flycheck openwith org2blog elpy poly-R poly-markdown ess ess-view diminish use-package spacemacs-theme magit org org-bullets markdown-mode markchars))))
+    (exec-path-from-shell ess-smart-underscore pdf-tools org-ref popup-complete auto-complete spaceline-config persp-mode spaceline openwith org2blog elpy poly-R poly-markdown ess diminish use-package spacemacs-theme magit org org-bullets markdown-mode markchars))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ess-function-call-face ((t (:foreground "#a65200"))))
- '(font-lock-comment-face ((t (:background "#D3D3D3"))))
  '(org-table ((t (:background "#D8C3E5" :foreground "#655370")))))
+
+;; Ensure the correct $PATH variables are inherited on Mac
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Packages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ESS
 (use-package ess
-  :defer t
-  :init (require 'ess-site)
+  :ensure t
+  :init (require 'ess-r-mode)
   :config (ess-toggle-underscore nil))
+(add-to-list 'load-path "/elpa/ess-18.10.2")
+;;(setq inferior-R-program-name "/usr/local/bin/R")
 (setq ess-use-auto-complete t)
+(require 'auto-complete)
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/site-lisp/auto-complete/dict")
+(ac-config-default)
+(auto-complete-mode)
 
 ;; elpy (for python editing)
-(use-package elpy
-  :ensure t
-  :config (elpy-enable))
+ (use-package elpy
+   :ensure t
+   :config (elpy-enable))
 
 ;; flycheck for python syntax checking
- (use-package flycheck
-   :config (when (require 'flycheck nil t)
- 	    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
- 	    (add-hook 'elpy-mode-hook 'flycheck-mode)))
+;; Suspending for now, seems to freeze up python buffers and not helpful
+ ;; (use-package flycheck
+ ;;   :config (when (require 'flycheck nil t)
+ ;; 	    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+ ;; 	    (add-hook 'elpy-mode-hook 'flycheck-mode)))
 
 ;; Org mode
  (use-package org
@@ -91,23 +101,58 @@
 	     ;(setq org-startup-with-inline-images t)
 	     (setq org-log-done t)))
 
+;; Org Ref
+(use-package org-ref
+  :after org
+  :init
+  (setq reftex-default-bibliography '("~/Documents/emacs_files/references.bib"))
+  (setq org-ref-bibliography-notes "~/Documents/emacs_files/notes.org"
+	org-ref-default-bibliography '("~/Documents/emacs_files/references.bib")
+	org-ref-pdf-directory "~/Desktop/Papers_of_Interest/")
+
+  (setq helm-bibtex-bibliography "~/Documents/emacs_files/references.bib")
+  (setq org-latex-pdf-process
+	'("pdflatex %f" "bibtex %b" "pdflatex %f" "pdflatex %f"))
+  (setq helm-bibtex-library-path "~/Desktop/Papers_of_Interest/")
+
+  (setq helm-bibtex-pdf-open-function
+        (lambda (fpath)
+          (start-process "open" "*open*" "open" fpath)))
+  (setq helm-bibtex-notes-path "~/Documents/emacs_files/notes.org")
+  :config
+  (key-chord-define-global "uu" 'org-ref-cite-hydra/body)
+  ;; variables that control bibtex key format for auto-generation
+  ;; I want firstauthor-year-title-words
+  ;; this usually makes a legitimate filename to store pdfs under.
+  (setq bibtex-autokey-year-length 4
+        bibtex-autokey-name-year-separator "-"
+        bibtex-autokey-year-title-separator "-"
+        bibtex-autokey-titleword-separator "-"
+        bibtex-autokey-titlewords 2
+        bibtex-autokey-titlewords-stretch 1
+        bibtex-autokey-titleword-length 5))
+
 ;; Fancy org-bullets
 (use-package org-bullets
   :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 ;;spaceline
-(use-package spaceline
-  :ensure t)
-(require 'spaceline-config)
-(spaceline-spacemacs-theme)
+(use-package spaceline-config
+  :ensure spaceline
+  :config
+  (setq powerline-default-separator 'wave
+        spaceline-workspace-numbers-unicode t
+        spaceline-window-numbers-unicode t)
+  (spaceline-spacemacs-theme)
+  (spaceline-helm-mode)
+  (spaceline-info-mode))
 
-(use-package persp-mode
-  :ensure t)
+(use-package persp-mode)
 
 ;; ess-view, REQUIRES "TAD" CSV VIEWER APP
-(use-package ess-view
- :defer t
- :config (setq ess-view--spreadsheet-program "/Applications/Tad.app/Contents/MacOS/Tad"))
+;(use-package ess-view
+; :ensure t
+; :config (setq ess-view--spreadsheet-program "/Applications/Tad.app/Contents/MacOS/Tad"))
 
 ;; Markdown-mode (needed for Rmarkdown)
 (use-package markdown-mode
@@ -147,9 +192,9 @@
 (setq linum-format "%4d \u2502 ")
 
 ;; Set background to light gray
-(set-background-color "#DCDCDC")
-(set-face-attribute 'fringe nil :background "#DCDCDC" :foreground "#DCDCDC")
-(set-face-background 'linum "#DCDCDC")
+;;(set-background-color "#DCDCDC")
+;;(set-face-attribute 'fringe nil :background "#DCDCDC" :foreground "#DCDCDC")
+;;(set-face-background 'linum "#DCDCDC")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Settings
@@ -171,6 +216,7 @@
 (setq electric-pair-inhibit-predicate
       `(lambda (c)
          (if (char-equal c ?\<) t (,electric-pair-inhibit-predicate c))))
+(setq electric-pair-preserve-balance nil)
 ;; Re-load your buffers from the previous session on startup
 ;;(desktop-save-mode 1)
 
