@@ -1,0 +1,5 @@
+#install.packages('rsconnect')
+rsconnect::setAccountInfo(name='andyptt21', token='361501CAB128892BC1D9DAAD4E3AAAE6', secret='a0Va7vZiski9uR80nFsiqq36QKG5jsTbcAsEurrV')
+
+library(rsconnect)
+rsconnect::deployApp('/Users/pat271/Desktop/Fantasy_App_2018/')

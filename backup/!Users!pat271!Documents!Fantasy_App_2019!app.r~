@@ -1,0 +1,1580 @@
+library(shiny)
+library(plotrix)
+library(RColorBrewer)
+library(rvest)
+library(shinythemes)
+library(shinydashboard)
+library(ggplot2)
+library(lubridate)
+library(leaflet)
+library(plotly)
+
+date <- as.Date(Sys.Date())
+previous_sunday <- floor_date(date, "week")
+if(date==previous_sunday){
+  previous_sunday=previous_sunday-7
+}
+
+z_score<-function(x,mean,sd){
+  z<-(x-mean)/sd
+  return(z)
+}
+
+toSeconds <- function(x){
+  if (!is.character(x)) stop("x must be a character string of the form H:M:S")
+  if (length(x)<=0)return(x)
+  
+  unlist(
+    lapply(x,
+           function(i){
+             i <- as.numeric(strsplit(i,':',fixed=TRUE)[[1]])
+             if (length(i) == 3) 
+               i[1]*3600 + i[2]*60 + i[3]
+             else if (length(i) == 2) 
+               i[1]*60 + i[2]
+             else if (length(i) == 1) 
+               i[1]
+           }  
+    )  
+  )  
+} 
+
+locations <- read.csv("2018_divisions.csv")
+
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100)[1:n]
+}
+
+pal <- colorFactor(c("red","blue","forestgreen","gold"), domain = sort(unique(locations$X4.Division)))
+
+x.func <- function(x){ sub(".*\\((.*)\\).*", "\\1", x, perl=TRUE)}
+
+teamColors<-rainbow(n=12,s=.25)
+##############################
+# PLAYER GRAPH SETUP
+##############################
+# player_table_generator<-function(players_page){
+#   data_auto <-
+#     players_page %>%
+#     html_nodes("td") %>%
+#     html_text
+#   data_auto<-data_auto[-c(1:27)]  
+#   test<-list()
+#   for(i in 1:50){
+#     test_vector<-c()
+#     for(j in 1:23){
+#       test_vector<-c(test_vector,data_auto[(i-1)*23+j])
+#     }
+#     test[[i]]<-test_vector
+#   }
+#   test_frame_player<-as.data.frame(test)
+#   final_frame<-t(test_frame_player[c(1,5:20),])
+#   rownames(final_frame)<-c(1:50)
+#   colnames(final_frame)<-c("Player","Goals","Assists","Points","PlMi","PIM","PPP","SHG","ATOI","SOG",
+#                            "HIT","BLK","GS","W","SV","SO","GAA")
+#   
+#   names_vector<-lapply(final_frame[,1],strsplit, split = ",")
+#   names_vector<-sapply(names_vector,"[[",1)[1,]
+#   names_vector=gsub("*","",names_vector)
+#   final_frame[,1]<-names_vector
+#   
+#   final_frame_2<-data.frame(Player=final_frame[,1],Goals=as.numeric(final_frame[,2]),Assists=as.numeric(final_frame[,3]),
+#                             Points=as.numeric(final_frame[,4]),PlMi=as.numeric(final_frame[,5]),PIM=as.numeric(final_frame[,6]),
+#                             PPP=as.numeric(final_frame[,7]),SHG=as.numeric(final_frame[,8]),ATOI=final_frame[,9],SOG=as.numeric(final_frame[,10]),
+#                             HIT=as.numeric(final_frame[,11]),BLK=as.numeric(final_frame[,12]),GS=as.numeric(final_frame[,13]),
+#                             W=as.numeric(final_frame[,14]),SV=as.numeric(final_frame[,15]),SO=as.numeric(final_frame[,16]),
+#                             GAA=as.numeric(final_frame[,17])
+#   )
+#   return(final_frame_2)
+# }
+# 
+# page_1<-read_html("http://games.espn.com/fhl/playerrater?leagueId=21656&teamId=2")
+# page_2<-read_html("http://games.espn.com/fhl/freeagency?leagueId=21656&teamId=2&seasonId=2017#&seasonId=2017&context=freeagency&view=stats&version=currSeason&startIndex=50")
+# page_3<-read_html("http://games.espn.com/fhl/freeagency?leagueId=21656&teamId=2&seasonId=2017#&seasonId=2017&context=freeagency&view=stats&version=currSeason&startIndex=100")
+# page_4<-read_html("http://games.espn.com/fhl/freeagency?leagueId=21656&teamId=2&seasonId=2017#&seasonId=2017&context=freeagency&view=stats&version=currSeason&startIndex=150")
+# page_5<-read_html("http://games.espn.com/fhl/freeagency?leagueId=21656&teamId=2&seasonId=2017#&seasonId=2017&context=freeagency&view=stats&version=currSeason&startIndex=200")
+# page_6<-read_html("http://games.espn.com/fhl/freeagency?leagueId=21656&teamId=2&seasonId=2017#&seasonId=2017&context=freeagency&view=stats&version=currSeason&startIndex=250")
+# page_7<-read_html("http://games.espn.com/fhl/freeagency?leagueId=21656&teamId=2&seasonId=2017#&seasonId=2017&context=freeagency&view=stats&version=currSeason&startIndex=300")
+# 
+# table_1<-player_table_generator(page_1)
+# table_2<-player_table_generator(page_2)
+# table_3<-player_table_generator(page_3)
+# table_4<-player_table_generator(page_4)
+# table_5<-player_table_generator(page_5)
+# table_6<-player_table_generator(page_6)
+# table_7<-player_table_generator(page_7)
+# 
+# final_table<-rbind(table_1,table_2,table_3,table_4,table_5,table_6,table_7)
+# rownames(final_table)<-c(1:nrow(final_table))
+# 
+# final_table_plottable<-t(final_table)
+# 
+# colnames(final_table_plottable)<-final_table_plottable[1,]
+# final_table_plottable<-as.data.frame(final_table_plottable[-1,])
+
+##############################
+# FAs ONLY
+##############################
+# player_table_generator_FAs_only<-function(players_page){
+#   data_auto <-
+#     players_page %>%
+#     html_nodes("td") %>%
+#     html_text
+#   data_auto<-data_auto[-c(1:27)]  
+#   test<-list()
+#   for(i in 1:50){
+#     test_vector<-c()
+#     for(j in 1:23){
+#       test_vector<-c(test_vector,data_auto[(i-1)*23+j])
+#     }
+#     test[[i]]<-test_vector
+#   }
+#   test_frame_player<-as.data.frame(test)
+#   final_frame<-t(test_frame_player[c(1,3,5:20),])
+#   rownames(final_frame)<-c(1:50)
+#   colnames(final_frame)<-c("Player","Team","Goals","Assists","Points","PlMi","PIM","PPP","SHG","ATOI","SOG",
+#                            "HIT","BLK","GS","W","SV","SO","GAA")
+#   
+#   names_vector<-lapply(final_frame[,1],strsplit, split = ",")
+#   names_vector<-sapply(names_vector,"[[",1)[1,]
+#   names_vector=gsub("*","",names_vector)
+#   final_frame[,1]<-names_vector
+#   
+#   final_frame<-final_frame[which(final_frame[,2]=="FA"),]
+#   
+#   
+#   if(is.matrix(final_frame)){
+#     final_frame<-final_frame[,-2]
+#     final_frame_2<-data.frame(Player=final_frame[,1],Goals=as.numeric(final_frame[,2]),Assists=as.numeric(final_frame[,3]),
+#                               Points=as.numeric(final_frame[,4]),PlMi=as.numeric(final_frame[,5]),PIM=as.numeric(final_frame[,6]),
+#                               PPP=as.numeric(final_frame[,7]),SHG=as.numeric(final_frame[,8]),ATOI=final_frame[,9],SOG=as.numeric(final_frame[,10]),
+#                               HIT=as.numeric(final_frame[,11]),BLK=as.numeric(final_frame[,12]),GS=as.numeric(final_frame[,13]),
+#                               W=as.numeric(final_frame[,14]),SV=as.numeric(final_frame[,15]),SO=as.numeric(final_frame[,16]),
+#                               GAA=as.numeric(final_frame[,17])
+#     )
+#   } else if(is.character(final_frame)){
+#     final_frame<-final_frame[-2]
+#     final_frame_2<-data.frame(Player=final_frame[1],Goals=as.numeric(final_frame[2]),Assists=as.numeric(final_frame[3]),
+#                               Points=as.numeric(final_frame[4]),PlMi=as.numeric(final_frame[5]),PIM=as.numeric(final_frame[6]),
+#                               PPP=as.numeric(final_frame[7]),SHG=as.numeric(final_frame[8]),ATOI=final_frame[9],SOG=as.numeric(final_frame[10]),
+#                               HIT=as.numeric(final_frame[11]),BLK=as.numeric(final_frame[12]),GS=as.numeric(final_frame[13]),
+#                               W=as.numeric(final_frame[14]),SV=as.numeric(final_frame[15]),SO=as.numeric(final_frame[16]),
+#                               GAA=as.numeric(final_frame[17])
+#     )
+#   }
+#   return(final_frame_2)
+# }
+# 
+# table_1_FAs<-player_table_generator_FAs_only(page_1)
+# table_2_FAs<-player_table_generator_FAs_only(page_2)
+# table_3_FAs<-player_table_generator_FAs_only(page_3)
+# table_4_FAs<-player_table_generator_FAs_only(page_4)
+# table_5_FAs<-player_table_generator_FAs_only(page_5)
+# table_6_FAs<-player_table_generator_FAs_only(page_6)
+# table_7_FAs<-player_table_generator_FAs_only(page_7)
+# 
+# final_table_FAs<-rbind(table_1_FAs,table_2_FAs,table_3_FAs,table_4_FAs,table_5_FAs,table_6_FAs,table_7_FAs)
+# rownames(final_table_FAs)<-c(1:nrow(final_table_FAs))
+# 
+# final_table_plottable_FAs_only<-t(final_table_FAs)
+# 
+# colnames(final_table_plottable_FAs_only)<-final_table_plottable_FAs_only[1,]
+# final_table_plottable_FAs_only<-as.data.frame(final_table_plottable_FAs_only[-1,])
+
+##############################
+
+
+# player_plotter<-function(input,FAs_Only){
+#   if(FAs_Only==FALSE){
+#     player=as.numeric(as.vector(final_table_plottable[,input]))
+#     plotTitle=colnames(final_table_plottable)[input]
+#   } else{
+#     player=as.numeric(as.vector(final_table_plottable_FAs_only[,input]))
+#     plotTitle=colnames(final_table_plottable_FAs_only)[input]
+#   }
+#   if(player[12]==0){
+#     player<-player[-c(12:16)]
+#     for(i in 1:11){
+#       for(j in 1:11){
+#         if(j!=i&&player[i]==player[j]){
+#           player[i]=player[i]+.1
+#         }
+#       }
+#     }
+#     colors<-c()
+#     for(i in 1:11){
+#       if(as.numeric(player[i])>0){
+#         colors<-c(colors,"red")
+#       } else {
+#         colors<-c(colors,"blue")
+#       }
+#     }
+#     
+#     p<-ggplot(data=final_table_plottable[-c(12:16),], aes(x=factor(player,levels=player),y=player))+
+#       geom_bar(stat = "identity",fill=colors)
+#     print(
+#       p+geom_abline(intercept = 0,slope = 0)+xlab("")+ylab("Z Score")+labs(title = plotTitle)+
+#         theme(axis.text.x = element_text(angle = 70, hjust = 1,size=12,colour = colors),
+#               axis.title.x = element_text(size=14,face="bold"),
+#               axis.title.y = element_text(size=14,face="bold"),
+#               plot.title = element_text(size = 20, face = "bold"))+
+#         scale_x_discrete(labels=rownames(final_table_plottable)[1:11])
+#     )
+#   } else{
+#     player<-player[-c(1:11)]
+#     for(i in 1:5){
+#       if(player[i]==0){
+#         player[i]=-i*.001
+#       }
+#     }
+#     colors<-c()
+#     for(i in 1:5){
+#       if(as.numeric(player[i])>0){
+#         colors<-c(colors,"red")
+#       } else {
+#         colors<-c(colors,"blue")
+#       }
+#     }
+#     
+#     p<-ggplot(data=final_table_plottable[-c(1:11),], aes(x=factor(player,levels=player),y=player))+
+#       geom_bar(stat = "identity",fill=colors)
+#     print(
+#       p+geom_abline(intercept = 0,slope = 0)+xlab("")+ylab("Z Score")+labs(title = plotTitle)+
+#         theme(axis.text.x = element_text(angle = 70, hjust = 1,size=12,colour = colors),
+#               axis.title.x = element_text(size=14,face="bold"),
+#               axis.title.y = element_text(size=14,face="bold"),
+#               plot.title = element_text(size = 20, face = "bold"))+
+#         scale_x_discrete(labels=rownames(final_table_plottable)[12:16])
+#     )
+#   }
+# }
+# 
+# differential_player_plotter<-function(input1,input2){
+#   if(length(input1)==1 && length(input2)==1){
+#     player=as.numeric(as.vector(final_table_plottable[,input1]))-as.numeric(as.vector(final_table_plottable[,input2]))
+#     colors<-c()
+#     for(i in 1:16){
+#       if(as.numeric(player[i])>0){
+#         colors<-c(colors,"red")
+#       } else {
+#         colors<-c(colors,"blue")
+#       }
+#     }
+#     bar<-barplot(player,main=paste0("Receive ",colnames(final_table_plottable)[input1],
+#                                     "\n for ",colnames(final_table_plottable)[input2]),col=colors,ylab="Z score")
+#     text(bar, par("usr")[3] - 0.2, labels = rownames(final_table_plottable), 
+#          srt = 60, pos = 2, xpd = TRUE,cex=1,col=colors)
+#     abline(v=13.31,lwd=2)
+#     abline(h=0,lwd=2)
+#   } else if(length(input1)==1 && length(input2)==2){
+#     player=as.numeric(as.vector(final_table_plottable[,input1]))-as.numeric(as.vector(final_table_plottable[,input2[1]]))-as.numeric(as.vector(final_table_plottable[,input2[2]]))
+#     colors<-c()
+#     for(i in 1:16){
+#       if(as.numeric(player[i])>0){
+#         colors<-c(colors,"red")
+#       } else {
+#         colors<-c(colors,"blue")
+#       }
+#     }
+#     title=paste0("Receive ",colnames(final_table_plottable)[input1],
+#                  "\n for ",colnames(final_table_plottable)[input2[1]]," and ",colnames(final_table_plottable)[input2[2]])
+#     bar<-barplot(player,main=title,col=colors,ylab="Z score")
+#     text(bar, par("usr")[3] - 0.2, labels = rownames(final_table_plottable), 
+#          srt = 60, pos = 2, xpd = TRUE,cex=1,col=colors)
+#     abline(v=13.31,lwd=2)
+#     abline(h=0,lwd=2)
+#   } else if(length(input2)==1&&length(input1)==2){
+#     player=as.numeric(as.vector(final_table_plottable[,input1[1]]))+as.numeric(as.vector(final_table_plottable[,input1[2]]))-as.numeric(as.vector(final_table_plottable[,input2]))
+#     colors<-c()
+#     for(i in 1:16){
+#       if(as.numeric(player[i])>0){
+#         colors<-c(colors,"red")
+#       } else {
+#         colors<-c(colors,"blue")
+#       }
+#     }
+#     bar<-barplot(player,main=paste0("Receive ",colnames(final_table_plottable)[input1][1]," and ", colnames(final_table_plottable)[input1][2],
+#                                     "\n for ",colnames(final_table_plottable)[input2]),col=colors,ylab="Z score")
+#     text(bar, par("usr")[3] - 0.2, labels = rownames(final_table_plottable), 
+#          srt = 60, pos = 2, xpd = TRUE,cex=1,col=colors)
+#     abline(v=13.31,lwd=2)
+#     abline(h=0,lwd=2)
+#   } else{
+#     player=as.numeric(as.vector(final_table_plottable[,input1[1]]))+as.numeric(as.vector(final_table_plottable[,input1[2]]))-as.numeric(as.vector(final_table_plottable[,input2[1]]))-as.numeric(as.vector(final_table_plottable[,input2[2]]))
+#     colors<-c()
+#     for(i in 1:16){
+#       if(as.numeric(player[i])>0){
+#         colors<-c(colors,"red")
+#       } else {
+#         colors<-c(colors,"blue")
+#       }
+#     }
+#     bar<-barplot(player,main=paste0("Receive ",colnames(final_table_plottable)[input1][1], " and ",colnames(final_table_plottable)[input1][2],
+#                                     "\n for ",colnames(final_table_plottable)[input2][1]," and ",colnames(final_table_plottable)[input2][2]),col=colors,ylab="Z score")
+#     text(bar, par("usr")[3] - 0.2, labels = rownames(final_table_plottable), 
+#          srt = 60, pos = 2, xpd = TRUE,cex=1,col=colors)
+#     abline(v=13.31,lwd=2)
+#     abline(h=0,lwd=2)
+#   }
+# }
+##############################
+
+##### WEEKLY STATS SETUP #####
+week_stats<-read_html('http://games.espn.com/fhl/scoreboard?leagueId=21656&seasonId=2018')
+week_stats_table<-
+  week_stats %>%
+  html_nodes("td") %>%
+  html_text
+week_stats_table<-week_stats_table[-c(1:7)]
+drop_indices<-c()
+for(i in 1:6){
+  for(j in 1:8){
+    drop_indices<-c(drop_indices,(42*i)+(8*(i-1))+j)
+  }
+}
+week_stats_table<-week_stats_table[-drop_indices]
+if(TRUE %in% grepl("Andys small 8=D",week_stats_table)){
+  j_record<-x.func(week_stats_table[which(grepl("Andys small 8=D",week_stats_table)==TRUE)])
+  week_stats_table[which(grepl("Andys small 8=D",week_stats_table)==TRUE)]<-paste0("Andys Enormous Dong (",j_record,")")
+}
+test<-list()
+for(i in 1:12){
+  test_vector<-c()
+  for(j in 1:21){
+    test_vector<-c(test_vector,week_stats_table[(i-1)*21+j])
+  }
+  test[[i]]<-test_vector
+}
+
+test_frame<-as.data.frame(test)
+test_frame<-test_frame[-c(2,14,20,21),]
+rownames(test_frame)<-c("Team","Goals","Assists","Points","PlMi","PIM","PPP","SHG","ATOI","SOG",
+                        "HIT","BLK","GS","W","SV","SO","GAA")
+test_frame2<-data.frame(as.character(test_frame[,1]))
+for(i in 2:ncol(test_frame)){
+  test_frame2[,i]<-as.character(test_frame[,i])
+}
+
+colnames(test_frame2)<-gsub("\\s*\\([^\\)]+\\)","",test_frame2[1,])
+colnames(test_frame2)[1]<-gsub("\\s*\\([^\\)]+\\)","",test_frame2[1,1])
+
+records<-sapply(test_frame2[1,],x.func)
+
+for(i in 1:length(records)){
+  #i = 1
+  temp<-strsplit(records[i],"-")
+  if(length(temp[[1]])==2){
+    records[i]<-2*as.numeric(temp[[1]][1])
+  }else if(length(temp[[1]])==3){
+    records[i]<-2*as.numeric(temp[[1]][1])+as.numeric(temp[[1]][3])
+  }
+}
+
+test_frame2<-test_frame2[-1,]
+test_frame3<-t(test_frame2)
+test_frame3[,8]<-paste("00:",as.character(test_frame3[,8]),sep="")
+test_frame3[,8]<-toSeconds(as.character(test_frame3[,8]))
+colnames(test_frame3)<-c("Goals","Assists","Points","PlMi","PIM","PPP","SHG","ATOI","SOG",
+                         "HIT","BLK","GS","W","SV","SO","GAA")
+weekly_cat_rankings<-test_frame3
+weekly_cat_rankings[,16]=-as.numeric(test_frame3[,16])
+for(i in 1:ncol(test_frame3)){
+  weekly_cat_rankings[,i]<-rank(-as.numeric(weekly_cat_rankings[,i]),ties.method = "average")
+}
+mean_weekly_cat_rankings<-matrix(0,ncol=1,nrow=12)
+rownames(mean_weekly_cat_rankings)<-rownames(test_frame3)
+for(i in 1:nrow(weekly_cat_rankings)){
+  mean_weekly_cat_rankings[i]<-mean(as.numeric(weekly_cat_rankings[i,]))
+}
+
+test_matrix<-matrix(0,nrow = nrow(test_frame3),ncol = ncol(test_frame3))
+for(i in 1:ncol(test_frame3)){
+  test_matrix[,i]<-as.numeric(test_frame3[,i])
+}
+weekly_team_z<-matrix(0,nrow = nrow(test_matrix),ncol = ncol(test_matrix))
+rownames(weekly_team_z)<-rownames(test_frame3)
+colnames(weekly_team_z)<-colnames(test_frame3)
+for(i in 1:nrow(test_matrix)){
+  for(j in 1:ncol(test_matrix)){
+    if(sd(test_matrix[,j])!=0){
+      weekly_team_z[i,j]<-z_score(test_matrix[i,j],mean(as.numeric(test_matrix[,j])),sd(as.numeric(test_matrix[,j])))
+    } else {
+      weekly_team_z[i,j]<-0
+    }
+  }
+}
+weekly_team_z[,16]=-weekly_team_z[,16]
+####################################
+
+#############################
+# Functions for growth curves
+#############################
+weekly_stat_table_generator<-function(URL){
+  week_stats<-read_html(URL)
+  week_stats_table<-
+    week_stats %>%
+    html_nodes("td") %>%
+    html_text
+  week_stats_table<-week_stats_table[-c(1:7)]
+  drop_indices<-c()
+  for(i in 1:6){
+    for(j in 1:8){
+      drop_indices<-c(drop_indices,(42*i)+(8*(i-1))+j)
+    }
+  }
+  week_stats_table<-week_stats_table[-drop_indices]
+  if(TRUE %in% grepl("Andys small 8=D",week_stats_table)){
+    j_record<-x.func(week_stats_table[which(grepl("Andys small 8=D",week_stats_table)==TRUE)])
+    week_stats_table[which(grepl("Andys small 8=D",week_stats_table)==TRUE)]<-paste0("Andys Enormous Dong (",j_record,")")
+  }
+  test<-list()
+  for(i in 1:12){
+    test_vector<-c()
+    for(j in 1:21){
+      test_vector<-c(test_vector,week_stats_table[(i-1)*21+j])
+    }
+    test[[i]]<-test_vector
+  }
+  
+  test_frame<-as.data.frame(test)
+  
+  result<-as.matrix(test_frame[21,])
+  for(i in 1:length(result)){
+    temp<-strsplit(result[i],"-")
+    if(2*as.numeric(temp[[1]][1])+as.numeric(temp[[1]][3]) > 16){
+      result[i]<- "Win"
+    }else if(2*as.numeric(temp[[1]][1])+as.numeric(temp[[1]][3]) < 16){
+      result[i]<- "Loss"
+    }else {
+      result[i]<- "Tie"
+    }
+  }
+  
+  test_frame<-test_frame[-c(2,14,20,21),]
+  rownames(test_frame)<-c("Team","Goals","Assists","Points","PlMi","PIM","PPP","SHG","ATOI","SOG",
+                          "HIT","BLK","GS","W","SV","SO","GAA")
+  test_frame2<-data.frame(as.character(test_frame[,1]))
+  for(i in 2:ncol(test_frame)){
+    test_frame2[,i]<-as.character(test_frame[,i])
+  }
+  
+  colnames(test_frame2)<-gsub("\\s*\\([^\\)]+\\)","",test_frame2[1,])
+  colnames(test_frame2)[1]<-gsub("\\s*\\([^\\)]+\\)","",test_frame2[1,1])
+  
+  records<-sapply(test_frame2[1,],x.func)
+  
+  for(i in 1:length(records)){
+    temp<-strsplit(records[i],"-")
+    if(length(temp[[1]])==2){
+      records[i]<-2*as.numeric(temp[[1]][1])
+    }else if(length(temp[[1]])==3){
+      records[i]<-2*as.numeric(temp[[1]][1])+as.numeric(temp[[1]][3])
+    }
+  }
+  
+  test_frame2<-test_frame2[-1,]
+  test_frame3<-t(test_frame2)
+  test_frame3[,8]<-paste("00:",as.character(test_frame3[,8]),sep="")
+  test_frame3[,8]<-toSeconds(as.character(test_frame3[,8]))
+  colnames(test_frame3)<-c("Goals","Assists","Points","PlMi","PIM","PPP","SHG","ATOI","SOG",
+                           "HIT","BLK","GS","W","SV","SO","GAA")
+  weekly_cat_rankings<-test_frame3
+  weekly_cat_rankings<-cbind(weekly_cat_rankings,t(result))
+  colnames(weekly_cat_rankings)[17]<-"Result"
+  return(weekly_cat_rankings)
+}  
+
+make_z_score_table<-function(weekly_cat_rankings){
+  weekly_cat_rankings<-weekly_cat_rankings[,-17]
+  weekly_cat_rankings[,16]=-as.numeric(weekly_cat_rankings[,16])
+  weekly_team_z<-matrix(0,nrow = nrow(weekly_cat_rankings),ncol = ncol(weekly_cat_rankings))
+  weekly_cat_rankings_numeric<-apply(weekly_cat_rankings,2,as.numeric)
+  rownames(weekly_cat_rankings_numeric)<-rownames(weekly_cat_rankings)
+  weekly_cat_rankings<-weekly_cat_rankings_numeric
+  rownames(weekly_team_z)<-rownames(weekly_cat_rankings)
+  colnames(weekly_team_z)<-colnames(weekly_cat_rankings)
+  for(i in 1:nrow(weekly_cat_rankings)){
+    for(j in 1:ncol(weekly_cat_rankings)){
+      if(sd(weekly_cat_rankings[,j])!=0){
+        weekly_team_z[i,j]<-z_score(weekly_cat_rankings[i,j],mean(as.numeric(weekly_cat_rankings[,j])),sd(as.numeric(weekly_cat_rankings[,j])))
+      } else {
+        weekly_team_z[i,j]<-0
+      }
+    }
+  }
+  weekly_team_z[,16]=-weekly_team_z[,16]
+  return(weekly_team_z)
+}
+
+plot_category_curve<-function(weekly_stats_list,team,category){
+  #team="Bold and Brash"
+  #category="Goals"
+  
+  cat_vector<-unlist(lapply(weekly_stats_list,function(x) return(x[team,category])))
+  result_vector<-unlist(lapply(weekly_stats_list,function(x) return(x[team,"result"])))
+  plot_df<-data.frame(Week =  1:length(cat_vector),value = as.numeric(cat_vector),result=result_vector)
+  mytitle=paste0(team,", ", category)
+  ggplot(plot_df, aes(x = Week, y = value,color = result)) + 
+    geom_point(size = 3) + 
+    geom_smooth(aes(group = 1), colour = "black") +
+    
+    theme_bw() +
+    ylab(label="Z score") +
+    xlab("Week Number") +
+    ggtitle(mytitle) +
+    geom_hline(yintercept = 0) +
+    theme(axis.line = element_line(colour = "black"),
+          axis.title=element_text(size=12,face="bold"),
+          plot.title=element_text(size=14,face="bold"),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank(),
+          legend.key=element_blank(),
+          legend.position = "none"
+    )
+}
+#############################
+
+
+#########
+# R Shiny
+#########
+ui <- dashboardPage(skin = "blue",
+                    dashboardHeader(title = "HML App"),
+                    dashboardSidebar(sidebarMenu(
+                      menuItem("Power Rankings", tabName = "Upload_File", icon = icon("flash")),
+                      menuItem("This Week's Results", tabName = "weekly_results", icon = icon("calendar")),
+                      menuItem("Seasonal Stats", tabName = "Rankings", icon = icon("bar-chart"))
+                      #menuItem("Free Agent Finder",tabName = "FA_finder",icon = icon("search")),
+                      #menuItem("Trade Helper", tabName = "Trade_Assessor", icon = icon("question")),
+                    )),
+                    dashboardBody(
+                      tags$head(
+                        tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
+                      ),
+                      tabItems(
+                      tabItem(tabName = "Upload_File",
+                              fluidRow(box(width = 12,
+                                           title = strong("Power Rankings"),
+                                           solidHeader = T,
+                                           status = "primary",
+                                           sidebarLayout(sidebarPanel(
+                                             selectInput("power_rank_plot_selection","Category",choices = c("Power Rankings",
+                                                                                                            "Standings",
+                                                                                                            "Power Rank vs. Standing",
+                                                                                                            "Skater Rank",
+                                                                                                            "Goalie Rank"),
+                                                         selected = "Power Rank vs. Standing"),
+                                             tableOutput('power_rankings_table')
+                                           ),
+                                           mainPanel(
+                                             plotlyOutput('power_rankings_barplot',height = "500px")
+                                           )
+                                           ))),
+                              fluidRow(
+                              box(width = 12,
+                                  title = strong("Leaderboard"),
+                                  solidHeader = T,
+                                  status = "primary",
+                                          fluidRow(
+                                            #column(width=8,offset=1,tableOutput('contents'))
+                                            #titlePanel("Rankings Breakdown"),
+                                            column(width=12,
+                                              dataTableOutput('category_rankings')
+                                            )
+                                          )
+                                             )),
+                              
+                              fluidRow(box(width = 9,
+                                           title = strong("Division Map"),
+                                           solidHeader = T,
+                                           status = "primary",
+                              leafletOutput("mymap")),
+                              box(width = 3,
+                                  title = strong("Manual Data Entry"),
+                                  solidHeader = T,
+                                  status = "primary",
+                                radioButtons('toggleFile','Automatic data entry?',choices = c("Yes","No"),selected = "Yes"),
+                                fileInput('file1', 'Choose file to upload',
+                                          accept = c(
+                                            'text/csv',
+                                            'text/comma-separated-values',
+                                            '.csv'
+                                          )
+                                )
+                              ))
+                              
+
+                      ),
+                      tabItem(tabName = "Rankings",
+                              tags$head(
+                                tags$style(type="text/css", ".dataTables_filter {display: none;    }"
+                                )
+                              ),
+                              fluidRow(box(width = 12,
+                                           title = strong("Performance Tracker"),
+                                           solidHeader = T,
+                                           status = "primary",
+                                           tags$head(tags$style(type="text/css", "
+             			                                    #loadmessage {
+                                                                position: fixed;
+                                                                top: 50px;
+                                                                left: 0px;
+                                                                width: 100%;
+                                                                padding: 5px 0px 5px 0px;
+                                                                text-align: center;
+                                                                font-weight: bold;
+                                                                font-size: 100%;
+                                                                color: #000000;
+                                                                background-color: #FF0000;
+                                                                z-index: 105;
+                                                                }
+                                                                ")),
+                                           conditionalPanel(condition="$('html').hasClass('shiny-busy')",
+                                                            tags$div("Fetching data...",id="loadmessage")),
+                                           sidebarLayout(
+                                             sidebarPanel(width = 4,
+                                                          actionButton('GetPTList', "Get Seasonal Data"),
+                                                          selectInput('team_selection_PT',"Team:",choices = "Need to get data"),
+                                                          selectInput('cat_selection_PT',"Category:",choices = "Need to get data")
+                                             ),
+                                             mainPanel(
+                                               plotlyOutput('PT_plot',height = "500px")
+                                             )
+                                           ))),
+                              fluidRow(box(width = 12,
+                                           title = strong("Team Barplots"),
+                                           solidHeader = T,
+                                           status = "primary",
+                              sidebarLayout(
+                                sidebarPanel(width = 4,
+                                             selectInput('team_selection',"Your team is row #",choices = c(1:12))
+                                ),
+                                mainPanel(
+                                  plotlyOutput('team_barplot',height = "500px")
+                                )
+                              ))),
+                              fluidRow(box(width = 12,
+                                           title = strong("Category Standings"),
+                                           solidHeader = T,
+                                           status = "primary",
+                                           sidebarLayout(
+                                             sidebarPanel(width = 4,
+                                                          selectInput('cat_selection',"Scoring Category",
+                                                                      choices = c("Goals","Assists","Points","PlMi","PIM","PPP","SHG","ATOI","SOG",
+                                                                                  "HIT","BLK","GS","W","SV","SO","GAA"))
+                                             ),
+                                             mainPanel(
+                                               plotlyOutput('cat_barplot',height = "500px")
+                                             )
+                                           ))),
+                              fluidRow(box(width = 12,
+                                           title = strong("Category Z Score Distribution"),
+                                           solidHeader = T,
+                                           status = "primary",
+                              fluidRow(
+                                column(width = 12,
+                                plotlyOutput('total_boxplot',height = "500px")
+                              ))))
+
+                      ),
+                      # tabItem(tabName = "Trade_Assessor",
+                      #         fluidRow(column(width=6,
+                      #                         h1("Your Team")),
+                      #                  column(width = 4,offset = 1,
+                      #                         h1("Trade Partner's Team"))),
+                      #         column(width = 5,
+                      #                checkboxGroupInput('sortPlayersBy1', 'Sort player 1 dropdown results by',choices = rownames(final_table_plottable),inline = TRUE),
+                      #                selectInput('tradePlayer1',"Player 1",choices=as.vector(final_table$Player)),
+                      #                plotOutput('player1_plot',height = "250px"),
+                      #                checkboxGroupInput('sortPlayersBy2', 'Sort player 2 dropdown results by',choices = rownames(final_table_plottable),inline = TRUE),
+                      #                selectInput('tradePlayer2',"Player 2",choices=c("--",as.vector(final_table$Player)),selected = as.vector(final_table$Player)[2]),
+                      #                plotOutput('player2_plot',height = "250px")
+                      #         ),
+                      #         column(width = 5, offset = 2,
+                      #                checkboxGroupInput('sortPlayersBy3', 'Sort player 1 dropdown results by',choices = rownames(final_table_plottable),inline = TRUE),
+                      #                selectInput('tradePlayer3',"Player 1",choices=as.vector(final_table$Player)),
+                      #                plotOutput('player3_plot',height = "250px"),
+                      #                checkboxGroupInput('sortPlayersBy4', 'Sort player 2 dropdown results by',choices = rownames(final_table_plottable),inline = TRUE),
+                      #                selectInput('tradePlayer4',"Player 2",choices=c("--",as.vector(final_table$Player)),selected = as.vector(final_table$Player)[2]),
+                      #                plotOutput('player4_plot',height = "250px")
+                      #         ),
+                      #         fluidRow(
+                      #           column(width=5,div(tableOutput('summary_trade_table_1'),style="font-size:300%")),
+                      #           column(width=5,offset = 2,div(tableOutput('summary_trade_table_2'),style="font-size:300%"))
+                      #         ),
+                      #         fluidRow(
+                      #           plotOutput('player_diff_plot',height = "700px")
+                      #         )
+                      #         
+                      #         
+                      # ),
+                      tabItem(tabName = "weekly_results",
+                              fluidRow(box(width = 12,
+                                           title = strong("This Week's Results"),
+                                           solidHeader = T,
+                                           status = "primary",
+                              sidebarLayout(sidebarPanel(tableOutput('weekly_power_table')),
+                                            mainPanel(plotlyOutput('weekly_power_barplot',height='500px'))))),
+                              fluidRow(box(width = 12,
+                                           title = strong("Weekly Team Barplots"),
+                                           solidHeader = T,
+                                           status = "primary",
+                              sidebarLayout(sidebarPanel(selectInput('weeklyTeamSelect','Select your team',choices=rownames(weekly_team_z))),
+                                            mainPanel(plotlyOutput('weeklyTeamBarplot',height = "500px")))))
+                      )
+                      # tabItem(tabName = "FA_finder",
+                      #         tags$head(
+                      #           tags$style(
+                      #             HTML("#dashboard{margin-bottom:50000px;}")
+                      #           )
+                      #         ),
+                      #         titlePanel("Free Agent Finder"),
+                      #         checkboxGroupInput('sortFreeAgentsBy', 'Sort available players by',
+                      #                            choices = rownames(final_table_plottable_FAs_only),inline = TRUE),
+                      #         selectInput('freeAgent',"Player",choices=as.vector(final_table_FAs$Player)),
+                      #         plotOutput('freeAgentPlot',height = "500px"),
+                      #         hr(),
+                      #         fluidRow(column(width = 5,
+                      #                         h3("Current Top Free Agents")),
+                      #                  column(width = 5, offset = 2,
+                      #                         actionButton("updateFAplots","Update Plots Based on Search Results!"))),
+                      #         fluidRow(
+                      #           column(width = 5,
+                      #                  plotOutput('topAgentPlot_1'),
+                      #                  plotOutput('topAgentPlot_2'),
+                      #                  plotOutput('topAgentPlot_3')
+                      #           ),
+                      #           column(width = 5, offset = 2,
+                      #                  plotOutput('topAgentPlot_4'),
+                      #                  plotOutput('topAgentPlot_5'),
+                      #                  plotOutput('topAgentPlot_6')
+                      #           )
+                      #         )
+                      #         
+                      #         
+                      # ),
+                    )
+                    )
+)
+
+
+
+
+
+
+server <- function(input, output, session) {
+  output$mymap <- renderLeaflet({
+    leaflet(data = locations) %>% addProviderTiles(providers$Esri.WorldStreetMap) %>%
+      addCircleMarkers(
+        color = ~pal(X4.Division),
+        stroke = TRUE, fillOpacity = 0.7,popup = ~paste0(Location,", ",X4.Division," Division"),
+        label = ~as.character(Name)
+      )
+  })
+  
+  dataframe<-reactive({
+    if(input$toggleFile=="Yes"){
+      standings_table <- read_html("http://games.espn.com/fhl/standings?leagueId=21656&seasonId=2018")
+      data_auto <-
+        standings_table %>%
+        html_nodes(".sortableRow td") %>%
+        html_text
+      
+      test<-list()
+      for(i in 1:12){
+        test_vector<-c()
+        for(j in 1:23){
+          test_vector<-c(test_vector,data_auto[(i-1)*23+j])
+        }
+        test[[i]]<-test_vector
+      }
+      test_frame<-as.data.frame(test)
+      final_frame<-t(test_frame[c(2,4:14,16:20),])
+      if("Andys small 8=D" %in% final_frame[,1]){
+        final_frame[which(final_frame[,1]=="Andys small 8=D"),1]<-"Andys Enormous Dong"
+      }
+      rownames(final_frame)<-c(1:12)
+      colnames(final_frame)<-c("Team","Goals","Assists","Points","PlMi","PIM","PPP","SHG","ATOI","SOG",
+                               "HIT","BLK","GS","W","SV","SO","GAA")
+      final_frame[,9]<-paste("00:",final_frame[,9],sep="")
+      final_frame_2<-data.frame(Team=final_frame[,1],Goals=as.numeric(final_frame[,2]),Assists=as.numeric(final_frame[,3]),
+                                Points=as.numeric(final_frame[,4]),PlMi=as.numeric(final_frame[,5]),PIM=as.numeric(final_frame[,6]),
+                                PPP=as.numeric(final_frame[,7]),SHG=as.numeric(final_frame[,8]),ATOI=final_frame[,9],
+                                SOG=as.numeric(final_frame[,10]),HIT=as.numeric(final_frame[,11]),BLK=as.numeric(final_frame[,12]),
+                                GS=as.numeric(final_frame[,13]),W=as.numeric(final_frame[,14]),SV=as.numeric(final_frame[,15]),SO=as.numeric(final_frame[,16]),
+                                GAA=as.numeric(final_frame[,17])
+      )
+      final_frame_2
+    }else if(is.null(input$file1)){
+      return(NULL)} 
+    else{
+      data<-read.csv(input$file1$datapath, header = FALSE, 
+                     col.names=c("x1","Team","x2","Goals","Assists","Points","PlMi","PIM","PPP","SHG","ATOI","SOG",
+                                 "HIT","BLK","x3","GS","W","SV","SO","GAA","x4","x5","x6"), 
+                     colClasses=c("NULL",NA,"NULL",rep(NA, times=11),"NULL",rep(NA,times=5),"NULL","NULL","NULL"),
+                     sep = ",", quote = '"')
+      data[,9]<-paste("00:",data[,9],sep="")
+      data
+    }
+  })
+##################################################
+# Trade and Free agent code
+##################################################
+  # sortPlayersIndices1<-reactive({
+  #   match(input$sortPlayersBy1,rownames(final_table_plottable))
+  # })
+  # observe({
+  #   input$sortPlayersBy1
+  #   sorting_vector<-c()
+  #   for(i in 1:ncol(final_table_plottable)){
+  #     sorting_vector<-c(sorting_vector,sum(as.numeric(as.vector(final_table_plottable[sortPlayersIndices1(),i]))))
+  #   }
+  #   final_table_plottable_resorted<-final_table_plottable[,order(sorting_vector,decreasing = TRUE)]
+  #   updateSelectInput(session, "tradePlayer1", 
+  #                     label = "Player 1", 
+  #                     choices = colnames(final_table_plottable_resorted))
+  # })
+  # 
+  # sortPlayersIndices2<-reactive({
+  #   match(input$sortPlayersBy2,rownames(final_table_plottable))
+  # })
+  # observe({
+  #   input$sortPlayersBy2
+  #   sorting_vector2<-c()
+  #   for(i in 1:ncol(final_table_plottable)){
+  #     sorting_vector2<-c(sorting_vector2,sum(as.numeric(as.vector(final_table_plottable[sortPlayersIndices2(),i]))))
+  #   }
+  #   final_table_plottable_resorted2<-final_table_plottable[,order(sorting_vector2,decreasing = TRUE)]
+  #   updateSelectInput(session, "tradePlayer2", 
+  #                     label = "Player 2", 
+  #                     choices = c("--",colnames(final_table_plottable_resorted2)),
+  #                     selected = "--")
+  # })
+  # sortPlayersIndices3<-reactive({
+  #   match(input$sortPlayersBy3,rownames(final_table_plottable))
+  # })
+  # observe({
+  #   input$sortPlayersBy3
+  #   sorting_vector3<-c()
+  #   for(i in 1:ncol(final_table_plottable)){
+  #     sorting_vector3<-c(sorting_vector3,sum(as.numeric(as.vector(final_table_plottable[sortPlayersIndices3(),i]))))
+  #   }
+  #   final_table_plottable_resorted3<-final_table_plottable[,order(sorting_vector3,decreasing = TRUE)]
+  #   updateSelectInput(session, "tradePlayer3", 
+  #                     label = "Player 1", 
+  #                     choices = c(colnames(final_table_plottable_resorted3)),
+  #                     selected=colnames(final_table_plottable_resorted3)[2])
+  # })
+  # sortPlayersIndices4<-reactive({
+  #   match(input$sortPlayersBy4,rownames(final_table_plottable))
+  # })
+  # observe({
+  #   input$sortPlayersBy4
+  #   sorting_vector4<-c()
+  #   for(i in 1:ncol(final_table_plottable)){
+  #     sorting_vector4<-c(sorting_vector4,sum(as.numeric(as.vector(final_table_plottable[sortPlayersIndices4(),i]))))
+  #   }
+  #   final_table_plottable_resorted4<-final_table_plottable[,order(sorting_vector4,decreasing = TRUE)]
+  #   updateSelectInput(session, "tradePlayer4", 
+  #                     label = "Player 2", 
+  #                     choices = c("--",colnames(final_table_plottable_resorted4)),
+  #                     selected = "--")
+  # })
+  # 
+  # sortFreeAgentIndices<-reactive({
+  #   match(input$sortFreeAgentsBy,rownames(final_table_plottable_FAs_only))
+  # })
+  # observe({
+  #   input$sortFreeAgentsBy
+  #   sorting_vector<-c()
+  #   for(i in 1:ncol(final_table_plottable_FAs_only)){
+  #     sorting_vector<-c(sorting_vector,sum(as.numeric(as.vector(final_table_plottable_FAs_only[sortFreeAgentIndices(),i]))))
+  #   }
+  #   final_table_plottable_resorted<-final_table_plottable_FAs_only[,order(sorting_vector,decreasing = TRUE)]
+  #   updateSelectInput(session, "freeAgent", 
+  #                     label = "Player", 
+  #                     choices = colnames(final_table_plottable_resorted))
+  # })
+  # sorted_freeAgent_table<-reactive({
+  #   sorting_vector<-c()
+  #   for(i in 1:ncol(final_table_plottable_FAs_only)){
+  #     sorting_vector<-c(sorting_vector,sum(as.numeric(as.vector(final_table_plottable_FAs_only[sortFreeAgentIndices(),i]))))
+  #   }
+  #   final_table_plottable_resorted<-final_table_plottable_FAs_only[,order(sorting_vector,decreasing = TRUE)]
+  #   final_table_plottable_resorted
+  # })
+  # 
+  # player1_input<-reactive({
+  #   match(input$tradePlayer1,as.vector(final_table$Player))
+  # })
+  # output$player1_plot<-renderPlot({
+  #   player_plotter(player1_input(),FALSE)
+  # })
+  # player2_input<-reactive({
+  #   if(input$tradePlayer2=="--"){
+  #     return(NULL)
+  #   } else{
+  #     match(input$tradePlayer2,as.vector(final_table$Player))
+  #   }
+  # })
+  # output$player2_plot<-renderPlot({
+  #   if(is.null(player2_input())){
+  #   } else{
+  #     print(player_plotter(player2_input(),FALSE))
+  #   }
+  # })
+  # player3_input<-reactive({
+  #   match(input$tradePlayer3,as.vector(final_table$Player))
+  # })
+  # output$player3_plot<-renderPlot({
+  #   print(player_plotter(player3_input(),FALSE))
+  # })
+  # player4_input<-reactive({
+  #   if(input$tradePlayer4=="--"){
+  #     return(NULL)
+  #   } else{
+  #     match(input$tradePlayer4,as.vector(final_table$Player))
+  #   }
+  # })
+  # output$player4_plot<-renderPlot({
+  #   if(is.null(player4_input())){
+  #   } else{
+  #     print(player_plotter(player4_input(),FALSE))
+  #   }
+  # })
+  # freeAgent_input<-reactive({
+  #   match(input$freeAgent,as.vector(colnames(final_table_plottable_FAs_only)))
+  # })
+  # output$freeAgentPlot<-renderPlot({
+  #   print(player_plotter(freeAgent_input(),TRUE))
+  # })
+  # output$topAgentPlot_1<-renderPlot(({
+  #   if (input$updateFAplots == 0)
+  #     return()
+  #   isolate({print(player_plotter(match(colnames(sorted_freeAgent_table())[1],as.vector(colnames(final_table_plottable_FAs_only))),TRUE))})
+  # }))
+  # output$topAgentPlot_2<-renderPlot(({
+  #   if (input$updateFAplots == 0)
+  #     return()
+  #   isolate({print(player_plotter(match(colnames(sorted_freeAgent_table())[2],as.vector(colnames(final_table_plottable_FAs_only))),TRUE))})
+  # }))
+  # output$topAgentPlot_3<-renderPlot(({
+  #   if (input$updateFAplots == 0)
+  #     return()
+  #   isolate({print(player_plotter(match(colnames(sorted_freeAgent_table())[3],as.vector(colnames(final_table_plottable_FAs_only))),TRUE))})
+  # }))
+  # output$topAgentPlot_4<-renderPlot(({
+  #   if (input$updateFAplots == 0)
+  #     return()
+  #   isolate({print(player_plotter(match(colnames(sorted_freeAgent_table())[4],as.vector(colnames(final_table_plottable_FAs_only))),TRUE))})
+  # }))
+  # output$topAgentPlot_5<-renderPlot(({
+  #   if (input$updateFAplots == 0)
+  #     return()
+  #   isolate({print(player_plotter(match(colnames(sorted_freeAgent_table())[5],as.vector(colnames(final_table_plottable_FAs_only))),TRUE))})
+  # }))
+  # output$topAgentPlot_6<-renderPlot(({
+  #   if (input$updateFAplots == 0)
+  #     return()
+  #   isolate({print(player_plotter(match(colnames(sorted_freeAgent_table())[6],as.vector(colnames(final_table_plottable_FAs_only))),TRUE))})
+  # }))
+  # output$player_diff_plot<-renderPlot({
+  #   if(is.null(player2_input())&&is.null(player4_input())){
+  #     print(differential_player_plotter(player3_input(),player1_input()))
+  #   } else if(is.null(player4_input())){
+  #     print(differential_player_plotter(player3_input(),c(player1_input(),player2_input())))
+  #   } else if(is.null(player2_input())){
+  #     print(differential_player_plotter(c(player3_input(),player4_input()),player1_input()))
+  #   }else {
+  #     print(differential_player_plotter(c(player3_input(),player4_input()),c(player1_input(),player2_input()))) 
+  #   }
+  # })
+  # output$summary_trade_table_1<-renderTable({
+  #   if(is.null(player2_input())&&is.null(player4_input())){
+  #     trade=matrix(as.numeric(as.vector(final_table_plottable[,player1_input()]))-as.numeric(as.vector(final_table_plottable[,player3_input()])))
+  #     rownames(trade)=rownames(final_table_plottable)
+  #     trade<-trade[order(trade),]
+  #     gains2<-names(trade)[1:2]
+  #     gains1<-names(trade)[c(16,15)]
+  #     netgains1=sum(as.numeric(as.vector(trade)))
+  #     netgains2=-sum(as.numeric(as.vector(trade)))
+  #     summary_table<-data.frame(Gets=c(paste(gains2[1],gains2[2],sep=", ")),
+  #                               NetGain=c(netgains2))
+  #     colnames(summary_table)<-c("Gets", "Net Gain")
+  #     summary_table
+  #   } else if(is.null(player4_input())){
+  #     trade=matrix(as.numeric(as.vector(final_table_plottable[,player1_input()]))+as.numeric(as.vector(final_table_plottable[,player2_input()]))-as.numeric(as.vector(final_table_plottable[,player3_input()])))
+  #     rownames(trade)=rownames(final_table_plottable)
+  #     trade<-trade[order(trade),]
+  #     gains2<-names(trade)[1:2]
+  #     gains1<-names(trade)[c(16,15)]
+  #     netgains1=sum(as.numeric(as.vector(trade)))
+  #     netgains2=-sum(as.numeric(as.vector(trade)))
+  #     summary_table<-data.frame(Gets=c(paste(gains2[1],gains2[2],sep=", ")),
+  #                               NetGain=c(netgains2))
+  #     colnames(summary_table)<-c("Gets", "Net Gain")
+  #     summary_table 
+  #   } else if(is.null(player2_input())){
+  #     trade=matrix(as.numeric(as.vector(final_table_plottable[,player1_input()]))-as.numeric(as.vector(final_table_plottable[,player3_input()]))-as.numeric(as.vector(final_table_plottable[,player4_input()])))
+  #     rownames(trade)=rownames(final_table_plottable)
+  #     trade<-trade[order(trade),]
+  #     gains2<-names(trade)[1:2]
+  #     gains1<-names(trade)[c(16,15)]
+  #     netgains1=sum(as.numeric(as.vector(trade)))
+  #     netgains2=-sum(as.numeric(as.vector(trade)))
+  #     summary_table<-data.frame(Gets=c(paste(gains2[1],gains2[2],sep=", ")),
+  #                               NetGain=c(netgains2))
+  #     colnames(summary_table)<-c("Gets", "Net Gain")
+  #     summary_table 
+  #   } else {
+  #     trade=matrix(as.numeric(as.vector(final_table_plottable[,player1_input()]))+as.numeric(as.vector(final_table_plottable[,player2_input()]))-as.numeric(as.vector(final_table_plottable[,player3_input()]))-as.numeric(as.vector(final_table_plottable[,player4_input()])))
+  #     rownames(trade)=rownames(final_table_plottable)
+  #     trade<-trade[order(trade),]
+  #     gains2<-names(trade)[1:2]
+  #     gains1<-names(trade)[c(16,15)]
+  #     netgains1=sum(as.numeric(as.vector(trade)))
+  #     netgains2=-sum(as.numeric(as.vector(trade)))
+  #     summary_table<-data.frame(Gets=c(paste(gains2[1],gains2[2],sep=", ")),
+  #                               NetGain=c(netgains2))
+  #     colnames(summary_table)<-c("Gets", "Net Gain")
+  #     summary_table
+  #   }
+  # })
+  # output$summary_trade_table_2<-renderTable({
+  #   if(is.null(player2_input())&&is.null(player4_input())){
+  #     trade=matrix(as.numeric(as.vector(final_table_plottable[,player1_input()]))-as.numeric(as.vector(final_table_plottable[,player3_input()])))
+  #     rownames(trade)=rownames(final_table_plottable)
+  #     trade<-trade[order(trade),]
+  #     gains2<-names(trade)[1:2]
+  #     gains1<-names(trade)[c(16,15)]
+  #     netgains1=sum(as.numeric(as.vector(trade)))
+  #     netgains2=-sum(as.numeric(as.vector(trade)))
+  #     summary_table<-data.frame(Gets=c(paste(gains1[1],gains1[2],sep=", ")),
+  #                               NetGain=c(netgains1))
+  #     colnames(summary_table)<-c("Gets", "Net Gain")
+  #     summary_table
+  #   } else if(is.null(player4_input())){
+  #     trade=matrix(as.numeric(as.vector(final_table_plottable[,player1_input()]))+as.numeric(as.vector(final_table_plottable[,player2_input()]))-as.numeric(as.vector(final_table_plottable[,player3_input()])))
+  #     rownames(trade)=rownames(final_table_plottable)
+  #     trade<-trade[order(trade),]
+  #     gains2<-names(trade)[1:2]
+  #     gains1<-names(trade)[c(16,15)]
+  #     netgains1=sum(as.numeric(as.vector(trade)))
+  #     netgains2=-sum(as.numeric(as.vector(trade)))
+  #     summary_table<-data.frame(Gets=c(paste(gains1[1],gains1[2],sep=", ")),
+  #                               NetGain=c(netgains1))
+  #     colnames(summary_table)<-c("Gets", "Net Gain")
+  #     summary_table 
+  #   } else if(is.null(player2_input())){
+  #     trade=matrix(as.numeric(as.vector(final_table_plottable[,player1_input()]))-as.numeric(as.vector(final_table_plottable[,player3_input()]))-as.numeric(as.vector(final_table_plottable[,player4_input()])))
+  #     rownames(trade)=rownames(final_table_plottable)
+  #     trade<-trade[order(trade),]
+  #     gains2<-names(trade)[1:2]
+  #     gains1<-names(trade)[c(16,15)]
+  #     netgains1=sum(as.numeric(as.vector(trade)))
+  #     netgains2=-sum(as.numeric(as.vector(trade)))
+  #     summary_table<-data.frame(Gets=c(paste(gains1[1],gains1[2],sep=", ")),
+  #                               NetGain=c(netgains1))
+  #     colnames(summary_table)<-c("Gets", "Net Gain")
+  #     summary_table 
+  #   } else {
+  #     trade=matrix(as.numeric(as.vector(final_table_plottable[,player1_input()]))+as.numeric(as.vector(final_table_plottable[,player2_input()]))-as.numeric(as.vector(final_table_plottable[,player3_input()]))-as.numeric(as.vector(final_table_plottable[,player4_input()])))
+  #     rownames(trade)=rownames(final_table_plottable)
+  #     trade<-trade[order(trade),]
+  #     gains2<-names(trade)[1:2]
+  #     gains1<-names(trade)[c(16,15)]
+  #     netgains1=sum(as.numeric(as.vector(trade)))
+  #     netgains2=-sum(as.numeric(as.vector(trade)))
+  #     summary_table<-data.frame(Gets=c(paste(gains1[1],gains1[2],sep=", ")),
+  #                               NetGain=c(netgains1))
+  #     colnames(summary_table)<-c("Gets", "Net Gain")
+  #     summary_table
+  #   }
+  # })
+  # observe({
+  #   updateSelectInput(session, "tradeTeam1", 
+  #                     label = "Select Team 1", 
+  #                     choices = as.character(dataframe_z()[,1]),
+  #                     selected = as.character(dataframe_z()[,1])[1])
+  # })
+  
+  # tradeTeam1_selected <- reactive({
+  #   match(input$tradeTeam1,dataframe()[,1])
+  # })
+  # 
+  # observe({
+  #   updateSelectInput(session, "tradeTeam2", 
+  #                     label = "Select Team 2", 
+  #                     choices = as.character(dataframe_z()[,1]),
+  #                     selected = as.character(dataframe_z()[,1])[2])
+  # })
+  # 
+  # tradeTeam2_selected <- reactive({
+  #   match(input$tradeTeam2,dataframe()[,1])
+  # })
+  
+  # output$trade_barplot1 <- renderPlot({
+  #   z_2<-dataframe_z()
+  #   rownames(z_2)<-dataframe_z()[,1]
+  #   z_2[,ncol(z_2)] = -as.numeric(z_2[,ncol(z_2)])
+  #   z_2<-z_2[,-1]
+  #   colors<-c()
+  #   for(i in 1:ncol(z_2)){
+  #     if(as.numeric(z_2[as.numeric(tradeTeam1_selected()),])[i]>0){
+  #       colors<-c(colors,"red")
+  #     } else {
+  #       colors<-c(colors,"blue")
+  #     }
+  #   }
+  #   bar<-barplot(as.numeric(z_2[as.numeric(tradeTeam1_selected()),1:11]),main=rownames(z_2)[as.numeric(tradeTeam1_selected())],
+  #                col=colors,ylim = c(-2.5,2.5))
+  #   text(bar, par("usr")[3] - 0.2, labels = colnames(z_2)[1:11], 
+  #        srt = 60, pos = 2, xpd = TRUE,cex=1,col=colors)
+  #   abline(h=0,lwd=2)
+  # })
+  
+  # output$trade_barplot2 <- renderPlot({
+  #   z_2<-dataframe_z()
+  #   rownames(z_2)<-dataframe_z()[,1]
+  #   z_2[,ncol(z_2)] = -as.numeric(z_2[,ncol(z_2)])
+  #   z_2<-z_2[,-1]
+  #   colors<-c()
+  #   for(i in 1:ncol(z_2)){
+  #     if(as.numeric(z_2[as.numeric(tradeTeam2_selected()),])[i]>0){
+  #       colors<-c(colors,"red")
+  #     } else {
+  #       colors<-c(colors,"blue")
+  #     }
+  #   }
+  #   bar<-barplot(as.numeric(z_2[as.numeric(tradeTeam2_selected()),1:11]),main=rownames(z_2)[as.numeric(tradeTeam2_selected())],
+  #                col=colors,ylim = c(-2.5,2.5))
+  #   text(bar, par("usr")[3] - 0.2, labels = colnames(z_2)[1:11], 
+  #        srt = 60, pos = 2, xpd = TRUE,cex=1,col=colors)
+  #   abline(h=0,lwd=2)
+  # })
+  # 
+##################################################
+  observe({
+    updateSelectInput(session, "team_selection",
+                      label = "Select your team",
+                      choices = as.character(dataframe_z()[,1]))
+  })
+
+  teamSelected <- reactive({
+    match(input$team_selection,dataframe()[,1])
+  })
+  
+  catSelected <- reactive({
+    match(input$cat_selection,colnames(dataframe()))-1
+  })
+  
+  output$contents <- renderTable(
+    dataframe(), hover=TRUE
+  )
+  
+  dataframe_z<-reactive({
+    if (is.null(input$file1)&&input$toggleFile=="No")
+      return(NULL)   
+    temp_dataframe<-dataframe()
+    temp_dataframe[,9]<-toSeconds(as.character(temp_dataframe[,9]))
+    rownames(temp_dataframe)<-temp_dataframe[,1]
+    temp_dataframe<-temp_dataframe[,-1]
+    temp_dataframe<-as.matrix(temp_dataframe)
+    data_z<-matrix(0,ncol = ncol(temp_dataframe),nrow=nrow(temp_dataframe))
+    rownames(data_z)=rownames(temp_dataframe)
+    colnames(data_z)=colnames(temp_dataframe)
+    
+    for(i in 1:nrow(temp_dataframe)){
+      for(j in 1:ncol(temp_dataframe)){
+        if(sd(temp_dataframe[,j])!=0){
+          data_z[i,j]<-round(z_score(temp_dataframe[i,j],mean(temp_dataframe[,j]),sd(temp_dataframe[,j])),2)
+        } else {
+          data_z[i,j]<-0
+        }
+      }
+    }
+    data_z<-cbind(rownames(data_z),data_z)
+    data_z
+  })
+  
+  output$z_table <- renderDataTable(
+    dataframe_z(),options=list(paging=FALSE,searching=FALSE)
+  )
+  
+  output$total_boxplot <- renderPlotly({
+    z_2<-dataframe_z()
+    rownames(z_2)<-dataframe_z()[,1]
+    z_2[,ncol(z_2)] = -as.numeric(z_2[,ncol(z_2)])
+    z_2<-z_2[,-1]
+    boxplot_list<-list()
+    for(i in 1:nrow(z_2)){
+      boxplot_list[[i]]<-as.numeric(z_2[i,])
+    }
+    boxplot_list_medians<-c()
+    for(i in 1:length(boxplot_list)){
+      boxplot_list_medians[i]<-median(boxplot_list[[i]])
+    }
+    boxplot_list<-boxplot_list[order(boxplot_list_medians,decreasing = TRUE)]
+    # par(mar=c(15,6,1,1))
+    # boxplot(boxplot_list, xaxt='n',col=teamColors[order(boxplot_list_medians,decreasing = TRUE)])
+    # labels<-rownames(z_2)[order(boxplot_list_medians,decreasing = TRUE)]
+    # text(seq(1, nrow(z_2)), par("usr")[3] - 0.2, labels = labels, 
+    #      srt = 60, pos = 2, xpd = TRUE,cex=1.2)
+    # abline(h=0,lty=2,lwd=2)
+    boxplot
+    p <- plot_ly(type = "box") %>%
+      add_boxplot(y = ~boxplot_list[[1]],name = rownames(z_2)[order(boxplot_list_medians,decreasing = TRUE)][1]) %>%
+      add_boxplot(y = ~boxplot_list[[2]],name = rownames(z_2)[order(boxplot_list_medians,decreasing = TRUE)][2]) %>%
+      add_boxplot(y = ~boxplot_list[[3]],name = rownames(z_2)[order(boxplot_list_medians,decreasing = TRUE)][3]) %>%
+      add_boxplot(y = ~boxplot_list[[4]],name = rownames(z_2)[order(boxplot_list_medians,decreasing = TRUE)][4]) %>%
+      add_boxplot(y = ~boxplot_list[[5]],name = rownames(z_2)[order(boxplot_list_medians,decreasing = TRUE)][5]) %>%
+      add_boxplot(y = ~boxplot_list[[6]],name = rownames(z_2)[order(boxplot_list_medians,decreasing = TRUE)][6]) %>%
+      add_boxplot(y = ~boxplot_list[[7]],name = rownames(z_2)[order(boxplot_list_medians,decreasing = TRUE)][7]) %>%
+      add_boxplot(y = ~boxplot_list[[8]],name = rownames(z_2)[order(boxplot_list_medians,decreasing = TRUE)][8]) %>%
+      add_boxplot(y = ~boxplot_list[[9]],name = rownames(z_2)[order(boxplot_list_medians,decreasing = TRUE)][9]) %>%
+      add_boxplot(y = ~boxplot_list[[10]],name = rownames(z_2)[order(boxplot_list_medians,decreasing = TRUE)][10]) %>%
+      add_boxplot(y = ~boxplot_list[[11]],name = rownames(z_2)[order(boxplot_list_medians,decreasing = TRUE)][11]) %>%
+      add_boxplot(y = ~boxplot_list[[12]],name = rownames(z_2)[order(boxplot_list_medians,decreasing = TRUE)][12]) %>%
+      layout(title = "",
+             xaxis = list(title = "",tickangle = 45),
+             yaxis = list(title = "Z Score"), 
+             margin = list(b = 160, r = 100))
+  })
+  
+  output$team_barplot <- renderPlotly({
+    z_2<-dataframe_z()
+    rownames(z_2)<-dataframe_z()[,1]
+    z_2[,ncol(z_2)] = -as.numeric(z_2[,ncol(z_2)])
+    z_2<-z_2[,-1]
+    colors<-c()
+    for(i in 1:ncol(z_2)){
+      if(as.numeric(z_2[as.numeric(teamSelected()),])[i]>0){
+        colors<-c(colors,"red")
+      } else {
+        colors<-c(colors,"blue")
+      }
+    }
+    # bar<-barplot(as.numeric(z_2[as.numeric(teamSelected()),]),main=rownames(z_2)[as.numeric(teamSelected())],
+    #              col=colors)
+    # text(bar, par("usr")[3] - 0.2, labels = colnames(z_2), 
+    #      srt = 60, pos = 2, xpd = TRUE,cex=1,col=colors)
+    # 
+    # abline(h=0,lwd=2)
+    team_frame<-data.frame(colnames(z_2),as.numeric(z_2[as.numeric(teamSelected()),]))
+    colnames(team_frame)<-c("Category","Value")
+    team_frame$Category<-factor(team_frame$Category,levels = team_frame$Category)
+    p <- plot_ly(team_frame, 
+                 x = ~Category, y = ~Value, 
+                 type = 'bar',
+                 marker = list(color = colors)) %>%
+      layout(title = rownames(z_2)[as.numeric(teamSelected())],
+             shapes=list(type='line', x0= 10.51, x1= 10.51, y0=-2, y1=2, line=list(width=1)),
+             xaxis = list(title = "",tickangle = 45),
+             yaxis = list(title = "Z score")#, 
+             #margin = list(b = 160, r = 100)
+             )
+    
+  })
+  
+  output$cat_barplot <- renderPlotly({
+    z_2<-dataframe_z()
+    rownames(z_2)<-dataframe_z()[,1]
+    z_2[,ncol(z_2)] = -as.numeric(z_2[,ncol(z_2)])
+    z_2<-z_2[,-1]
+    # par(mar=c(15,8,3,1))
+    # bar<-barplot(sort(as.numeric(z_2[,as.numeric(catSelected())]),decreasing = TRUE),main=colnames(z_2)[as.numeric(catSelected())],
+    #              col=teamColors[order(as.numeric(z_2[,as.numeric(catSelected())]),decreasing = TRUE)])
+    # labels<-rownames(z_2)[order(as.numeric(z_2[,as.numeric(catSelected())]),decreasing = TRUE)]
+    # text(bar, par("usr")[3] - 0.2, labels = labels, 
+    #      srt = 60, pos = 2, xpd = TRUE,cex=1)
+    # abline(h=0,lwd=2)
+    
+    cat_frame<-data.frame(rownames(z_2)[order(as.numeric(z_2[,as.numeric(catSelected())]),decreasing = TRUE)],sort(as.numeric(z_2[,as.numeric(catSelected())]),decreasing = TRUE))
+    colnames(cat_frame)<-c("Team","Value")
+    cat_frame$Team<-factor(cat_frame$Team,levels = cat_frame$Team)
+    p <- plot_ly(cat_frame, 
+                 x = ~Team, y = ~Value, 
+                 type = 'bar',
+                 marker = list(color = gg_color_hue(12))
+                 ) %>%
+      layout(title = colnames(z_2)[as.numeric(catSelected())],
+             xaxis = list(title = "",tickangle = 45),
+             yaxis = list(title = "Z score"), 
+             margin = list(b = 160, r = 100)
+             )
+  })
+  
+  cat_rankings<-reactive({
+    z_2<-dataframe_z()
+    z_2[,ncol(z_2)] = -as.numeric(z_2[,ncol(z_2)])
+    z_2<-z_2[,-1]
+    cat_rankings<-z_2
+    for(i in 1:ncol(z_2)){
+      cat_rankings[,i]<-as.numeric(rank(-as.numeric(z_2[,i]),ties.method = "average"))
+    }
+    cat_rankings_2<-matrix(0,ncol=ncol(z_2),nrow=nrow(z_2))
+    for(i in 1:ncol(z_2)){
+      for(j in 1:nrow(z_2)){
+        cat_rankings_2[j,i]<-as.numeric(cat_rankings[j,i])
+      }
+    }
+    means<-c()
+    for(i in 1:nrow(cat_rankings_2)){
+      means<-c(means,as.numeric(round(mean(as.numeric(cat_rankings_2[i,])),digits=2)))
+    }
+    skater_means<-c()
+    for(i in 1:nrow(cat_rankings_2)){
+      skater_means<-c(skater_means,as.numeric(round(mean(as.numeric(cat_rankings_2[i,1:11])),digits=2)))
+    }
+    goalie_means<-c()
+    for(i in 1:nrow(cat_rankings_2)){
+      goalie_means<-c(goalie_means,as.numeric(round(mean(as.numeric(cat_rankings_2[i,12:16])),digits=2)))
+    }
+    final_matrix<-data.frame(dataframe_z()[,1],cat_rankings_2,skater_means,goalie_means,means)
+    colnames(final_matrix)<-c("Team",colnames(z_2),"Skater Rank","Goaltending Rank","Average Rank")
+    
+    for(i in 2:19){
+      final_matrix[,i]<-as.numeric(final_matrix[,i])
+    }
+    final_matrix
+  })
+  
+  cat_rankings_brief<-reactive({
+    records_order<-match(as.vector(cat_rankings()[,1]),names(records))
+    records<-as.numeric(records)
+    final_matrix<-cbind(cat_rankings()[,1],records[records_order],cat_rankings()[,c(20,18,19)])
+    colnames(final_matrix)[c(1:3)]<-c("Team", "Points","Power Rank")
+    final_matrix
+  })
+  
+  output$category_rankings<-renderDataTable(
+    cat_rankings_brief(),
+    options = list(bPaginate=F)
+  )
+  
+  power_rankings<-reactive({
+    if(input$power_rank_plot_selection=="Power Rankings"||input$power_rank_plot_selection=="Power Rank vs. Standing"){
+    z_2<-dataframe_z()
+    z_2[,ncol(z_2)] = -as.numeric(z_2[,ncol(z_2)])
+    z_2<-z_2[,-1]
+    rownames(z_2)<-dataframe()[,1]
+    cat_rankings<-z_2
+    for(i in 1:ncol(z_2)){
+      cat_rankings[,i]<-rank(-as.numeric(z_2[,i]),ties.method = "average")
+    }
+    means<-c()
+    for(i in 1:nrow(cat_rankings)){
+      means<-c(means,mean(as.numeric(cat_rankings[i,])))
+    }
+    means_ranking<-round(rank(means,ties.method = "average"),digits = 0)
+    final_matrix<-matrix(ncol=1,nrow=length(means))
+    final_matrix[,1]<-sort(means_ranking,decreasing = FALSE)
+    final_matrix_2<-cbind(rownames(z_2)[order(means_ranking)],final_matrix)
+    colnames(final_matrix_2)<-c("Team","Power Ranking")
+    final_matrix_2
+    } else if(input$power_rank_plot_selection=="Skater Rank"){
+      power_rankings<-data.frame(cat_rankings()[,1],as.numeric(cat_rankings()[,18]))
+      power_rankings[,2]<-round(rank(as.numeric(power_rankings[,2]),ties.method = "average"),digits = 0)
+      power_rankings<-power_rankings[order(power_rankings[,2],decreasing=FALSE),]
+      colnames(power_rankings)<-c("Team","Skater Rank")
+      as.matrix(power_rankings)
+    } else if(input$power_rank_plot_selection=="Goalie Rank"){
+      power_rankings<-data.frame(cat_rankings()[,1],as.numeric(cat_rankings()[,19]))
+      power_rankings[,2]<-round(rank(as.numeric(power_rankings[,2]),ties.method = "average"),digits = 0)
+      power_rankings<-power_rankings[order(power_rankings[,2],decreasing=FALSE),]
+      colnames(power_rankings)<-c("Team","Goalie Rank")
+      as.matrix(power_rankings)
+    }else if(input$power_rank_plot_selection=="Standings"){
+      records_order<-match(as.vector(cat_rankings()[,1]),names(records))
+      records<-as.numeric(records)
+      power_rankings<-data.frame(cat_rankings()[,1],records[records_order])
+      power_rankings[,2]<-round(rank(-as.numeric(power_rankings[,2]),ties.method = "average"),digits = 0)
+      power_rankings<-power_rankings[order(power_rankings[,2],decreasing=FALSE),]
+      colnames(power_rankings)<-c("Team","Standings Rank")
+      as.matrix(power_rankings)
+    }
+  })
+  
+  
+  output$power_rankings_table<-renderTable(
+    power_rankings(),hover = TRUE
+  )
+  # "Power Rankings",
+  # "Standings",
+  # "Power Rank vs. Standing",
+  # "Skater Rank",
+  # "Goalie Rank"
+  output$power_rankings_barplot<-renderPlotly({
+    if(input$power_rank_plot_selection=="Power Rankings"){
+      power_rankings<-data.frame(cat_rankings()[,1],as.numeric(cat_rankings()[,20]))
+    }else if(input$power_rank_plot_selection=="Skater Rank"){
+      power_rankings<-data.frame(cat_rankings()[,1],as.numeric(cat_rankings()[,18]))
+    }else if(input$power_rank_plot_selection=="Goalie Rank"){
+      power_rankings<-data.frame(cat_rankings()[,1],as.numeric(cat_rankings()[,19]))
+    }
+    if(input$power_rank_plot_selection=="Power Rankings"||input$power_rank_plot_selection=="Skater Rank"||input$power_rank_plot_selection=="Goalie Rank"){
+      colnames(power_rankings)<-c("Team","AverageRank")
+      power_rankings$Team<-factor(power_rankings$Team,
+                                  levels = power_rankings$Team[order(power_rankings$AverageRank,decreasing = FALSE)])
+      p <- plot_ly(power_rankings, x = ~Team, y = ~AverageRank, type = 'bar',
+                   marker = list(color = gg_color_hue(12))) %>%
+        layout(title = input$power_rank_plot_selection,
+               xaxis = list(title = "",tickangle = 45),
+               yaxis = list(title = "Average Rank"), 
+               margin = list(b = 160, r = 100))
+    }else if(input$power_rank_plot_selection=="Power Rank vs. Standing"){
+      records_order<-match(as.vector(cat_rankings()[,1]),names(records))
+      records<-as.numeric(records)
+      power_rankings<-data.frame(cat_rankings()[,1],as.numeric(cat_rankings()[,20]),records[records_order])
+      colnames(power_rankings)<-c("Team","PowerRank","Points")
+      power_rankings$Team<-factor(power_rankings$Team,
+                                  levels = power_rankings$Team[order(power_rankings$Points,decreasing = TRUE)])
+      p <- plot_ly(power_rankings, x = ~Points) %>% 
+        add_trace(y = ~PowerRank, text = ~Team,
+                   marker = list(color = gg_color_hue(12), size = 20), showlegend = FALSE,
+                  name = " ") %>%
+        add_lines(y = ~fitted(loess(PowerRank ~ Points)),
+                  line = list(color = 'black'), name = "Loess Smoother",
+                  showlegend = FALSE) %>%
+        layout(title = input$power_rank_plot_selection,
+               xaxis = list(title = "Points"),
+               yaxis = list(title = "Power Rank")#,
+               #margin = list(b = 160, r = 100)
+               )
+
+    }else if(input$power_rank_plot_selection=="Standings"){
+      records_order<-match(as.vector(cat_rankings()[,1]),names(records))
+      records<-as.numeric(records)
+      power_rankings<-data.frame(cat_rankings()[,1],records[records_order])
+      colnames(power_rankings)<-c("Team","AverageRank")
+      power_rankings$Team<-factor(power_rankings$Team,
+                                  levels = power_rankings$Team[order(power_rankings$AverageRank,decreasing = TRUE)])
+      p <- plot_ly(power_rankings, x = ~Team, y = ~AverageRank, type = 'bar',
+                   marker = list(color = gg_color_hue(12))) %>%
+        layout(title = input$power_rank_plot_selection,
+               xaxis = list(title = "",tickangle = 45),
+               yaxis = list(title = "Average Rank"),
+               margin = list(b = 160, r = 100))
+    }
+  })
+  
+  output$weekly_power_barplot<-renderPlotly({
+    # par(mar=c(11,6,3,1))
+    # bar<-barplot(sort(as.numeric(mean_weekly_cat_rankings),decreasing=FALSE),main=paste0("Average Category Rank,\n",previous_sunday," thru ",date),
+    #              col=teamColors)
+    # labels<-rownames(mean_weekly_cat_rankings)[order(mean_weekly_cat_rankings,decreasing=FALSE)]
+    # axis(side=1,at=bar,labels = FALSE )
+    # text(bar+.2, par("usr")[3] - 0.2, labels = labels, 
+    #      srt = 60, pos = 2, xpd = TRUE,cex=1)
+    power_rankings<-data.frame(rownames(mean_weekly_cat_rankings),as.numeric(mean_weekly_cat_rankings))
+    colnames(power_rankings)<-c("Team","AverageRank")
+    power_rankings$Team<-factor(power_rankings$Team,
+                                levels = power_rankings$Team[order(power_rankings$AverageRank,decreasing = FALSE)])
+    
+    p <- plot_ly(power_rankings, x = ~Team, y = ~AverageRank, type = 'bar',
+                 marker = list(color = gg_color_hue(12))) %>%
+      layout(title = "Weekly Power Ranking",
+             xaxis = list(title = "",tickangle = 45),
+             yaxis = list(title = "Average Rank"), 
+             margin = list(b = 160, r = 100)
+             )
+  })
+  
+  weekly_power_rankings<-reactive({
+    means_weekly_ranking<-data.frame(Team=rownames(test_frame3),
+                                     Ranking=round(as.numeric(rank(mean_weekly_cat_rankings,ties.method = "average"),digits = 0)))
+    means_weekly_ranking<-means_weekly_ranking[order(means_weekly_ranking[,2],decreasing = FALSE),]
+    as.matrix(means_weekly_ranking)
+  })
+  output$weekly_power_table<-renderTable(
+    weekly_power_rankings(), hover = TRUE
+  )
+  weekly_team_selected<-reactive({
+    match(input$weeklyTeamSelect,rownames(weekly_team_z))
+  })
+  output$weeklyTeamBarplot<-renderPlotly({
+    colors<-c()
+    for(i in 1:ncol(weekly_team_z)){
+      if(as.numeric(weekly_team_z[weekly_team_selected(),])[i]>0){
+        colors<-c(colors,"red")
+      } else {
+        colors<-c(colors,"blue")
+      }
+    }
+    # bar<-barplot(weekly_team_z[weekly_team_selected(),],main=paste0(input$weeklyTeamSelect,", \n",previous_sunday," thru ", date),
+    #              col=colors,xaxt='n')
+    # text(bar, par("usr")[3] - 0.2, labels = colnames(weekly_team_z), 
+    #      srt = 60, pos = 2, xpd = TRUE,cex=1,col=colors)
+    # abline(v=13.31,lwd=2)
+    # abline(h=0,lwd=2)
+    
+    weekly_team_frame<-data.frame(colnames(weekly_team_z),as.numeric(weekly_team_z[as.numeric(weekly_team_selected()),]))
+    colnames(weekly_team_frame)<-c("Category","Value")
+    weekly_team_frame$Category<-factor(weekly_team_frame$Category,levels = weekly_team_frame$Category)
+    p <- plot_ly(weekly_team_frame, 
+                 x = ~Category, y = ~Value, 
+                 type = 'bar',
+                 marker = list(color = colors)) %>%
+      layout(title = paste0(input$weeklyTeamSelect,", ",previous_sunday," thru ", date),
+             shapes=list(type='line', x0= 10.51, x1= 10.51, y0=-2, y1=3, line=list(width=1)),
+             xaxis = list(title = "",tickangle = 45),
+             yaxis = list(title = "Z score")#, 
+             #margin = list(b = 160, r = 100)
+             )
+  })
+  
+  #####################
+  # Performance Tracker
+  #####################
+  weekly_stats_list<-eventReactive(input$GetPTList,{
+    nweeks=22
+    weekly_stats_list<-list()
+    #weekly_power_rank<-matrix(nrow = 12,ncol = nweeks)
+    for(i in 1:nweeks){
+      temp_df<-weekly_stat_table_generator(paste0("http://games.espn.com/fhl/scoreboard?leagueId=21656&seasonId=2018&matchupPeriodId=",i))
+      result<-temp_df[,"Result"]
+      temp_list_entry<-make_z_score_table(temp_df)
+      temp_list_entry<-cbind(temp_list_entry,result)
+      weekly_stats_list[[i]]<-temp_list_entry
+      if(i!=1){
+        weekly_stats_list[[i]]<-weekly_stats_list[[i]][rownames(weekly_stats_list[[1]]),]
+      }
+      #weekly_power_rank[,i]<-apply(weekly_stats_list[[i]],1,mean)
+    }
+    #rownames(weekly_power_rank)<-rownames(weekly_stats_list[[1]])
+    
+    i=1
+    x=TRUE
+    while(x){
+      if(all(weekly_stats_list[[i]][,-17]==0)){
+        weekly_stats_list[i:nweeks]<-NULL
+        #weekly_power_rank<-weekly_power_rank[,-c(i:nweeks)]
+        x=FALSE
+      }
+      i=i+1
+    }
+    #print(weekly_stats_list[[18]])
+    return(weekly_stats_list)
+  })
+  
+  observeEvent(input$GetPTList,{
+    updateSelectInput(session, "team_selection_PT",
+                      label = "Select team",
+                      choices = as.character(rownames(weekly_stats_list()[[1]])))
+  })
+  
+  observeEvent(input$GetPTList,{
+    updateSelectInput(session, "cat_selection_PT",
+                      label = "Select category",
+                      choices = as.character(colnames(weekly_stats_list()[[1]]))[1:16])
+  })
+  
+  output$PT_plot<-renderPlotly({
+    p<-plot_category_curve(weekly_stats_list(),input$team_selection_PT,input$cat_selection_PT)
+    ggplotly(p)
+  })
+}
+
+shinyApp(ui = ui, server = server)

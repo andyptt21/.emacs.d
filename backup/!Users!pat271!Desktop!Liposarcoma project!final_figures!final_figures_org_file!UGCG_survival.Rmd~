@@ -1,0 +1,17 @@
+---
+title: test
+author: "Andrew Patt"
+date: 
+output: pdf_document
+---
+
+```{r,echo=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE,warning=FALSE, fig.height=4)
+```
+
+```{r}
+print("hello")
+
+plot(c(1:10))
+```
+

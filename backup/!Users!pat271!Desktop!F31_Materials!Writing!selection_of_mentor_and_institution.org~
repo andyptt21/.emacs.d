@@ -1,0 +1,70 @@
+#+DESCRIPTION: Selection of Mentor and Institution
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+#+LATEX_HEADER: \usepackage{helvet} 
+#+LATEX_HEADER: \usepackage{enumitem}
+#+LATEX_HEADER: \usepackage{wrapfig}
+#+LATEX_HEADER: \usepackage[font=small,labelfont=bf]{caption}
+#+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault} 
+#+LATEX_HEADER: \usepackage{titlesec}
+#+LATEX_HEADER: \titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+#+LATEX_HEADER: \titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+#+LATEX_HEADER: \titlespacing\subsubsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+
+*** Selection of Mentor and Institution
+
+I chose the Ohio State University (OSU) Biomedical Sciences Graduate Program (BSGP) due to the
+excellent informatics resources available, as well as the rich educational environment fostered by
+the Umbrella Program setup, which allows me to interact with other early-career scientists as well
+as faculty from a variety of research backgrounds and interests. The BSGP curriculum is mainly
+centered around reading and discussing papers, technical writing/communication, and ethics
+education, providing students with a solid understanding of topical subjects in biomedical research
+today. The program also offers eleven areas of research interest, including Computational Biology
+and Bioinformatics, which requires several electives taught through the Biomedical Informatics
+department as well as electives taken through the computer science and statistics departments. The
+diverse courses required by the Bioinformatics curriculum have deepened my understanding of
+Bioinformatics and Biomedical Research topics, and helped me refine my research questions as well as
+develop my writing. Participating in the BSGP has also given me ample funding opportunities in the
+past, as I was funded by the BMI departmental T15 grant in my first year, and was chosen to be one of the
+four in my cohort of 16 to receive two years of funding from a BSGP departmental T32 training grant
+for my second and third years. These funding opportunities allowed me to attend extra conferences
+such as the NLM training conference in 2017, where I was able to network with bioinformatics
+trainees from other institutions, as well as take the special T32 seminar, which gave me a weekly
+journal club setting with other fellows in which we could discuss papers and our research progress
+in a small setting. I have also benefited from access to the Ohio Super Computer
+resource, which allows me to run memory-intensive scripts without tying up my laptop. This will
+prove to be a valuable asset as I continue to experiment with the intensive algorithms used to infer
+network structures in high-dimensional data. Ohio State also offers a rich mass spectrometry
+research community, with two active cores that investigate a wide variety of topics relating to
+food/crop science and human health, and preeminent metabolomics/proteomics researchers, including my
+PI Dr. Mathe and committee member Dr. Kopec. Lastly, I have immensely benefited from close proximity
+to the Ohio State University Comprehensive Care Center (CCC), the home of more than 300 cancer
+researchers and their research groups, which has maintained its NCI-designated CCC status since
+1976, and in its most recent site visit (May 2015) received a perfect 10/10 score from the NCI. The
+OSUCCC provides lectures, intramural conferences, and rich collaboration opportunities, such as my
+work with Dr. Jim Chen. I am fortunate and proud to be routinely exposed to so many talented
+trainees and researchers at Ohio State.
+
+Entering the BSGP, I was looking for a mentor who was an accomplished bioinformatician with a
+productive publication record who would take a personal interest in my training, and who had a
+history of successfully obtaining NIH funding. Dr. Mathe and her group at OSU met those
+requirements, and since joining her group I have benefited immensely from Dr. Mathe's devoted
+mentorship. Dr. Mathe's passion for training has been evident during my time working with her, as I am able to
+interact with her weekly in our lab meetings as well as our one-on-one meetings, and frequently via
+email and impromptu meetings. Dr. Mathe has consistently helped push me to find opportunities to
+communicate my work at internal and external conferences. She has also helped me apply for and obtain
+funding through the T32, by reviewing my writing and helping me prepare the oral presentation
+required for the fellowship. She also has helped me in organizing a biweekly bioinformatics
+technical skills workshop, which is meant to communicate essential bioinformatics skills to members
+of our group and others in the department in an interactive workshop setting. This has aided in my
+communication skills and helped round out my toolkit as a bioinformatics researcher. These examples
+demonstrate the high degree of interest and enthusiasm Dr. Mathe has displayed in ensuring I develop
+my career as a researcher. She is also never hesitant to offer me advice and constructive feedback
+on my research progress, as well as answer any questions I have about goals and opportunities
+following my graduation from the program.
+
+# Maybe a paragraph about Ewy's accomplishments as a researcher
+
+My co-sponsor, Dr. Coombes, is an experienced mathematician and bioinformatician, with an extensive
+history of NIH funding and high-impact publications in genomics, proteomics, and cancer research,
+including articles in /Nature/, /Cancer Cell/, and /Genome Biology./

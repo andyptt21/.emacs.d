@@ -1,0 +1,17 @@
+;; Emacs-W3 HTTP cookies file
+;; Automatically generated file!!! DO NOT EDIT!!!
+
+(setq url-cookie-storage
+ '((".nih.gov"
+  [url-cookie "ncbi_sid" "E1E7CFA1309C1029_7B11SID" "Sun, 05 Apr 2020 14:50:08 GMT" "/" ".nih.gov" nil])
+ (".doi.org"
+  [url-cookie "HttpOnly" nil "24 Jan 20 21:51:49 [GMT]" "/" ".doi.org" nil]
+  [url-cookie "__cfduid" "d1c7cba654c2fd4c90cddea0275c52bee1548366709" "24 Jan 20 21:51:49 [GMT]" "/" ".doi.org" nil]))
+)
+(setq url-cookie-secure-storage
+ 'nil)
+
+;; Local Variables:
+;; version-control: never
+;; no-byte-compile: t
+;; End:

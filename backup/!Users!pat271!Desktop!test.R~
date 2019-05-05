@@ -1,0 +1,39 @@
+library(tidyverse)
+library(caret)
+library(glmnet)
+
+## Load the data and remove NAs
+data("PimaIndiansDiabetes2", package = "mlbench")
+PimaIndiansDiabetes2 <- na.omit(PimaIndiansDiabetes2)
+## Inspect the data
+sample_n(PimaIndiansDiabetes2, 3)
+## Split the data into training and test set
+set.seed(123)
+training.samples <- PimaIndiansDiabetes2$diabetes %>% 
+    createDataPartition(p = 0.8, list = FALSE)
+train.data  <- PimaIndiansDiabetes2[training.samples, ]
+test.data <- PimaIndiansDiabetes2[-training.samples, ]
+
+## Dummy code categorical predictor variables
+x <- model.matrix(diabetes~., train.data)[,-1]
+## Convert the outcome (class) to a numerical variable
+y <- ifelse(train.data$diabetes == "pos", 1, 0)
+
+glmnet(x, y, family = "binomial", alpha = 1, lambda = NULL)
+
+cv.lasso <- cv.glmnet(x, y, alpha = 1, family = "binomial")
+## Fit the final model on the training data
+model <- glmnet(x, y, alpha = 1, family = "binomial",
+                lambda = cv.lasso$lambda.min)
+## Display regression coefficients
+coef(model)
+## Make predictions on the test data
+x.test <- model.matrix(diabetes ~., test.data)[,-1]
+probabilities <- model %>% predict(newx = x.test)
+predicted.classes <- ifelse(probabilities > 0.5, "pos", "neg")
+## Model accuracy
+observed.classes <- test.data$diabetes
+mean(predicted.classes == observed.classes)
+cv.lasso <- cv.glmnet(x, y, alpha = 1, family = "binomial")
+plot(cv.lasso)
+

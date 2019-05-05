@@ -1,0 +1,207 @@
+library(shiny)
+library(plotrix)
+library(RColorBrewer)
+library(rvest)
+library(shinythemes)
+library(shinydashboard)
+library(ggplot2)
+library(lubridate)
+library(leaflet)
+library(plotly)
+library(reticulate)
+library(tidyverse)
+
+setwd("~/Documents/Fantasy_App_2019/Deployable_App/")
+date <- as.Date(Sys.Date())
+previous_sunday <- floor_date(date, "week")
+if(date==previous_sunday){
+  previous_sunday=previous_sunday-7
+}
+
+z_score<-function(x,mean,sd){
+  z<-(x-mean)/sd
+  return(z)
+}
+
+toSeconds <- function(x){
+  if (!is.character(x)) stop("x must be a character string of the form H:M:S")
+  if (length(x)<=0)return(x)
+
+  unlist(
+    lapply(x,
+           function(i){
+             i <- as.numeric(strsplit(i,':',fixed=TRUE)[[1]])
+             if (length(i) == 3)
+               i[1]*3600 + i[2]*60 + i[3]
+             else if (length(i) == 2)
+               i[1]*60 + i[2]
+             else if (length(i) == 1)
+               i[1]
+           }
+    )
+  )
+}
+
+locations <- read.csv("~/Documents/Fantasy_App_2019/2018_divisions.csv")
+
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100)[1:n]
+}
+
+pal <- colorFactor(c("red","blue","forestgreen","gold"), domain = sort(unique(locations$X4.Division)))
+
+teamColors<-rainbow(n=12,s=.25)
+
+####################################
+
+############################################################################
+## Scrape data                                                            ##
+############################################################################
+
+use_python("/usr/local/lib/python3.7/")
+
+py_run_file("scraper.py")
+
+matchup_data <- py$matchup_df
+season_data <- py$season_df
+records_df <- py$record_df
+
+records <- apply(records_df,1,function(x) return(as.numeric(x[2])*2 + as.numeric(x[4])))
+names(records) <- records_df[,1]
+names(records)<-str_replace(names(records),"Andys small 8=D","Andys Nice Smile :)")
+names(records)<-str_replace(names(records),"Blow job Central","Ted's Hockey Team")
+
+rownames(season_data)<-season_data[,1]
+rownames(season_data)<-str_replace(rownames(season_data),"Andys small 8=D","Andys Nice Smile :)")
+rownames(season_data)<-str_replace(rownames(season_data),"Blow job Central","Ted's Hockey Team")
+season_data<-season_data[,-1]
+
+rownames(matchup_data) <- matchup_data[,1]
+matchup_data <- matchup_data[,-1]
+colnames(matchup_data) <- colnames(season_data)
+matchup_data$GAA <- as.numeric(matchup_data$GAA)*-1
+
+matchup_data$ATOI <- toSeconds(matchup_data$ATOI)
+season_data$ATOI <- toSeconds(season_data$ATOI)
+
+
+dataframe_z <- apply(season_data,2,function(x) return(scale(as.numeric(x))))
+rownames(dataframe_z) <- rownames(season_data)
+dataframe_z<-cbind(rownames(dataframe_z),dataframe_z)
+
+weekly_cat_rankings<-matchup_data
+for(i in 1:ncol(weekly_cat_rankings)){
+  weekly_cat_rankings[,i]<-rank(-as.numeric(weekly_cat_rankings[,i]),ties.method = "average")
+}
+mean_weekly_cat_rankings<-matrix(0,ncol=1,nrow=12)
+rownames(mean_weekly_cat_rankings)<-rownames(weekly_cat_rankings)
+for(i in 1:nrow(weekly_cat_rankings)){
+  mean_weekly_cat_rankings[i]<-mean(as.numeric(weekly_cat_rankings[i,]))
+}
+
+weekly_team_z <- apply(matchup_data,2,function(x) return(scale(as.numeric(x))))
+weekly_team_z[is.na(weekly_team_z)] <- 0
+rownames(weekly_team_z) <- rownames(matchup_data)
+#############################
+# Functions for growth curves
+#############################
+
+make_z_score_table<-function(weekly_cat_rankings){
+  weekly_cat_rankings<-weekly_cat_rankings[,-17]
+  weekly_cat_rankings[,16]=-as.numeric(weekly_cat_rankings[,16])
+  weekly_team_z<-matrix(0,nrow = nrow(weekly_cat_rankings),ncol = ncol(weekly_cat_rankings))
+  weekly_cat_rankings_numeric<-apply(weekly_cat_rankings,2,as.numeric)
+  rownames(weekly_cat_rankings_numeric)<-rownames(weekly_cat_rankings)
+  weekly_cat_rankings<-weekly_cat_rankings_numeric
+  rownames(weekly_team_z)<-rownames(weekly_cat_rankings)
+  colnames(weekly_team_z)<-colnames(weekly_cat_rankings)
+  for(i in 1:nrow(weekly_cat_rankings)){
+    for(j in 1:ncol(weekly_cat_rankings)){
+      if(sd(weekly_cat_rankings[,j])!=0){
+        weekly_team_z[i,j]<-z_score(weekly_cat_rankings[i,j],mean(as.numeric(weekly_cat_rankings[,j])),sd(as.numeric(weekly_cat_rankings[,j])))
+      } else {
+        weekly_team_z[i,j]<-0
+      }
+    }
+  }
+  weekly_team_z[,16]=-weekly_team_z[,16]
+  return(weekly_team_z)
+}
+
+plot_category_curve<-function(weekly_stats_list,team,category){
+  cat_vector<-unlist(lapply(weekly_stats_list,function(x) return(x[team,category])))
+  result_vector<-unlist(lapply(weekly_stats_list,function(x) return(x[team,"result"])))
+  plot_df<-data.frame(Week =  1:length(cat_vector),value = as.numeric(cat_vector),result=result_vector)
+  mytitle=paste0(team,", ", category)
+  ggplot(plot_df, aes(x = Week, y = value,color = result)) +
+    geom_point(size = 3) +
+    geom_smooth(aes(group = 1), colour = "black") +
+
+    theme_bw() +
+    ylab(label="Z score") +
+    xlab("Week Number") +
+    ggtitle(mytitle) +
+    geom_hline(yintercept = 0) +
+    theme(axis.line = element_line(colour = "black"),
+          axis.title=element_text(size=12,face="bold"),
+          plot.title=element_text(size=14,face="bold"),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank(),
+          legend.key=element_blank(),
+          legend.position = "none"
+    )
+}
+#############################
+ord <- hclust( dist(weekly_team_z, method = "euclidean"), method = "ward.D" )$order
+library(reshape)
+weekly_team_z.m<-melt(weekly_team_z)
+weekly_team_z.m$X1 <- factor(weekly_team_z.m$X1, levels = rownames(weekly_team_z)[ord])
+weekly_team_z.m$X2 <- factor(weekly_team_z.m$X2, levels = rev(c("G","A","PPP","SHP",
+                                                             "PTS", "+/-","PIM","ATOI","SOG","HIT","BLK",
+                                                             "GS","W","SV","GAA")))
+vlines=data.frame(vlines= seq(1.5,11.5,by=1))
+
+weekly_heatmap<-ggplot(weekly_team_z.m, aes(X1, X2)) +
+    geom_tile(aes(fill = value),colour = "white") +
+    scale_fill_distiller(palette="RdBu") +
+    theme_classic(base_size = 12) + labs(x = "",y = "") +
+    scale_x_discrete(expand = c(0, 0)) +
+    scale_y_discrete(expand = c(0, 0)) +
+    geom_hline(aes(yintercept = 4.5),size=2.4,alpha=0.74)+
+    geom_hline(aes(yintercept = 10.5),size=2.4,alpha=0.74)+
+    geom_vline(aes(xintercept = vlines),data=vlines,size=1.4,alpha=0.74)+
+    guides(fill=guide_legend(title="Z Score")) +
+    theme(axis.text.x = element_text(size = 20,
+                                     angle = 330, hjust = 0),
+          axis.text.y = element_text(size=20,face = "bold"))
+
+#############################
+season_data_z <- as.matrix(dataframe_z)[,-1]
+season_data_z[,15] <- as.numeric(season_data_z[,15])*-1
+class(season_data_z)<-"numeric"
+ord <- hclust( dist(season_data_z, method = "euclidean"), method = "ward.D" )$order
+season_data_z.m<-melt(season_data_z)
+season_data_z.m$X1 <- factor(season_data_z.m$X1, levels = rownames(season_data_z)[ord])
+season_data_z.m$X2 <- factor(season_data_z.m$X2, levels = rev(c("G","A","PPP","SHP",
+                                                             "PTS", "+/-","PIM","ATOI","SOG","HIT","BLK",
+                                                             "GS","W","SV","GAA")))
+
+vlines=data.frame(vlines= seq(1.5,11.5,by=1))
+
+seasonal_heatmap<-ggplot(season_data_z.m, aes(X1, X2)) +
+    geom_tile(aes(fill = value),colour = "white") +
+    scale_fill_distiller(palette="RdBu") +
+    theme_classic(base_size = 12) + labs(x = "",y = "") +
+    scale_x_discrete(expand = c(0, 0)) +
+    scale_y_discrete(expand = c(0, 0)) +
+    geom_hline(aes(yintercept = 4.5),size=2.4,alpha=0.74)+
+    geom_hline(aes(yintercept = 10.5),size=2.4,alpha=0.74)+
+    geom_vline(aes(xintercept = vlines),data=vlines,size=1.4,alpha=0.74)+
+    guides(fill=guide_legend(title="Z Score")) +
+    theme(axis.text.x = element_text(size = 20,
+                                     angle = 330, hjust = 0),
+          axis.text.y = element_text(size=20,face = "bold"))
+
+save(list = ls(),file="week19.Rda")

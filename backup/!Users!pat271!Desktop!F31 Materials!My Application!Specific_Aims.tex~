@@ -1,0 +1,197 @@
+% Created 2019-02-18 Mon 23:45
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{helvet}
+\usepackage{enumitem}
+\usepackage{wrapfig}
+\usepackage[font=small,labelfont=bf]{caption}
+\renewcommand{\familydefault}{\sfdefault}
+\author{Patt}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={Patt},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={Rough draft for specific aims of F31 application},
+ pdfcreator={Emacs 25.3.1 (Org mode 9.2)}, 
+ pdflang={English}}
+\begin{document}
+
+
+\section*{SPECIFIC AIMS}
+\label{sec:orgb0d24a4}
+
+Metabolomics analyses are increasingly applied in the search for
+biomarkers/therapeutic targets of disease. Metabolomics data pose
+significant interpretability challenges, as pathway and enzymatic
+reaction annotations for metabolites can be relatively scarce
+\cite{pmid19850466}. Furthermore, metabolomic data sets typically
+contain many unidentified metabolites, exacerbating interpretation
+issues. One approach for improving interpretability is integration of
+metabolomic data with other omic data, for example with
+transcriptomics data \cite{pmid26979502}. Although transcripts and
+metabolites do not directly interact, certain functionally related
+metabolites and transcripts do exhibit robust correlations across
+samples \cite{pmid22355360,pmid19180179}, reflecting the outcome of
+simple metabolic activity, or sometimes the end result of more complex
+biological processes. When combining multiple ‘omic data types, it is
+common to use pathway analysis tools such as IMPaLA \cite{pmid21893519},
+RaMP \cite{pmid29470400}, or Metaboanalyst \cite{pmid29762782} which rely
+on \emph{a priori} pathway knowledge stored in large databases such as KEGG
+\cite{pmid26476454,pmid27899662,pmid10592173} or HMDB
+\cite{pmid29140435}. It is often impossible to find prior knowledge
+regarding every metabolite identified in a study. For example, in the
+RaMP database, 129,146 unique metabolites are recorded, yet only
+27,624 metabolites (21.4\%) have any pathway information associated
+with them. To address this lack of annotations, data-driven
+approaches, such as correlation analysis
+\cite{pmid29718102,pmid23246976,pmid29099853,pmid28714965}, linear
+modeling \cite{pmid29506475}, and Bayesian network analysis
+\cite{pmid22509135}, can be used to identify relevant gene/metabolite
+associations in a purely numerical fashion. However, these approaches
+can also be difficult to interpret without incorporation of existing
+knowledge. Hybrid approaches that combine the interpretability of
+knowledge-based approaches with the power of data-driven approaches to
+identify novel associations between analytes are thus preferable.
+
+Bayesian networks are a technique for network analysis that have been
+used in transcriptomic \cite{pmid21551144}, proteomic
+\cite{pmid18799736,pmid28950903,pmid22923301}, phosphoproteomic
+\cite{pmid23825934}, and metabolomic data \cite{pmid22509135}. Bayesian
+networks are extensively used for modeling biological regulatory
+networks for a number of reasons. As a multivariate approach, Bayesian
+network reconstruction techniques identify relationships between
+multiple analytes simultaneously, rather than in a pairwise
+fashion. This is beneficial as univariate techniques make the
+assumption that metabolite and transcript levels are statistically
+independent from one another, which is false. Furthermore, Bayesian
+methods are designed to describe uncertainty of model parameters
+\cite{pmid17784779}, which allows for quantitative ranking of
+relationships detected in the model. Many Bayesian scoring criteria
+used to build these networks also penalize the addition of unnecessary
+parameters to an estimated model to avoid overfitting
+\cite{Chickering:2003}. Finally, Bayesian networks are a hybrid
+data/knowledge driven approach, as they allow for incorporation of
+prior knowledge through informative prior distributions
+\cite{pmid18799736}, while still maintaining the capability of
+data-driven discoveries. We \uline{\textbf{hypothesize}} that metabolite/metabolite
+and metabolite/gene relationships are altered with disease phenotype,
+and that development of a Bayesian network approach incorporating
+informative priors will allow researchers to study these changes,
+serving as a powerful hypothesis generation technique and providing
+useful understanding of how metabolic relationships are impacted by
+disease.
+
+\textbf{Aim 1: Uncover metabolite/gene associations using prior
+metabolite/transcript knowledge.} Bayesian network reconstruction
+algorithms can be modified to include prior biological knowledge in
+the form of network prior distributions.  We propose to evaluate the
+benefits of incorporating prior biological knowledge on the ability of
+existing Bayesian network reconstruction algorithms to detect
+gene/metabolite associations in simulated and real multiomic data from
+various cancer types
+\cite{pmid24316975,pmid23376425,pmid23918603}. Prior knowledge will
+include pathway topological knowledge and reaction level knowledge. We
+propose to identify complete subnetworks of gene/metabolite and
+metabolite/metabolite relationships that differ based on phenotype
+using IntLIM, a tool previously developed by our lab. These
+subnetworks will be used as input for a Bayesian network
+reconstruction algorithm which will detect association networks in
+healthy and disease samples, allowing us to analyze the differences of
+topography between these networks with measures of centrality and
+connectivity. The confidence of these results will be quantified using
+permutation analysis on simulated and real data.
+
+\textbf{Aim 2: Leverage chemical information to identify metabolite
+association networks that differ based on phenotype.} Prior knowledge
+will include pathway topological knowledge, reaction level knowledge,
+disease/biofluid/cell type ontological information, and chemical
+similarity between metabolites.
+
+\textbf{Aim 3: Build software for Bayesian network analysis of metabolomic
+data}. In order to improve the accessibility and usability of our
+method, we will develop an associated R package as well as an R shiny
+app which can be used by researchers with less programming experience.
+
+\newpage
+
+\section*{Research Plan}
+\label{sec:org75fb152}
+
+For preliminary results I would like to use network fusion approaches
+to build an informative prior for Bayesian network analysis. For
+preliminary results, I plan to do some proof-of-concept for
+aim 2. This will entail building networks in each prior knowledge data
+type, developing a Wishart prior (this needs to be worked out but hopefully will be similar to the approach in Isci et al.), and using this as an informative
+prior for Bayesian network inference.
+
+\begin{itemize}
+\item \textbf{Pathway commonality} will be derived from RaMP. Edges in this network will simply be the number of pathways shared between nodes.
+\label{sec:org6d1d317}
+\item \textbf{Chemical similarity} will be calculated using the batch Classyfire analyzer or Tanimoto similarity metric. I currently have SMILES strings for HMDB metabolites and have used the OpenBabel software to convert between formats
+\label{sec:org7e7f7a9}
+\item \textbf{Reaction similarity} could simply be binary (edge if a reaction is shared)
+\label{sec:orgefdc538}
+\item \textbf{Ontology} could be shared biofluid or subcellular location, also derived from RaMP
+\label{sec:org6159288}
+\item \textbf{Genomic similarity} would be if they have a known gene regulator in common
+\label{sec:org85cb2e6}
+
+\uline{Objectives}: \textbf{Build descriptive network models in healthy and disease}
+\textbf{state data to identify gene/metabolite or metabolite/metabolite
+relationships that are altered in the disease state}
+
+\uline{Ideas}:
+\begin{enumerate}
+\item Rather than Bayesian networks, we could build multilayer networks
+in aim 1 to be used for topological analysis. This would makes aims
+1 \& 2 less similar.
+\item We could use QTL data as another prior knowledge source (genomic). From a glance does not seem like databases like this exist
+\item A subaim of aim 2 could be building our lipid pathway
+database/statistic from our generic KEGG IDs
+\item Reactions analysis - a subaim of aim 2 could be building our
+classification of reaction types database to aid in annotation
+\item Historical priors
+\item Complex phenotype data (e.g. Genetic variants, clinical info)
+\end{enumerate}
+
+\uline{Questions}:
+\begin{enumerate}
+\item What chemical similarity metric would be used in aim 2?
+\begin{itemize}
+\item Tanimoto
+\item Classyfire
+\item Novel metric
+\end{itemize}
+\item What network fusion technique would be used in aim 2?
+\begin{itemize}
+\item node2vec
+\item DeepWalk
+\item deepNF
+\end{itemize}
+\item How to quantify network dissimilarity?
+\begin{itemize}
+\item R has a 'Network Distance' package
+\end{itemize}
+\item Is there a metabolite QTL database?
+\end{enumerate}
+
+\bibliography{../../../Documents/emacs_files/references}
+\bibliographystyle{plain}
+\end{itemize}
+\end{document}

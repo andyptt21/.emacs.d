@@ -1,0 +1,99 @@
+#+TITLE: Specific Aims
+#+AUTHOR: Andrew Patt
+#+DATE:
+#+DESCRIPTION: Rough draft for specific aims of F31 application
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+#+LATEX_HEADER: \usepackage{helvet} 
+#+LATEX_HEADER: \usepackage{enumitem}
+#+LATEX_HEADER: \usepackage{wrapfig}
+#+LATEX_HEADER: \usepackage[font=small,labelfont=bf]{caption}
+
+Metabolomics analyses are increasingly applied in the search for
+biomarkers/therapeutic targets of disease. Metabolomics data pose
+significant interpretability challenges, as pathway and enzymatic
+reaction annotations for metabolites can be relatively scarce
+cite:pmid19850466. Furthermore, metabolomic data sets typically
+contain many unidentified metabolites, exacerbating interpretation
+issues. One approach for improving interpretability is integration of
+metabolomic data with other omic data, for example when examining
+metabolomics and transcriptomics data cite:pmid26979502. Although
+transcripts and metabolites do not directly interact, certain
+functionally related metabolites and transcripts do exhibit robust
+correlations across samples cite:pmid22355360,pmid19180179,
+reflecting the outcome of simple metabolic activity, or sometimes the
+end result of more complex biological processes. When combining
+multiple ‘omic data types, it is common to use pathway analysis tools
+such as IMPaLA cite:pmid21893519, RaMP cite:pmid29470400, or
+Metaboanalyst cite:pmid29762782 which rely on /a priori/
+pathway knowledge stored in large databases such as KEGG
+cite:pmid26476454,pmid27899662,pmid10592173 or HMDB
+cite:pmid29140435. It is often impossible to find prior knowledge
+regarding every metabolite identified in a study. For example, in the
+RaMP database, 129,146 unique metabolites are recorded, yet only
+27,624 metabolites (21.4%) have any pathway information associated
+with them. To address this lack of annotations, data-driven
+approaches, such as correlation analysis
+cite:pmid29718102,pmid23246976,pmid29099853,pmid28714965, linear
+modeling cite:pmid29506475, and Bayesian network analysis
+cite:pmid22509135, can be used to identify relevant gene/metabolite
+associations in a purely numerical fashion. However, these approaches
+can also be difficult to interpret without incorporation of existing
+knowledge. Hybrid approaches that combine the interpretability of
+knowledge-based approaches with the power of data-driven approaches to
+identify novel associations between analytes are thus preferable.
+
+Bayesian networks are a technique for network analysis that have been
+used in transcriptomic cite:pmid21551144, proteomic
+cite:pmid18799736,pmid28950903,pmid22923301, phosphoproteomic
+cite:pmid23825934, and metabolomic data
+cite:pmid22509135. Bayesian networks are extensively used for
+modeling biological regulatory networks for a number of reasons. As a
+multivariate approach, Bayesian network reconstruction techniques
+identify relationships between multiple analytes simultaneously,
+rather than in a pairwise fashion. This is beneficial as univariate
+techniques make the assumption that metabolite and transcript levels
+are statistically independent from one another, which is
+false. Furthermore, Bayesian methods are designed to describe
+uncertainty of model parameters cite:pmid17784779, which allows for
+quantitative ranking of relationships detected in the model. Many
+Bayesian scoring criteria, used to build these networks also penalize
+the addition of unnecessary parameters to an estimated model to avoid
+overfitting cite:Chickering:2003. Finally, Bayesian networks are a
+hybrid data/knowledge driven approach, as they allow for incorporation
+of prior knowledge through informative prior distributions
+cite:pmid18799736, while still maintaining the capability of
+data-driven discoveries. We hypothesize that development of a Bayesian
+network approach that incorporates informative priors will allow
+researchers to identify phenotype-specific relationships between genes
+and metabolites, serving as a powerful hypothesis generation technique
+and improving understanding of how metabolic relationships are
+impacted by disease.
+
+*Aim 1: Detect metabolite/gene associations using prior
+  metabolite/transcript knowledge.*  Bayesian network reconstruction
+  algorithms can be modified to include prior biological knowledge in
+  the form of network prior distributions.  We propose to evaluate the
+  benefits of incorporating prior biological knowledge on the ability
+  of existing Bayesian network reconstruction algorithms to detect
+  gene/metabolite associations in simulated and real multiomic data
+  from various cancer
+  types cite:pmid24316975,pmid23376425,pmid23918603. Prior knowledge
+  will include pathway topological knowledge, reaction level
+  knowledge, disease/biofluid/cell type ontological information, and
+  chemical similarity between metabolites.
+
+*Aim 2: Identify transcript/metabolite and metabolite/metabolite*
+*associations unique to disease state using Bayesian networks with
+informative priors.* We propose to identify complete subnetworks of
+gene/metabolite and metabolite/metabolite relationships that differ
+based on phenotype using IntLIM, a tool previously developed by our
+lab. These subnetworks will be used as input for a Bayesian network
+reconstruction algorithm which will detect association networks in
+healthy and disease samples, allowing us to detect and rank
+relationships between analytes that differ in a phenotype dependent
+manner. The confidence of these results will be quantified using
+permutation analysis on simulated and real data.
+
+bibliography:~/Documents/emacs_files/references.bib
+bibliographystyle:plain

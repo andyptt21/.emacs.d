@@ -1,0 +1,100 @@
+% Created 2019-01-30 Wed 16:06
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+\author{Patt}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={Patt},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 25.3.1 (Org mode 9.2)}, 
+ pdflang={English}}
+\begin{document}
+
+\begin{center}
+\begin{tabular}{llrr}
+Normal Media & Statin treated & Up in MDM2 High & Up in MDM2 Low\\
+\hline
+\(\checkmark\) & x & 13 & 46\\
+\(\checkmark\) & \(\checkmark\) & 13 & 60\\
+x & x & 13 & 29\\
+\(\checkmark\) & \(\checkmark\) & 0 & 5\\
+\end{tabular}
+\end{center}
+
+
+\begin{center}
+\begin{tabular}{lrr}
+Ceramide & Glyc/NonGlyc in MDM2 High & Glyc/NonGlyc in MDM2 Low\\
+\hline
+Cer(d18:1/16:0) & 1.013978 & 0.9467653\\
+Cer(d18:1/24:1) & 1.018272 & 0.9472406\\
+Cer(d18:1/25:0) & 1.029759 & 1.001818\\
+\end{tabular}
+\end{center}
+
+Pathway Results
+
+\begin{center}
+\begin{tabular}{lrlr}
+Pathway & Fisher's p val & Lipid & Log2(MDM2 High/MDM2 Low)\\
+\hline
+Membrane Trafficking & 0.018 & PC(15:1$\backslash$\textsubscript{22}:6) & -1.73562017918373\\
+ &  & PC(16:0$\backslash$\textsubscript{22}:6) & -1.53201004103487\\
+ &  & PC(16:1$\backslash$\textsubscript{16}:1) & -1.6208020481119\\
+ &  & PC(16:1$\backslash$\textsubscript{17}:1) & -2.87204252360003\\
+ &  & PC(17:1$\backslash$\textsubscript{18}:1) & -1.35721056541973\\
+ &  & PC(18:1$\backslash$\textsubscript{22}:6) & -2.07182333690837\\
+ &  & PC(20:1$\backslash$\textsubscript{24}:1) & -1.36169016276703\\
+ &  & PC(18:1$\backslash$\textsubscript{25}:0) & -1.10908107812709\\
+\hline
+Innate Immune System & 0.029 & PC(15:1$\backslash$\textsubscript{22}:6) & -1.73562017918373\\
+ &  & PC(16:0$\backslash$\textsubscript{22}:6) & -1.53201004103487\\
+ &  & PC(16:1$\backslash$\textsubscript{16}:1) & -1.6208020481119\\
+ &  & PC(16:1$\backslash$\textsubscript{17}:1) & -2.87204252360003\\
+ &  & PC(17:1$\backslash$\textsubscript{18}:1) & -1.35721056541973\\
+ &  & PC(18:1$\backslash$\textsubscript{22}:6) & -2.07182333690837\\
+ &  & PC(20:1$\backslash$\textsubscript{24}:1) & -1.36169016276703\\
+ &  & PC(18:1$\backslash$\textsubscript{25}:0) & -1.10908107812709\\
+ &  & DG(20:4$\backslash$\textsubscript{20}:4) & 1.83017684393296\\
+\hline
+Plasma lipoprotein assembly, & 0.041 & PC(15:1$\backslash$\textsubscript{22}:6) & -1.73562017918373\\
+remodeling, and clearance &  & PC(16:0$\backslash$\textsubscript{22}:6) & -1.53201004103487\\
+ &  & PC(16:1$\backslash$\textsubscript{16}:1) & -1.6208020481119\\
+ &  & PC(16:1$\backslash$\textsubscript{17}:1) & -2.87204252360003\\
+ &  & PC(17:1$\backslash$\textsubscript{18}:1) & -1.35721056541973\\
+ &  & PC(18:1$\backslash$\textsubscript{22}:6) & -2.07182333690837\\
+ &  & PC(20:1$\backslash$\textsubscript{24}:1) & -1.36169016276703\\
+ &  & PC(18:1$\backslash$\textsubscript{25}:0) & -1.10908107812709\\
+ &  & DG(20:4$\backslash$\textsubscript{20}:4) & 1.83017684393296\\
+\hline
+HDL remodeling & 0.041 & PC(15:1$\backslash$\textsubscript{22}:6) & -1.73562017918373\\
+ &  & PC(16:0$\backslash$\textsubscript{22}:6) & -1.53201004103487\\
+ &  & PC(16:1$\backslash$\textsubscript{16}:1) & -1.6208020481119\\
+ &  & PC(16:1$\backslash$\textsubscript{17}:1) & -2.87204252360003\\
+ &  & PC(17:1$\backslash$\textsubscript{18}:1) & -1.35721056541973\\
+ &  & PC(18:1$\backslash$\textsubscript{22}:6) & -2.07182333690837\\
+ &  & PC(20:1$\backslash$\textsubscript{24}:1) & -1.36169016276703\\
+ &  & PC(18:1$\backslash$\textsubscript{25}:0) & -1.10908107812709\\
+ &  & DG(20:4$\backslash$\textsubscript{20}:4) & 1.83017684393296\\
+\end{tabular}
+\end{center}
+\end{document}

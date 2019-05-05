@@ -30,14 +30,33 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (spacemacs-light)))
+ '(ansi-color-names-vector
+   ["#d2ceda" "#f2241f" "#67b11d" "#b1951d" "#3a81c3" "#a31db1" "#21b8c7" "#655370"])
+ ;;'(custom-enabled-themes (quote (spacemacs-light)))
  '(custom-safe-themes
    (quote
-    ("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
+    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
  '(ess-swv-pdflatex-commands (quote ("pdflatex" "texi2pdf" "make")))
+ '(hl-todo-keyword-faces
+   (quote
+    (("TODO" . "#dc752f")
+     ("NEXT" . "#dc752f")
+     ("THEM" . "#2d9574")
+     ("PROG" . "#3a81c3")
+     ("OKAY" . "#3a81c3")
+     ("DONT" . "#f2241f")
+     ("FAIL" . "#f2241f")
+     ("DONE" . "#42ae2c")
+     ("NOTE" . "#b1951d")
+     ("KLUDGE" . "#b1951d")
+     ("HACK" . "#b1951d")
+     ("TEMP" . "#b1951d")
+     ("FIXME" . "#dc752f")
+     ("XXX" . "#dc752f")
+     ("XXXX" . "#dc752f")
+     ("???" . "#dc752f"))))
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(org-confirm-babel-evaluate nil)
- '(org-tag-faces (quote (("liposarcoma" . "yellow"))))
  '(package-archives
    (quote
     (("melpa-stable" . "https://stable.melpa.org/packages/")
@@ -45,18 +64,22 @@
      ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(package-selected-packages
    (quote
-    (exec-path-from-shell ess-smart-underscore pdf-tools org-ref popup-complete auto-complete spaceline-config persp-mode spaceline openwith org2blog elpy poly-R poly-markdown ess diminish use-package spacemacs-theme magit org org-bullets markdown-mode markchars))))
+    (spaceline-all-the-icons mode-icons all-the-icons org-journal pubmed fill-column-indicator auctex poly-org ess-view exec-path-from-shell ess-smart-underscore pdf-tools org-ref popup-complete auto-complete spaceline-config persp-mode spaceline openwith org2blog elpy poly-R poly-markdown ess diminish use-package spacemacs-theme magit org org-bullets markdown-mode markchars)))
+ '(pdf-view-midnight-colors (quote ("#655370" . "#fbf8ef"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-table ((t (:background "#D8C3E5" :foreground "#655370")))))
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Menlo"))))
+ ;;'(mouse ((t (:background "black"))))
+ ;;'(org-table ((t (:background "#D8C3E5" :foreground "#655370"))))
+ )
 
-;; Ensure the correct $PATH variables are inherited on Mac
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
-
+(defun update-load-path (&rest _)
+  "Update `load-path'."
+  (push (expand-file-name "elisp" user-emacs-directory) load-path))
+(update-load-path)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Packages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -87,19 +110,52 @@
  ;; 	    (add-hook 'elpy-mode-hook 'flycheck-mode)))
 
 ;; Org mode
- (use-package org
-   :ensure org-plus-contrib
-   :bind (("\C-c l" . org-store-link)
-	  ("\C-c a" . org-agenda)
-	  ("\C-c i" . org-toggle-inline-images))
-   :config (progn
-	     (setq org-hide-emphasis-markers t)
-	     (org-babel-do-load-languages
-	      'org-babel-load-languages
-	      '((R . t)
-		(python . t)))
-	     ;(setq org-startup-with-inline-images t)
-	     (setq org-log-done t)))
+(use-package org
+  :ensure org-plus-contrib
+  :bind (("\C-c l" . org-store-link)
+	 ("\C-c a" . org-agenda)
+	 ("\C-c i" . org-toggle-inline-images))
+  :config
+  (setq org-tag-persistent-alist 
+	'((:startgroup . nil)
+	  ("LIPOSARCOMA" . ?h) 
+	  ("PROTEOGENOMICS" . ?r)
+	  ("BAYESIAN NETWORKS" . ?t)
+	  ("LIFE" . ?y)
+	  (:endgroup . nil)
+	  (:startgroup . nil)
+	  ("EASY" . ?e)
+	  ("MEDIUM" . ?m)
+	  ("HARD" . ?a)
+	  (:endgroup . nil)
+	  ("URGENT" . ?u)
+	  ("KEY" . ?k)
+	  ("BONUS" . ?b)
+	  ("noexport" . ?x)  
+	  )
+	)
+  (setq org-tag-faces
+	'(
+	  ("LIPOSARCOMA" . (:foreground "GoldenRod" :weight bold))
+	  ("PROTEOGENOMICS" . (:foreground "Red" :weight bold))
+	  ("BAYESIAN NETWORKS" . (:foreground "SkyBlue" :weight bold))
+	  ("LIFE" . (:foreground "Purple" :weight bold))
+	  ("EASY" . (:foreground "LimeGreen" :weight bold))  
+	  ("MEDIUM" . (:foreground "OrangeRed" :weight bold))  
+	  ("HARD" . (:foreground "OrangeRed" :weight bold))  
+	  ("BONUS" . (:foreground "GoldenRod" :weight bold))
+	  ("noexport" . (:foreground "LimeGreen" :weight bold))  
+	  )
+	)
+  (progn
+    (setq org-hide-emphasis-markers t)
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((R . t)
+       (python . t)
+       (sql . t)))))
+;;(setq org-startup-with-inline-images t)
+;;(setq org-log-done )))
 
 ;; Org Ref
 (use-package org-ref
@@ -132,27 +188,33 @@
         bibtex-autokey-titlewords-stretch 1
         bibtex-autokey-titleword-length 5))
 
+;; poly-org mode for editing R blocks inline in org files
+(use-package poly-org
+  :ensure t
+  :defer t)
+;  :mode (("\\.org\\'" . poly-org-mode)
+;	 ("\\.Org\\'" . poly-org-mode)))
+
 ;; Fancy org-bullets
 (use-package org-bullets
   :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 ;;spaceline
-(use-package spaceline-config
-  :ensure spaceline
-  :config
-  (setq powerline-default-separator 'wave
-        spaceline-workspace-numbers-unicode t
-        spaceline-window-numbers-unicode t)
-  (spaceline-spacemacs-theme)
-  (spaceline-helm-mode)
-  (spaceline-info-mode))
+;; (use-package spaceline-config
+;;   :ensure spaceline
+;;   :config
+;;   (setq powerline-default-separator 'wave
+;;         spaceline-workspace-numbers-unicode t
+;;         spaceline-window-numbers-unicode t)
+;;   (spaceline-spacemacs-theme)
+;;   (spaceline-info-mode))
 
 (use-package persp-mode)
 
 ;; ess-view, REQUIRES "TAD" CSV VIEWER APP
-;(use-package ess-view
-; :ensure t
-; :config (setq ess-view--spreadsheet-program "/Applications/Tad.app/Contents/MacOS/Tad"))
+(use-package ess-view
+ :ensure t
+ :config (setq ess-view--spreadsheet-program "/Applications/Tad.app/Contents/MacOS/Tad"))
 
 ;; Markdown-mode (needed for Rmarkdown)
 (use-package markdown-mode
@@ -179,6 +241,55 @@
   :ensure t)
 (global-set-key (kbd "C-x g") 'magit-status)
 
+;;Fill column indicator to keep code pretty. Toggle with 'fci-mode'
+(use-package fill-column-indicator
+  :ensure t
+  :defer t
+  :config
+  (setq fci-rule-width 1)
+  (setq fci-rule-color "gainsboro")
+  (setq fci-rule-use-dashes t))
+;; Start a new journal entry with C-c C-j
+(use-package org-journal
+  :ensure t
+  :defer t
+  :config
+  (setq org-journal-dir "~/Documents/emacs_files/journal/"))
+
+;; Cool icons for the spaceline
+;; (use-package spaceline-all-the-icons
+;;   :ensure t
+;;   :after spaceline
+;;   :config
+;;   (spaceline-all-the-icons-theme)
+;;   (spaceline-toggle-all-the-icons-flycheck-status-info-off)
+;;   (spaceline-toggle-all-the-icons-modified-off))
+
+;; Download all icons needed for spaceline
+(use-package all-the-icons
+  :ensure t)
+
+(use-package doom-modeline
+  :ensure t
+  :config
+  (doom-modeline-mode)
+  (setq doom-modeline-minor-modes t))
+
+(use-package treemacs
+  :ensure t)
+
+(use-package treemacs-icons-dired
+  :ensure t
+  :config
+  (treemacs-icons-dired-mode))
+
+
+;; Can't get pdf-tools to install at the moment but I hear it's very good
+;; (use-package pdf-tools
+;;   :ensure t
+;;   :config
+;;   (pdf-tools-install))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Linking to my wordpress blog and OSC account
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -187,9 +298,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Aesthetics
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Always show line numbers
-(global-linum-mode t)
-(setq linum-format "%4d \u2502 ")
+;; Never show line numbers
+(global-linum-mode nil)
+;;(setq linum-format "%4d \u2502 ")
 
 ;; Set background to light gray
 ;;(set-background-color "#DCDCDC")
@@ -199,6 +310,53 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'init-ivy)
+
+;; Ensure the correct $PATH variables are inherited on Mac
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
+;; Command-S to save, C to copy, V to paste, etc.
+(defun sj/copy-keys-from-keymap (from-map keys &optional to-map)
+  "Copy the definitions of key sequences in `keys' from `from-map' to `to-map'.
+A new keymap is created if `to-map' is nil.  `keys' should be a
+list of the keys whose bindings are to be copied.  Each entry may
+also be of the form (from-key . to-key) if the keys differ in the
+two keymaps.
+Example:
+  (\"a\" [backspace]
+   (\"v\"  . \"k\")
+   ([?v] . [?\C-o])
+   (\"\C-y\" . \"x\"))
+The keymap will have `from-map's bindings for \"v\" on \"k\" and \"\C-o\",
+and the binding for \"\C-y\" on \"x\". The bindings for \"a\" and [backspace]
+will be copied as well."
+  (let ((new-map (or to-map (make-sparse-keymap))))
+    (dolist (entry keys)
+      (let ((from-key (if (listp entry) (car entry) entry))
+	    (to-key   (if (listp entry) (cdr entry) entry)))
+	(define-key new-map to-key (lookup-key from-map from-key))))
+     new-map))
+
+;; Distinguish between various Emacs ports to OS X
+(cond 
+ ;; ns port
+ ((boundp 'ns-version-string)
+  (setq ns-antialias-text t
+	ns-option-modifier 'meta)
+  (define-key global-map [ns-drag-file] 'ns-find-file))
+ ;; mac port
+ ((boundp 'mac-carbon-version-string)
+  (setq mac-command-modifier 'super
+	mac-option-modifier  'meta)
+  ;; Command-S to save, C to copy, V to paste, etc.
+  (let ((keys '(("\C-x\C-s"    . [(super s)])
+		("\C-w"        . [(super x)])
+		("\M-w"        . [(super c)])
+		("\C-y"        . [(super v)])
+		([(control /)] . [(super z)]))))
+(sj/copy-keys-from-keymap global-map keys global-map))))
+
 ;; Turn off excessive alarm bell
 (setq ring-bell-function
       (lambda ()
@@ -208,17 +366,18 @@
                                (lambda (fg) (set-face-foreground 'mode-line fg))
                                orig-fg))))
 
-;; Open up your init file for editing
-(global-set-key (kbd "C-c I") (lambda() (interactive)(find-file "~/.emacs.d/init.el")))
-
 ;; autocomplete paired brackets (don't autocomplete '<')
 (electric-pair-mode 1)
 (setq electric-pair-inhibit-predicate
       `(lambda (c)
          (if (char-equal c ?\<) t (,electric-pair-inhibit-predicate c))))
 (setq electric-pair-preserve-balance nil)
+
+;;enable parentheses matching
+(show-paren-mode 1)
+
 ;; Re-load your buffers from the previous session on startup
-;;(desktop-save-mode 1)
+(desktop-save-mode 1)
 
 ;; Prevent upcase-region (annoying when I'm spamming undo)
 (put 'upcase-region 'disabled nil)
@@ -238,6 +397,24 @@
 ;; Have locate use spotlight search (Mac only)
 (setq locate-command "mdfind")
 
+;; Make pdflatex the default Tex exporter
+(setq latex-run-command "pdflatex")
+
+;; Make Preview the default pdf viewer
+;; (progn					
+;;     (require 'openwith)                                                    
+;;     (openwith-mode t)                                                      
+;;     (setq openwith-associations '(("\\.pdf\\'" "/Applications/Preview.app/Contents/MacOS/Preview" (file))))          
+;; )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Custom Functions                                                       ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Open up your init file for editing
+(global-set-key (kbd "C-c I") (lambda() (interactive)(find-file "~/.emacs.d/init.el")))
+
+
 ;; Transpose buffer location with C-x 4 t
 (defun transpose-windows (arg)
   "Transpose the buffers shown in two windows."
@@ -251,13 +428,6 @@
 	(select-window (funcall selector)))
       (setq arg (if (plusp arg) (1- arg) (1+ arg))))))
 (define-key ctl-x-4-map (kbd "t") 'transpose-windows)
-
-;; Make Preview the default pdf viewer
-(progn					
-    (require 'openwith)                                                    
-    (openwith-mode t)                                                      
-    (setq openwith-associations '(("\\.pdf\\'" "/Applications/Preview.app/Contents/MacOS/Preview" (file))))          
-)
 
 ;; Display pdfs inline in org-mode
 (setq image-file-name-extensions
@@ -341,3 +511,95 @@ BEG and END default to the buffer boundaries."
     (kill-line arg)))
 ;; optional key binding
 (global-set-key "\C-c\C-k" 'copy-line)
+
+;; Insert R code blocks in org-mode with C-c R
+(defun org-insert-source-block (name)
+  "Asks name
+Inserts org-mode source code snippet"
+  (interactive "sname? ")
+  (insert 
+   (if (string= name "")
+       "#+BEGIN_SRC R :session \"global\" :results output :exports both
+
+#+END_SRC"
+     (format "#+NAME: %s
+#+header: :width 1000 :height 1000 :R-dev-args
+#+BEGIN_SRC R :session \"global\" :file %s.png :results output graphics :export both
+
+#+END_SRC" name name
+)
+     ) )
+  (forward-line -1)
+  (goto-char (line-end-position))
+  ;;(org-edit-src-code)
+  )
+(define-key org-mode-map (kbd "\C-c R") 'org-insert-source-block)
+
+;; Start up OSC interactive node
+(defun start-interactive-node (arg)
+  "Log in to OSC and request interactive node"
+  (interactive "P")
+  (shell)
+  (process-send-string "shell" "ssh -Y -C osu8143@owens.osc.edu\n")
+  (sleep-for 1)
+  (process-send-string "shell" (concat (concat "qsub -I -X -l nodes=1:ppn=12 -l walltime=" (read-from-minibuffer "Walltime (hh:mm:ss):" "1:00:00")) " -A PCON0005\n"))
+  (setq load-R (read-from-minibuffer "Load R (y/n)? "))
+  (if (string= load-R "y")
+      (progn
+	(process-send-string "shell" "module load R\n")
+	     (process-send-string "shell" "R\n")
+	     (ess-remote "shell" "R"))
+    (message "Done"))
+  ;;this doesn't work
+  ;;(dired "/ssh:osu8143@owens.osc.edu:/users/PAS1143/osu8143/")
+  )
+
+;; Insert R code blocks in Rmarkdown files with C-c R
+(defun rmd-insert-source-block (name)
+  "Asks name
+Inserts Rmarkdown source code snippet"
+  (interactive "sname? ")
+  (insert 
+   (if (string= name "")
+       "```{r}
+
+```"
+     (format        "```{r, %s}
+
+```" name
+)
+     ) )
+  (forward-line -1)
+  (goto-char (line-end-position))
+  )
+(define-key markdown-mode-map (kbd "\C-c R") 'rmd-insert-source-block)
+
+(defun rmd-insert-header (title)
+  "Asks title
+Inserts Rmarkdown header and default options chunk"
+  (interactive "stitle? ")
+  (insert (format "---
+title: %s
+author: \"Andrew Patt\"
+date: \"`r format(Sys.time(), '%d %B, %Y')`\"
+output:
+  tufte::tufte_handout:
+    keep_tex: true
+---
+
+```{r,echo=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE,warning=FALSE, 
+    fig.height=6,fig.width = 12,fig.fullwidth = TRUE,tidy=TRUE)
+```" title))
+  )
+(define-key markdown-mode-map (kbd "\C-c H") 'rmd-insert-header)
+
+(defun rmd-send-chunk ()
+  "Send current R chunk to ess process."
+  (interactive)
+  (and (eq (oref pm/chunkmode :mode) 'r-mode) 
+       (pm-with-narrowed-to-span nil
+         (goto-char (point-min))
+         (forward-line)
+         (ess-eval-region (point) (point-max) nil nil 'R)))) 
+(define-key ess-mode-map (kbd "\C-c RET") 'rmd-send-chunk)

@@ -1,0 +1,13 @@
+#+DESCRIPTION: Applicant Background and Goals
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+#+LATEX_HEADER: \usepackage{helvet} 
+#+LATEX_HEADER: \usepackage{enumitem}
+#+LATEX_HEADER: \usepackage{wrapfig}
+#+LATEX_HEADER: \usepackage[font=small,labelfont=bf]{caption}
+#+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault} 
+
+* Doctoral Dissertation and Research Experience
+* Training Goals and Objectives
+* Activities Planned Under This Award
+

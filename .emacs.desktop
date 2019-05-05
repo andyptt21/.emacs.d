@@ -1,0 +1,115 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Sat May  4 22:13:52 2019
+;; Desktop file format version 208
+;; Emacs version 26.2
+
+;; Global section:
+(setq desktop-saved-frameset [frameset 1 (23758 18144 217276 0) (desktop . "208") "pat271@ISYS-NC062546.local" nil nil ((((minibuffer . t) (undecorated) (override-redirect) (font-backend mac-ct) (font . "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 0) (right-divider-width . 0) (bottom-divider-width . 0) (vertical-scroll-bars . right) (horizontal-scroll-bars) (foreground-color . "#bbc2cf") (background-color . "#282c34") (mouse-color . "white smoke") (border-color . "black") (screen-gamma) (line-spacing) (left-fringe . 8) (right-fringe . 8) (no-special-glyphs) (alpha) (scroll-bar-foreground) (scroll-bar-background) (tool-bar-lines . 1) (title) (inhibit-double-buffering) (menu-bar-lines . 1) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (scroll-bar-height . 0) (no-focus-on-map) (no-accept-focus) (fullscreen . maximized) (visibility . t) (skip-taskbar) (z-group) (display-type . color) (background-mode . dark) (cursor-color . "#51afef") (environment) (powerline-cache) (persp-buffer-predicate-old) (persp-buffer-predicate-generated . "Unprintable entity") (frameset--id . "455E-221A-867A-2C1A") (frameset--mini t . t) (modeline . t) (unsplittable) (icon-name) (display . "Mac") (explicit-name) (tool-bar-position . top) (height . 51) (width . 201) (left . 0) (top . 23)) ((min-height . 4) (min-width . 60) (min-height-ignore . 3) (min-width-ignore . 21) (min-height-safe . 1) (min-width-safe . 6) (min-pixel-height . 56) (min-pixel-width . 420) (min-pixel-height-ignore . 42) (min-pixel-width-ignore . 147) (min-pixel-height-safe . 14) (min-pixel-width-safe . 42)) hc (pixel-width . 1440) (pixel-height . 710) (total-width . 206) (total-height . 50) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (leaf (pixel-width . 280) (pixel-height . 710) (total-width . 40) (total-height . 50) (normal-height . 1.0) (normal-width . 0.19375) (parameters (window-side . left) (window-slot . 0)) (buffer " *Treemacs-Framebuffer-1*" (selected) (hscroll . 0) (fringes 8 8 nil) (margins nil) (scroll-bars nil 3 t nil 0 t) (vscroll . 0) (dedicated . t) (point . 293) (start . 1))) (hc (last . t) (pixel-width . 1160) (pixel-height . 710) (total-width . 166) (total-height . 50) (normal-height . 1.0) (normal-width . 0.80625) (combination-limit) (leaf (pixel-width . 579) (pixel-height . 710) (total-width . 83) (total-height . 50) (normal-height . 1.0) (normal-width . 0.5) (buffer "*Messages*" (selected) (hscroll . 0) (fringes 8 8 nil) (margins nil) (scroll-bars nil 3 t nil 0 t) (vscroll . 0) (dedicated) (point . 23769) (start . 22901))) (leaf (last . t) (pixel-width . 581) (pixel-height . 710) (total-width . 83) (total-height . 50) (normal-height . 1.0) (normal-width . 0.5) (buffer "magit: .emacs.d" (selected . t) (hscroll . 0) (fringes 8 8 nil) (margins nil) (scroll-bars nil 3 t nil 0 t) (vscroll . 0) (dedicated) (point . 190) (start . 1))))))])
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq search-ring '("treem" "use-pa" "counsel" "ivy" "helm" "unfilter" "lasso" "integ" "poly-org" "rma" "TCGA" "sca" "conce" "concer" "clinical" "clini"))
+(setq regexp-search-ring '("treemacs" "paired" "global" "space" "spaceline" "backg" "backgr" "linum" "back" "doom"))
+(setq register-alist nil)
+(setq file-name-history '("/Users/pat271/Desktop/" "/Users/pat271/.emacs.d/" "/Users/pat271/Desktop/Liposarcoma project/final_figures/final_figures_org_file/" "/Users/pat271/Desktop/Liposarcoma project/final_figures/final_figures_org_file/UGCG_survival.Rmd" "/Users/pat271/Desktop/F31_Materials/Writing/F31_Proposal.org" "/Users/pat271/Desktop/.#Testing_org-babel.org" "/Users/pat271/Desktop/my-planner.org" "~/Desktop/" "~/Desktop/test.R" "~/Desktop/F31_Materials/Writing/F31_Proposal.org" "~/Documents/emacs_files/references.bib" "~/Desktop/F31_Materials/Writing/RCR.org" "~/Documents/Notes/sarcoma_samples.org" "~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/" "~/Desktop/Liposarcoma project/Gene Microarray Analysis/Final_transcriptomic_figures.Rmd" "~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/UGCG_survival.Rmd" "~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/" "~/Desktop/" "/ssh:osu8143@owens.osc.edu:/users/PAS1143/osu8143/Proteogenomics_project/" "~/.emacs.d/elisp/blog_and_osc_login.el" "~/Documents/Notes/OSC_notes.org" "~/Desktop/F31_Materials/Writing/F31_Proposal.org" "~/Desktop/my-planner.org" "~/Desktop/F31_Materials/Writing/Applicant_background_and_goals.org" "~/Desktop/" "~/Desktop/test.Rmd" "~/Desktop/my-planner.org" "~/Documents/Notes/OSC_notes.org" "/ssh:osu8143@owens.osc.edu:/users/PAS1143/osu8143/" "/ssh:osu8143@owens.osc.edu:/users/PAS1143/osu8143/test.md" "/ssh:osu8143@owens.osc.edu:/users/PAS1143/osu8143/Proteogenomics_project/test.md" "/ssh:osu8143@owens.osc.edu:/users/PAS1143/osu8143/Proteogenomics_project/test.Rmd" "/ssh:osu8143@owens.osc.edu:/users/PAS1143/osu8143/Proteogenomics_project/" "/ssh:osu8143@owens.osc.edu:/users/PAS1143/osu8143/Proteogenomics_project/test.R" "/ssh:osu8143@owens.osc.edu:/users/PAS1143/osu8143/Proteogenomics_project/" "/ssh:osu8143@owens.osc.edu:/users/PAS1143/osu8143/Proteogenomics_project/test.org" "/ssh:osu8143@owens.osc.edu:/users/PAS1143/osu8143/Proteogenomics_project/test.R" "~/Documents/Notes/OSC_notes.org" "/ssh:osu8143@owens.osc.edu:/users/PAS1143/osu8143/Proteogenomics_project/" "/ssh:osu8143@owens.osc.edu:/users/PAS1143/osu8143/Proteogenomics_project/test.R" "~/Documents/Notes/OSC_notes.org" "~/Documents/Notes/Mark_Chance.org" "~/Desktop/Liposarcoma project/final_figures/" "~/Desktop/Liposarcoma project/final_figures/lipidomics_preprocessing.Rnw" "~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/" "/Users/pat271/Desktop/Liposarcoma project/final_figures/metabolomics_figures.Rnw" "/Users/pat271/Desktop/Liposarcoma project" "~/Desktop/my-planner.org" "~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/" "~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/final_figures.org" "~/Desktop/Liposarcoma project/final_figures/lipidomics_preprocessing.Rnw" "~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/paired_lipidomics_analysis.org" "~/Desktop/my-planner.org" "~/Desktop/Liposarcoma project/final_figures/lipidomics_preprocessing.Rnw" "~/Documents/Notes/OSC_notes.org" "~/Desktop/my-planner.org" "/ssh:osu8143@owens.osc.edu:/users/PAS1143/osu8143/Proteogenomics_project/" "~/Documents/" "~/.emacs.d/" "~/Desktop/my-planner.org" "~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/final_figures.org" "~/Desktop/" "~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/" "/Users/pat271/Desktop/Liposarcoma project/final_figures/lipidomics_figures.Rnw" "/Users/pat271/Desktop/Liposarcoma project/final_figures/lipidomics_preprocessing.Rnw" "/Users/pat271/Desktop/Liposarcoma project/final_figures/lipidomics_figures.Rnw" "~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/" "~/Desktop/my-planner.org" "~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/" "~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/final_figures.org" "~/Desktop/F31_Materials/Writing/" "~/Desktop/F31_Materials/Writing/F31_Proposal.org" "~/Desktop/my-planner.org" "~/Desktop/F31_Materials/Writing/F31_Proposal.org"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 208
+  "/Users/pat271/.emacs.d/init.el"
+  "init.el"
+  'emacs-lisp-mode
+  '(eldoc-mode override-global-mode auto-complete-mode ivy-mode auto-revert-mode magit-file-mode counsel-mode)
+  8699
+  '(21361 nil)
+  nil
+  nil
+  '((buffer-display-time 23758 18064 935217 0) (buffer-file-coding-system . prefer-utf-8-unix))
+  '((mark-ring (20806 1 9421 9020 7757 7486 2549 856 306 3242 1486 1434 976 3449 3555 9592))))
+
+(desktop-create-buffer 208
+  "/Users/pat271/Desktop/my-planner.org"
+  "my-planner.org"
+  'org-mode
+  '(eldoc-mode override-global-mode ivy-mode counsel-mode poly-org-mode)
+  944
+  '(814 nil)
+  nil
+  nil
+  '((buffer-display-time 23758 17937 863072 0) (buffer-file-coding-system . utf-8-unix) (truncate-lines . t))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/Users/pat271/Desktop/Liposarcoma project/final_figures/final_figures_org_file/UGCG_survival.Rmd"
+  "UGCG_survival.Rmd"
+  'ess-r-mode
+  '(eldoc-mode override-global-mode flymake-mode auto-complete-mode ivy-mode poly-markdown+R-mode counsel-mode)
+  1278
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-display-time 23758 18046 33134 0) (buffer-file-coding-system . undecided-unix) (overwrite-mode) (truncate-lines))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "final_figures_org_file"
+  'dired-mode
+  '(override-global-mode ivy-mode counsel-mode)
+  7659
+  '(83 nil)
+  t
+  '("/Users/pat271/Desktop/Liposarcoma project/final_figures/final_figures_org_file/")
+  '((buffer-display-time 23758 6707 729342 449000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/Users/pat271/Desktop/F31_Materials/Writing/F31_Proposal.org"
+  "F31_Proposal.org"
+  'org-mode
+  '(eldoc-mode override-global-mode ivy-mode auto-revert-mode magit-file-mode counsel-mode poly-org-mode)
+  451
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time 23758 6448 929427 449000) (buffer-file-coding-system . utf-8-unix) (truncate-lines . t))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/Users/pat271/Desktop/Liposarcoma project/final_figures/final_figures_org_file/paired_lipidomics_analysis.org"
+  "paired_lipidomics_analysis.org"
+  'org-mode
+  '(eldoc-mode override-global-mode ivy-mode counsel-mode poly-org-mode)
+  2033
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-display-time 23758 6730 737440 449000) (buffer-file-coding-system . undecided-unix) (overwrite-mode) (truncate-lines . t))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/Users/pat271/Desktop/Liposarcoma project/final_figures/final_figures_org_file/UGCG_survival.Rmd"
+  "UGCG_survival.Rmd"
+  'poly-fallback-mode
+  '(override-global-mode ivy-mode poly-markdown+R-mode counsel-mode)
+  1278
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . undecided-unix) (overwrite-mode) (truncate-lines))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/Users/pat271/Desktop/Liposarcoma project/final_figures/final_figures_org_file/UGCG_survival.Rmd"
+  "UGCG_survival.Rmd"
+  'markdown-mode
+  '(eldoc-mode override-global-mode ivy-mode poly-markdown+R-mode counsel-mode)
+  1278
+  '(nil nil)
+  nil
+  nil
+  '((tab-width . 4) (buffer-display-time 23758 15876 27221 0) (buffer-file-coding-system . undecided-unix) (overwrite-mode) (truncate-lines))
+  '((mark-ring nil)))
+

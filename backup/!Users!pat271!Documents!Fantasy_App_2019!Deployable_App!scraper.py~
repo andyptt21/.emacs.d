@@ -1,0 +1,53 @@
+## I've been using td class "v-top"
+import time
+import pandas as pd
+from pandas.io.html import read_html
+from selenium import webdriver
+driver = webdriver.Chrome()
+driver.get('http://fantasy.espn.com/hockey/league/scoreboard?leagueId=21656')
+time.sleep(5)
+
+def matchup_scraper(num):
+    table = driver.find_element_by_xpath('//*[@id="espn-analytics"]/div/div[5]/div[2]/div[1]/div/div/div[2]/div[2]/div[' + num + ']/section/div[1]/div/div[2]/div/section/table/tbody/tr/td')
+    table_html = table.get_attribute('innerHTML')
+    df = read_html(table_html)[0]
+    df = df.iloc[3:5,0:16]
+    return(df)
+
+
+matchup1 = matchup_scraper('1')
+matchup_df = matchup1.append(matchup_scraper('2'))
+matchup_df = matchup_df.append(matchup_scraper('3'))
+matchup_df = matchup_df.append(matchup_scraper('4'))
+matchup_df = matchup_df.append(matchup_scraper('5'))
+matchup_df = matchup_df.append(matchup_scraper('6'))
+
+driver.get('http://fantasy.espn.com/hockey/league/standings?leagueId=21656')
+time.sleep(5)
+table = driver.find_element_by_xpath('//*[@id="espn-analytics"]/div/div[5]/div[2]/div[1]/div/div/div[4]/section/table/tbody/tr/td[2]')
+table_html = table.get_attribute('innerHTML')
+season_df = read_html(table_html)[0]
+season_df = season_df.iloc[2:15,0:15]
+season_df.columns = season_df.iloc[0]
+season_df = season_df.drop([2])
+
+table = driver.find_element_by_xpath('//*[@id="espn-analytics"]/div/div[5]/div[2]/div[1]/div/div/div[4]/section/table/tbody/tr/td[1]')
+table_html = table.get_attribute('innerHTML')
+season_names_df = read_html(table_html)[0]
+season_names_df = season_names_df.iloc[:,1]
+season_df = pd.concat([season_names_df.reset_index(drop=True), season_df.reset_index(drop=True)], axis=1)
+
+def record_scraper(num):
+    table = driver.find_element_by_xpath('//*[@id="espn-analytics"]/div/div[5]/div[2]/div[1]/div/div/div[3]/div[' + num +']/section/table/tbody/tr/td')
+    table_html = table.get_attribute('innerHTML')
+    df = read_html(table_html)[0]
+    df = df.iloc[2:5,0:4]
+    return(df)
+
+
+record1 = record_scraper('1')
+record_df = record1.append(record_scraper('2'))
+record_df = record_df.append(record_scraper('3'))
+record_df = record_df.append(record_scraper('4'))
+
+driver.quit()

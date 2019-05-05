@@ -1,0 +1,225 @@
+#+DATE: [2019-02-28 Thu]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
+#+DESCRIPTION:
+#+TITLE: Building consensus similarity network of HumanCyc metabolites
+#+AUTHOR: Andrew Patt
+
+* Reactions
+** Build adjacency matrix
+#+BEGIN_SRC R :session "global" :results output :export 
+library(tidyverse)
+reaction_table<-read.table("~/Desktop/F31_Materials/Data/Reactions/inchi_reactions.tsv",sep="\t")
+
+metabolites<-unique(c(as.vector(reaction_table$V1),as.vector(reaction_table$V2)))
+reaction_adjacency_matrix<-diag(length(metabolites))
+colnames(reaction_adjacency_matrix)<-rownames(reaction_adjacency_matrix)<-metabolites
+
+for(i in 1:nrow(reaction_table)){
+  reaction_adjacency_matrix[reaction_table[i,1],reaction_table[i,2]]<-reaction_table[i,3]
+}
+
+#+END_SRC
+
+** Visualize
+ggnet
+
+#+NAME: reaction_network
+#+header: :width 1000 :height 1000 :R-dev-args
+#+BEGIN_SRC R :session "global" :file reaction_network.png :results output graphics :export both
+library(GGally)
+library(network)
+library(sna)
+library(ggplot2)
+library(RColorBrewer)
+
+reaction_network = network(reaction_adjacency_matrix,
+              matrix.type = "adjacency",
+              ignore.eval = FALSE,
+              names.eval = "weights")
+
+newcol<-colorRampPalette(brewer.pal(9,"RdYlBu"))
+ncols<-max(degree(reaction_network))
+palette<-rev(newcol(ncols))
+
+set.vertex.attribute(reaction_network,"color",palette[degree(reaction_network)])
+
+p<-ggnet2(reaction_network, label = FALSE,size = "degree",
+       size.min = 1,color = "color") +
+  guides(size = F) +
+  ggtitle("Metabolite Reaction Network, HumanCyc")
+
+p
+
+#+END_SRC
+
+#+RESULTS: reaction_network
+[[file:reaction_network.png]]
+
+netbiov
+#+NAME: netbiov
+#+header: :width 1000 :height 1000 :R-dev-args
+#+BEGIN_SRC R :session "global" :file netbiov.png :results output graphics :export both
+library(netbiov)
+library(igraph)
+
+## for(i in 1:nrow(reaction_adjacency_matrix)){
+##   write.table(rownames(reaction_adjacency_matrix)[i],file=paste0("inchis/",i,".inchi"),
+##               row.names=FALSE,col.names=FALSE,sep="\t",quote=FALSE)
+## }
+
+reaction_igraph<-graph.adjacency(reaction_adjacency_matrix,mode="undirected",weighted=TRUE,diag=F)
+reaction_igraph<-igraph::delete.vertices(reaction_igraph,igraph::degree(reaction_igraph)==0)
+reaction_modules<-cluster_fast_greedy(reaction_igraph)
+reaction_membership<-membership(reaction_modules)
+igraph_plot<-plot.modules(reaction_igraph,mod.lab=TRUE, ##mod.list = reaction_membership,
+                          mod.edge.col="white",color.random = TRUE,
+                          ed.color="grey28", sf=15, v.size=1,layout.function=layout.graphopt,
+                          lab.color="white", modules.name.num=FALSE, lab.cex=2, lab.dist=5)
+
+#+END_SRC
+
+#+RESULTS: netbiov
+[[file:netbiov.png]]
+
+**** How are the modules identified?
+     Fast-greedy algorithm
+**** Any biological significance to modules?
+
+** Analyze structure
+
+I used [[file:~/Desktop/F31_Materials/Data/Reactions/make_inchis_hmdb_key.py][this script]] to generate a key of inchis to hmdbs/common names
+
+For some reason I get 9 modules here but 11 up there
+
+#+BEGIN_SRC R :session "global" :results output :export both
+
+require(data.table)
+inchi_hmdb_common_key<-as.data.frame(fread("/Users/pat271/Desktop/F31_Materials/Data/Reactions/inchi_hmdb_table.tsv",header=TRUE))
+
+hmdbs<-reaction_membership
+names(hmdbs) <- inchi_hmdb_common_key$hmdbs[match(names(reaction_membership),inchi_hmdb_common_key$V1)]
+## 280 missing IDs
+
+common_names <- reaction_membership
+names(common_names) <- inchi_hmdb_common_key$names[match(names(reaction_membership),inchi_hmdb_common_key$V1)]
+## No missing values
+
+types <- reaction_membership
+names <- inchi_hmdb_common_key$types[match(names(reaction_membership),inchi_hmdb_common_key$V1)]
+names(types) <- ifelse(names == "Compounds","",names)
+## No missing values
+## However, 208 have the generic 'Compounds' label
+
+#+END_SRC
+
+#+RESULTS:
+
+** Snippets
+
+Need to get a key for translating Inchis to KEGG/common names.
+#+header: :eval "no"
+#+BEGIN_SRC R :session "global" :results output :export both
+setwd("~/Desktop/F31_Materials/Code/Figure_2/")
+setwd("inchikeys/")
+file_list <- list.files()
+for (file in file_list){
+  if (!exists("dataset")){
+    dataset <- read.table(file, header=FALSE, sep="\t")
+  }
+  if (exists("dataset")){
+    temp_dataset <-read.table(file, header=FALSE, sep="\t")
+    dataset<-rbind(dataset, temp_dataset)
+    rm(temp_dataset)
+  }
+}
+dataset<-as.data.frame(dataset[-1,])
+inchikeys<-dataset
+rm(dataset)
+
+setwd("../inchis/")
+file_list <- list.files()
+for (file in file_list){
+  if (!exists("dataset")){
+    dataset <- read.table(file, header=FALSE, sep="\t")
+  }
+  if (exists("dataset")){
+    temp_dataset <-read.table(file, header=FALSE, sep="\t")
+    dataset<-rbind(dataset, temp_dataset)
+    rm(temp_dataset)
+  }
+}
+dataset<-as.data.frame(dataset[-1,])
+inchis<-dataset
+rm(dataset)
+
+setwd("~/Desktop/Pathway_Analysis/Structure_Analysis/kegg_inchikeys/")
+file_list <- list.files()
+for (file in file_list){
+  if (!exists("dataset")){
+    dataset <- read.table(file, header=FALSE, sep="\t")
+  }
+  if (exists("dataset")){
+    #if(file.info(file)$size!=0){
+      temp_dataset <-read.table(file, header=FALSE, sep="\t")
+      dataset<-rbind(dataset, temp_dataset)
+      rm(temp_dataset)
+    #}
+  }
+}
+dataset<-as.data.frame(dataset[-1,])
+file_list<-gsub(".inchikey","",file_list)
+dataset<-cbind(dataset,file_list)
+
+kegg_inchikeys<-dataset
+colnames(kegg_inchikeys)<-c("inchikey","KEGG")
+rm(dataset)
+
+inchi_table<-cbind(inchis,inchikeys)
+colnames(inchi_table)<-c("inchi","inchikey")
+inchi_table<-as_tibble(inchi_table)
+
+inchi_table<-inchi_table %>% left_join(kegg_inchikeys,by="inchikey")
+write.csv(inchi_table,file="~/Desktop/F31_Materials/Code/Figure_2/inchi_kegg_key.csv")
+
+#+END_SRC
+
+Pretty poor coverage. 
+
+* Structural Similarity (Classyfire)
+** Build adjacency matrix
+#+BEGIN_SRC R :session "global" :results output :export both
+
+classyfire_table <- as.data.frame(fread("/Users/pat271/Desktop/F31_Materials/Data/Reactions/inchi_hmdb_classyfire_table.txt",sep="\t",header=TRUE))
+
+classyfire_AM <- apply(classyfire_table, 1, function(x){
+  column <- apply(classyfire_table, 1, function(y){
+    return(length(which(intersect(as.matrix(x[7:17]),as.matrix(y[7:17]))!="")))
+  })
+  return(column)
+})
+
+colnames(classyfire_AM) <- rownames(classyfire_AM) <- classyfire_table$V1
+
+#+END_SRC
+
+** Visualize
+#+NAME: structure_network
+#+header: :width 1000 :height 1000 :R-dev-args
+#+BEGIN_SRC R :session "global" :file structure_network.png :results output graphics :export both
+
+structure_igraph<-graph.adjacency(classyfire_AM,mode="undirected",weighted=TRUE,diag=F)
+structure_igraph<-igraph::delete.vertices(structure_igraph,igraph::degree(structure_igraph)==0)
+structure_modules<-cluster_fast_greedy(structure_igraph)
+structure_membership<-membership(structure_modules)
+igraph_plot<-plot.modules(structure_igraph,mod.lab=FALSE, ##mod.list = structure_modules$modularity,
+                          mod.edge.col="white",color.random = TRUE,
+                          ed.color="grey28", sf=15, v.size=1,layout.function=layout.graphopt,
+                          lab.color="white", modules.name.num=FALSE, lab.cex=2, lab.dist=5)
+
+#+END_SRC
+
+#+RESULTS: structure_network
+r[[file:structure_network.png]]
+
+* Pathway Similarity
+* Consensus network

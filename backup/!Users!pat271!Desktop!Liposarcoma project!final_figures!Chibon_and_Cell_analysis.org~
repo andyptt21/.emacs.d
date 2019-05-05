@@ -1,0 +1,334 @@
+#+DATE: [2019-02-04 Mon]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
+#+DESCRIPTION:
+#+TITLE: Transcriptomic Analysis: Chibon and Cell Line
+#+AUTHOR: Andrew Patt
+
+* Filter and plot data
+#+header: :width 8 :height 10 :R-dev-args
+#+begin_src R :session "transcriptomics" :results graphics output :exports results
+  filterAndPlot<-function(data,med_cutoff=.25,SD_cutoff=.25,gn.=gn){
+    plot.df<-as.data.frame(as.vector(data))
+    colnames(plot.df)<-"data"
+    median <- apply(data, 1, median)
+    cutoff<-sort(median)[ceiling(length(median)*med_cutoff)]
+    high_med <- median > cutoff
+
+    p1<-ggplot(plot.df,aes(x=data)) +
+      geom_density(fill="red",alpha=0.5,adjust = 1/2) +
+      theme_classic() +
+      ggtitle("Global transcript abundance density, pre abundance filtration") +
+      geom_vline(xintercept=cutoff)
+
+    sd<-apply(data,1,sd)
+					  #mean<-apply(data,1,mean)
+					  #CV<-sd/mean
+    plot.df<-as.data.frame(sd)
+    colnames(plot.df)<-"sd"
+    cutoff<-sort(sd)[ceiling(length(sd)*SD_cutoff)]
+    high_sd <- sd > cutoff
+
+    p3<-ggplot(plot.df,aes(x=sd)) +
+      geom_density(fill="purple",alpha=0.5,adjust = 1/2) +
+      theme_classic() +
+      ggtitle("Transcript sd, pre sd filtration") +
+      geom_vline(xintercept=cutoff)
+
+    data <- data[high_med & high_sd,]
+    gn <- gn[high_med & high_sd]
+  
+    plot.df<-as.data.frame(as.vector(data))
+    colnames(plot.df)<-"data"
+    p2<-ggplot(plot.df,aes(x=data)) +
+      geom_density(fill="red",alpha=0.5,adjust = 1/2) +
+      theme_classic() +
+      ggtitle("Global transcript abundance density, post abundance filtration")    
+  
+    sd<-as.data.frame(apply(data,1,sd))
+					  #mean<-as.data.frame(apply(data,1,mean))
+					  #CV<-sd/mean
+    colnames(sd)<-"sd"
+    p4<-ggplot(sd,aes(x=sd)) +
+      geom_density(fill="purple",alpha=0.5,adjust = 1/2) +
+      theme_classic() +
+      ggtitle("Transcript sd, post sd filtration")
+
+    plotlist<-list(p1,p2,p3,p4)
+    return(list(data,gn,plotlist))
+  }
+#+end_src
+
+* Cell line data analysis
+#+header: :width 8 :height 10 :R-dev-args
+#+begin_src R :session "transcriptomics" :results graphics output :exports results
+  setwd("~/Desktop/Liposarcoma project/Gene Microarray Analysis/")
+  library(openxlsx)
+  library(dplyr)
+  library(tidyr)
+  library(ggplot2)
+
+  cell_line_data<-read.xlsx("~/Desktop/Liposarcoma project/Chen_cuffnorm_transcriptExpr LPS cell lines (1).xlsx")
+
+  cell_line_data[1,6:15]<-colnames(cell_line_data)[6:15]
+  colnames(cell_line_data)<-cell_line_data[1,]
+  cell_line_data<-cell_line_data[-1,]
+
+  cell_line_data_num<-cell_line_data[,6:15]
+  cell_line_data_num<-t(apply(cell_line_data_num, 1, as.numeric))
+
+  NS <- log2(1 + cell_line_data_num)
+  NS<-NS[,-c(1,8:10)]
+
+
+  ## Get gene names 
+  gn <- cell_line_data$gene_short_name
+
+  ############################################################################
+  ## Looking at ceramide glycosylation probes                               ##
+  ############################################################################
+  library(cowplot)
+  MDR1_probes <- which(gn=="ABCB1")
+  FAPP2_probes <- which(gn=="PLEKHA8")
+
+  probe_corr_plotter<-function(gene){
+    indices<-which(gn==gene)
+    out<-lapply(indices, function(x){
+      probe = NS[x,]
+      plot_df <- data.frame(MDM2=NS[1,], probe, status=c(rep("MDM2 High",4),rep("MDM2 Low",2)))
+      p<-ggplot(plot_df, aes(x=MDM2,y=probe,color=status)) +
+	geom_point() +
+	theme_classic() +
+	ylab(gene) +
+	scale_color_manual(values=c("red", "blue")) +
+	guides(color = FALSE)
+      return(p)
+    })
+    return(out)
+  }
+
+  pdf("~/Desktop/Ceramide_glycosylation_probes.pdf")
+  plot_grid(plotlist=probe_corr_plotter("ABCB1"),ncol = 2)
+  plot_grid(plotlist=probe_corr_plotter("PLEKHA8"),ncol = 2)
+  plot_grid(plotlist=probe_corr_plotter("UGCG"),ncol = 2)
+  plot_grid(plotlist=probe_corr_plotter("GBA")[1:8],ncol = 2)
+  plot_grid(plotlist=probe_corr_plotter("GBA")[9:14],ncol = 2)
+  dev.off()
+
+  ## Merge duplicate probes
+  indices <- c()
+  for(x in unique(gn)){
+      probes<-which(gn==x)
+      if(length(probes)==1){
+	  indices <- c(indices,probes)
+      }else{
+	  probe_medians<-apply(NS[probes,],1,median)
+	  output<-probes[which.max(probe_medians)]
+	  indices <- c(indices,output)
+      }
+  }
+
+  NS<-NS[indices,]
+  gn<-gn[indices]
+
+  ceramide_genes<-c("UGCG","ABCB1","PLEKHA8","GBA","GALC","ASAH1","DEGS1","DEGS2","SMPD1","SMPD2","SMPD3","SMPD4","ENPP7",
+		    "ACER1","ACER2","ASAH1","ASAH2","SGMS1","SGMS2","SPTLC1","SPTLC2","SPTLC3")
+
+
+  ############################################################################
+  ## T testing of transcripts of interest                                   ##
+  ############################################################################
+  wilcox_tester<-function(gene){
+    indices<-which(gn==gene)
+    out<-lapply(indices, function(x){
+      probe = NS[x,]
+      plot_df <- data.frame(MDM2=NS[1,], probe, status=c(rep("MDM2 High",4),rep("MDM2 Low",2)))
+      test_results<-wilcox.test(plot_df$probe[1:4],plot_df$probe[5:6])
+      return(test_results$p.value)
+    })
+    return(out)
+  }
+
+  cell_line_ceramide_genes<-sapply(ceramide_genes,wilcox_tester)
+
+  ############################################################################
+  ## Continue gene testing                                                  ##
+  ############################################################################
+  probe_corr_plotter("UGCG")
+  probe_corr_plotter("PLEKHA8")
+  probe_corr_plotter("ASAH2")
+  probe_corr_plotter("SMPD1")
+
+  ## Filter data
+  filtered_data<-filterAndPlot(NS,med_cutoff=0.7,SD_cutoff=0.01)
+  NS_filtered<-filtered_data[[1]]
+  gn_filtered<-filtered_data[[2]]
+  colnames(NS_filtered)<-colnames(cell_line_data)[7:12]
+  plotlist<-filtered_data[[3]]
+
+  save(NS_filtered, gn_filtered, plotlist, file="/Users/pat271/Desktop/Liposarcoma project/Gene Microarray Analysis/cell_line_data.Rda")
+
+#+end_src
+
+* Chibon Analysis
+Load data 
+#+header: :width 8 :height 10 :R-dev-args
+#+begin_src R :session "transcriptomics" :results graphics output :exports results
+  setwd("~/Desktop/Liposarcoma project/Gene Microarray Analysis/")
+  if (!require("GEOquery")) {
+    source("https://bioconductor.org/biocLite.R")
+    biocLite("GEOquery")
+    library(GEOquery)
+  }
+  if (!require("affy")) {
+    source("https://bioconductor.org/biocLite.R")
+    biocLite("affy")
+    library(affy)
+  }
+   if (!require("oligo")) {
+     source("https://bioconductor.org/biocLite.R")
+     biocLite("oligo")
+     library(oligo)
+   }
+  if (!require("limma")) {
+    source("https://bioconductor.org/biocLite.R")
+    biocLite("limma")
+    library(limma)
+  }
+  if (!require("lumi")) {
+    source("https://bioconductor.org/biocLite.R")
+    biocLite("lumi")
+  library(lumi)
+  }
+  if (!require("vsn")) {
+    source("https://bioconductor.org/biocLite.R")
+    biocLite("vsn")
+    library(vsn)
+  }
+
+
+  f <- "GSE71118.Rda"
+  if (file.exists(f)) {
+    load(f)
+  } else {
+      gset <- getGEO("GSE21050", GSEMatrix =TRUE, getGPL=FALSE)
+      if (length(gset) > 1) idx <- grep("GPL570", attr(gset, "names")) else idx <- 1
+      gset <- gset[[idx]]
+
+
+      gsms <- paste0("0XXXX00X0XXX0XXXX0XX0XXXXXXXX0XX0X0XXXXXXXXXXXXXX0",
+		     "X0XXXX0XXXXXXXXXXXXXX00X0000XXXXXX0XX0X0XX0XXXXXXX",
+		     "XXXXXX00X0XX0XXXX0XXX0XXXXXXX00XXXXXXXX0XX0XXX000X",
+		     "XXXX0XX0XXXX0X0XXX00XXXXX00XXXXXX0XXXXXXXXXXXXXXXX",
+		     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX0X0XX0XXXXXXXX0XX0X",
+		     "XXXXXXXXXXXX0X0XXXXXXXXXXXXXXXXXXXXXXXXXX0XX000000",
+		     "0X0XXXXXX0")
+      sml <- c()
+      for (i in 1:nchar(gsms)) { sml[i] <- substr(gsms,i,i) }
+      sml <- paste("G", sml, sep="")
+      sel <- which(sml != "GX")
+      sml <- sml[sel]
+      gset <- gset[ ,sel]
+      save(gset,file=f)
+  }
+  rm(f)
+  if (file.exists("locns_GSE71118.Rda")) {
+      load("locns_GSE71118.Rda")
+  } else {
+      locns_GSE71118 <- getGEOSuppFiles("GSE71118")
+      save(locns_GSE71118, file="locns_GSE71118.Rda")
+  }
+
+  setwd("GSE71118/")
+
+  celFiles<- unlist(list.files(pattern=".CEL.gz",full.names=TRUE))
+  gsms <- paste0("00XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX00",
+	  "XXX0XXXX0X0X0X0X0XXXXXXXXXXX0XXXXXX0XXX00X0XXX00XX",
+	  "XXXXXX0X0XXXXXX0XXX0XXXXXXXXXXXXXXXXX0XXXX00XXXXX0",
+	  "XX0XXXXXX0XXXXXX0XXXXXXXXXXXXXXXX00X0XXXXXXXX0XXXX",
+	  "XXXXXXX0XX0XXXXXXXXXXXXXXXXXXX0XXXXXXX0X0XXXXXXXXX",
+	  "XXXXXXXXXXXXXXXXXX0XXXXXXXXXXXXXXXXX0XX0XXX0X0XXXX",
+	  "XXXXXX0XX0XX")
+  DD_indices <- gregexpr('0', gsms)[[1]]
+  DDcelFiles<-celFiles[DD_indices]
+  chibon_data<-ReadAffy(filenames = DDcelFiles)
+
+  library("annotate")
+  library("hgu133a.db")
+
+  chibon_eset<-gset
+  chibon_data_exprs<-exprs(chibon_eset)
+  probes<-affy::geneNames(chibon_data)
+  ## Create a table that translates affyProbes to gene symbols
+  OUT <- select(hgu133a.db, probes, c("SYMBOL", "ENTREZID", "GENENAME", "ENSEMBL"))
+#+end_src
+
+#+header: :width 8 :height 10 :R-dev-args
+#+begin_src R :session "transcriptomics" :results graphics output :exports results
+  ###########################
+  # Deduplicate
+  ###########################
+  chibon_data_exprs <- log2(1 + chibon_data_exprs)
+  gn<-OUT$SYMBOL[match(rownames(chibon_data_exprs),OUT$PROBEID)]
+  ensembl<-OUT$ENSEMBL[match(rownames(chibon_data_exprs),OUT$PROBEID)]
+
+  chibon_data_exprs <- chibon_data_exprs[-is.na(ensembl),]
+  gn <- gn[-is.na(ensembl)]
+  ensembl <- ensembl[-is.na(ensembl)]
+
+  indices <- c()
+  for(x in unique(ensembl)){
+      probes<-which(ensembl==x)
+      if(length(probes)==1){
+	  indices <- c(indices,probes)
+      }else{
+	  probe_medians<-apply(chibon_data_exprs[probes,],1,median)
+	  output<-probes[which.max(probe_medians)]
+	  indices <- c(indices,output)
+      }
+  }
+
+  chibon_data_exprs<-chibon_data_exprs[indices,]
+  gn<-gn[indices]
+  ###########################
+
+  ############################################################################
+  ## Filter                                                                 ##
+  ############################################################################
+  filtered_data<-filterAndPlot(chibon_data_exprs,med_cutoff=0.4,SD_cutoff=0.25)
+  chibon_data_exprs<-filtered_data[[1]]
+  gn<-filtered_data[[2]]
+  plotlist<-filtered_data[[3]]
+  ############################
+
+  MDM2_Probe<-which(gn=="MDM2")
+  MDM2_correlations_chibon<-apply(chibon_data_exprs[-MDM2_Probe,],1,function(x) return(cor(x,chibon_data_exprs[MDM2_Probe,],method="spearman")))
+  MDM2_corr_test_chibon<-apply(chibon_data_exprs[-MDM2_Probe,],1,function(x) return(cor.test(x,chibon_data_exprs[MDM2_Probe,],method="spearman")$p.value))
+  pval_plot_chibon<-qplot(MDM2_corr_test_chibon,bins=500)+theme_classic()+xlab("Unadjusted Spearman P value")
+  MDM2_corr_test_chibon_adj<-p.adjust(MDM2_corr_test_chibon,method="fdr")
+
+  MDM2_correlations_chibon<-data.frame(MDM2_correlations_chibon,MDM2_corr_test_chibon_adj,gn[-MDM2_Probe])
+  MDM2_correlations_chibon<-MDM2_correlations_chibon[order(MDM2_correlations_chibon[,2]),]
+
+  MDM2_correlations_chibon_sig<-MDM2_correlations_chibon[MDM2_correlations_chibon[,2]<0.05,]
+  intersect(ceramide_genes,MDM2_correlations_chibon$gn..MDM2_Probe.)
+
+  probe_corr_plotter<-function(gene){
+    indices<-which(gn==gene)
+    out<-lapply(indices, function(x){
+      probe = chibon_data_exprs[x,]
+      plot_df <- data.frame(MDM2=chibon_data_exprs[MDM2_Probe,], probe)
+      p<-ggplot(plot_df, aes(x=MDM2,y=probe)) +
+	geom_point() +
+	theme_classic() +
+	ylab(gene) +
+	guides(color = FALSE)
+      return(p)
+    })
+    return(out)
+  }
+
+  plot_grid(plotlist = unlist(lapply(intersect(ceramide_genes,MDM2_correlations_chibon$gn..MDM2_Probe.),probe_corr_plotter),recursive=FALSE),
+	    ncol=3)
+
+#+end_src
+

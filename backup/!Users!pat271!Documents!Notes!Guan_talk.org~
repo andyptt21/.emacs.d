@@ -1,0 +1,50 @@
+#+DESCRIPTION: AI in Biomedicine
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+#+LATEX_HEADER: \usepackage{helvet} 
+#+LATEX_HEADER: \usepackage{enumitem}
+#+LATEX_HEADER: \usepackage{wrapfig}
+#+LATEX_HEADER: \usepackage[font=small,labelfont=bf]{caption}
+#+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault} 
+#+LATEX_HEADER: \usepackage{titlesec}
+#+LATEX_HEADER: \titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+#+LATEX_HEADER: \titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+#+LATEX_HEADER: \titlespacing\subsubsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+#+LATEX_HEADER: \setlist[itemize]{noitemsep, topsep=0pt}
+#+LATEX_HEADER: \usepackage[table]{xcolor}
+
+* AI in Biomedicine
+- Primary research interest is in machine learning
+- 3 projects:
+  1. Predicting sleep arousal
+  2. Detect Parkinson's disease
+  3. Drug synergy prediction
+** Deep learning/translation networks to predict sleep arousal
+- Machine learning is used to translate inputs into outputs of the
+  same size
+- In imaging we can apply this concept towards segmentation of images
+  into nuclei or to identify tumors
+- Her project is to predict sleep arousal using translation networks
+- Excessive sleep arousals can be caused by disease
+- Home monitoring of sleep quality could be a cheap way to monitor
+  disease progression if we could interpret the data
+- Sleep arousals are
+  - sparse
+  - heterogeneous
+- Inputs
+  - Brain activity
+  - Heartbeat
+  - Abdominal movement
+- Used a Deep U-Net
+- Key components:
+  - encoder
+  - decoder
+  - concatenator
+- The data produced by the monitor is enormous (200 FPS for the whole night)
+- Avoiding overfitting of results is a major challenge
+** Predict Parkinson's disease using accelerometer/gyroscope data from cell phones
+- Input:
+  - Acceleration
+  - Rotation rate
+  - Attitude
+  - All 3 can be expressed using (x,y,z) vectors

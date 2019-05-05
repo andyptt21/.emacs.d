@@ -1,0 +1,27 @@
+* Thursday, 04/11/19
+
+- Testing out org-journal. It does not automatically load org mode,
+  nor does it have a time listed (although as this is my only entry of
+  the day, this might be expected.)
+- It doesn't automatically save as an org file either... interesting.
+- Scratch that last theory, it doesn't add a time for new entries
+
+** 11:30 
+- Okay, so to get a timestamp, just use C-c C-j every time. Nice!
+- Looks like it has some awesome integration with org-agenda, if I
+  ever decide to use that.
+- So, since I waste a lot of time during the day, the purpose of this
+  journal is to improve mindfulness and encourage writing when I can't
+  be productive.
+- Like previous attempts it may be short lived, but maybe the power
+  and ease of emacs will make it a little more palatable.
+- So, my main objective today is to perform LASSO regression on the
+  proteogenomics data set to serve as reference for more conventional
+  analytical techniques.
+- LASSO regression is just a linear regression that penalizes for the
+  number of independent variables included in the model I believe.
+- Thus, you can throw a ton of data into a LASSO regression, and it
+  will detect the independent variables that contribute the most to
+  the dependent variable, and only include those in the final
+  regression model.
+- Do I have to specify lambda or will it automatically choose the best one?

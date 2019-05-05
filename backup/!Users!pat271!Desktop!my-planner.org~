@@ -1,0 +1,324 @@
+* To do:
+** TODO :BAYESIAN NETWORKS: Revise Training Plan
+** TODO Lab meeting presenter
+   + [[https://www.ncbi.nlm.nih.gov/pubmed/30360514][paper]]
+** TODO :LIFE: Return keys
+** TODO :LIFE: Book ASMS Travel
+** TODO :LIFE: Register car in Ohio <2019-05-08 Wed>
+*** [[https://www.bmv.ohio.gov/titles-out-state.aspx][Instructions]]
+*** Out-of-state title certificate
+*** Acceptable identification (please contact your County Clerk of Courts Title Office for details) and payment for title fees.
+*** An out-of-state VIN inspection
+*** A lien release from your lien holder if you don’t have the paper title showing lien discharge signed by your lienholder
+*** Payment for title fees
+** TODO :EASY: Schedule blood titer
+** TODO :PROTEOGENOMICS:EASY: Optimize LASSO
+** TODO :PROTEOGENOMICS: Optimize Bayesian Network
+   + Or at least try to justify why you used the algorithm you did
+   + Tunable parameters:
+     - Perturbations
+     - Algorithm
+     - Scoring criterion
+     - Max iterations
+** TODO :PROTEOGENOMICS: Get Training accuracy of LASSO
+** DONE :PROTEOGENOMICS: Get training accuracy of Bayesian Network
+** TODO :EASY: Register for ICIBM
+** TODO :LIPOSARCOMA: Paired T-tests of lipidomic data
+   + Try using LMME, with MDM2 or abundance as the dependent variable
+** TODO :LIFE: Get in-state status for tuition purposes, [[https://registrar.osu.edu/residency/][probably looking for E-1 status]]
+** TODO :LIPOSARCOMA: UGCG Survival in TCGA
+** TODO SIB Progress Report
+** TODO :BAYESIAN NETWORKS: Build Bayesian Network software
+** TODO :BAYESIAN NETWORKS: Send proposal to Dr. Li
+** TODO :BAYESIAN NETWORKS: Revise Research Plan
+** TODO :LIPOSARCOMA: OSUCC Poster
+** TODO :LIFE: Reimbursements
+
+   | Expense                      | Price |
+   |------------------------------+-------|
+   | ASMS Membership              | $40   |
+   | ASMS Conference Registration | $90   |
+   |                              |       |
+
+** TODO :LIPOSARCOMA: Ceramide pathway figure for Liposarcoma
+* Projects
+** Liposarcoma
+    - First paper will be submitted to Analytical Chemistry,
+     differences in MDM2 dependence
+   - Ceramide paper will be chemoresistance in liposarcoma cell lines
+     based on ceramide glycosylation mode
+   - Jim found a significant effect of UGCG on survival in the SARC cohort
+   - ASAH1 (reverse enzyme) had no significant result
+   - Try to recreate these results with a cox regression or use a
+     median/mean cutoff
+   - Demonstrate concordance of shift of lipids by MDM2 status between
+     databases
+** F31 Application
+*** Review references on Bayesian Networks applied to multiomic data
+*** Background:
+**** What's been done?
+**** What hasn't been done?
+**** What will your contribution be?
+*** Research plan notes:
+  - You need to make the connect between what you want to accomplish
+    and how you want to do it
+  - See if you can find classes or faculty that can help you
+    accomplish these goals
+  - Try to find more informatics conferences to attend in the future
+  - Career development resources for getting a postdoc
+  - Are there other methods the priors could be applied to?
+  - Mention your specific data set in the specific aims
+  - Be more explicit about how you're going to validate in the
+    specific aims (e.g. compare to other methods)
+  - Be more explicit about the contribution your research is making
+  - Use underlining for your hypothesis and other important sentences
+  - Make sure you justify the need for software development in aim 3
+  - Need explicit statements of the significance of the approach
+    (bullet points are good for this)
+  - Developing the priors is the chief innovation
+*** Figure Ideas:
+**** Update schematic
+**** MetaCyc Networks
+**** Cross validation
+**** RaMP Schematic 
+*** TODO Learn about network fusion approaches/multi-layer networks to build a prior. [[~/Desktop/Pathway_Analysis/multilayer_networks.org][Notes from lecture here.]]
+*** TODO Recon2 as an alternative to MetRxn
+*** TODO Learn about historical priors
+*** TODO Include clinical features in informative priors, e.g. mutational status
+*** eRA
+**** u:PATT.14
+**** p:E-_____1!!!
+*** My writing
+   | Portion                                     | Sample length  | Max length  | Due date  | Completed?  |
+   |---------------------------------------------+----------------+-------------+-----------+-------------|
+   | _FIRST WEEK_                                  | -------------- | ----------- | --------- | ----------- |
+   | Biosketch                                   | 4+ pages       | 5 pages     | 3/28      | x           |
+   | Facilities and resources                    | .5 pages       | --          | 3/28      | x           |
+   | Equipment                                   | .3 pages       | --          | 3/28      | x           |
+   | Project Summary                             | 15 lines       | 30 lines    | 3/28      | x           |
+   | Narrative                                   | 3 sentences    | 3 sentences | 3/28      | x           |
+   | Cover letter                                | 1 page         | 1 page      | 3/28      | x           |
+   | _SECOND WEEK_                                 | -------------- | ----------- | --------- | ----------- |
+   | Resource Sharing                            | 1.5 page       | --          | 4/3       | o           |
+   | Applicant background and goals              | 5 pages        | 6 pages     | 4/3       | o           |
+   | Selection of mentor and institution         | 1 page         | 1 page      | 4/3       | x           |
+   | Specific Aims                               | 1 page         | 1 page      | 4/3       | x           |
+   | Respective contributions                    | .5 page        | 1 page      | 4/3       | x           |
+   | Training in responsible conduct of research | 1 page         | 1 page      | 4/3       | x           |
+   | _DEADLINE_                                    | -------------- | ----------- | --------- | ----------- |
+   | Research Plan                               | 6 pages        | 6 pages     | 4/3       | o           |
+   | Budget                                      | ???            | ???         | ???       | o           |
+*** From others
+   | Portion                                                             | Sample length | Max length | Due date | Completed? |
+   |---------------------------------------------------------------------+---------------+------------+----------+------------|
+   | Description of Institutional Environment and Commitment to Training | 2 pages       | 5 pages    | 4/3      |            |
+   | Sponsor and Cosponsor statement                                     | 4.5 pages     | 6 pages    | 4/3      | x          |
+   | Biosketches                                                         | 5 pages       | 5 pages    | 3/28     | x          |
+   | Letters of reference                                                | ~2 pages      | 2 pages    | 4/3      | x          |
+*** [[file:~/Desktop/F31_Materials/F_Checklist_Patt.xlsx][Checklist]]
+** Proteogenomics 
+*** TODO See if there's any parameters you need to optimize a little better
+*** Notes on reviewer feedback:
+**** Talk about different utilities
+**** Need to directly compare to the winners
+   - Could be difficult since the validation data set was never published
+   - Need to get the details of their methodology
+**** Why did we pick those three methods?
+**** Due May 18th
+**** All analyses must be done by end of April
+**** Hongyang call:
+     1. Submit questions to Yan:
+	1. How did they filter/select features?
+	   - Use all available genes as features
+	   - However, only keep genes with no missing values
+	2. How did they combine their models?
+	   - Weighted averages based on performance in training set
+	3. How did they cross-validate?
+	   - 50/50 training test set
+	   - 5x cross-validation
+	4. What info did they use? (genes, pathways, protein structure, etc.)
+	   - Final submission did not use external info. They
+             experimented with filtering by pathway but it didn't
+             improve performance
+	   - They also did not use gene copy number info 
+     2. LASSO Regression for prediction
+     3. Tuning parameters for Bayesian networks and LASSO
+     4. Compare to Guan's results
+** Undergraduate training
+*** Parse humancyc
+*** Add reactions to RaMP
+*** Add structures to RaMP
+*** Lipid database
+** LipidMatch Pathway Analysis
+*** Append LipidMaps IDs to LipidMatch output 
+*** Create lipid pathway database for simple ORA analysis (probably using KEGG pathways)
+**** KEGG, Reactome, Wikipathways and LipidMaps all have pathways w/ general structures
+*** Structural clustering
+*** TODO Contact Jeremy and Tim about lipid pathway analysis
+** Friday afternoon seminars
+*** Yue.Zhao@osumc.edu 
+*** Topics:
+**** Docker
+**** Python basics
+**** Rcpp
+**** Literate programming (Rmd/LaTeX)
+**** RShiny
+**** Advanced Visualization
+**** MySQL
+** Conferences
+**** [[https://psb.stanford.edu/keydates/][PSB, paper due 8/5]]
+**** [[http://metabolomics2019.org/][Metabolomics in the Netherlands, Abstract due 4/14]]
+**** [[https://www.iscb.org/rocky2019][ISCB in Denver, due ???]]
+**** [[https://www.iscb.org/ismbeccb2019][ISMB in Switzerland, Abstract due 4/11]]
+**** [[https://www.iscb.org/glbio2019-key-dates][GLBio in Madison, Abstract due 3/11]]
+* Planned Publications:
+1) MDM2-dependent liposarcoma differences
+2) DREAM Challenge review
+3) Ceramides contribute to chemoresistance in liposarcoma
+4) Bayesian Networks with Informative Priors to identify deregulated metabolites
+5) Bayesian Networks with Informative Priors to integrate
+   metabolite/transcript data
+6) LipidMatch flow
+* To do (long term):
+** TODO :LIPOSARCOMA: Liposarcoma todo
+*** UGCG notes:
+**** UGCG tends to be downregulated in response to DNA damage
+**** High MDM2 -> low p53 -> increased DNA damage -> *low UGCG expression* -> increased Ceramide pool (?) -> more apoptosis
+**** So canonically, an inverse correlation between MDM2 and UGCG makes sense
+**** Treatment of Ehrlich ascites tumor cells with glucosylceramides actually increased tumor growth!
+**** How is enzyme regulated?
+*** Look up post-translational modifications of UGCG, look up mechanism of action
+*** Research connection between UGCG and p53
+*** Make git repo
+** TODO Get watch fixed
+** TODO Check on passport status
+** TODO Look at Tim and Jeremy's data
+
+** TODO Fix RaMP pathway clustering
+** TODO Associate eRA account w/ NLM
+** TODO Get new tires
+** TODO Set up Roth IRA
+* Life
+** Personal shopping list
+*** Bike
+**** Test it out but you should be fine with a 21 inch (53 cm) frame. 
+  | Bike               | Year | Size  | Wheel size | Weight   | Material | Color | Price | Link | Notes                                                            | Available           |
+  |--------------------+------+-------+------------+----------+----------+-------+-------+------+------------------------------------------------------------------+---------------------|
+  | Challenger Sx      | 1987 | 58 cm | 27.5 in    | 26 lbs   | Steel    | Gray  | $0    | [[http://www.vintagelotusbicycles.com/Challenger_SX___Mixte_SX.html][link]] |                                                                  | I already own it    |
+  | Jamis Coda Sport   | 2018 | 58 cm | 28 in      | 27 lbs   | Steel    | Blue  | $500  | [[https://www.jamisbikes.com/new_pdf/18_codasport.pdf][link]] | Coda seems to get better reviews than Giant [[https://thewirecutter.com/reviews/best-hybrid-commuter-bike/][link 1]] [[https://www.bikeforums.net/hybrid-bicycles/819763-2011-jamis-coda-vs-2012-giant-escape-2-a.html][link 2]] [[https://www.supergrail.com/best-hybrid-bike][link 3]] | Baer Wheels         |
+  | Jamis Coda         | 2018 | 58 cm | 28 in      | 30 lbs   | Steel    | Blue  | $340  | [[https://www.jamisbikes.com/new_pdf/18_coda.pdf][link]] |                                                                  | Bike Source         |
+  | Trek 7.2 FX        | 2014 | ??    | 28 in      |          | Aluminum | Blue  | $220  | [[https://columbus.craigslist.org/bik/d/columbus-trek-72-fx-hybrid-blue-road/6775115398.html][link]] |                                                                  | Craigslist          |
+  | Giant Escape 2     | 2018 | 58 cm | 28 in      |          | Aluminum | Blue  | $387  | [[https://www.giant-bicycles.com/us/escape-2-2018][link]] | Comes with kickstand                                             | Johnny Velo         |
+  | Bianchi Cortina    | 2018 | 59 cm | 28 in      |          | Aluminum | Gray  | $500  | [[https://www.citygrounds.com/products/bianchi-cortina-city-bike-2018?gclid=Cj0KCQiAr93gBRDSARIsADvHiOpRxSL8EuNxHo5TUE8ry3tE1lG0qmiTfjt4Gt4TpR5JAQLJtB19UfIaAj5AEALw_wcB&variant=8130769092714][link]] | Comes with kickstand                                             | Johnny Velo         |
+  | Raleigh Cadent 1   | 2018 | 58 cm | 28 in      | 26.5 lbs | Aluminum | Black | $400  | [[https://www.raleighusa.com/cadent-1?gclid=CjwKCAiA0uLgBRABEiwAecFnk2z5Aa0J6mgBtoAg6WqL623LO6trrMrGepHh6DHhKteyOWi5OPvmVBoCRdkQAvD_BwE][link]] | Needs to be ordered                                              | Downtown Bike Store |
+  | Jamis Allegro      | 2019 | 58 cm | 28 in      | 27.3 lbs | Aluminum | Red   | $410  | [[https://www.jamisbikes.com/new_pdf/19_allegro.pdf][link]] | Not recommended by [[https://www.reddit.com/r/whichbike/comments/4tgznx/jamis_allegro_sport_coda_sport_good_choice_for/][Reddit]]                                        | Bike Source         |
+  | Specialized Sirrus | 2019 | 58 cm | 28 in      |          | Aluminum | Green | $475  |      |                                                                  | Bike Source         |
+** Fun stuff ideas
+*** Ice skating
+*** Cat cafe
+*** Roller blading
+*** Laser tag
+*** COSI Dinosaurs
+*** Blue Jackets
+*** Bowling
+*** Happy Hour
+*** Pins
+*** Board game parlour
+** Hobbies
+*** Bike
+**** Shopping list:
+***** Water-proof bag
+***** Wireless speedometer
+***** Rear bike rack
+*** Aquarium
+**** Crystal red shrimp
+**** Scarlet badis
+*** Blogging
+**** Topics:
+***** Compare the 3 major R literate programming tools
+***** Aquarium updates
+***** Advanced R tutorial
+**** [[https://github.com/org2blog/org2blog][org2blog repo]] 
+**** [[https://github.com/fniessen/refcard-org-mode][org-mode refcard (for formatting blog posts)]]
+**** [[https://thescientificshrimper.wordpress.com/][Blog url]]
+**** Be sure to save all your org files locally in Documents/The_Scientific_Shrimper
+**** org2blogcommands:
+     | Command               | Action                           |
+     |-----------------------+----------------------------------|
+     | org2blog/wp-login     | Log in to access your account(s) |
+     | org2blog/wp-new-entry | Start a new post                 |
+     | C-c M-p d             | Post buffer as draft             |
+     | C-c M-p p             | Publish buffer                   |
+**** Tips:
+***** Bulleted lists actually look like headers/subheaders. Use wisely
+***** Images have to be inline or linked to a URL
+*** Chess
+**** A rating of ~1480 in Rapid would get you to the 50th percentile on lichess
+*** Emacs
+**** Debugging
+***** [[https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_197.html][Emacs manual]]
+***** [[https://ess.r-project.org/Manual/ess.html#ESS-tracebug][ESS manual]]
+***** [[http://ess.r-project.org/refcard.pdf][ESS Refcard]]
+*** Fantasy hockey
+**** ReactivePoll package 
+**** Rcrawler package
+**** Find correlated stat clusters
+**** Try to find a way to factor in games played
+**** You can get GP on active stats/Matchup tot
+** Gift Ideas
+*** Kelsey
+**** [[https://freshwaterwhales.com/shop.html][Freshwater whale T-shirt]]
+**** Little picture frame (bettas)
+**** Appa keychain
+* Writing
+** Grant applications
+*** F31
+*** Pelotonia
+**** Speak to Mary Gibbons 
+*** NSF
+* Job hunt
+** [[https://metabolomicsna.org/index.php/jobs][Metabolomics Association of North America]]
+** [[https://asms-jobs.careerwebsite.com/][ASMS]]
+* Reading list
+** TODO Eytan Ruppin (Breast Cancer/Networks)
+** TODO Stefan Ambs
+** TODO Mark Chance
+* Org-mode cheatsheet
+** Lists 
+*** M-Ret to add a new item to a list. Preserves ordered list structure!
+** Emphasis markers
+| Style          | Marker |
+|----------------+--------|
+| *bold*           | ~**~     |
+| /italic/         | ~//~     |
+| _underline_      | ~__~     |
+| =code=           | ~==~     |
+| ~verbatim~       | ~~~~     |
+| +strike-through+ | ~++~     |
+|                |        |
+|                |        |
+** Hyperlinks
+*** ~[[www.reddit.com]~[How to make a hyperlink]]
+** To do lists
+*** S-left or S-right to toggle status of an item
+*** S-up or S-down to modify priority
+*** C-c . for inserting a timestamp
+*** C-c C-d Deadlined timestamp
+*** C-c C-s Scheduled timestamp
+*** C-c C-t to open/close a task
+*** C-c ^ o to order
+** Tables 
+*** C-c | to insert a new table
+*** RET or TAB or C-c C-c while editing table to align it
+*** M-x org-table-insert-row to insert new row
+** Agenda mode
+*** C-c a to open agenda mode menu
+*** [[https://orgmode.org/worg/org-tutorials/orgtutorial_dto.html#org04ec237][Check out this tutorial for info on how to set up org-agenda-files]]
+*** Add document to agenda C-c [
+*** Remove document from agenda C-c ]
+** Miscellaneous
+*** C-c C-x 0 start timer
+*** C-c C-x _ (underscore) stops timer
+*** C-c C-e export menu
+*** [[http://jr0cket.co.uk/slides/revealjs.html][Check out org-reveal for cool html slideshows]]
+*** Check out texmed.el next time you're doing citations in LaTeX

@@ -1,0 +1,12 @@
+---
+title: "Sample Document"
+output:
+  html_document:
+    toc: true
+    theme: united
+---
+
+```{test}
+print("test")
+plot(c(1:10))
+```

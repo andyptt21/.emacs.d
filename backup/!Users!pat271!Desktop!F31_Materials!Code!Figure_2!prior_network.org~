@@ -1,0 +1,290 @@
+#+DATE: [2019-03-13 Wed]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
+#+DESCRIPTION:
+#+TITLE: Comparing informative priors with uninformative priors on phenotype prediction
+#+AUTHOR: Andrew Patt
+
+In a different take on figure 2, I'll be attempting to show that
+informative priors improve predictive capacity in biological
+data. These priors would ideally be built from our biological
+databases, but for the grant it is also acceptable to show this is the
+case with "historical priors".
+
+* Notes on 'deal'
+** Made for mixed variables (continuous AND discrete)
+** Functions:
+*** *Define priors*
+*** Estimate parameters
+*** Calculate network scores
+*** Perform heuristic search
+*** Simulate data with a given dependency structure
+** Prior must be in the form of a bayesian network
+** This prior network is used to deduce the prior distributions for all parameters in a model
+** Combined with training data to obtain posterior distributions for parameters
+** Continuous nodes have local probability distributions that are Gaussian linear regressions on the continuous parents with parameters depending on the configuration of discrete parents
+** For a discrete variable, the suggested local probability distribution is taken to be uniform over the levels for each parent configuration
+** Since we'll only have one discrete node, discrete nodes will not have discrete parents, making them uniformly distributed? Seems correct.
+** Priors are specified using the /master prior/ procedure
+   1. Specify a prior Bayesian network, i.e. a prior DAG and prior
+      local probability distributions. Calculate the joint prior
+      distribution.
+   2. From this joint prior distribution, the marginal distribution of
+      all parameters in the family consisting of the node and its
+      parents can be determined. We call this the /master prior/.
+   3. The local parameter priors are now determined by conditioning in
+      the master prior distribution.
+* Load packages and data
+#+BEGIN_SRC R :session "global" :results output :export both
+library(deal)
+load("~/Desktop/Thesis/data/breast.cancer.objects.RData")
+
+## Trim extra metabolomics samples
+data.metab<-data.metab[,colnames(data.exprs)]
+
+#+END_SRC
+
+* Get Pathway Metabolites
+#+BEGIN_SRC R :session "global" :results output :export both
+library(tidyverse)
+library(RMySQL)
+con <- dbConnect(MySQL(),
+         user="root", password="",
+         dbname="ramp", host="localhost")
+on.exit(dbDisconnect(con))
+
+glutamate_metabolism<-"RAMP_P_000051316"
+
+rs <- dbSendQuery(con,
+                  paste0("select * from analytehaspathway where pathwayRampId = \'",
+                         glutamate_metabolism,"\';"))
+pathway <- fetch(rs, n=-1)
+huh <- dbHasCompleted(rs)
+dbClearResult(rs)
+
+compounds <- pathway  %>% select(rampId)
+
+kegg_ids<-c()
+for(i in 1:nrow(compounds)){
+    id <- dbGetQuery(con, paste0("select * from source where rampId = \'",compounds[i,],"\' and IDtype = 'kegg';"))
+    if(nrow(id)!=0){
+        kegg_ids<-c(kegg_ids,id$sourceId[1])
+    }
+}
+
+kegg_ids<-gsub("kegg:","",kegg_ids)
+## intersect(kegg_ids,fData.metab$KEGG_ID)
+
+HMDB_ids<-c()
+for(i in 1:nrow(compounds)){
+    id <- dbGetQuery(con, paste0("select * from source where rampId = \'",compounds[i,],"\' and IDtype = 'hmdb';"))
+    if(nrow(id)!=0){
+        HMDB_ids<-c(HMDB_ids,id$sourceId[1])
+    }
+}
+
+HMDB_ids<-gsub("hmdb:","",HMDB_ids)
+HMDB_ids<-gsub("HMDB00","HMDB",HMDB_ids)
+intersect(HMDB_ids,fData.metab$HMDB_ID)
+
+## Overlap of 13/28 metabolites. This should work.
+## Convert gene name to KEGG ID to make sure gene overlap is sufficient.
+
+genes<-compounds[sapply(compounds,grepl,pattern="_G_")]
+
+common_names<-c()
+for(i in 1:length(genes)){
+    id <- dbGetQuery(con, paste0("select * from source where rampId = \'",genes[i],"\' and IDtype = 'kegg';"))
+    if(nrow(id)!=0){
+            #kegg_ids[[j]]<-id$sourceId[1]
+        common_names<-c(common_names,id$commonName[1])
+    }
+}
+
+common_names<-sapply(common_names,function(x) return(strsplit(x,";")[[1]][1]))
+names(common_names)<-genes
+
+## length(intersect(common_names,fData.exprs$id))/length(common_names)
+
+glutMetabs<-fData.metab$BIOCHEMICAL[match(HMDB_ids,fData.metab$HMDB_ID)]
+HMDB_ids<-HMDB_ids[!is.na(glutMetabs)]
+glutMetabs<-as.vector(glutMetabs)[!is.na(glutMetabs)]
+glutMetabs<-data.metab[glutMetabs,]
+
+glutRNA<-data.exprs[common_names,]
+
+missingValues<-apply(glutMetabs,1,function(x){
+    return(length(which(x==min(x)))/length(x))
+})
+qplot(missingValues,geom="histogram") +
+    ggtitle("Missing Values by Metabolite")
+## 3 metabolites have >50% missing values
+glutMetabs<-glutMetabs[which(missingValues<.5),]
+
+boxplot(glutMetabs)
+boxplot(glutRNA)
+
+glutMO<-rbind(glutMetabs,glutRNA)
+
+mydiff <- function(df,gp1,gp2) {
+    myp=as.numeric(apply(df,1,function(x) {
+          temp<-x[!is.na(x)]
+              gp1<-setdiff(gp1,colnames(df)[is.na(x)])
+              gp2<-setdiff(gp2,colnames(df)[is.na(x)])
+              if(sd(temp[c(gp1,gp2)])==0) {NA}
+              if(sd(temp)==0){NA}
+                  else {
+                      obj <- try(t.test(temp[gp1],temp[gp2]), silent=TRUE)
+                              if (is(obj, "try-error")) return(NA) else return(obj$p.value)
+                  }
+      }))
+      myp.adjust=p.adjust(myp,method='fdr')
+      log2fc=as.numeric(apply(df,1,function(x) {
+          temp<-x[!is.na(x)]
+            gp1<-setdiff(gp1,colnames(df)[is.na(x)])
+            gp2<-setdiff(gp2,colnames(df)[is.na(x)])
+            mean(temp[gp1])-mean(temp[gp2])
+      }
+      ))
+      return(data.frame(name=rownames(df),myp=myp,mypadj=myp.adjust,log2fc=log2fc))
+}
+
+df<-glutMO
+##Tumor
+gp1<-48:ncol(glutMO)
+##ANT
+gp2<-1:47
+
+T_test_results<-mydiff(df,gp1,gp2)
+## Make insignificant points smaller and more transparent
+T_test_results$significant = abs(T_test_results$log2fc) > 1 & -log10(T_test_results$mypadj) > -log10(0.05)
+#T_test_results$alpha <- ifelse(T_test_results$significant,0.05,0.025)
+T_test_results$size <- ifelse(T_test_results$significant,4,2)
+
+T_test_results$MainClass<-c(rep("Metabolite",times=nrow(glutMetabs)),rep("Transcript",time=nrow(glutRNA)))
+palette_names<-sort(unique(T_test_results$MainClass))
+
+#palette <- c("#FF7F00","#4DAF4A")
+#names(palette)<-palette_names
+
+library(ggrepel)
+
+volcano_plot <- ggplot(data=T_test_results, aes(x=log2fc, y=-log10(mypadj), colour=MainClass,
+                                    label=ifelse(significant,as.character(name),""))) +
+    geom_point(alpha=0.7,aes(size=size, text=name)) +
+    scale_color_brewer(palette="Set1") +
+    geom_text_repel(show.legend = FALSE,size=3) +
+    theme_bw() +
+    ##ggtitle("Differences in Glutamate Metabolism Metabolites and Transcripts") +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          ##axis.title=element_text(size=6,face="bold"),
+          legend.title=element_blank()) +
+    ylab("-log10 p-value") +
+    xlab("log2(Tumor)-log2(ANT)") +
+    geom_hline(yintercept = -log10(0.1),lty = 2) +
+    geom_vline(xintercept = 1, lty = 2) +
+    geom_vline(xintercept = -1, lty = 2) +
+    scale_size(range=c(2,4)) +
+    guides(size=FALSE,label=FALSE)
+volcano_plot
+
+#+END_SRC
+
+So I've successfully recovered the AAG pathway data, stored in
+glutMetabs. We have 108 samples so the next step is to randomize and
+build a prior. It appears that the first 47 samples are normal and the
+remaining are tumor.
+* Build network
+#+BEGIN_SRC R :session "global" :results output :export both
+glutMetabs<-as.data.frame(t(glutMetabs))
+glutMetabs$phenotype<-as.factor(c(rep(0,47),rep(1,61)))
+
+glutMetabs.nw<-network(glutMetabs)
+
+prior <- jointprior(glutMetabs.nw)
+
+## Ban any effects of metabolites on phenotype
+
+glutMetabs.nw <- learn(glutMetabs.nw,glutMetabs,prior)$nw
+result <- heuristic(glutMetabs.nw,glutMetabs,prior,restart=2,degree=10,trace=TRUE,removecycles = TRUE)
+thebest <- result$nw
+savenet(thebest, file("glutMetabs.net"))
+
+#+END_SRC
+
+* Predicting
+#+BEGIN_SRC R :session "global" :results output :export both
+library(bnlearn)
+
+glutMetabs_model <- bnlearn::model2network(deal::modelstring(thebest))
+
+#+END_SRC
+
+* Prior from reaction data
+** Build adjacency matrix
+#+BEGIN_SRC R :session "global" :results output :export 
+library(data.table)
+inchi_hmdb_common_key<-as.data.frame(fread("/Users/pat271/Desktop/F31_Materials/Data/Reactions/inchi_hmdb_table.tsv",header=TRUE))
+
+reaction_table<-read.table("~/Desktop/F31_Materials/Data/Reactions/inchi_reactions.tsv",sep="\t")
+
+metabolites<-unique(c(as.vector(reaction_table$V1),as.vector(reaction_table$V2)))
+reaction_adjacency_matrix<-diag(length(metabolites))
+colnames(reaction_adjacency_matrix)<-rownames(reaction_adjacency_matrix)<-metabolites
+
+for(i in 1:nrow(reaction_table)){
+  reaction_adjacency_matrix[reaction_table[i,1],reaction_table[i,2]]<-reaction_table[i,3]
+}
+
+inchis <- inchi_hmdb_common_key$V1[match(HMDB_ids,inchi_hmdb_common_key$hmdbs)]
+inchis <- sapply(inchis, function(x) ifelse(x %in% rownames(reaction_adjacency_matrix), return(x),return(NA)))
+inchis<-inchis[!is.na(inchis)]
+names <- inchi_hmdb_common_key$names[match(inchis,inchi_hmdb_common_key$V1)]
+AAG_reactions <- reaction_adjacency_matrix[inchis,inchis]
+colnames(AAG_reactions) <- rownames(AAG_reactions) <- names
+heatmap(AAG_reactions)
+#+END_SRC
+
+Disappointingly, no shared reactions with the AAG metabolites... trying with structure
+
+** Classyfire
+#+BEGIN_SRC R :session "global" :results output :export both
+
+## classyfire_table <- as.data.frame(fread("/Users/pat271/Desktop/F31_Materials/Data/Reactions/inchi_hmdb_classyfire_table.txt",sep="\t",header=TRUE))
+
+## classyfire_AM <- apply(classyfire_table, 1, function(x){
+##   column <- apply(classyfire_table, 1, function(y){
+##     return(length(which(intersect(as.matrix(x[8:11]),as.matrix(y[8:11]))!="")))
+##   })
+##   return(column)
+## })
+
+## save(classyfire_AM,file="classyfire_AM.Rda")
+
+load("classyfire_AM.Rda")
+
+colnames(classyfire_AM) <- rownames(classyfire_AM) <- classyfire_table$V1
+
+inchis <- classyfire_table$V1[match(HMDB_ids,classyfire_table$hmdbs)]
+
+inchis <- sapply(inchis, function(x) ifelse(x %in% rownames(classyfire_AM), return(x),return(NA)))
+inchis<-inchis[!is.na(inchis)]
+names <- classyfire_table$names[match(inchis,classyfire_table$V1)]
+AAG_similarity <- classyfire_AM[inchis,inchis]
+colnames(AAG_similarity) <- rownames(AAG_similarity) <- names
+heatmap(AAG_similarity)
+hist(AAG_similarity)
+
+plot(network(AAG_similarity))
+
+similarity_network = network::network(AAG_similarity,
+              matrix.type = "adjacency",
+              ignore.eval = FALSE,
+              names.eval = "weights")
+
+
+
+#+END_SRC
+
+** Build prior

@@ -1,0 +1,11 @@
+library(reticulate)
+use_python("/usr/local/lib/python3.7/")
+
+py_run_file("scraper.py")
+
+matchup_data <- py$matchup_df
+season_data <- py$season_df
+
+colnames(season_data) <- season_data[1,]
+colnames(matchup_data) <- c("Team",colnames(season_data))
+season_data <- season_data[-1,]

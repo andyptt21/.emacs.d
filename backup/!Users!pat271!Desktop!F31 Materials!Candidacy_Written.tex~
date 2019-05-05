@@ -1,0 +1,602 @@
+% Created 2019-02-25 Mon 13:33
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{helvet}
+\usepackage{enumitem}
+\usepackage{wrapfig}
+\usepackage[font=small,labelfont=bf]{caption}
+\renewcommand{\familydefault}{\sfdefault}
+\author{Patt}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={Patt},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={Rough draft for specific aims of F31 application},
+ pdfcreator={Emacs 25.3.1 (Org mode 9.2)}, 
+ pdflang={English}}
+\begin{document}
+
+\textbf{TITLE:} Integration of metabolomic and transcriptomic data through
+Bayesian network modeling with informative priors.
+
+\textbf{ABSTRACT} Metabolomic studies are important due to the close proximity
+of the metabolome to phenotype, offering insight into the dynamic
+cellular processes underlying disease. There are significant challenges
+associated with the analysis of metabolomic data, many of which stem
+from inadequate metabolite identification and infrequent pathway
+annotations \cite{pmid19850466}. One strategy for addressing these
+difficulties is integrative analysis of the metabolome with other ‘omic
+data sets measured in the same biospecimen or individual, through
+statistical techniques like T-tests, correlation analysis, or linear
+modeling. Integrative 'omics analysis is beneficial as it provides an
+orthogonal dimension for analysis, improving insights on the systems
+biology level. To improve interpretation of multiomic data,
+knowledge-guided pathway analysis tools such as Metaboanalyst
+\cite{pmid29762782} and IMPaLA \cite{pmid21893519} can be applied. As
+useful as these tools are, they lack the capacity to identify novel
+interactions between genes and metabolites, and suffer from the
+incomplete knowledge of metabolite function and regulation. Thus, there
+is a need to develop hybrid analytical techniques that can detect
+noncanonical gene and metabolite associations in data, while still
+leveraging existing biological knowledge to guide interpretation of
+results. To this end, we propose the use of Bayesian networks as a
+framework for identifying aberrant gene/metabolite and
+metabolite/metabolite pairs in a disease specific manner, by integrating
+multiple prior information sources into informative priors.
+
+Bayesian networks are a modeling approach that seek to describe
+conditional dependence relationships found in experimental data. In
+their most common implementation, Bayesian networks are purely
+data-driven, \emph{a priori} considering all possible graphical structures
+equally likely to explain the data. In our proposed approach, an
+informative prior is calculated using multiple sources, including
+pathway topological information, metabolite/enzyme reaction information,
+and chemical structure similarity, in order to identify relationships
+that are more likely to be observed in data given prior knowledge. This
+is weighted against conditional dependence relationships identified in
+the data by a greedy search algorithm, which identifies the network
+model that best integrates relationships found in the data with
+information already recorded by other researchers. Furthermore, we seek
+to address the scalability challenges of Bayesian network approaches by
+detecting subnetworks of differentially correlated transcripts and
+metabolites by incorporating our IntLIM tool \cite{pmid29506475}. We
+hypothesize that our approach will improve interpretability over
+univariate methods and aid in identification of novel and altered
+gene/metabolite and metabolite/metabolite relationships in a
+multivariate fashion.\\
+
+
+
+\textbf{NARRATIVE}
+
+Interpretation of metabolomic data is a major challenge that can be
+partly overcome through integration with other ‘omic data types, such as
+transcription. Our novel approach is designed to integrate many forms of
+prior metabolomic knowledge into an interpretable network model, able to
+generate hypotheses regarding the interplay of metabolism,
+transcription, and disease.
+
+\newpage
+
+\textbf{SPECIFIC AIMS}
+
+Metabolomics analyses are increasingly applied in the search for
+biomarkers/therapeutic targets of disease. Metabolomics data pose
+significant interpretability challenges, as pathway and enzymatic
+reaction annotations for metabolites can be relatively scarce
+\cite{pmid19850466}. Furthermore, metabolomic data sets typically
+contain many unidentified metabolites, exacerbating interpretation
+issues. One approach for improving interpretability is integration of
+metabolomic data with other omic data, for example when examining
+metabolomics and transcriptomics data \cite{pmid26979502}. Although
+transcripts and metabolites do not directly interact, certain
+functionally related metabolites and transcripts do exhibit robust
+correlations across samples \cite{pmid22355360,pmid19180179}, reflecting
+the outcome of simple metabolic activity, or sometimes the end result of
+more complex biological processes. When combining multiple ‘omic data
+types, it is common to use pathway analysis tools such as IMPaLA
+\cite{pmid21893519}, RaMP \cite{pmid29470400}, or Metaboanalyst
+\cite{pmid29762782} which rely on \emph{a priori} pathway knowledge stored in
+large databases such as KEGG
+\cite{pmid26476454,pmid27899662,pmid10592173} or HMDB
+\cite{pmid29140435}. It is often impossible to find prior knowledge
+regarding every metabolite identified in a study. For example, in the
+RaMP database, 129,146 unique metabolites are recorded, yet only 27,624
+metabolites (21.4$\backslash$%) have any pathway information associated with them.
+To address this lack of annotations, data-driven approaches, such as
+correlation analysis
+\cite{pmid29718102,pmid23246976,pmid29099853,pmid28714965}, linear
+modeling \cite{pmid29506475}, and Bayesian network analysis
+\cite{pmid22509135}, can be used to identify relevant gene/metabolite
+associations in a purely numerical fashion. However, these approaches
+can also be difficult to interpret without incorporation of existing
+knowledge. Hybrid approaches that combine the interpretability of
+knowledge-based approaches with the power of data-driven approaches to
+identify novel associations between analytes are thus preferable.
+
+Bayesian networks are a technique for network analysis that have been
+used in transcriptomic \cite{pmid21551144}, proteomic
+\cite{pmid18799736,pmid28950903,pmid22923301}, phosphoproteomic
+\cite{pmid23825934}, and metabolomic data \cite{pmid22509135}. Bayesian
+networks are extensively used for modeling biological regulatory
+networks for a number of reasons. As a multivariate approach, Bayesian
+network reconstruction techniques identify relationships between
+multiple analytes simultaneously, rather than in a pairwise fashion.
+This is beneficial as univariate techniques make the assumption that
+metabolite and transcript levels are statistically independent from one
+another, which is false. Furthermore, Bayesian methods are designed to
+describe uncertainty of model parameters \cite{pmid17784779}, which
+allows for quantitative ranking of relationships detected in the model.
+Many Bayesian scoring criteria, used to build these networks also
+penalize the addition of unnecessary parameters to an estimated model to
+avoid overfitting \cite{Chickering:2003}. Finally, Bayesian networks are
+a hybrid data/knowledge driven approach, as they allow for incorporation
+of prior knowledge through informative prior distributions
+\cite{pmid18799736}, while still maintaining the capability of
+data-driven discoveries. We hypothesize that development of a Bayesian
+network approach that incorporates informative priors will allow
+researchers to identify phenotype-specific relationships between genes
+and metabolites, serving as a powerful hypothesis generation technique
+and improving understanding of how metabolic relationships are impacted
+by disease.
+
+\textbf{Aim 1: Detect metabolite/gene associations using prior
+metabolite/transcript knowledge.} Bayesian network reconstruction
+algorithms can be modified to include prior biological knowledge in the
+form of network prior distributions. We propose to evaluate the benefits
+of incorporating prior biological knowledge on the ability of existing
+Bayesian network reconstruction algorithms to detect gene/metabolite
+associations in simulated and real multiomic data from various cancer
+types \cite{pmid24316975,pmid23376425,pmid23918603}. Prior knowledge will
+include pathway topological knowledge, reaction level knowledge,
+disease/biofluid/cell type ontological information, and chemical
+similarity between metabolites.
+
+*Aim 2: Identify metabolite/metabolite
+associations unique to disease state using Bayesian networks with
+informative priors.* We propose to identify complete subnetworks of
+gene/metabolite and metabolite/metabolite relationships that differ
+based on phenotype using IntLIM, a tool previously developed by our lab.
+These subnetworks will be used as input for a Bayesian network
+reconstruction algorithm which will detect association networks in
+healthy and disease samples, allowing us to detect and rank
+relationships between analytes that differ in a phenotype dependent
+manner. The confidence of these results will be quantified using
+permutation analysis on simulated and real data.
+
+\newpage
+
+\textbf{BACKGROUND/SIGNIFICANCE}
+
+The metabolome is a relatively untapped potential source for new
+biomarkers and therapeutic targets for several reasons: it exhibits a
+close association to the phenotype, and it reflects upstream variants in
+the transcriptome/genome. Metabolomics data pose severe interpretability
+challenges due to a high dynamic range of metabolite levels, leading to
+increased noise, and unidentifiable metabolites. One method of
+overcoming these challenges is to perform integrative analysis of
+metabolomic data with genomic or transcriptomic data. Combining data
+types allows the possibility of a systems biology-level view of disease
+mechanisms, giving multiple perspectives on the biological causes and
+effects underlying disease. Many popular tools such as IMPaLa
+\cite{pmid21893519}, MELT-DB \cite{pmid23918246}, Metabox
+\cite{pmid28141874}, and Metaboanalyst \cite{pmid29762782} integrate
+metabolomic/transcriptomic data on a pathway level. However, integrative
+tools for pathway analysis are oftentimes limited by knowledge stored in
+databases with pathway information on metabolites, such as Reactome
+\cite{pmid29145629}, KEGG \cite{pmid26476454,pmid27899662,pmid10592173},
+HMDB \cite{pmid29140435}, Wikipathways \cite{pmid29136241}, and RaMP
+\cite{pmid29470400}. In the RaMP database, which conglomerates pathway
+knowledge from four major metabolic pathway databases, 129,146 unique
+metabolites are recorded, yet only 27,624 metabolites (21.4$\backslash$%) have any
+pathway information associated with them. Alternatively, it is common to
+apply numerical approaches such as correlation analysis
+\cite{pmid28714965} or linear modeling \cite{pmid29506475} to identify
+aberrant metabolite/transcript interactions in disease samples. However,
+these techniques do not incorporate existing knowledge in any way, which
+can lead to the fallacious treatment of interdependent analytes as
+independent variables. It is thus necessary to develop a framework for
+incorporating additional, non-numerical knowledge into multiomic data
+prior to analysis, in order to ease interpretation of results and
+account for experimental noise. To this end, we propose the use of
+Bayesian network (BN) models.
+
+BNs are a class of probabilistic models designed for causal inference in
+data sets where conditional relationships are not definitively known.
+Causal inference techniques seek to identify relationships that imply
+conditional dependence, either direct or indirect, from one random
+variable onto another. In biological terms, conditional dependence can
+be as straightforward as an enzyme encoded by a transcript catalyzing a
+reaction involving a metabolite, or as complex as a multi-step
+transcriptional cascade resulting in changes in a metabolite's
+abundance. BNs are an attractive model for inferring biological
+regulatory networks for a number of reasons: as a probabilistic model,
+they are designed to describe uncertainty and stochasticity in data, and
+consequently avoid overfitting \cite{Chickering:2003,pmid17784779}. As a
+multivariate approach, BN reconstruction algorithms simultaneously
+evaluate relationships throughout the entire input dataset, rather than
+examining relationships in a pairwise fashion. Furthermore, BNs are
+capable of describing nonlinear relationships that don't require hard
+statistical cutoffs based off p value or differences in mean. Lastly,
+BNs allow for incorporation of prior knowledge in the form of a prior
+probability distribution.
+
+Network reconstruction algorithms are designed to identify a graphical
+structure that is most likely to explain the observed data. Using Bayes
+theorem, this relationship can be expressed as
+\(P(G|D) \propto P(D|G)P(G)\), where \(P(G|D)\) is the posterior likelihood
+of a candidate graph given the data, \(P(D|G)\) is the marginal
+probability of the data given the candidate graph, and \(P(G)\) is the
+prior probability of the candidate graph. \(P(D|G)\) is typically
+estimated using some Bayesian scoring criterion \cite{Chickering:2003}.
+\(P(G)\) quantifies the concordance between a proposed graph model and
+prior knowledge. To calculate \(P(G)\), we propose a machine learning
+technique inspired by Isci \emph{et al.} \cite{pmid24215027} in which a
+random forest regressor is trained to predict the probability of
+gene/metabolite or metabolite/metabolite associations these data sources
+as input. These probabilities are then used to calculate P(G). We
+hypothesize that building an informative prior will improve the fit of
+reconstructed BNs, improving models of experimental data, which in turn
+eases interpretation. To develop and test our approach, we will use a
+multiomic dataset generated for the study of breast cancer
+\cite{pmid24316975}. Untargeted metabolomics (333 identified and 203
+unidentified metabolites, Metabolon) and transcriptomic microarray
+(20,254 transcripts, Affymetrix) data from 61 tumor and 47 adjacent
+non-tumor tissue samples of breast cancer patients were obtained for the
+study. Figure 1 outlines our proposed strategy for multiomic integration
+with BNs.
+
+\begin{center}
+\begin{tabular}{lllr}
+Network & Analyte 1 & Analyte 2 & BIC\\
+\hline
+Healthy & NIT2 & succinate & -9.38\\
+Healthy & ALDH5A1 & asparagine & -8.84\\
+Healthy & ALDH5A1 & alanine & -8.69\\
+Tumor & GPT2 & citrate & -16.43\\
+Tumor & ASNS & glutamine & -8.57\\
+Tumor & ASPA & glutamate & -6.52\\
+\end{tabular}
+\end{center}
+
+\textbf{INNOVATION} Multiomic data integration can be aided by the integration
+of prior knowledge; however, the scope of prior knowledge can be
+limited, particularly in the domain of metabolomics. Furthermore,
+experimentally validated reactions and pathway relationships are not
+always observed in numerical data \cite{pmid21342567}. Use of
+unsupervised learning to predict gene/metabolite (g:m) and
+metabolite/metabolite (m:m) associations from prior knowledge for input
+into network analysis can address this question.
+
+\emph{Novel aspects of the approach and how it improves upon existing
+approaches}
+
+\begin{itemize}
+\item \textbf{Multiomic integration of metabolite data using BNs:} BNs have been
+used to integrate genes and metabolites with uninformative priors
+\cite{pmid22509135}, but to the best of our knowledge this is the
+first attempt to develop informative priors describing g:m and m:m
+associations. We choose to ignore evaluation of g:g relationships, as
+they are already well studied, and go beyond the intended scope of the
+study.
+
+\item \textbf{Prediction of m:m interactions and incorporation of chemical
+structure:} The dynamics of how metabolite levels affect one another
+are understudied, but relevant to human disease. Understanding how
+known features of metabolites (chemical structure, pathway activity,
+cellular location) influence associations with other metabolites can
+improve detection and understanding of altered metabolic pathways.
+
+\item \textbf{Hybrid data-driven/knowledge driven approach:} We plan to compare how
+the addition of extra, relevant pathway information from the RaMP
+database improves the ability of the algorithm to detect biologically
+significant interactions. Rather than examining only pathway data like
+many conventional approaches, our BN reconstruction tool will
+incorporate as many prior knowledge sources as possible, including
+chemical and biological, experimentally tuned to maximize algorithm
+performance in simulated data.
+\end{itemize}
+
+\textbf{PRELIMINARY RESULTS}
+
+To test our concept, we built BNs with uninformative priors from our
+breast cancer dataset using the bnlearn R package \cite{bnlearn}. To
+reduce the search space, we built models only from genes and metabolites
+present in map00250 (Alanine, aspartate and glutamate metabolism), a
+known perturbed pathway in breast cancer \cite{pmid27732857}. After
+removing metabolites with \(>50\%\) missing values, we found 10
+metabolites and 35 transcripts that mapped to the pathway. We performed
+univariate T-tests (Fig 2a) and discovered six metabolites upregulated
+in the disease state, and one transcript downregulated in the disease
+state (FDR adj. pval \(<0.05\), \(|log_2FC|>1\)). Next, we segregated
+samples into healthy and disease states, and used the Greedy Hill Climb
+algorithm \cite{Tsamardinos:2006} implemented in bnlearn to identify BNs
+unique to each state. This resulted in two strikingly different
+networks, overlaid in figure 2b: only three edges were found in common
+between the two graphs (red), while 19 unique edges were found in
+healthy samples (green), and 23 in tumor(blue).
+
+To evaluate the goodness of fit of the model, we generated 100
+permutated datasets using Monte Carlo bootstrapping, and measured the
+BIC of edges in those models. BIC is a negative measure of the posterior
+probability of an edge, penalized for unnecessary parameters. BIC of
+edges in the true models was noticeably better than BIC of edges in the
+bootstrapped models (Fig 2c). Strongest BIC edges are summarized in the
+corresponding table. Identifying a strong edge between GPT2 and citrate
+in the tumor data was particularly interesting, as GPT2 is known as a
+driver of increased citric acid cycle activity by increasing glutamine
+metabolism in cancer cells, contributing to the Warburg effect
+\cite{pmid27732857}. Note that neither citrate nor GPT2 would be
+included in a conventional pathway analysis, as neither was
+significantly different by univariate T-testing (Fig 2a) after fold
+change consideration.
+
+In order to justify inclusion of multiple data types in our informative
+prior calculation, we examined metabolite/transcripts correlations in
+healthy samples. Correlations were calculated in five different
+pathways: "Alanine, aspartate and glutamate metabolism", "Pyruvate
+metabolism", "Purine metabolism", "Arginine and proline metabolism", and
+"Glycolysis". A hierarchical clustering was performed using these
+correlations (Fig 3a). We observed very poor intrapathway clustering,
+which indicates that metabolites and genes in the same pathway do not
+reliably correlate with one another. After removing duplicate entries
+for metabolites and genes present in multiple pathways, we reclustered,
+and noted the HMDB subpathway associated with each metabolite, which
+closely corresponds with chemical structure. We observed two large
+clusters emerge, one of which was enriched for "Amino acids, peptides
+and analogues" (green in horizontal bar). This suggests that chemical
+structure could be a better predictor of transcript associations than
+pathway information, particularly if a more granular similarity metric
+between metabolites were used.
+
+\textbf{EXPERIMENTAL APPROACH}
+
+\textbf{Rationale:} Previous studies have demonstrated that incorporation of
+prior biological knowledge in the form of prior probability
+distributions improves the predictive ability of Bayesian network models
+\cite{pmid18799736}. Incorporating many sources of biological knowledge
+will improve interpretability and aid in identifying perturbed metabolic
+processes.
+
+\textbf{Experimental Design:}
+
+Our group has developed the Relational database of Metabolomic Pathways
+(RaMP) \cite{pmid29470400}, a MySQL pathway database that includes
+pathways from KEGG, Reactome, Wikipathways, and HMDB. Use of this
+database will maximize the chances of obtaining pathway information for
+any metabolite that a network model can incorporate. In order to
+incorporate pathway information into a prior, we aim to implement a
+pathway topological analysis similar to \cite{pmid18990722}. We propose
+the formula \(TS(a,b)=\frac{1}{\frac{1}{n}\sum_{i=1}^{n}SP_i(a,b)}\) for
+representing the topological score (\emph{TS}) between two analytes \emph{a} and
+\emph{b} where \(SP_i()\) is the length of the shortest path between the two
+analytes in pathway \emph{i}, and \emph{n} is the number of pathways mutually
+shared by \emph{a} and \emph{b}. If there are no pathways found in common between
+\emph{a} and \emph{b}, \(TS=0\).
+
+Additionally, RaMP can serve as a source of ontological information for
+metabolites, such as biofluid, cellular location, or disease
+association. As a unique consideration for likelihood of m:m
+associations, we propose a Jaccard index for ontologies, where ontology
+score (\emph{OS}) is
+\(OS(a,b)=\frac{\mbox{ontologies of } a \cap \mbox{ontologies of } b}{\mbox{ontologies of } a \cup \mbox{ontologies of } b}\).
+
+Furthermore, some databases store experimentally validated and
+computationally predicted reactions between metabolic enzymes and
+metabolite substrates that might not be represented by pathway data.
+MetRxn \cite{pmid22233419} is a downloadable SQL database with an online
+interface that consolidates and harmonizes 35473 metabolic reactions
+involving 44783 metabolites. A reaction score would be a boolean value
+indicating whether a g:m or m:m pair was known to exist in MetRxn.
+Finally further evidence for relationships between metabolites could be
+derived from a chemical structure taxonomy such as ClassyFire
+\cite{pmid27867422}. The ClassyFire system is a hierarchical taxonomy
+that provides classification for 77 million compounds. The algorithm
+used to build the ClassyFire system is based on expert chemical
+knowledge and describes 4825 unique chemical taxa with up to 11
+hierarchical levels. The ClassyFire system is easily accessible as a
+free web API, allowing for queries of the hierarchical classifications
+of metabolites considered for our Bayesian Network approach. A score of
+chemical similarity would record the lowest level (i.e. most specific)
+taxonomic group shared by a potential m:m connection.
+
+Distilling these disparate information types into a network prior
+probability requires the formulation of a concordance function
+describing the agreement between candidate graph models and existing
+knowledge of analyte interactions. We propose to build this using the
+Random Forests machine learning algorithm, described below.
+
+\begin{itemize}
+\item \textbf{Calculating \(P(G)\) for candidate models:} Prior information about
+potential m:m interactions and m:g interactions will be stored in
+separate matrices, M and G, respectively. A column will be appended to
+each matrix where a boolean value inferring an interaction between the
+pair of that row is stored. An inference will be based on rules
+designed for each data type. For example, an interaction might be
+inferred between two metabolites IF a reaction is found in MetaRxn OR
+they share tier 3 similarity by ClassyFire taxonomy OR they are
+connected by a chain of 3 reactions in a KEGG pathway OR they share a
+significant IntLIM coefficient. The specific rules will be optimized
+in order to maximize the AUC of a random forest regressor trained to
+predict the probability of a relationship between two analytes. It
+will be interesting to evaluate the influence of different knowledge
+types on the accuracy of interaction predictions, provided a good AUC
+value is obtained. The relationships between prior knowledge types and
+how they contribute to predictions of associations with genes and
+metabolites could help guide the construction of improved future
+models of multiomic metabolomic data.
+
+Once a probability for each potential edge in a candidate graph is
+assigned, the energy function E(G) of Isci \emph{et. al} is calculated,
+\(E(G)=\frac{\sum_{i=1}^{e}1-p(i)}{N^2}\) where \(e\) is the number of
+edges in proposal graph \(G\) and \(N\) is the number of nodes. This is
+used to calculate
+\(P(G)=c\frac{1}{\lambda_H-\lambda_L}\int_{\lambda_L}^{\lambda_H}e^{-\lambda E(G)}d\lambda\),
+where \(\lambda\) is the scaling factor determining the strength of the
+prior.
+
+\item \textbf{Evaluation of probability function} A random forest regressor will be
+trained to predict m:m and m:g relationships. Performance will be
+evaluated using AUC averaged over a 90:10 training/test split of M and
+G with 10-fold cross-validation. Rules for inferring a relationship
+will be optimized by AUC.
+\end{itemize}
+
+\textbf{Potential Pitfalls and Solutions:} It may not be possible to reliably
+predict associations between genes and metabolites for several reasons.
+Given the high level of noise in metabolomics data, and the challenges
+of observing prior biological knowledge in data-driven relationships
+(Fig. 3). Given the complex biological processes that separate
+transcript and metabolite levels. In this case, it would be possible to
+apply this approach to building exclusively metabolomic m:m networks,
+which would still be informative, as the regulatory relationships
+between metabolites in the context of disease are poorly understood. It
+is possible that AUC values from our Random Forest experiments will not
+be satisfactory, in which case we will evaluate other machine learning
+regressors for calculating P(G), including BNs, Support Vector Machines,
+and Neural Networks.
+
+
+
+\textbf{Rationale:} Most common methods for analysis of differentially
+expressed metabolites in disease vs. healthy state employ univariate
+statistics, or are restricted to evaluations of pathways and
+relationships already known in the literature. Methods for integrating
+metabolomic and transcriptomic data are generally lacking
+\cite{pmid19850466}. We propose the use of BN analysis to as a hybrid
+knowledge driven/data-driven multiomic integration method. A hybrid
+approach will ease interpretation of analytical results and provide a
+means for identifying dysregulated analytes in a multivariate, nonlinear
+fashion.
+
+\textbf{Experimental Design:}
+
+BNs require the use of a network reconstruction algorithm to identify
+the optimal network structure to fit the data. We propose to use a
+modified version of the Greedy Equivalence Search (GES) algorithm
+\cite{Chickering:2003}. We chose to use the GES algorithm since greedy
+approaches are less computationally expensive than MCMC, and partially
+parallelizable. Although a variety of Bayesian scoring criteria (BSC)
+are acceptable for use in the algorithm, a requirement is the scoring
+system must be locally consistent, meaning better scores indicate better
+fits of the proposal with the data. We propose to optimize our greedy
+search through direct approximation of the posterior probability of the
+candidate graph, in which case \(S(G,D) = log(P(D|G)) + log(P(G))\). In
+this strategy, rather than penalizing candidate graphs for unnecessary
+parameters, we penalize graphs with low concordance with prior
+knowledge. It is important to note that \(P(D|G)\) scales with sample
+size, so in our proposed strategy, \(P(G)\) will strongly guide model fits
+at low sample sizes, but as sample size increases, data-driven
+relationships will be more strongly considered. Consequently,
+unidentified metabolites or those with little prior knowledge will need
+larger sample sizes to be included in a network model. We hypothesize
+that this scheme will work well in 'omic contexts, since even after
+feature selection, the number of features will likely be equal to or
+greater than the number of samples.
+
+It is impossible to evaluate entire multiomic data sets simultaneously,
+as the number of possible graph structures grows superexponentially with
+the number of features being evaluated. We propose feature filtration
+with another tool developed by our group, IntLIM \cite{pmid29470400}.
+IntLim is a linear modeling tool that detects pairs of genes and
+metabolites that are differentially correlated across phenotypes. We
+propose to identify a p value cutoff that will maximize the modularity
+of a global IntLIM network, allowing us to identify subnetworks of
+differentially correlated analytes that vary by phenotype. This would
+reduce the search space for our algorithm by focusing on analytes that
+are most likely to differ by phenotype.
+
+\begin{itemize}
+\item \textbf{Feature selection with IntLIM:} Subnetworks of genes and metabolites
+whose interactions differ dependent upon phenotype will be identified
+by applying an IntLIM p-value cutoff that maximizes the modularity of
+a global IntLIM network. Subnetworks will be used as input for our BN
+approach.
+
+\item \textbf{Learn a network of transcript/metabolite associations to identify
+putative analyte interactions that differ based on phenotype:} We will
+apply our GES algorithm that scores proposals based on our modified
+scoring criteria. The algorithm will identify a graphical structure
+that ranks m:m and m:g relationships identified in the data,
+preferring model proposals that best fit the data as well as reflect
+prior biological knowledge to ease interpretability. The networks will
+be generated separately in healthy and disease samples, and structures
+will be compared between phenotypes, allowing for identification of
+strong relationships that are unique to the healthy and disease state.
+
+\item \textbf{Identify significant edges with permutation analysis:} Since there is
+no gold standard truth to measure the performance of the algorithm
+with, we propose the use permutation analysis. We plan to permutate
+the data 100 times, and apply our BN approach each time, generating a
+null distribution of edges to compare our actual model to. High
+confidence edges by posterior probability could be used for biological
+hypothesis generation, or could be used as input for further
+high-level analyses, like pathway overrepresentation analysis through
+RaMP.
+
+\item \textbf{Evaluate method:} In order to validate the BN portion of our method,
+we must test its ability to recover a known network structure in
+simulated multiomic pathway data. This will be accomplished using the
+method from \cite{pmid21551144}. Briefly, the skeleton of a BN model
+for a pathway is converted to a directed acyclic graph representation.
+Once a conditional probability distribution (CPD) on that skeleton is
+defined, a synthetic dataset is generated by randomly sampling from
+the CPD, with varying levels of noise randomly added. We then apply
+the proposed approach, and compare the result with the underlying
+model. We will apply our approach to various multiomic datasets,
+including breast \cite{pmid24316975}, liver \cite{pmid23376425} and
+pancreatic \cite{pmid23918603} cancer.
+\end{itemize}
+
+\textbf{Expected Outcomes:} The proposed method will identify biologically
+relevant features in data sets in a disease-specific manner, and
+integrate them into regulatory networks that can be compared to those
+identified in the literature. This will also generate hypotheses for
+novel associations. These novel associations can help guide the
+integration of different data sets into interdependent networks and
+identify metabolic relationships perturbed by disease. This technique
+could also guide new experiments leading to the annotation of novel
+metabolite associations with gene transcripts. Of note, our chosen
+method of calculating \(P(G)\) provides a framework for potential
+integration of other 'omic types, including proteome and microbiome,
+using prior information on enzyme/metabolite relationships, or
+metabolites with microbial origin, for example.
+
+\textbf{Potential Pitfalls and Solutions:} We believe our modified scoring
+metric may violate the local consistency requirement, meaning the
+best-fit CPD underlying the data will not always be converged upon if it
+disagrees with prior knowledge. However, we believe this is acceptable
+because of the high level of experimental noise in metabolomic data. We
+are less interested in finding the optimal underlying conditional
+probability distribution to describe the data (which will be difficult
+due to high noise levels), and more interested in generating a
+descriptive model that contains data-driven relationships that are
+likely to be interpretable in biological terms, due to a common pathway,
+reaction, or structural similarity. Generated models may not be
+significantly different from random models, which may indicate that BNs
+with informative priors are not a suitable approach, in which case
+uninformative priors can be tested, or MCMC approaches. It may be
+necessary to reevaluate the use of IntLIM as a filtration criteria.
+Alternatives could include subnetworks in covariance data across
+phenotypes, or restricting input to analytes from a known pathway or
+related group of pathways.
+
+\bibliography{../../Documents/emacs_files/references}
+\bibliographystyle{plain}
+\end{document}

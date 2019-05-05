@@ -1,0 +1,737 @@
+% 22923301 
+@Article{pmid22923301,
+   Author="Hill, S. M.  and Lu, Y.  and Molina, J.  and Heiser, L. M.  and Spellman, P. T.  and Speed, T. P.  and Gray, J. W.  and Mills, G. B.  and Mukherjee, S. ",
+   Title="{{B}ayesian inference of signaling network topology in a cancer cell line}",
+   Journal="Bioinformatics",
+   Year="2012",
+   Volume="28",
+   Number="21",
+   Pages="2804--2810",
+   Month="Nov"
+}
+
+% 27117029 
+@Article{pmid27117029,
+   Author="Sciacovelli, M.  and Frezza, C. ",
+   Title="{{O}ncometabolites: {U}nconventional triggers of oncogenic signalling cascades}",
+   Journal="Free Radic. Biol. Med.",
+   Year="2016",
+   Volume="100",
+   Pages="175--181",
+   Month="11"
+}
+
+% 24316975 
+@Article{pmid24316975,
+   Author="Terunuma, A.  and Putluri, N.  and Mishra, P.  and Mathe, E. A.  and Dorsey, T. H.  and Yi, M.  and Wallace, T. A.  and Issaq, H. J.  and Zhou, M.  and Killian, J. K.  and Stevenson, H. S.  and Karoly, E. D.  and Chan, K.  and Samanta, S.  and Prieto, D.  and Hsu, T. Y.  and Kurley, S. J.  and Putluri, V.  and Sonavane, R.  and Edelman, D. C.  and Wulff, J.  and Starks, A. M.  and Yang, Y.  and Kittles, R. A.  and Yfantis, H. G.  and Lee, D. H.  and Ioffe, O. B.  and Schiff, R.  and Stephens, R. M.  and Meltzer, P. S.  and Veenstra, T. D.  and Westbrook, T. F.  and Sreekumar, A.  and Ambs, S. ",
+   Title="{{M}{Y}{C}-driven accumulation of 2-hydroxyglutarate is associated with breast cancer prognosis}",
+   Journal="J. Clin. Invest.",
+   Year="2014",
+   Volume="124",
+   Number="1",
+   Pages="398--412",
+   Month="Jan"
+}
+
+% 26979502 
+@Article{pmid26979502,
+   Author="Johnson, C. H.  and Ivanisevic, J.  and Siuzdak, G. ",
+   Title="{{M}etabolomics: beyond biomarkers and towards mechanisms}",
+   Journal="Nat. Rev. Mol. Cell Biol.",
+   Year="2016",
+   Volume="17",
+   Number="7",
+   Pages="451--459",
+   Month="07"
+}
+
+% 26396492 
+@Article{pmid26396492,
+   Author="Wanichthanarak, K.  and Fahrmann, J. F.  and Grapov, D. ",
+   Title="{{G}enomic, {P}roteomic, and {M}etabolomic {D}ata {I}ntegration {S}trategies}",
+   Journal="Biomark Insights",
+   Year="2015",
+   Volume="10",
+   Number="Suppl 4",
+   Pages="1--6"
+}
+
+% 25798438 
+@Article{pmid25798438,
+   Author="Alonso, A.  and Marsal, S.  and Julia, A. ",
+   Title="{{A}nalytical methods in untargeted metabolomics: state of the art in 2015}",
+   Journal="Front Bioeng Biotechnol",
+   Year="2015",
+   Volume="3",
+   Pages="23"
+}
+
+% 21893519 
+@Article{pmid21893519,
+   Author="Kamburov, A.  and Cavill, R.  and Ebbels, T. M.  and Herwig, R.  and Keun, H. C. ",
+   Title="{{I}ntegrated pathway-level analysis of transcriptomics and metabolomics data with {I}{M}{P}a{L}{A}}",
+   Journal="Bioinformatics",
+   Year="2011",
+   Volume="27",
+   Number="20",
+   Pages="2917--2918",
+   Month="Oct"
+}
+
+% 25897128 
+@Article{pmid25897128,
+   Author="Xia, J.  and Sinelnikov, I. V.  and Han, B.  and Wishart, D. S. ",
+   Title="{{M}etabo{A}nalyst 3.0--making metabolomics more meaningful}",
+   Journal="Nucleic Acids Res.",
+   Year="2015",
+   Volume="43",
+   Number="W1",
+   Pages="W251--257",
+   Month="Jul"
+}
+
+% 26476454 
+@Article{pmid26476454,
+   Author="Kanehisa, M.  and Sato, Y.  and Kawashima, M.  and Furumichi, M.  and Tanabe, M. ",
+   Title="{{K}{E}{G}{G} as a reference resource for gene and protein annotation}",
+   Journal="Nucleic Acids Res.",
+   Year="2016",
+   Volume="44",
+   Number="D1",
+   Pages="D457--462",
+   Month="Jan"
+}
+
+% 26481357 
+@Article{pmid26481357,
+   Author="Kutmon, M.  and Riutta, A.  and Nunes, N.  and Hanspers, K.  and Willighagen, E. L.  and Bohler, A.  and Melius, J.  and Waagmeester, A.  and Sinha, S. R.  and Miller, R.  and Coort, S. L.  and Cirillo, E.  and Smeets, B.  and Evelo, C. T.  and Pico, A. R. ",
+   Title="{{W}iki{P}athways: capturing the full diversity of pathway knowledge}",
+   Journal="Nucleic Acids Res.",
+   Year="2016",
+   Volume="44",
+   Number="D1",
+   Pages="D488--494",
+   Month="Jan"
+}
+
+% 29140435 
+@Article{pmid29140435,
+   Author="Wishart, D. S.  and Feunang, Y. D.  and Marcu, A.  and Guo, A. C.  and Liang, K.  and Vazquez-Fresno, R.  and Sajed, T.  and Johnson, D.  and Li, C.  and Karu, N.  and Sayeeda, Z.  and Lo, E.  and Assempour, N.  and Berjanskii, M.  and Singhal, S.  and Arndt, D.  and Liang, Y.  and Badran, H.  and Grant, J.  and Serra-Cayuela, A.  and Liu, Y.  and Mandal, R.  and Neveu, V.  and Pon, A.  and Knox, C.  and Wilson, M.  and Manach, C.  and Scalbert, A. ",
+   Title="{{H}{M}{D}{B} 4.0: the human metabolome database for 2018}",
+   Journal="Nucleic Acids Res.",
+   Year="2018",
+   Volume="46",
+   Number="D1",
+   Pages="D608-D617",
+   Month="Jan"
+}
+
+% 29145629 
+@Article{pmid29145629,
+   Author="Fabregat, A.  and Jupe, S.  and Matthews, L.  and Sidiropoulos, K.  and Gillespie, M.  and Garapati, P.  and Haw, R.  and Jassal, B.  and Korninger, F.  and May, B.  and Milacic, M.  and Roca, C. D.  and Rothfels, K.  and Sevilla, C.  and Shamovsky, V.  and Shorser, S.  and Varusai, T.  and Viteri, G.  and Weiser, J.  and Wu, G.  and Stein, L.  and Hermjakob, H.  and D'Eustachio, P. ",
+   Title="{{T}he {R}eactome {P}athway {K}nowledgebase}",
+   Journal="Nucleic Acids Res.",
+   Year="2018",
+   Volume="46",
+   Number="D1",
+   Pages="D649-D655",
+   Month="Jan"
+}
+
+% 29470400 
+@Article{pmid29470400,
+   Author="Zhang, B.  and Hu, S.  and Baskin, E.  and Patt, A.  and Siddiqui, J. K.  and Mathe, E. A. ",
+   Title="{{R}a{M}{P}: {A} {C}omprehensive {R}elational {D}atabase of {M}etabolomics {P}athways for {P}athway {E}nrichment {A}nalysis of {G}enes and {M}etabolites}",
+   Journal="Metabolites",
+   Year="2018",
+   Volume="8",
+   Number="1",
+   Month="Feb"
+}
+
+% 19850466 
+@Article{pmid19850466,
+   Author="Arita, M. ",
+   Title="{{W}hat can metabolomics learn from genomics and proteomics?}",
+   Journal="Curr. Opin. Biotechnol.",
+   Year="2009",
+   Volume="20",
+   Number="6",
+   Pages="610--615",
+   Month="Dec"
+}
+
+% 29762782 
+@Article{pmid29762782,
+   Author="Chong, J.  and Soufan, O.  and Li, C.  and Caraus, I.  and Li, S.  and Bourque, G.  and Wishart, D. S.  and Xia, J. ",
+   Title="{{M}etabo{A}nalyst 4.0: towards more transparent and integrative metabolomics analysis}",
+   Journal="Nucleic Acids Res.",
+   Year="2018",
+   Volume="46",
+   Number="W1",
+   Pages="W486-W494",
+   Month="Jul"
+}
+
+% 27899662 
+@Article{pmid27899662,
+   Author="Kanehisa, M.  and Furumichi, M.  and Tanabe, M.  and Sato, Y.  and Morishima, K. ",
+   Title="{{K}{E}{G}{G}: new perspectives on genomes, pathways, diseases and drugs}",
+   Journal="Nucleic Acids Res.",
+   Year="2017",
+   Volume="45",
+   Number="D1",
+   Pages="D353-D361",
+   Month="01"
+}
+
+% 10592173 
+@Article{pmid10592173,
+   Author="Kanehisa, M.  and Goto, S. ",
+   Title="{{K}{E}{G}{G}: kyoto encyclopedia of genes and genomes}",
+   Journal="Nucleic Acids Res.",
+   Year="2000",
+   Volume="28",
+   Number="1",
+   Pages="27--30",
+   Month="Jan"
+}
+
+% 22355360 
+@Article{pmid22355360,
+   Author="Hancock, T.  and Wicker, N.  and Takigawa, I.  and Mamitsuka, H. ",
+   Title="{{I}dentifying neighborhoods of coordinated gene expression and metabolite profiles}",
+   Journal="PLoS ONE",
+   Year="2012",
+   Volume="7",
+   Number="2",
+   Pages="e31345"
+}
+
+% 19180179 
+@Article{pmid19180179,
+   Author="Bradley, P. H.  and Brauer, M. J.  and Rabinowitz, J. D.  and Troyanskaya, O. G. ",
+   Title="{{C}oordinated concentration changes of transcripts and metabolites in {S}accharomyces cerevisiae}",
+   Journal="PLoS Comput. Biol.",
+   Year="2009",
+   Volume="5",
+   Number="1",
+   Pages="e1000270",
+   Month="Jan"
+}
+
+% 29506475 
+@Article{pmid29506475,
+   Author="Siddiqui, J. K.  and Baskin, E.  and Liu, M.  and Cantemir-Stone, C. Z.  and Zhang, B.  and Bonneville, R.  and McElroy, J. P.  and Coombes, K. R.  and Mathe, E. A. ",
+   Title="{{I}nt{L}{I}{M}: integration using linear models of metabolomics and gene expression data}",
+   Journal="BMC Bioinformatics",
+   Year="2018",
+   Volume="19",
+   Number="1",
+   Pages="81",
+   Month="Mar"
+}
+
+% 29718102 
+@Article{pmid29718102,
+   Author="Mock, A.  and Warta, R.  and Dettling, S.  and Brors, B.  and Jager, D.  and Herold-Mende, C. ",
+   Title="{{M}etabo{D}iff: an {R} package for differential metabolomic analysis}",
+   Journal="Bioinformatics",
+   Year="2018",
+   Month="Apr"
+}
+
+% 23246976 
+@Article{pmid23246976,
+   Author="Fukushima, A. ",
+   Title="{{D}iff{C}orr: an {R} package to analyze and visualize differential correlations in biological networks}",
+   Journal="Gene",
+   Year="2013",
+   Volume="518",
+   Number="1",
+   Pages="209--214",
+   Month="Apr"
+}
+
+% 29099853 
+@Article{pmid29099853,
+   Author="Rohart, F.  and Gautier, B.  and Singh, A.  and Le Cao, K. A. ",
+   Title="{mix{O}mics: {A}n {R} package for 'omics feature selection and multiple data integration}",
+   Journal="PLoS Comput. Biol.",
+   Year="2017",
+   Volume="13",
+   Number="11",
+   Pages="e1005752",
+   Month="Nov"
+}
+
+% 23825934 
+@Article{pmid23825934,
+   Author="Zhang, Y.  and Kweon, H. K.  and Shively, C.  and Kumar, A.  and Andrews, P. C. ",
+   Title="{{T}owards systematic discovery of signaling networks in budding yeast filamentous growth stress response using interventional phosphorylation data}",
+   Journal="PLoS Comput. Biol.",
+   Year="2013",
+   Volume="9",
+   Number="6",
+   Pages="e1003077"
+}
+
+% 21551144 
+@Article{pmid21551144,
+   Author="Isci, S.  and Ozturk, C.  and Jones, J.  and Otu, H. H. ",
+   Title="{{P}athway analysis of high-throughput biological data within a {B}ayesian network framework}",
+   Journal="Bioinformatics",
+   Year="2011",
+   Volume="27",
+   Number="12",
+   Pages="1667--1674",
+   Month="Jun"
+}
+
+% 18799736 
+@Article{pmid18799736,
+   Author="Mukherjee, S.  and Speed, T. P. ",
+   Title="{{N}etwork inference using informative priors}",
+   Journal="Proc. Natl. Acad. Sci. U.S.A.",
+   Year="2008",
+   Volume="105",
+   Number="38",
+   Pages="14313--14318",
+   Month="Sep"
+}
+
+% 28950903 
+@Article{pmid28950903,
+   Author="Fu, C.  and Deng, S.  and Jin, G.  and Wang, X.  and Yu, Z. G. ",
+   Title="{{B}ayesian network model for identification of pathways by integrating protein interaction with genetic interaction data}",
+   Journal="BMC Syst Biol",
+   Year="2017",
+   Volume="11",
+   Number="Suppl 4",
+   Pages="81",
+   Month="Sep"
+}
+
+% 28714965 
+@Article{pmid28714965,
+   Author="Price, N. D.  and Magis, A. T.  and Earls, J. C.  and Glusman, G.  and Levy, R.  and Lausted, C.  and McDonald, D. T.  and Kusebauch, U.  and Moss, C. L.  and Zhou, Y.  and Qin, S.  and Moritz, R. L.  and Brogaard, K.  and Omenn, G. S.  and Lovejoy, J. C.  and Hood, L. ",
+   Title="{{A} wellness study of 108 individuals using personal, dense, dynamic data clouds}",
+   Journal="Nat. Biotechnol.",
+   Year="2017",
+   Volume="35",
+   Number="8",
+   Pages="747--756",
+   Month="Aug"
+}
+
+% 22509135 
+@Article{pmid22509135,
+   Author="Zhu, J.  and Sova, P.  and Xu, Q.  and Dombek, K. M.  and Xu, E. Y.  and Vu, H.  and Tu, Z.  and Brem, R. B.  and Bumgarner, R. E.  and Schadt, E. E. ",
+   Title="{{S}titching together multiple data dimensions reveals interacting metabolomic and transcriptomic networks that modulate cell regulation}",
+   Journal="PLoS Biol.",
+   Year="2012",
+   Volume="10",
+   Number="4",
+   Pages="e1001301"
+}
+
+% 17784779 
+@Article{pmid17784779,
+   Author="Needham, C. J.  and Bradford, J. R.  and Bulpitt, A. J.  and Westhead, D. R. ",
+   Title="{{A} primer on learning in {B}ayesian networks for computational biology}",
+   Journal="PLoS Comput. Biol.",
+   Year="2007",
+   Volume="3",
+   Number="8",
+   Pages="e129",
+   Month="Aug"
+}
+
+@article{Chickering:2003,
+ author = {Chickering, David Maxwell},
+ title = {Optimal Structure Identification with Greedy Search},
+ journal = {J. Mach. Learn. Res.},
+ issue_date = {3/1/2003},
+ volume = {3},
+ month = mar,
+ year = {2003},
+ issn = {1532-4435},
+ pages = {507--554},
+ numpages = {48},
+ url = {https://doi.org/10.1162/153244303321897717},
+ doi = {10.1162/153244303321897717},
+ acmid = {944933},
+ publisher = {JMLR.org},
+} 
+
+% 23918246 
+@Article{pmid23918246,
+   Author="Kessler, N.  and Neuweger, H.  and Bonte, A.  and Langenkamper, G.  and Niehaus, K.  and Nattkemper, T. W.  and Goesmann, A. ",
+   Title="{{M}elt{D}{B} 2.0-advances of the metabolomics software system}",
+   Journal="Bioinformatics",
+   Year="2013",
+   Volume="29",
+   Number="19",
+   Pages="2452--2459",
+   Month="Oct"
+}
+
+% 28141874 
+@Article{pmid28141874,
+   Author="Wanichthanarak, K.  and Fan, S.  and Grapov, D.  and Barupal, D. K.  and Fiehn, O. ",
+   Title="{{M}etabox: {A} {T}oolbox for {M}etabolomic {D}ata {A}nalysis, {I}nterpretation and {I}ntegrative {E}xploration}",
+   Journal="PLoS ONE",
+   Year="2017",
+   Volume="12",
+   Number="1",
+   Pages="e0171046"
+}
+
+% 29136241 
+@Article{pmid29136241,
+   Author="Slenter, D. N.  and Kutmon, M.  and Hanspers, K.  and Riutta, A.  and Windsor, J.  and Nunes, N.  and Melius, J.  and Cirillo, E.  and Coort, S. L.  and Digles, D.  and Ehrhart, F.  and Giesbertz, P.  and Kalafati, M.  and Martens, M.  and Miller, R.  and Nishida, K.  and Rieswijk, L.  and Waagmeester, A.  and Eijssen, L. M. T.  and Evelo, C. T.  and Pico, A. R.  and Willighagen, E. L. ",
+   Title="{{W}iki{P}athways: a multifaceted pathway database bridging metabolomics to other omics research}",
+   Journal="Nucleic Acids Res.",
+   Year="2018",
+   Volume="46",
+   Number="D1",
+   Pages="D661-D667",
+   Month="Jan"
+}
+
+% 24215027 
+@Article{pmid24215027,
+   Author="Isci, S.  and Dogan, H.  and Ozturk, C.  and Otu, H. H. ",
+   Title="{{B}ayesian network prior: network analysis of biological data using external knowledge}",
+   Journal="Bioinformatics",
+   Year="2014",
+   Volume="30",
+   Number="6",
+   Pages="860--867",
+   Month="Mar"
+}
+
+% 21342567 
+@Article{pmid21342567,
+   Author="Su, G.  and Burant, C. F.  and Beecher, C. W.  and Athey, B. D.  and Meng, F. ",
+   Title="{{I}ntegrated metabolome and transcriptome analysis of the {N}{C}{I}60 dataset}",
+   Journal="BMC Bioinformatics",
+   Year="2011",
+   Volume="12 Suppl 1",
+   Pages="S36",
+   Month="Feb"
+}
+
+% 18990722 
+@Article{pmid18990722,
+   Author="Tarca, A. L.  and Draghici, S.  and Khatri, P.  and Hassan, S. S.  and Mittal, P.  and Kim, J. S.  and Kim, C. J.  and Kusanovic, J. P.  and Romero, R. ",
+   Title="{{A} novel signaling pathway impact analysis}",
+   Journal="Bioinformatics",
+   Year="2009",
+   Volume="25",
+   Number="1",
+   Pages="75--82",
+   Month="Jan"
+}
+
+% 27732857 
+@Article{pmid27732857,
+   Author="Smith, B.  and Schafer, X. L.  and Ambeskovic, A.  and Spencer, C. M.  and Land, H.  and Munger, J. ",
+   Title="{{A}ddiction to {C}oupling of the {W}arburg {E}ffect with {G}lutamine {C}atabolism in {C}ancer {C}ells}",
+   Journal="Cell Rep",
+   Year="2016",
+   Volume="17",
+   Number="3",
+   Pages="821--836",
+   Month="10"
+}
+
+% 16098521 
+@Article{pmid16098521,
+   Author="Feldman, H. J.  and Dumontier, M.  and Ling, S.  and Haider, N.  and Hogue, C. W. ",
+   Title="{{C}{O}: {A} chemical ontology for identification of functional groups and semantic comparison of small molecules}",
+   Journal="FEBS Lett.",
+   Year="2005",
+   Volume="579",
+   Number="21",
+   Pages="4685--4691",
+   Month="Aug"
+}
+
+% 27867422 
+@Article{pmid27867422,
+   Author="Djoumbou Feunang, Y.  and Eisner, R.  and Knox, C.  and Chepelev, L.  and Hastings, J.  and Owen, G.  and Fahy, E.  and Steinbeck, C.  and Subramanian, S.  and Bolton, E.  and Greiner, R.  and Wishart, D. S. ",
+   Title="{{C}lassy{F}ire: automated chemical classification with a comprehensive, computable taxonomy}",
+   Journal="J Cheminform",
+   Year="2016",
+   Volume="8",
+   Pages="61"
+}
+
+@Book{bnlearn,
+    title = {Bayesian Networks in {R} with Applications in Systems
+      Biology},
+    author = {Radhakrishnan Nagarajan and Marco Scutari},
+    publisher = {Springer},
+    address = {New York},
+    year = {2013},
+    note = {ISBN 978-1-4614-6445-7, 978-1-4614-6446-4},
+    doi = {10.1007/978-1-4614-6446-4},
+  }
+
+@article{Tsamardinos:2006,
+ author = {Tsamardinos, Ioannis and Brown, Laura E. and Aliferis, Constantin F.},
+ title = {The Max-min Hill-climbing Bayesian Network Structure Learning Algorithm},
+ journal = {Mach. Learn.},
+ issue_date = {October   2006},
+ volume = {65},
+ number = {1},
+ month = oct,
+ year = {2006},
+ issn = {0885-6125},
+ pages = {31--78},
+ numpages = {48},
+ url = {http://dx.doi.org/10.1007/s10994-006-6889-7},
+ doi = {10.1007/s10994-006-6889-7},
+ acmid = {1164587},
+ publisher = {Kluwer Academic Publishers},
+ address = {Hingham, MA, USA},
+ keywords = {Bayesian networks, Graphical models, Structure learning},
+} 
+
+% 22233419 
+@Article{pmid22233419,
+   Author="Kumar, A.  and Suthers, P. F.  and Maranas, C. D. ",
+   Title="{{M}et{R}xn: a knowledgebase of metabolites and reactions spanning metabolic models and databases}",
+   Journal="BMC Bioinformatics",
+   Year="2012",
+   Volume="13",
+   Pages="6",
+   Month="Jan"
+}
+
+% 23376425 
+@Article{pmid23376425,
+   Author="Budhu, A.  and Roessler, S.  and Zhao, X.  and Yu, Z.  and Forgues, M.  and Ji, J.  and Karoly, E.  and Qin, L. X.  and Ye, Q. H.  and Jia, H. L.  and Fan, J.  and Sun, H. C.  and Tang, Z. Y.  and Wang, X. W. ",
+   Title="{{I}ntegrated metabolite and gene expression profiles identify lipid biomarkers associated with progression of hepatocellular carcinoma and patient outcomes}",
+   Journal="Gastroenterology",
+   Year="2013",
+   Volume="144",
+   Number="5",
+   Pages="1066--1075",
+   Month="May"
+}
+
+% 23918603 
+@Article{pmid23918603,
+   Author="Zhang, G.  and He, P.  and Tan, H.  and Budhu, A.  and Gaedcke, J.  and Ghadimi, B. M.  and Ried, T.  and Yfantis, H. G.  and Lee, D. H.  and Maitra, A.  and Hanna, N.  and Alexander, H. R.  and Hussain, S. P. ",
+   Title="{{I}ntegration of metabolomics and transcriptomics revealed a fatty acid network exerting growth inhibitory effects in human pancreatic cancer}",
+   Journal="Clin. Cancer Res.",
+   Year="2013",
+   Volume="19",
+   Number="18",
+   Pages="4983--4993",
+   Month="Sep"
+}
+
+% 19098281 
+@Article{pmid19098281,
+   Author="Fahy, E.  and Subramaniam, S.  and Murphy, R. C.  and Nishijima, M.  and Raetz, C. R.  and Shimizu, T.  and Spener, F.  and van Meer, G.  and Wakelam, M. J.  and Dennis, E. A. ",
+   Title="{{U}pdate of the {L}{I}{P}{I}{D} {M}{A}{P}{S} comprehensive classification system for lipids}",
+   Journal="J. Lipid Res.",
+   Year="2009",
+   Volume="50 Suppl",
+   Pages="9--14",
+   Month="Apr"
+}
+
+% 28187425 
+@Article{pmid28187425,
+   Author="Pauling, J.  and Klipp, E. ",
+   Title="{{C}omputational {L}ipidomics and {L}ipid {B}ioinformatics: {F}illing {I}n the {B}lanks}",
+   Journal="J Integr Bioinform",
+   Year="2016",
+   Volume="13",
+   Number="1",
+   Pages="299",
+   Month="Dec"
+}
+
+%chemrich
+@article{chemrich,
+	Abstract = {Metabolomics answers a fundamental question in biology: How does metabolism respond to genetic, environmental or phenotypic perturbations? Combining several metabolomics assays can yield datasets for more than 800 structurally identified metabolites. However, biological interpretations of metabolic regulation in these datasets are hindered by inherent limits of pathway enrichment statistics. We have developed ChemRICH, a statistical enrichment approach that is based on chemical similarity rather than sparse biochemical knowledge annotations. ChemRICH utilizes structure similarity and chemical ontologies to map all known metabolites and name metabolic modules. Unlike pathway mapping, this strategy yields study-specific, non-overlapping sets of all identified metabolites. Subsequent enrichment statistics is superior to pathway enrichments because ChemRICH sets have a self-contained size where p-values do not rely on the size of a background database. We demonstrate ChemRICH's efficiency on a public metabolomics data set discerning the development of type 1 diabetes in a non-obese diabetic mouse model. ChemRICH is available at www.chemrich.fiehnlab.ucdavis.edu},
+	Author = {Barupal, Dinesh Kumar and Fiehn, Oliver},
+	Da = {2017/11/06},
+	Date-Added = {2019-02-26 01:38:44 +0000},
+	Date-Modified = {2019-02-26 01:38:44 +0000},
+	Doi = {10.1038/s41598-017-15231-w},
+	Id = {Barupal2017},
+	Isbn = {2045-2322},
+	Journal = {Scientific Reports},
+	Number = {1},
+	Pages = {14567},
+	Title = {Chemical Similarity Enrichment Analysis (ChemRICH) as alternative to biochemical pathway mapping for metabolomic datasets},
+	Ty = {JOUR},
+	Url = {https://doi.org/10.1038/s41598-017-15231-w},
+	Volume = {7},
+	Year = {2017},
+	Bdsk-Url-1 = {https://doi.org/10.1038/s41598-017-15231-w},
+	Bdsk-Url-2 = {http://dx.doi.org/10.1038/s41598-017-15231-w}}
+
+% 30846747 
+@Article{pmid30846747,
+   Author="He, Z.  and Wang, M.  and Li, H.  and Wen, C. ",
+   Title="{{G}{C}-{M}{S}-based fecal metabolomics reveals gender-attributed fecal signatures in ankylosing spondylitis}",
+   Journal="Sci Rep",
+   Year="2019",
+   Volume="9",
+   Number="1",
+   Pages="3872",
+   Month="Mar"
+}
+
+% 30862367 
+@Article{pmid30862367,
+   Author="Palau-Rodriguez, M.  and Garcia-Aloy, M.  and Minarro, A.  and Bernal-Lopez, M. R.  and Brunius, C.  and Gomez-Huelgas, R.  and Landberg, R.  and Tinahones, F. J.  and Andres-Lacueva, C. ",
+   Title="{{E}ffects of a long-term lifestyle intervention on metabolically healthy women with obesity: {M}etabolite profiles according to weight loss response}",
+   Journal="Clin Nutr",
+   Year="2019",
+   Month="Feb"
+}
+
+% 30371783 
+@Article{pmid30371783,
+   Author="Huang, T.  and Zeleznik, O. A.  and Poole, E. M.  and Clish, C. B.  and Deik, A. A.  and Scott, J. M.  and Vetter, C.  and Schernhammer, E. S.  and Brunner, R.  and Hale, L.  and Manson, J. E.  and Hu, F. B.  and Redline, S.  and Tworoger, S. S.  and Rexrode, K. M. ",
+   Title="{{H}abitual sleep quality, plasma metabolites and risk of coronary heart disease in post-menopausal women}",
+   Journal="Int J Epidemiol",
+   Year="2018",
+   Month="Oct"
+}
+
+% 26547490 
+@Article{pmid26547490,
+   Author="Engel, J.  and Blanchet, L.  and Bloemen, B.  and van den Heuvel, L. P.  and Engelke, U. H.  and Wevers, R. A.  and Buydens, L. M. ",
+   Title="{{R}egularized {M}{A}{N}{O}{V}{A} (r{M}{A}{N}{O}{V}{A}) in untargeted metabolomics}",
+   Journal="Anal. Chim. Acta",
+   Year="2015",
+   Volume="899",
+   Pages="1--12",
+   Month="Oct"
+}
+
+% 30360514 
+@Article{pmid30360514,
+   Author="Kelly, R. S.  and McGeachie, M. J.  and Lee-Sarwar, K. A.  and Kachroo, P.  and Chu, S. H.  and Virkud, Y. V.  and Huang, M.  and Litonjua, A. A.  and Weiss, S. T.  and Lasky-Su, J. ",
+   Title="{{P}artial {L}east {S}quares {D}iscriminant {A}nalysis and {B}ayesian {N}etworks for {M}etabolomic {P}rediction of {C}hildhood {A}sthma}",
+   Journal="Metabolites",
+   Year="2018",
+   Volume="8",
+   Number="4",
+   Month="Oct"
+}
+
+% 29059334 
+@Article{pmid29059334,
+   Author="Caspi, R.  and Billington, R.  and Fulcher, C. A.  and Keseler, I. M.  and Kothari, A.  and Krummenacker, M.  and Latendresse, M.  and Midford, P. E.  and Ong, Q.  and Ong, W. K.  and Paley, S.  and Subhraveti, P.  and Karp, P. D. ",
+   Title="{{T}he {M}eta{C}yc database of metabolic pathways and enzymes}",
+   Journal="Nucleic Acids Res.",
+   Year="2018",
+   Volume="46",
+   Number="D1",
+   Pages="D633-D639",
+   Month="Jan"
+}
+@article{pmid26400175,
+author = {Kim, S. and Thiessen, P. A. and Bolton, E. E. and Chen, J. and Fu, G. and Gindulyte, A. and Han, L. and He, J. and He, S. and Shoemaker, B. A. and Wang, J. and Yu, B. and Zhang, J. and Bryant, S. H.},
+title = {{PubChem Substance and Compound databases.}},
+journal = {{Nucleic Acids Res}},
+year = {2016},
+volume = {44},
+pages = {D1202-13},
+doi = {10.1093/nar/gkv951}
+}
+@Manual{shiny,
+    title = {shiny: Web Application Framework for R},
+    author = {Winston Chang and Joe Cheng and JJ Allaire and Yihui Xie and Jonathan McPherson},
+    year = {2018},
+    note = {R package version 1.1.0},
+    url = {https://CRAN.R-project.org/package=shiny},
+}
+
+@article{pmid19185549,
+author = {Warrack, B. M. and Hnatyshyn, S. and Ott, K. H. and Reily, M. D. and Sanders, M. and Zhang, H. and Drexler, D. M.},
+title = {{Normalization strategies for metabonomic analysis of urine samples.}},
+journal = {{J Chromatogr B Analyt Technol Biomed Life Sci}},
+year = {2009},
+volume = {877},
+pages = {547-52},
+doi = {10.1016/j.jchromb.2009.01.007}
+}
+
+@article{pmid25516281,
+author = {Love, M. I. and Huber, W. and Anders, S.},
+title = {{Moderated estimation of fold change and  dispersion for RNA-seq data with DESeq2.}},
+journal = {{Genome Biol}},
+year = {2014},
+volume = {15},
+pages = {550},
+doi = {10.1186/s13059-014-0550-8}
+}
+
+@article{pmid12490442,
+author = {Hubbell, E. and Liu, W. M. and Mei, R.},
+title = {{Robust estimators for expression analysis.}},
+journal = {{Bioinformatics}},
+year = {2002},
+volume = {18},
+pages = {1585-92}
+}
+@online{plotly, author = {Plotly Technologies Inc.}, title =
+                  {Collaborative data science}, publisher = {Plotly
+                  Technologies Inc.}, address = {Montreal, QC}, year =
+                  {2015}, url = {https://plot.ly}}
+
+@article{Cytoscape,
+  abstract = {Cytoscape is an open source software project for integrating biomolecular interaction networks with high-throughput expression data and other molecular states into a unified conceptual framework. Although applicable to any system of molecular components and interactions, Cytoscape is most powerful when used in conjunction with large databases of protein-protein, protein-DNA, and genetic interactions that are increasingly available for humans and model organisms. Cytoscape's software Core provides basic functionality to layout and query the network; to visually integrate the network with expression profiles, phenotypes, and other molecular states; and to link the network to databases of functional annotations. The Core is extensible through a straightforward plug-in architecture, allowing rapid development of additional computational analyses and features. Several case studies of Cytoscape plug-ins are surveyed, including a search for interaction pathways correlating with changes in gene expression, a study of protein complexes involved in cellular recovery to DNA damage, inference of a combined physical/functional interaction network for Halobacterium, and an interface to detailed stochastic/kinetic gene regulatory models.},
+  added-at = {2009-09-30T07:23:26.000+0200},
+  author = {Shannon, P and Markiel, A and Ozier, O and Baliga, N S and Wang, J T and Ramage, D and Amin, N and Schwikowski, B and Ideker, T},
+  biburl = {https://www.bibsonomy.org/bibtex/200baa17202812e1caae6b1c49ae90eae/jhandcock},
+  doi = {10.1101/gr.1239303},
+  interhash = {355cd9e9b520f360a1976d206f265f8c},
+  intrahash = {00baa17202812e1caae6b1c49ae90eae},
+  journal = {Genome Research},
+  keywords = {cytoscape network visulization},
+  month = Nov,
+  number = 11,
+  pages = {2498-2504},
+  pmid = {14597658},
+  timestamp = {2009-09-30T07:23:26.000+0200},
+  title = {Cytoscape: a software environment for integrated models of biomolecular interaction networks},
+  volume = 13,
+  year = 2003
+}
+
+@article{JSSv008i20,
+   author = {Susanne Boettcher and Claus Dethlefsen},
+   title = {deal: A Package for Learning Bayesian Networks},
+   journal = {Journal of Statistical Software, Articles},
+   volume = {8},
+   number = {20},
+   year = {2003},
+   keywords = {},
+   abstract = {deal is a software package for use with R. It includes several methods for analysing data using Bayesian networks with variables of discrete and/or continuous types but restricted to conditionally Gaussian networks. Construction of priors for network parameters is supported and their parameters can be learned from data using conjugate updating. The network score is used as a metric to learn the structure of the network and forms the basis of a heuristic search strategy. deal has an interface to Hugin.},
+   issn = {1548-7660},
+   pages = {1--40},
+   doi = {10.18637/jss.v008.i20},
+   url = {https://www.jstatsoft.org/v008/i20}
+}
+@article{pmid24464287,
+author = {Wang, B. and Mezlini, A. M. and Demir, F. and Fiume, M. and Tu, Z. and Brudno, M. and Haibe-Kains, B. and Goldenberg, A.},
+title = {{Similarity network fusion for aggregating data types on a genomic scale.}},
+journal = {{Nat Methods}},
+year = {2014},
+volume = {11},
+pages = {333-7},
+doi = {10.1038/nmeth.2810}
+}
+
