@@ -1,7 +1,7 @@
 ;;; init.el --- Andy Patt's emacs configuration
 ;; This initialization file mostly provides support for writing literate R code with org-babel, Rmarkdown or Rnw in emacs
 ;; I also use org-mode a lot, and occasionally upload to my wordpress blog
-;; The theme is a modified version of spacemacs light theme
+;; The theme is doom-one (basically ripped off the emacs centaur look)
 ;; I am currently running Emacs 25.3.1 on macOS Mojave Version 10.14.1
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; use-package
@@ -87,15 +87,17 @@
 (use-package ess
   :ensure t
   :init (require 'ess-r-mode)
-  :config (ess-toggle-underscore nil))
-(add-to-list 'load-path "/elpa/ess-18.10.2")
-;;(setq inferior-R-program-name "/usr/local/bin/R")
-(setq ess-use-auto-complete t)
-(require 'auto-complete)
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/site-lisp/auto-complete/dict")
-(ac-config-default)
-(auto-complete-mode)
+  :config
+  (ess-toggle-underscore nil)
+  (add-to-list 'load-path "/elpa/ess-18.10.2")
+  ;;(setq inferior-R-program-name "/usr/local/bin/R")
+  (setq ess-use-auto-complete t)
+  (require 'auto-complete)
+  (require 'auto-complete-config)
+  (add-to-list 'ac-dictionary-directories "~/.emacs.d/site-lisp/auto-complete/dict")
+  (ac-config-default)
+  (auto-complete-mode)
+  (setq ess-eval-visibly 'nowait))
 
 ;; elpy (for python editing)
  (use-package elpy
@@ -104,10 +106,10 @@
 
 ;; flycheck for python syntax checking
 ;; Suspending for now, seems to freeze up python buffers and not helpful
- ;; (use-package flycheck
- ;;   :config (when (require 'flycheck nil t)
- ;; 	    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
- ;; 	    (add-hook 'elpy-mode-hook 'flycheck-mode)))
+ (use-package flycheck
+   :config (when (require 'flycheck nil t)
+ 	    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+ 	    (add-hook 'elpy-mode-hook 'flycheck-mode)))
 
 ;; Org mode
 (use-package org
@@ -120,7 +122,7 @@
 	'((:startgroup . nil)
 	  ("LIPOSARCOMA" . ?h) 
 	  ("PROTEOGENOMICS" . ?r)
-	  ("BAYESIAN NETWORKS" . ?t)
+	  ("F31" . ?t)
 	  ("LIFE" . ?y)
 	  (:endgroup . nil)
 	  (:startgroup . nil)
@@ -138,7 +140,7 @@
 	'(
 	  ("LIPOSARCOMA" . (:foreground "GoldenRod" :weight bold))
 	  ("PROTEOGENOMICS" . (:foreground "Red" :weight bold))
-	  ("BAYESIAN NETWORKS" . (:foreground "SkyBlue" :weight bold))
+	  ("F31" . (:foreground "SkyBlue" :weight bold))
 	  ("LIFE" . (:foreground "Purple" :weight bold))
 	  ("EASY" . (:foreground "LimeGreen" :weight bold))  
 	  ("MEDIUM" . (:foreground "OrangeRed" :weight bold))  
@@ -153,9 +155,9 @@
      'org-babel-load-languages
      '((R . t)
        (python . t)
-       (sql . t)))))
-;;(setq org-startup-with-inline-images t)
-;;(setq org-log-done )))
+       (sql . t))))
+  (add-hook 'org-mode-hook 'turn-on-auto-fill)
+  (add-hook 'org-mode-hook 'turn-on-flyspell))
 
 ;; Org Ref
 (use-package org-ref
@@ -192,29 +194,17 @@
 (use-package poly-org
   :ensure t
   :defer t)
-;  :mode (("\\.org\\'" . poly-org-mode)
-;	 ("\\.Org\\'" . poly-org-mode)))
 
 ;; Fancy org-bullets
 (use-package org-bullets
   :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
-;;spaceline
-;; (use-package spaceline-config
-;;   :ensure spaceline
-;;   :config
-;;   (setq powerline-default-separator 'wave
-;;         spaceline-workspace-numbers-unicode t
-;;         spaceline-window-numbers-unicode t)
-;;   (spaceline-spacemacs-theme)
-;;   (spaceline-info-mode))
-
 (use-package persp-mode)
 
 ;; ess-view, REQUIRES "TAD" CSV VIEWER APP
-(use-package ess-view
- :ensure t
- :config (setq ess-view--spreadsheet-program "/Applications/Tad.app/Contents/MacOS/Tad"))
+;; (use-package ess-view
+;;  :ensure t
+;;  :config (setq ess-view--spreadsheet-program "/Applications/Tad.app/Contents/MacOS/Tad"))
 
 ;; Markdown-mode (needed for Rmarkdown)
 (use-package markdown-mode
@@ -226,15 +216,24 @@
           ("\\.markdown\\'" . markdown-mode)))
 
 ;; poly-R and poly-markdown also used for Rmarkdown 
-(use-package poly-markdown
+(use-package polymode
   :ensure t
   :pin melpa-stable
-  :commands (poly-markdown-mode)
-  :mode (("\\.rmd\\'" . poly-markdown-mode)
-	 ("\\.Rmd\\'" . poly-markdown-mode)))
+  :config
+  (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode)) ; Markdown files
+  (add-to-list 'auto-mode-alist '("\\.Snw" . poly-noweb+r-mode)) ; Sweave files
+  (add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode)) ; Sweave files
+  (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode)) ; RMarkdown files
+  )
+
+(use-package poly-noweb
+  :ensure t)
+
+(use-package poly-markdown
+  :ensure t)
+
 (use-package poly-R
-  :ensure t
-  :pin melpa-stable)
+   :ensure t)
 
 ;;Magit
 (use-package magit
@@ -249,6 +248,7 @@
   (setq fci-rule-width 1)
   (setq fci-rule-color "gainsboro")
   (setq fci-rule-use-dashes t))
+
 ;; Start a new journal entry with C-c C-j
 (use-package org-journal
   :ensure t
@@ -256,39 +256,37 @@
   :config
   (setq org-journal-dir "~/Documents/emacs_files/journal/"))
 
-;; Cool icons for the spaceline
-;; (use-package spaceline-all-the-icons
-;;   :ensure t
-;;   :after spaceline
-;;   :config
-;;   (spaceline-all-the-icons-theme)
-;;   (spaceline-toggle-all-the-icons-flycheck-status-info-off)
-;;   (spaceline-toggle-all-the-icons-modified-off))
-
 ;; Download all icons needed for spaceline
 (use-package all-the-icons
   :ensure t)
 
+;; Doom modeline for cool, informative modeline
 (use-package doom-modeline
   :ensure t
   :config
   (doom-modeline-mode)
   (setq doom-modeline-minor-modes t))
 
+;; Easier file access with treemacs
 (use-package treemacs
-  :ensure t)
+  :ensure t
+  :defer t)
 
+;; Pretty icons for dired buffers
 (use-package treemacs-icons-dired
   :ensure t
+  :defer t
   :config
   (treemacs-icons-dired-mode))
 
-
-;; Can't get pdf-tools to install at the moment but I hear it's very good
+;; Can't get pdf-tools to install at the moment but I hear it's very good. Seems like a permissions issue
 ;; (use-package pdf-tools
 ;;   :ensure t
 ;;   :config
-;;   (pdf-tools-install))
+;;   ;(pdf-tools-install)
+;;   (setq-default pdf-view-display-size 'fit-page)
+;;   (use-package org-pdfview
+;;     :ensure t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Linking to my wordpress blog and OSC account
@@ -299,18 +297,18 @@
 ;; Aesthetics
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Never show line numbers
-(global-linum-mode nil)
+;;(global-linum-mode nil)
 ;;(setq linum-format "%4d \u2502 ")
-
-;; Set background to light gray
-;;(set-background-color "#DCDCDC")
-;;(set-face-attribute 'fringe nil :background "#DCDCDC" :foreground "#DCDCDC")
-;;(set-face-background 'linum "#DCDCDC")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'init-ivy)
+
+(use-package flyspell-correct-ivy
+  :bind ("C-M-;" . flyspell-correct-wrapper)
+  :init
+  (setq flyspell-correct-interface #'flyspell-correct-ivy))
 
 ;; Ensure the correct $PATH variables are inherited on Mac
 (when (memq window-system '(mac ns x))
@@ -414,6 +412,8 @@ will be copied as well."
 ;; Open up your init file for editing
 (global-set-key (kbd "C-c I") (lambda() (interactive)(find-file "~/.emacs.d/init.el")))
 
+;; Open up your init file for editing
+(global-set-key (kbd "C-c p") (lambda() (interactive)(find-file "~/Desktop/my-planner.org")))
 
 ;; Transpose buffer location with C-x 4 t
 (defun transpose-windows (arg)
@@ -540,9 +540,9 @@ Inserts org-mode source code snippet"
   "Log in to OSC and request interactive node"
   (interactive "P")
   (shell)
-  (process-send-string "shell" "ssh -Y -C osu8143@owens.osc.edu\n")
+  (process-send-string "shell" "ssh -X -C osu8143@owens.osc.edu\n")
   (sleep-for 1)
-  (process-send-string "shell" (concat (concat "qsub -I -X -l nodes=1:ppn=12 -l walltime=" (read-from-minibuffer "Walltime (hh:mm:ss):" "1:00:00")) " -A PCON0005\n"))
+  (process-send-string "shell" (concat (concat "qsub -I -l nodes=1:ppn=12 -l walltime=" (read-from-minibuffer "Walltime (hh:mm:ss):" "1:00:00")) " -A PCON0005\n"))
   (setq load-R (read-from-minibuffer "Load R (y/n)? "))
   (if (string= load-R "y")
       (progn
@@ -574,12 +574,14 @@ Inserts Rmarkdown source code snippet"
   )
 (define-key markdown-mode-map (kbd "\C-c R") 'rmd-insert-source-block)
 
-(defun rmd-insert-header (title)
+(defun rmd-insert-header (type)
   "Asks title
 Inserts Rmarkdown header and default options chunk"
-  (interactive "stitle? ")
-  (insert (format "---
-title: %s
+  (interactive "spdf_or_html?")
+  (insert
+   (if (string= type "pdf")
+   "---
+title:
 author: \"Andrew Patt\"
 date: \"`r format(Sys.time(), '%d %B, %Y')`\"
 output:
@@ -590,8 +592,24 @@ output:
 ```{r,echo=FALSE}
 knitr::opts_chunk$set(echo=FALSE, message=FALSE,warning=FALSE, 
     fig.height=6,fig.width = 12,fig.fullwidth = TRUE,tidy=TRUE)
-```" title))
-  )
+```"
+      "---
+title:
+author: \"Andrew Patt\"
+date: \"`r format(Sys.time(), '%d %B, %Y')`\"
+output:
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float:
+      collapsed: false
+---
+
+```{r,echo=FALSE}
+knitr::opts_chunk$set(message=FALSE,warning=FALSE, 
+    fig.height=6,fig.width = 12,fig.fullwidth = TRUE,tidy=TRUE)
+```")
+  ) )
 (define-key markdown-mode-map (kbd "\C-c H") 'rmd-insert-header)
 
 (defun rmd-send-chunk ()

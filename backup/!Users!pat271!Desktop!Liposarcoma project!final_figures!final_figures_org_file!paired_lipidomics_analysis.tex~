@@ -1,4 +1,4 @@
-% Created 2019-05-02 Thu 17:16
+% Created 2019-05-02 Thu 17:23
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -31,12 +31,12 @@
 
 In order to perform paired analysis, we need to match paired samples together.
 \section{Building a key of sample pairs}
-\label{sec:org709f3a1}
+\label{sec:org4b9fd51}
 \begin{verbatim}
 library(tidyverse)
-setwd("~/Desktop/Liposarcoma project/Lipidyzer/")
+setwd("~/Desktop/Liposarcoma project/final_figures/final_figures_org_file")
 sample_IDs<-read.csv("~/Desktop/Liposarcoma project/Lipidyzer/Sample_IDs.csv")
-sample_info<-read.csv("Cell_Run_Order.csv")
+sample_info<-read.csv("~/Desktop/Liposarcoma project/Lipidyzer/Cell_Run_Order.csv")
 
 mdm2lo_groups=c("863","815")
 mdm2hi_groups=c("224","224A","224B","246","141")
@@ -98,7 +98,7 @@ paired_key <- paired_key %>% filter(!is.na(Cell_line))
 
 
 \section{Treated vs. Untreated}
-\label{sec:org422e1eb}
+\label{sec:org2395495}
 \begin{verbatim}
 load("~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/figure3.Rda")
 
@@ -141,7 +141,7 @@ hist(TreVsUntreLMMEAdj,breaks=100)
 \end{verbatim}
 
 \section{DMEM vs STDP}
-\label{sec:org4fd43dc}
+\label{sec:org4563a1f}
 \begin{verbatim}
 
 DMEM_STDP_indices <-
@@ -178,7 +178,7 @@ hist(DMEMVsSTDPLMMEAdj,breaks=100)
 \end{verbatim}
 
 \section{Upsetr}
-\label{sec:org2a375a7}
+\label{sec:orge00e6a8}
 \begin{verbatim}
 library(UpSetR)
 library(readxl)
@@ -204,7 +204,7 @@ upset(fromList(listInput),order.by="freq")
 common between the two.
 
 \section{Differences by treatment status}
-\label{sec:org602867e}
+\label{sec:org7c12436}
 \begin{verbatim}
 library(reshape)
 altered <- data.frame(altered=
@@ -226,9 +226,8 @@ ggplot(plot.df,aes(x=class,y=freq,alpha=test)) +
     ggtitle("Lipidomic differences based on atorvastatin treatment (LMME)")
 
 \end{verbatim}
-
 \section{Differences by medium}
-\label{sec:org3cb8868}
+\label{sec:orge3406f9}
 \begin{verbatim}
 
 altered <- data.frame(altered=

@@ -15,28 +15,31 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
+\let\endchangemargin=\endlist
+
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
 \documentclass[letterpaper]{twentysecondcv} % a4paper for A4
-
+\usepackage{paralist}
 %----------------------------------------------------------------------------------------
 %	 PERSONAL INFORMATION
 %----------------------------------------------------------------------------------------
 
 % If you don't need one or more of the below, just remove the content leaving the command, e.g. \cvnumberphone{}
 
-\profilepic{alice.jpeg} % Profile picture
+\profilepic{andy.jpeg} % Profile picture
 
-\cvname{Alice} % Your name
-\cvjobtitle{Adventurer} % Job title/career
+\cvname{Andrew Patt} % Your name
+\cvjobtitle{Ph.D Candidate} % Job title/career
 
-\cvdate{26 November 1865} % Date of birth
-\cvaddress{United Kingdom} % Short address/location, use \newline if more than 1 line is required
-\cvnumberphone{+39 0325658974} % Phone number
-\cvsite{http://en.wikipedia.org} % Personal website
-\cvmail{alice@wonderland.com} % Email address
+\cvdate{21 April 1993} % Date of birth
+\cvaddress{5353 N. High St. \newline Apartment 1004 \newline Columbus OH 43214} % Short address/location, use \newline if more than 1 line is required
+\cvnumberphone{(518) 366-4293} % Phone number
+\cvsite{https://github.com/andyptt21} % Personal website
+\cvmail{patt.14@osu.edu} % Email address
 
 %----------------------------------------------------------------------------------------
 
@@ -46,21 +49,23 @@
 %	 ABOUT ME
 %----------------------------------------------------------------------------------------
 
-\aboutme{Alice is a sensible prepubescent girl from a wealthy English family who finds herself in a strange world ruled by imagination and fantasy. Alice feels comfortable with her identity and has a strong sense that her environment is comprised of clear, logical, and consistent rules and features. Alice's familiarity with the world has led one critic to describe her as a "disembodied intellect". Alice displays great curiosity and attempts to fit her diverse experiences into a clear understanding of the world.} % To have no About Me section, just remove all the text and leave \aboutme{}
+\aboutme{Computational Biologist, currently pursuing my Ph.D at the Ohio State University. Interested in leveraging untargeted metabolomic data to improve human health.} % To have no About Me section, just remove all the text and leave \aboutme{}
 
 %----------------------------------------------------------------------------------------
 %	 SKILLS
 %----------------------------------------------------------------------------------------
 
 % Skill bar section, each skill must have a value between 0 an 6 (float)
-\skills{{pursuer of rabbits/5.8},{good manners/4},{outgoing/4.3},{polite/4},{Java/0.01}}
+%\skills{}
+\skills{{mySQL/1},{Python/1},{\LaTeX/2},{R/5.5}}
 
 %------------------------------------------------
 
 % Skill text section, each skill must have a value between 0 an 6
-\skillstext{{lovely/4},{narcissistic/3}}
-
+\skillstext{}
 %----------------------------------------------------------------------------------------
+
+\tools{\textbf{Development:} \newline Emacs, Rstudio, Git/Github/Gitlab, RShiny, Rmarkdown, Org-mode, Tidyverse, Devtools \newline \textbf{Metabolomic Data Analysis:} \newline mzMine, OSC Supercomputer Cluster, LipidMatch, Metaboanalyst, RaMP, MS-Dial}
 
 \makeprofile % Print the sidebar
 
@@ -70,7 +75,7 @@
 
 \section{Interests}
 
-The heroine and the dreamer of Wonderland; Alice is the principal character.
+Metabolomics, Lipidomics, Integrative 'Omics, Machine Learning, Mass Spectrometry, Cancer, Biological Pathway Analysis, Biological Network Analysis
 
 %----------------------------------------------------------------------------------------
 %	 EDUCATION
@@ -79,31 +84,10 @@ The heroine and the dreamer of Wonderland; Alice is the principal character.
 \section{Education}
 
 \begin{twenty} % Environment for a list with descriptions
-	\twentyitem{since 1865}{Ph.D. {\normalfont candidate in Computer Science}}{Wonderland}{\emph{A Quantified Theory of Social Cohesion.}}
-	\twentyitem{1863-1865}{M.Sc. magna cum laude}{Wonderland}{Majoring in Computer Science}
-	\twentyitem{1861-1863}{B.Sc. magna cum laude}{Wonderland}{Majoring in Computer Science}
-	\twentyitem{1856-1861}{High school}{Wonderland}{Specializing in mathematics and physics.}
+	\twentyitem{2016-Now}{Ph.D. {\normalfont candidate in Biomedical Science}}{The Ohio State University}{\emph{Concentration in Biomedical Informatics} \newline \textbf{GPA: 3.813/4.0}}
+	\twentyitem{2011-2015}{B.Sc. magna cum laude}{State University of New York at Geneseo}{\emph{Major in Biochemistry, Minor in Biomathematics}\newline \textbf{GPA: 3.66/4.0}}
 	%\twentyitem{<dates>}{<title>}{<location>}{<description>}
 \end{twenty}
-
-\begin{twenty}
-\twentyitem{1234}{lalal}{lalala}{lalalalalalla}
-\end{twenty}
-
-%----------------------------------------------------------------------------------------
-%	 PUBLICATIONS
-%----------------------------------------------------------------------------------------
-
-\section{Publications}
-
-\begin{twentyshort} % Environment for a short list with no descriptions
-	\twentyitemshort{1865}{Chapter One, Down the Rabbit Hole.}
-	\twentyitemshort{1865}{Chapter Two, The Pool of Tears.}
-	\twentyitemshort{1865}{Chapter Three,  The Caucus Race and a Long Tale.}
-	\twentyitemshort{1865}{Chapter Four,  The Rabbit Sends a Little Bill.}
-	\twentyitemshort{1865}{Chapter Five,  Advice from a Caterpillar.}
-	%\twentyitemshort{<dates>}{<title/description>}
-\end{twentyshort}
 
 %----------------------------------------------------------------------------------------
 %	 AWARDS
@@ -112,54 +96,122 @@ The heroine and the dreamer of Wonderland; Alice is the principal character.
 \section{Awards}
 
 \begin{twentyshort} % Environment for a short list with no descriptions
-	\twentyitemshort{1987}{All-Time Best Fantasy Novel.}
-	\twentyitemshort{1998}{All-Time Best Fantasy Novel before 1990.}
-	%\twentyitemshort{<dates>}{<title/description>}
+  \twentyitemshort{2017-19}{Systems and Integrative Biology Training Program Fellow (Biomedical Sciences Graduate Program T32 Award)}
+  \twentyitemshort{2019}{American Society of Mass Spectrometry Travel Award}
+  \twentyitemshort{2018}{May Institute Travel Award (Northeastern University)}
+  \twentyitemshort{2018}{American Society of Mass Spectrometry Travel Award}
+  \twentyitemshort{2016-17}{Multi-Modeling and Integrative Data Analytics Training Program Fellow, (Biomedical Informatics Department T15 award)}
+  \twentyitemshort{2016}{Best Poster Award, NIAMS Scientific Planning Retreat}
+  \twentyitemshort{2014}{Summer Undergraduate Research Fellowship, University at Buffalo (funded by the American Society for Pharmacology and Experimental Therapeutics)}
+  %\twentyitemshort{<dates>}{<title/description>}
 \end{twentyshort}
 
+
 %----------------------------------------------------------------------------------------
-%	 EXPERIENCE
+%	 PUBLICATIONS
 %----------------------------------------------------------------------------------------
 
-\section{Experience}
+\section{Publications}
 
-\begin{twenty} % Environment for a list with descriptions
-	\twentyitem{1900}{Alice in Wonderland-The Circra (1900's) Silent Film.}{Film}{The first Alice on film was over a hundred years ago.}
-	\twentyitem{1933}{Alice in Wonderland 1933 version.}{Film}{This film stars Ethel griffies and Charlotte Henry. It was a box office flop when it was released.}
-	\twentyitem{1951}{Disney Film.}{Film}{Walt Disney brings Lewis Carroll's fantasy story to life in this well done animated classic. Even though many elements from the book were dropped, such as the duchess with the baby pig and mock turtle, this version is without a doubt the most famous Alice adaption made.}
-	%\twentyitem{<dates>}{<title>}{<location>}{<description>}
+\begin{twentyshort}
+	\twentyitemshort{2018}{Zhang, B.; Hu, S.; Baskin, E.; \underline{Patt, A.}; Siddiqui, J.K.; Mathe, E.A. \emph{RaMP: A Comprehensive Relational Database of Metabolomics Pathways for Pathway Enrichment Analysis of Genes and Metabolites}. Metabolites 2018, 8, 16.}
+\end{twentyshort}
+
+\section{In Review}
+
+\begin{twentyshort}
+	\twentyitemshort{2019}{Eicher, T.; \underline{Patt, A.}; Kautto, E.; Machiraju, R.; Mathe, E.A.; Zhang, Y. \emph{Challenges in proteogenomics: a comparison of analysis methods with the case study of the DREAM Proteogenomics Sub-Challenge}. ICIBM 2019.}
+\end{twentyshort}
+
+\section{Textbook Chapters}
+
+\begin{twentyshort}
+	\twentyitemshort{2019}{\underline{Patt A.;} Siddiqui J.; Zhang B.; Mathe E.A. (2019) \emph{Integration of Metabolomics and Transcriptomics to Identify Gene-Metabolite Relationships Specific to Phenotype.} In: Haznadar M. (eds) Cancer Metabolism. Methods in Molecular Biology, vol 1928. Humana Press, New York, NY}
+\end{twentyshort}
+
+\section{Selected Presentations}
+
+\begin{twenty}
+  \twentyitem{6/2019}{\emph{MDM2 Copy Number Aberrations Alter Ceramide Glycosylation in Liposarcoma Tumors, Impacting Drug Response}}{Poster}{American Society for Mass Spectrometry,Atlanta, GA}
+  \twentyitem{6/2018}{\emph{MDM2 alterations reprogram the metabolic functioning of liposarcoma cell lines}}{Poster}{American Society for Mass Spectrometry, San Diego, CA}
+  \twentyitem{6/2017}{\emph{MDM2 alterations reprogram the metabolic functioning of liposarcoma cell lines}}{5 minute talk}{National Library of Medicine Informatics Training Conference, La Jolla, CA}
+  \twentyitem{4/2016}{\emph{Targeted Deep Resequencing of Systemic Juvenile Idiopathic Arthritis Candidate Genes Identifies Rare Variant Associations}}{Poster}{NIAMS Scientific Planning Retreat, Bethesda, MD}
+  %\twentyitem{8/2014}{\emph{Sex Differences in MCT1 Tissue Expression}}{20 minute talk and poster}{UB Summer Research Symposium, Buffalo, NY}
 \end{twenty}
 
+\newpage
+\begin{changemargin}{-6.5cm}{1cm} 
+
+  \section{Selected Presentations cont.}
+  
+  \begin{twentyXL}
+    \twentyitemXL{8/2014}{\emph{   Sex Differences in MCT1 Tissue Expression}}{20 minute talk and poster}{UB Summer Research Symposium, Buffalo, NY}
+  \end{twentyXL}
+
+  %% %----------------------------------------------------------------------------------------
+%% %	 EXPERIENCE
+%% %----------------------------------------------------------------------------------------
+
+
+\section{Research Experience}
+
+\begin{twentyXL} % Environment for a list with descriptions
+  \twentyitemXL{2016-Now}{   Graduate Research Assistant}{Biomedical Informatics Department, The Ohio State University}{Working in the lab of Dr. Ewy Mathe. Investigating metabolomic and transcriptomic differences between dedifferentiated liposarcoma tumors with high and low MDM2 copy number. Also investigating novel methods of class comparison between tumors on a metabolomic level using Bayesian Networks with informative priors. Working extensively in R using a wide variety of bioconductor packages as well as developing R Shiny applications.}
+	\twentyitemXL{2015-16}{Postbaccalaureate Fellow}{National Institute of Arthritis, Musculoskeletal and Skin diseases}{Worked in the lab of Dr. Michael Ombrello. Studied the genetic background of Systemic Juvenile Idiopathic Arthritis in a targeted resequencing project. Used Illumina sequencing kits as well as GATK and annovar softwares. Wrote R, excel and bash scripts for pipeline execution as well as data sorting, manipulation and analysis, and gained experience working with supercomputing clusters.}
+	\twentyitemXL{2014-15}{Undergraduate Researcher}{Biology Department, State University of New York at Geneseo}{Worked in the lab of Dr. Isidro Bosch. Worked towards identifying the species of a starfish larval sample from coastal Florida by attempting to sequence the RuBisCO gene of a symbiotic cyanobacterial species found in the larvae. Results were inconclusive.}
+        \twentyitemXL{2014}{Summer Undergraduate Research Fellowship Scholar}{Pharmaceutical Science Department, University at Buffalo}{Funded by the American Society of Pharmacology and Experimental Therapeutics. Worked in the lab of Dr. Marilyn Morris. Examined sex dependent tissue expression of the monocarboxylate transporter MCT1 in rats. Discovered a significantly lower level of MCT1 expression in the livers of female rats per gram of tissue, which could suggest a similar disparity in humans, leading to a difference in the time monocarboxylate compounds including the date rape drug GHB remain in the bloodstream.}
+	%\twentyitemXL{<dates>}{<title>}{<location>}{<description>}
+\end{twentyXL}
+
+\section{Work Experience}
+
+\begin{twentyXL}
+  \twentyitemXL{2013-14}{ Lab Assistant}{Pace Analytical, Schenectady NY}{Organized data entry and performed data analysis. Tracked chemical and supply purchases, organized stock room, performed sample delivery, disposed of analyzed samples.}
+  \twentyitemXL{2013}{Assistant Lab Instructor}{State University of New York at Geneseo}{Instructed single-semester human biology lab, aided students with experiments and lab reports.}
+\end{twentyXL}  
+%% %----------------------------------------------------------------------------------------
+%% %	 OTHER INFORMATION
+%% %----------------------------------------------------------------------------------------
+
+\section{Relevant Coursework}
+
+\begin{twentyListHead}
+  \twentyListHeadItem{2018}{Northeastern University}
+\end{twentyListHead}
+\begin{compactitem}
+  \item May Institute - Computation and Statistics for Mass Spectrometry and Proteomics (week-long workshop for mass spectrometry data processing, visualization and statistics)
+\end{compactitem}
+
+\begin{twentyListHead}
+  \twentyListHeadItem{2016-Now}{The Ohio State University}
+  \end{twentyListHead}
+  \begin{compactitem}
+  \item Introduction to Biomedical Informatics
+  \item Analysis and Applications of Genome-Scale Data
+  \item Seminars in Bioinformatics
+  \item Data Structures and Algorithms
+  \item Probability for statistical inference
+  \item Metabolomics, Principles and Practice (audited)
+\end{compactitem}
+
+\begin{twentyListHead}
+  \twentyListHeadItem{2015-16}{Foundation for Advanced Education in the Sciences}
+  \end{twentyListHead}
+  \begin{compactitem}
+    \item Bioinformatics: Practical Bioinformatics
+    \item Introduction to Python
+  \end{compactitem}
+
+\begin{twentyListHead}
+  \twentyListHeadItem{2011-15}{State University of New York at Geneseo}
+  \end{twentyListHead}
+  \begin{compactitem}
+  \item \textbf{Lab:} Biochemistry, Molecular Techniques, Organic Chemistry, Biology, Plant Physiology, Analytical Physics
+  \item \textbf{Biology:} Microbiology, Cell Biology, Genetics, Ecology
+  \item \textbf{Chemistry:} Organic Chemistry, Biochemistry, Physical Chemistry
+  \item \textbf{Math/Physics:} Calculus 1,2,3, Linear Algebra, Probability, Differential Equations, Biostatistics, Modeling Biological Systems, Analytical Physics
+  \end{compactitem}
+
 %----------------------------------------------------------------------------------------
-%	 OTHER INFORMATION
-%----------------------------------------------------------------------------------------
-
-\section{Other information}
-
-\subsection{Review}
-
-Alice approaches Wonderland as an anthropologist, but maintains a strong sense of noblesse oblige that comes with her class status. She has confidence in her social position, education, and the Victorian virtue of good manners. Alice has a feeling of entitlement, particularly when comparing herself to Mabel, whom she declares has a ``poky little house," and no toys. Additionally, she flaunts her limited information base with anyone who will listen and becomes increasingly obsessed with the importance of good manners as she deals with the rude creatures of Wonderland. Alice maintains a superior attitude and behaves with solicitous indulgence toward those she believes are less privileged.
-
-%----------------------------------------------------------------------------------------
-%	 SECOND PAGE EXAMPLE
-%----------------------------------------------------------------------------------------
-
-%\newpage % Start a new page
-
-%\makeprofile % Print the sidebar
-
-%\section{Other information}
-
-%\subsection{Review}
-
-%Alice approaches Wonderland as an anthropologist, but maintains a strong sense of noblesse oblige that comes with her class status. She has confidence in her social position, education, and the Victorian virtue of good manners. Alice has a feeling of entitlement, particularly when comparing herself to Mabel, whom she declares has a ``poky little house," and no toys. Additionally, she flaunts her limited information base with anyone who will listen and becomes increasingly obsessed with the importance of good manners as she deals with the rude creatures of Wonderland. Alice maintains a superior attitude and behaves with solicitous indulgence toward those she believes are less privileged.
-
-%\section{Other information}
-
-%\subsection{Review}
-
-%Alice approaches Wonderland as an anthropologist, but maintains a strong sense of noblesse oblige that comes with her class status. She has confidence in her social position, education, and the Victorian virtue of good manners. Alice has a feeling of entitlement, particularly when comparing herself to Mabel, whom she declares has a ``poky little house," and no toys. Additionally, she flaunts her limited information base with anyone who will listen and becomes increasingly obsessed with the importance of good manners as she deals with the rude creatures of Wonderland. Alice maintains a superior attitude and behaves with solicitous indulgence toward those she believes are less privileged.
-
-%----------------------------------------------------------------------------------------
-
+\end{changemargin} 
 \end{document} 

@@ -1,39 +1,74 @@
-library(tidyverse)
 library(caret)
 library(glmnet)
+library(dplyr)
+library(elasticnet)
+library(pbapply)
 
-## Load the data and remove NAs
-data("PimaIndiansDiabetes2", package = "mlbench")
-PimaIndiansDiabetes2 <- na.omit(PimaIndiansDiabetes2)
-## Inspect the data
-sample_n(PimaIndiansDiabetes2, 3)
-## Split the data into training and test set
-set.seed(123)
-training.samples <- PimaIndiansDiabetes2$diabetes %>% 
-    createDataPartition(p = 0.8, list = FALSE)
-train.data  <- PimaIndiansDiabetes2[training.samples, ]
-test.data <- PimaIndiansDiabetes2[-training.samples, ]
+load("~/Desktop/dataForCorrTesting.Rda")
 
-## Dummy code categorical predictor variables
-x <- model.matrix(diabetes~., train.data)[,-1]
-## Convert the outcome (class) to a numerical variable
-y <- ifelse(train.data$diabetes == "pos", 1, 0)
+nrmse<-function(predictions,actual){
+  if(length(predictions)!=length(actual)){
+    return("Length of prediction vector did not equal length of actual vector")
+  }else{
+    ## Get rid of missing values
+    if(any(is.na(c(predictions,actual)))){
+      missing_pred<-which(is.na(predictions))
+      missing_actual<-which(is.na(actual))
+      incomplete<-c(missing_pred,missing_actual)
+      predictions<-predictions[-incomplete]
+      actual<-actual[-incomplete]
+    }
+    numerator<-sapply(1:length(predictions), function(x){
+      return((actual[x]-predictions[x])^2/length(predictions))
+    })
+    return(sqrt(sum(numerator))/(max(actual)-min(actual)))
+  }
+}
 
-glmnet(x, y, family = "binomial", alpha = 1, lambda = NULL)
+tuneGrid=expand.grid(
+              .alpha=1,
+              .lambda=seq(0, 100, by = 0.1))
 
-cv.lasso <- cv.glmnet(x, y, alpha = 1, family = "binomial")
-## Fit the final model on the training data
-model <- glmnet(x, y, alpha = 1, family = "binomial",
-                lambda = cv.lasso$lambda.min)
-## Display regression coefficients
-coef(model)
-## Make predictions on the test data
-x.test <- model.matrix(diabetes ~., test.data)[,-1]
-probabilities <- model %>% predict(newx = x.test)
-predicted.classes <- ifelse(probabilities > 0.5, "pos", "neg")
-## Model accuracy
-observed.classes <- test.data$diabetes
-mean(predicted.classes == observed.classes)
-cv.lasso <- cv.glmnet(x, y, alpha = 1, family = "binomial")
-plot(cv.lasso)
+############################
+# Remove transcripts with any missing values
+#############################
+breastRNA <- breastRNA[,complete.cases(t(breastRNA))]
 
+##############################################################
+# Breast
+##############################################################
+breastRNA<-t(breastRNA)
+trainSet <- breastRNA
+
+fitControl <- trainControl(method = "cv",
+                           number = 10,
+                           savePredictions = 'final')
+
+breastLR <- pbsapply(1:5, function(x){
+  ptm <- proc.time()
+  trainType <- breastProtein[x,]
+  Proteincc<-complete.cases(trainType)
+  if(length(which(Proteincc)) < 39){
+    return(c(NA,NA))
+  }else{
+    trainType <- trainType[Proteincc]
+    trainSet <- trainSet[Proteincc,]
+    model_lasso <- train(trainSet,trainType,
+                         method='glmnet',
+                         trControl = fitControl)#,
+                         #tuneGrid = tuneGrid)
+    predictions<-model_lasso$pred
+    predictions<-predictions[which(!is.na(predictions$pred)),]
+    if(nrow(predictions)<6){
+      return(c(NA,NA))
+    }else{
+      cor<-cor(predictions$pred,predictions$obs,method="spearman")
+      nrmse<-nrmse(predictions$pred,predictions$obs)
+      print(paste0(x," proteins completed!"))
+      print(proc.time() - ptm)
+      return(c(cor,nrmse))
+    }
+  }
+})
+
+##save(breastLR,file = "~/Proteogenomics_project/LASSO_results/Breast/Breast_1_2000.Rda")

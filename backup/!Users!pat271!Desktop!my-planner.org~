@@ -1,46 +1,179 @@
+#+TITLE: Planner for organizing tasks and keeping accessible notes
+#+AUTHOR: Andy Patt
+
+* To do (URGENT):
+** TODO :LIPOSARCOMA: Missing samples:
+*** Samples:
+   | Missing samples        | Number |                              Run Order |
+   |------------------------+--------+----------------------------------------|
+   | 224A DMEM Atorvastatin |     83 | 14(??? Files list at 04 and 83 in NEG) |
+   | 141 DMEM Untreated     |      3 |                                     40 |
+   | 863 DMEM Atorvastatin  |    190 |                                     48 |
+*** Rerun in individual modes
+*** LipidMatch
+*** Notes 
+**** Used [[https://www.youtube.com/watch?v=VS_Zpyl5chQ][this video]] for missing parameters. Should probably look for proper sciex parameters
+**** Altered "LIPNEG17MAR_52-3.mzML". Deleted all the crazy crap at the end and replaced with the footer from "LIPNEG17MAR_83-83.mzML".
+**** MS2 files??
+**** Do I have to rerun everything? Seems like missing features from different samples are "imputed"
+**** No centroided data points message in peak detection
+**** Consider using Jeremy's batch file on rerun
+** TODO :LIFE: Lab Presentation
+** TODO :LIPOSARCOMA: TCGA survival analysis
+** TODO :LIPOSARCOMA: Fill out lipidomic results sheets
+** TODO :F31: Wednesday Meeting
+*** Metabolomics Database development workshop (Ask Rachel for suggestions, maybe food science)
+*** Find specific data sets for specific aims
+**** Thinking colorectal cancer? Highly deadly, numerous metabolomic/lipidomic 
+*** Make aim 2 more crosstalker specific
+**** Cross-talker does not treat pathways as independent
+*** Start working on research plan
+** TODO :LIPOSARCOMA: Redo figures:
+*** 1C
+*** S1B
+*** Figure 2
+*** 3C
+*** S3B
+*** S3D
+*** S4A
+** TODO :LIPOSARCOMA: Cutoff p value of .1
+** TODO :LIPOSARCOMA: Combination treatment effect stratified by MDM2 status
+** TODO :LIFE: Schedule committee meeting
+** TODO :LIFE: Renew health insurance
+** TODO :LIFE: Shop for new auto insurance
 * To do:
-** TODO :BAYESIAN NETWORKS: Revise Training Plan
-** TODO Lab meeting presenter
-   + [[https://www.ncbi.nlm.nih.gov/pubmed/30360514][paper]]
-** TODO :LIFE: Return keys
-** TODO :LIFE: Book ASMS Travel
-** TODO :LIFE: Register car in Ohio <2019-05-08 Wed>
-*** [[https://www.bmv.ohio.gov/titles-out-state.aspx][Instructions]]
-*** Out-of-state title certificate
-*** Acceptable identification (please contact your County Clerk of Courts Title Office for details) and payment for title fees.
-*** An out-of-state VIN inspection
-*** A lien release from your lien holder if you don’t have the paper title showing lien discharge signed by your lienholder
-*** Payment for title fees
-** TODO :EASY: Schedule blood titer
-** TODO :PROTEOGENOMICS:EASY: Optimize LASSO
-** TODO :PROTEOGENOMICS: Optimize Bayesian Network
-   + Or at least try to justify why you used the algorithm you did
-   + Tunable parameters:
-     - Perturbations
-     - Algorithm
-     - Scoring criterion
-     - Max iterations
-** TODO :PROTEOGENOMICS: Get Training accuracy of LASSO
-** DONE :PROTEOGENOMICS: Get training accuracy of Bayesian Network
-** TODO :EASY: Register for ICIBM
-** TODO :LIPOSARCOMA: Paired T-tests of lipidomic data
-   + Try using LMME, with MDM2 or abundance as the dependent variable
-** TODO :LIFE: Get in-state status for tuition purposes, [[https://registrar.osu.edu/residency/][probably looking for E-1 status]]
-** TODO :LIPOSARCOMA: UGCG Survival in TCGA
-** TODO SIB Progress Report
-** TODO :BAYESIAN NETWORKS: Build Bayesian Network software
-** TODO :BAYESIAN NETWORKS: Send proposal to Dr. Li
-** TODO :BAYESIAN NETWORKS: Revise Research Plan
-** TODO :LIPOSARCOMA: OSUCC Poster
+** TODO :LIFE: Renew passport
+** TODO :F31: Ask for letters of recommendation again
+*** Jeff Parvin
+*** Jim Chen
+*** Rachel Kopec
+*** Lang Li
+*** Mike Ombrello
+** TODO :F31: Get letters of support
+    - Tim Garrett
+    - Peter Karp
+    - Mark Chance
+    - Egon Willighagen
+** TODO :LIPOSARCOMA: Correlate ceramides with MDM2 expression (continuous)
+** TODO :LIPOSARCOMA: Fill out tables
+** TODO :LIPOSARCOMA: Lipidomics PCA
+** TODO :LIPOSARCOMA: Add MDM2 status into the model
+** TODO :LIFE: Schedule lawyer meeting
+** TODO :LIPOSARCOMA: Look at ratios of related transcripts (UGCG and antagonist)
+** TODO :LIFE: eRequests for other expenses
+** TODO :LIFE: CITI Training
+** TODO :LIPOSARCOMA: Ceramide trends as validation between data sets (PCA)
+** TODO :LIPOSARCOMA: Ratios of glycosylated to nonglycosylated ceramides according to condition
+** TODO :LIPOSARCOMA: Find 1:1 mappings between metabolon and lipidomic set and show they have same directionality
+** TODO :F31: Research Plan
+*** TODO Add negative control metabolites to the experiment (metabolites you DON'T think are altered)
+*** TODO Try to find experimentally validated metabolites in the data that you can work with
+*** TODO You need to have a list of metabolites that are altered (reflected in the different methods)
+*** TODO Show that in one pathway, the relationships you find that are highly proximal in the network are also close in the reaction network
+*** It could be interesting if you get different answers with the Bayesian network analysis
+*** See what happens when you only perturb one node between two data sets in terms of network structure
+*** How do we tie this into finding differential relationships? That's the real value of this project
+*** Try to figure out how to make this a pathway analysis strategy
+*** Try to find labeling experiment metabolite dataset
+*** BNlearn
+   - Try to get everything in that figure on a p-value scale
+*** Other
+   - Biological validation
+   - The goal is to go beyond the level of individual metabolites
+   - Maybe sell as a potential criterion for identifying unidentified
+     metabolites (probably the m:g stuff)
+   - The big impact will be focusing on changes in relationships
+     instead of changes in individual features
+   - Will this be a class prediction or class comparison approach?
+   - Maybe try an experimental setup showing the differences between a
+     model that incorporates an unidentified metabolite vs an
+     identified metabolite
+   - You really need to clearly identify the "killer" application
+     + Needs to be more interesting than class prediction or class
+       comparison
+     + Really go after the interpretability angle. Maybe this helps
+       you figure out the role of unidentified metabolites?
+     + Really think about going the microbiome route. There's usable
+       ground truth available
+     + NSJ16 database
+   - Read reviews of more recent metabolomics analyses (Siudzak,
+       Fahy, Wishart, Fiehn, Egon Willighagen, Stephen Newman, etc.)
+   - Should be applied to a lot of datasets to demonstrate that the
+     method can be leveraged by a variety of biological contexts
+   - Maybe this can be used to suggest the function of noncoding genes
+     as well
+   - People want to know how microbiome context interacts with the
+     metabolome
+   - See if you can recover reaction relationships with priors that
+     don't use reactions. This could be a form of biological validation.
+   - Correlate between your prior networks and purely data-driven approaches
+*** Lit review of Bayesian networks in metabolomics/biology
+| Input data | Prior used? | Application | Structure algorithm | How was the prior built? | Assumptions made |
+|------------+-------------+-------------+---------------------+--------------------------+------------------|
+|            |             |             |                     |                          |                  |
+
+** TODO :F31: Revise Training Plan
+   - Look for a conference that has Bayesian network workshops
+   - Email McGeachie and ask about that
+   - ISMB
 ** TODO :LIFE: Reimbursements
-
-   | Expense                      | Price |
-   |------------------------------+-------|
-   | ASMS Membership              | $40   |
-   | ASMS Conference Registration | $90   |
-   |                              |       |
-
-** TODO :LIPOSARCOMA: Ceramide pathway figure for Liposarcoma
+   | Expense                       | Price | Status    |
+   |-------------------------------+-------+-----------|
+   | ICIBM Conference Registration |   350 | Submitted |
+   | ASMS Membership               |    40 |           |
+   | ASMS Poster                   |  38.7 |           |
+   | ICIBM Poster                  |  38.7 |           |
+   | Total                         | 467.4 |           |
+** TODO :LIFE: Get new BuckID
+** TODO Fix RaMP pathway clustering
+*** Make it so clusters return pathway name
+* Thesis Plan
+** Graduation Checklist
+*** Graduation Checklist [0/10]:
+    1) [ ] MDM2-dependent liposarcoma differences/Ceramides contribute to
+       chemoresistance in liposarcoma <2019-08-15 Thu>
+    2) [ ] F31 Draft <2019-10-15 Tue>
+    3) [ ] Committee meeting <2019-10-15 Tue>
+    4) [ ] Review paper <2019-11-08 Fri>
+    5) [ ] Submit F31 <2019-12-01 Sun>
+    6) [ ] Lipid pathway annotation complete draft <2020-01-15 Wed>
+    7) [ ] Committee meeting <2020-04-15 Wed>
+    8) [ ] Similarity network fusion/crosstalker <2020-11-18 Wed>
+    9) [ ] Committee meeting <2020-10-15 Thu>
+    10) [ ] Defend either November 2020 or March 2021
+** Core problem: Current metabolomic pathway analysis has poor sensitivity due to lack of annotations, missing identifications, 
+** Thesis chapters:
+**** Part I: Metabolomics and Lipidomics: Applications in biomedical sciences (Introduction)
+      - Applications (why do people care? Also mention liposarcoma and
+        how metabolomics aided in this study)
+**** Part II: Metabolomics of liposarcoma
+   1) Liposarcoma review
+   2) Liposarcoma treatment response and Ceramides
+   3) New liposarcoma treatment (tentative)
+   4) Conclusions
+**** Part III: Computational approaches for downstream analysis of metabolomic and lipidomic data     
+   1) Introduction  
+      - Overview of standard metabolomic workflows (why it's not good enough)
+      - Missing annotations, identifications, and lack of standard annotations
+      - Databases
+      - Pathway analysis (methods & tools & challenges)
+      - Integration (methods & tools & challenges)
+   2) RaMP chapter (addressing issues in multiomic data analysis) and
+      improved lipid pathway annotations
+   3) Crosstalker with similarity network fusion (tentative)
+   4) Conclusions
+**** Part IV: Conclusions (Broadly state your contributions to the field of metabolomics)
+* Planned Publications:
+1) MDM2-dependent liposarcoma differences/Ceramides contribute to chemoresistance in liposarcoma
+   - Analytical Chemistry
+2) Metabolomic pathway analysis review
+3) Lipidomic pathway annotations
+4) Second liposarcoma pub (tentative)
+5) Similarity network fusion to identify deregulated metabolites
+   (tentative)
+* Completed publications
+1) DREAM Challenge review - BMC bioinformatics
+) LipidMatch flow (tentative)
 * Projects
 ** Liposarcoma
     - First paper will be submitted to Analytical Chemistry,
@@ -54,7 +187,6 @@
    - Demonstrate concordance of shift of lipids by MDM2 status between
      databases
 ** F31 Application
-*** Review references on Bayesian Networks applied to multiomic data
 *** Background:
 **** What's been done?
 **** What hasn't been done?
@@ -117,7 +249,6 @@
    | Letters of reference                                                | ~2 pages      | 2 pages    | 4/3      | x          |
 *** [[file:~/Desktop/F31_Materials/F_Checklist_Patt.xlsx][Checklist]]
 ** Proteogenomics 
-*** TODO See if there's any parameters you need to optimize a little better
 *** Notes on reviewer feedback:
 **** Talk about different utilities
 **** Need to directly compare to the winners
@@ -171,14 +302,6 @@
 **** [[https://www.iscb.org/rocky2019][ISCB in Denver, due ???]]
 **** [[https://www.iscb.org/ismbeccb2019][ISMB in Switzerland, Abstract due 4/11]]
 **** [[https://www.iscb.org/glbio2019-key-dates][GLBio in Madison, Abstract due 3/11]]
-* Planned Publications:
-1) MDM2-dependent liposarcoma differences
-2) DREAM Challenge review
-3) Ceramides contribute to chemoresistance in liposarcoma
-4) Bayesian Networks with Informative Priors to identify deregulated metabolites
-5) Bayesian Networks with Informative Priors to integrate
-   metabolite/transcript data
-6) LipidMatch flow
 * To do (long term):
 ** TODO :LIPOSARCOMA: Liposarcoma todo
 *** UGCG notes:
@@ -193,8 +316,6 @@
 ** TODO Get watch fixed
 ** TODO Check on passport status
 ** TODO Look at Tim and Jeremy's data
-
-** TODO Fix RaMP pathway clustering
 ** TODO Associate eRA account w/ NLM
 ** TODO Get new tires
 ** TODO Set up Roth IRA
@@ -210,9 +331,10 @@
   | Trek 7.2 FX        | 2014 | ??    | 28 in      |          | Aluminum | Blue  | $220  | [[https://columbus.craigslist.org/bik/d/columbus-trek-72-fx-hybrid-blue-road/6775115398.html][link]] |                                                                  | Craigslist          |
   | Giant Escape 2     | 2018 | 58 cm | 28 in      |          | Aluminum | Blue  | $387  | [[https://www.giant-bicycles.com/us/escape-2-2018][link]] | Comes with kickstand                                             | Johnny Velo         |
   | Bianchi Cortina    | 2018 | 59 cm | 28 in      |          | Aluminum | Gray  | $500  | [[https://www.citygrounds.com/products/bianchi-cortina-city-bike-2018?gclid=Cj0KCQiAr93gBRDSARIsADvHiOpRxSL8EuNxHo5TUE8ry3tE1lG0qmiTfjt4Gt4TpR5JAQLJtB19UfIaAj5AEALw_wcB&variant=8130769092714][link]] | Comes with kickstand                                             | Johnny Velo         |
-  | Raleigh Cadent 1   | 2018 | 58 cm | 28 in      | 26.5 lbs | Aluminum | Black | $400  | [[https://www.raleighusa.com/cadent-1?gclid=CjwKCAiA0uLgBRABEiwAecFnk2z5Aa0J6mgBtoAg6WqL623LO6trrMrGepHh6DHhKteyOWi5OPvmVBoCRdkQAvD_BwE][link]] | Needs to be ordered                                              | Downtown Bike Store |
   | Jamis Allegro      | 2019 | 58 cm | 28 in      | 27.3 lbs | Aluminum | Red   | $410  | [[https://www.jamisbikes.com/new_pdf/19_allegro.pdf][link]] | Not recommended by [[https://www.reddit.com/r/whichbike/comments/4tgznx/jamis_allegro_sport_coda_sport_good_choice_for/][Reddit]]                                        | Bike Source         |
   | Specialized Sirrus | 2019 | 58 cm | 28 in      |          | Aluminum | Green | $475  |      |                                                                  | Bike Source         |
+*** Aquarium
+**** https://www.plantdrafts.com
 ** Fun stuff ideas
 *** Ice skating
 *** Cat cafe
@@ -279,10 +401,15 @@
 * Job hunt
 ** [[https://metabolomicsna.org/index.php/jobs][Metabolomics Association of North America]]
 ** [[https://asms-jobs.careerwebsite.com/][ASMS]]
+** Industry:
+*** Batelle
 * Reading list
 ** TODO Eytan Ruppin (Breast Cancer/Networks)
 ** TODO Stefan Ambs
 ** TODO Mark Chance
+** TODO *Metabolites* 9:88 2019 
+** TODO DARTS (nature methods)
+** TODO WGCNA
 * Org-mode cheatsheet
 ** Lists 
 *** M-Ret to add a new item to a list. Preserves ordered list structure!
@@ -322,3 +449,4 @@
 *** C-c C-e export menu
 *** [[http://jr0cket.co.uk/slides/revealjs.html][Check out org-reveal for cool html slideshows]]
 *** Check out texmed.el next time you're doing citations in LaTeX
+

@@ -1,0 +1,36 @@
+
+;; ----- amx-history -----
+(
+ locate
+ diff-backup
+ org-mode
+ linum-mode
+ treemacs
+ recover-this-file
+ list-packages
+)
+
+;; ----- amx-data -----
+(
+ (connect-remote . 5)
+ (org-mode . 5)
+ (start-interactive-node . 24)
+ (toggle-debug-on-error . 1)
+ (ivy-mode . 3)
+ (flyspell-mode . 2)
+ (list-packages . 4)
+ (rmd-insert-header . 2)
+ (R . 1)
+ (linum-mode . 3)
+ (ess-remote . 5)
+ (shell . 6)
+ (locate . 3)
+ (org-display-inline-images . 1)
+ (replace-regexp . 3)
+ (poly-org-mode . 1)
+ (treemacs-icons-dired-mode . 2)
+ (treemacs . 3)
+ (auto-fill-mode . 1)
+ (recover-this-file . 2)
+ (diff-backup . 3)
+)

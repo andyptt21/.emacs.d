@@ -24,6 +24,10 @@ nrmse<-function(predictions,actual){
   }
 }
 
+## tuneGrid=expand.grid(
+##               .alpha=1,
+##               .lambda=seq(0, 100, by = 0.1))
+
 ############################
 # Remove transcripts with any missing values
 #############################
@@ -50,7 +54,9 @@ breastLR <- sapply(1:2000, function(x){
     trainSet <- trainSet[Proteincc,]
     model_lasso <- train(trainSet,trainType,
                          method='lasso',
-                         trControl = fitControl)
+                         trControl = fitControl)## ,
+                         ## tuneGrid=tuneGrid)
+    
     predictions<-model_lasso$pred
     predictions<-predictions[which(!is.na(predictions$pred)),]
     if(nrow(predictions)<6){

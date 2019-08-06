@@ -37,7 +37,7 @@
      ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(package-selected-packages
    (quote
-    (treemacs-icons-dired treemacs doom-themes doom-modeline counsel ivy-rich spaceline-all-the-icons mode-icons all-the-icons org-journal pubmed fill-column-indicator auctex poly-org ess-view exec-path-from-shell ess-smart-underscore pdf-tools org-ref popup-complete auto-complete spaceline-config persp-mode spaceline openwith org2blog elpy poly-R poly-markdown ess diminish use-package spacemacs-theme magit org org-bullets markdown-mode markchars)))
+    (ivy-hydra flyspell-correct-ivy poly-noweb poly-R amx flx counsel all-the-icons-ivy org-pdfview treemacs-icons-dired treemacs doom-themes doom-modeline ivy-rich spaceline-all-the-icons mode-icons all-the-icons org-journal pubmed fill-column-indicator auctex poly-org ess-view exec-path-from-shell ess-smart-underscore pdf-tools org-ref popup-complete auto-complete spaceline-config persp-mode spaceline openwith org2blog elpy poly-markdown ess diminish use-package spacemacs-theme magit org org-bullets markdown-mode markchars)))
  '(pdf-view-midnight-colors (quote ("#655370" . "#fbf8ef"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -45,4 +45,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Menlo"))))
+ '(font-lock-comment-face ((t (:foreground "dark gray"))))
  '(mouse ((t (:background "white smoke")))))

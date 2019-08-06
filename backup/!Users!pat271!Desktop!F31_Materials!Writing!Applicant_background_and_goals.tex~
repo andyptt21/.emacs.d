@@ -1,4 +1,4 @@
-% Created 2019-04-01 Mon 13:24
+% Created 2019-07-19 Fri 09:38
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -32,12 +32,12 @@
  pdftitle={},
  pdfkeywords={},
  pdfsubject={Applicant Background and Goals},
- pdfcreator={Emacs 25.3.1 (Org mode 9.2)}, 
+ pdfcreator={Emacs 26.2 (Org mode 9.2)}, 
  pdflang={English}}
 \begin{document}
 
 \section*{A) Doctoral Dissertation and Research Experience}
-\label{sec:org86ede49}
+\label{sec:org469f876}
 \uline{\textbf{Dissertation Research}}
 
 \textbf{2016-Present PhD student under Dr. Ewy Mathe, PhD}
@@ -46,198 +46,308 @@
 
 \emph{Candidacy passed October 2018}
 
-Committee members: Dr. Ewy Mathe, PhD (PI); Dr. Kevin Coombes PhD; Dr. Lang Li, PhD; Dr. Rachel
-Kopec, PhD.
+Committee members: Dr. Ewy Mathe, PhD (PI); Dr. Kevin Coombes PhD;
+Dr. Lang Li, PhD; Dr. Rachel Kopec, PhD.
 
-\textbf{MDM2 Copy Number Reprograms Metabolism of Dedifferentiated Liposarcoma Tumors:} Dedifferentiated
-liposarcoma (DDLPS) is an aggressive mesenchymal cancer. Patients have very poor prognosis, with a
-five-year survival rate of less than 50\%, partially due to the high toxicity and low efficacy of
-current treatments. DDLPS tumors are characterized by amplified levels of MDM2, an inhibitor of the
-tumor suppressor TP53. Patients with high MDM2 amplification have worse prognosis compared to
-patients with low MDM2 amplification. This observation is recapitulated \emph{in vitro}, where DDLPS cell
-lines with high MDM2 amplification have higher cell viability than MDM2 low cells. We collaborated
-with Dr. Jim Chen to generate metabolomic and lipidomic data in patient-derived DDLPS cell lines
-which was given to me for analysis. The goal of this project was to identify metabolomic/lipidomic
-differences in cell lines based on MDM2 amplification levels that could explain the chemoresistance
-of MDM2 high cell lines. Spanning both data sets, I identified three pairs of
-glycosylated/nonglycosylated forms of ceramides which were more highly glycosylated in MDM2 high
-cells than MDM2 low. This lead to \emph{in vitro} experiments that demonstrated that MDM2 high cells are
-susceptible to treatment with ceramides. We also confirmed that the UGCG enzyme, which catalyzes the
-glycosylation of ceramides, is more highly expressed in MDM2 high cells than in low via Western
-blot.  Upregulation of glycosylated ceramides has been linked to increased chemoresistance in a
-number of cancers. The manuscript for this project is in preparation and will result in a co-first
-author publication for me.
+\textbf{MDM2 Copy Number Reprograms Metabolism of Dedifferentiated Liposarcoma
+Tumors:} Dedifferentiated liposarcoma (DDLPS) is an aggressive
+mesenchymal cancer. Patients have very poor prognosis, with a
+five-year survival rate of less than 50\%, partially due to the high
+toxicity and low efficacy of current treatments. DDLPS tumors are
+characterized by amplified levels of MDM2, an inhibitor of the tumor
+suppressor TP53. Patients with high MDM2 amplification have worse
+prognosis compared to patients with low MDM2 amplification. This
+observation is recapitulated \emph{in vitro}, where DDLPS cell lines with
+high MDM2 amplification have higher cell viability than MDM2 low
+cells. We collaborated with Dr. Jim Chen to generate metabolomic and
+lipidomic data in patient-derived DDLPS cell lines which was given to
+me for analysis. The goal of this project was to identify
+metabolomic/lipidomic differences in cell lines based on MDM2
+amplification levels that could explain the chemoresistance of MDM2
+high cell lines. Spanning the metabolomic and lipidomic data sets, I
+identified three pairs of glycosylated/nonglycosylated forms of
+ceramides which were significantly more highly glycosylated in MDM2
+high cells than MDM2 low. This finding led to \emph{in vitro} experiments
+that demonstrated that MDM2 high cells are susceptible to treatment
+with ceramides. We also confirmed that the UGCG enzyme, which
+catalyzes the glycosylation of ceramides, is more highly expressed in
+MDM2 high cells than in low via Western blot. Upregulation of
+glycosylated ceramides has been linked to increased chemoresistance in
+a number of cancers. The manuscript for this project is in preparation
+and will result in a co-first author publication for me. In preparing
+this manuscript, I became aware of the many difficulties associated
+with metabolomic data analysis, including challenges of incorporating
+unidentified metabolites or metabolites without pathway annotations
+into analysis. This motivated me to investigate approaches for
+incorporating prior knowledge into metabolomic data analysis, while
+still maintaining the capacity for data driven discovery, to utilize
+metabolites without prior knowledge associated with them.
 
-\textbf{RaMP: A Comprehensive Relational Database of Metabolomics Pathways for Pathway Enrichment Analysis
-of Genes and Metabolites:} Our group has created RaMP, a MySQL database conglomerating pathway
-information for metabolites/proteins/genes from 4 major metabolomic pathway databases: Kyoto
-Encyclopedia of Genes and Genomes (KEGG), Reactome, WikiPathways, and the Human Metabolome DataBase
-(HMDB). RaMP was created to harmonize and increase the accessibility of chemical and biological
-annotations stored in these major databases, in order to improve coverage of experimental data. I
-helped develop the associated RaMP R package, which allows users to query the database, perform
-pathway analysis, and cluster pathway analysis results. The R package is also useful for integrating
-with other R-based metabolomic data analysis tools. I also helped build the associated RShiny app, a
-web-based tool that makes the functionality of the RaMP package accessible to users with no
-programming knowledge. The RaMP database will serve as a source of pathway, biofluid/disease
-ontology and reaction knowledge for the informative priors in my proposal, and we have plans to
-expand the knowledge in the database to include chemical structure information as well in the form
-of InChIKeys. My work on RaMP has resulted in a textbook chapter and a second author publication.
+\textbf{RaMP: A Comprehensive Relational Database of Metabolomics Pathways for
+Pathway Enrichment Analysis of Genes and Metabolites:} Our group has
+created RaMP, a MySQL database combining pathway information for
+metabolites/proteins/genes from 4 major metabolomic pathway databases:
+Kyoto Encyclopedia of Genes and Genomes (KEGG), Reactome,
+WikiPathways, and the Human Metabolome DataBase (HMDB). RaMP was
+created to harmonize naming identification schemes and increase the
+accessibility of chemical and biological annotations stored in these
+major databases, in order to improve coverage of experimental data. I
+helped develop the RaMP R package, which allows users to query the
+database, perform pathway analysis, and cluster pathway analysis
+results. The R package is also useful for integrating with other
+R-based metabolomic data analysis tools. I also helped build the
+associated RShiny app, a web-based tool that makes the functionality
+of the RaMP package accessible to users with no programming
+knowledge. The RaMP database will serve as a source of pathway,
+biofluid ontology, disease ontology, and reaction knowledge for the
+informative priors in my proposal, and we have plans to expand the
+knowledge in the database to include chemical structure information as
+well in the form of InChIKeys. My work on RaMP has resulted in a
+textbook chapter and a second author publication.
 
 \begin{itemize}
-\item \uline{Patt A}, Siddiqui J, Zhang B, Mathé E. Integration of Metabolomics and Transcriptomics to Identify
-Gene-Metabolite Relationships Specific to Phenotype. Methods Mol Biol. 2019;1928:441-468. PubMed
+\item \uline{Patt A}, Siddiqui J, Zhang B, Mathé E. Integration of Metabolomics
+and Transcriptomics to Identify Gene-Metabolite Relationships
+Specific to Phenotype. Methods Mol Biol. 2019;1928:441-468. PubMed
 PMID: 30725469.
 
-\item Zhang B, Hu S, Baskin E, \uline{Patt A}, Siddiqui JK, Mathé EA. RaMP: A Comprehensive Relational Database
-of Metabolomics Pathways for Pathway Enrichment Analysis of Genes and
-Metabolites. Metabolites. 2018 Feb 22;8(1)PubMed PMID: 29470400; PubMed Central PMCID: PMC5876005.
+\item Zhang B, Hu S, Baskin E, \uline{Patt A}, Siddiqui JK, Mathé EA. RaMP: A
+Comprehensive Relational Database of Metabolomics Pathways for
+Pathway Enrichment Analysis of Genes and
+Metabolites. Metabolites. 2018 Feb 22;8(1)PubMed PMID: 29470400;
+PubMed Central PMCID: PMC5876005.
 \end{itemize}
 
-\textbf{Planned Dissertation:} My main goal for my doctoral dissertation is to develop new methodology for
-analyzing metabolomic/multiomic data that leverages prior knowledge on the subject while still
-allowing for inclusion of analytes detected in a study where prior knowledge does not
-exist. High-throughput 'omic data is expensive and difficult to obtain and interpret. Many common
-forms of analysis do not make efficient use of this data, either by ignoring complex biological
-interdependencies that explain experimental data, or by ignoring analytes which have no prior
-knowledge associated with them. Bayesian networks with informative priors will frame analyses in
-terms of previously understood biology, while still maintaining the capability of making new,
-data-driven discoveries. The focuses of my research will be 1) to build methodology for
-incorporating a variety of biological data into informative priors for Bayesian network analysis of
-omic data, 2) to systematically compare my proposed methodology to a variety of existing univariate
-and multivariate methods, as well as 3) develop software that makes the approach accessible to
-researchers. As high-throughput sequencing and mass-spectrometry/NMR become more prominent, more
-sophisticated analytical techniques will become necessary to make sense of the underlying
-biology. My novel method for incorporating prior biological knowledge into informative priors for
-Bayesian network analysis will improve coverage of analytes in analyses, as it will incorporate all
-possible prior knowledge while still including analytes for which no prior knowledge is
-available. My prior research and training in metabolomics research as well as my participation in
-the development of RaMP, which will serve as a rich source of biological knowledge for my project, have
-ideally situated me to complete this project.
-\\
-\\
+\textbf{Planned Dissertation:} My projects up to this point made me aware of
+some of the challenges of interpreting metabolomic data, as well as
+the importance of organizing and improving the availability of the
+prior knowledge that is available for metabolomic data.  To address
+these issues, the main goal for my doctoral dissertation is to improve
+the sensitivity of metabolomic and lipidomic pathway analysis. I plan
+to achieve this by developing a database for performing lipidomic
+pathway analysis that combines information from multiple lipidomic
+databases, and allows for overrepresentation analysis (ORA) that addresses
+the differences in structural resolution between databases. I also
+intend to develop new methodology for analyzing lipidomic and
+metabolomic data that leverages prior knowledge while still allowing
+for novel data-driven discovery of analytes and analyte relationships
+altered by disease phenotype, such as cancer. High-throughput 'omic
+data is expensive and difficult to obtain and interpret. Many analyses
+do not make efficient use of this data, either by ignoring complex
+biological interdependencies that explain experimental data, or by
+ignoring analytes which have no prior knowledge associated with
+them. The focuses of my research will be to:
+\begin{enumerate}
+\item Build methodology for incorporating a variety of biological and
+chemical annotations into consensus similarity networks of
+metabolites.
+\item Apply the cross talker algorithm to identify modules of
+metabolites with coordinated regulatory patterns specific to phenotype.
+\item Perform ORA to identify biological processes associated with
+dysregulated metabolite modules.
+\item Compare my proposed methodology to a existing
+ORA methodology, such as the Fisher's Exact test, or Metabolite
+Set enrichment analysis, in real and simulated data, to
+demonstrate increased capacity for detecting pathways altered
+in tandem with phenotype.
+\item Develop software that makes the approach accessible to
+researchers.
+\end{enumerate}
+As mass-spectrometry or NMR generated data become more
+abundant, more sophisticated analytical techniques will become
+necessary to make sense of the underlying biology. My novel method
+will improve coverage of analytes in analyses, as it will incorporate
+all possible prior knowledge while still including analytes for which
+no prior knowledge is available. My research and training in
+metabolomics work as well as my participation in the development
+of RaMP, which will serve as a rich source of biological knowledge for
+my project, have ideally situated me to complete this project.
+
 \uline{\textbf{Previous Research Experiences}}
 
-\textbf{Undergraduate Research:} In my undergraduate studies at SUNY Geneseo I developed an interest in
-statistics and programming, which lead me to complete a biomathematics minor in addition to my
-Biochemistry major. This minor required upper level math courses, as well as biological statistics
-and modeling courses which required a working knowledge of the R programming language. To develop my
-R programming skills, during my sophomore and junior years I participated in an informal research
-group led by Dr. Gregg Hartvigsen, who instructed us in basic modeling techniques using R, such as
-modeling the spread of disease through a population using networks or differential
-equations. Dr. Hartvigsen was an outstanding instructor for instilling a curiosity for research and
-demonstrating the potential of programming for answering biological questions. During my senior year
-I participated in research in the lab of Dr. Isidro Bosch, who was interested in identifying unknown
-starfish larvae samples using targeted sequencing of the RuBisCO gene in symbiotic cyanobacteria
+\textbf{Undergraduate Research:} In my undergraduate studies at SUNY Geneseo I
+developed an interest in statistics and programming, which lead me to
+complete a biomathematics minor in addition to my Biochemistry
+major. This minor required upper level math courses, as well as
+biological statistics and modeling courses which required a working
+knowledge of the R programming language. To develop my R programming
+skills, during my sophomore and junior years I participated in an
+informal research group led by Dr. Gregg Hartvigsen, who instructed us
+in basic modeling techniques using R, such as modeling the spread of
+disease through a population using networks or differential
+equations. Dr. Hartvigsen was an outstanding instructor for instilling
+a curiosity for research and demonstrating the potential of
+programming for answering biological questions. During my senior year
+I participated in research in the lab of Dr. Isidro Bosch, who was
+interested in identifying unknown starfish larvae samples using
+targeted sequencing of the RuBisCO gene in symbiotic cyanobacteria
 found in the samples. Results were inconclusive.
 
-\textbf{Summer Undergraduate Research Fellowship at University at Buffalo}: As my undergraduate institution
-was relatively small I also looked extramurally for research opportunities, which lead to me
-participating in the Summer Undergraduate Research Fellows program at University at Buffalo in the
-summer following my junior year, funded by the American Society for Pharmacology and Experimental
-Therapeutics. In this two-month experience, I worked in the lab of Dr. Marilyn Morris, examining
-sex-dependent differences in MCT1 expression in rat tissues, to better understand sex-dependent
-differences in metabolism of gamma hydroxybutyrate, a substrate of the MCT1 protein. We identified a
-\textasciitilde{}2-fold increase in expression of MCT1 in the liver of males compared to females, which may indicate
-a sex hormone-dependent effect on MCT1 expression. In addition to research, we were required to
-attend training in basic laboratory techniques and animal handling, and regular talks from the
-faculty at UB, as well as a weekly workshop for oral presentations. At the conclusion of the
-experience, we were required to give a 20-minute talk with 5 minutes of questions as well as a
-poster presentation. Due to the small sample size of the experiment (N=3), results were not
-published. Outside of my project, I was particularly interested in the pharmacokinetic modeling work
-of the graduate students in the lab, which furthered my interest in performing computational work in
-graduate school.
+\textbf{Summer Undergraduate Research Fellowship at University at Buffalo}: As
+my undergraduate institution was relatively small I also looked
+extramurally for research opportunities. I thus participated in the
+Summer Undergraduate Research Fellows program at University at Buffalo
+in the summer following my junior year, funded by the American Society
+for Pharmacology and Experimental Therapeutics. During this two-month
+experience, I worked in the lab of Dr. Marilyn Morris, examining
+sex-dependent differences in MCT1 expression in rat tissues, to better
+understand sex-dependent differences in metabolism of gamma
+hydroxybutyrate, a substrate of the MCT1 protein. We identified a
+\textasciitilde{}2-fold increase in expression of MCT1 in the liver of males compared
+to females, which may indicate a sex hormone-dependent effect on MCT1
+expression. In addition to research, we were required to attend
+training in basic laboratory techniques and animal handling, and
+regular talks from the faculty at UB, as well as a weekly workshop for
+oral presentations. At the conclusion of the experience, we were
+required to give a 20-minute talk with 5 minutes of questions as well
+as a poster presentation. Due to the small sample size of the
+experiment (N=3), results were not published. Outside of my project, I
+was particularly interested in the pharmacokinetic modeling work of
+the graduate students in the lab, which furthered my interest in
+performing computational work in graduate school.
 
-\textbf{National Institutes of Health}: Following my undergraduate education, I was accepted into the
-postbaccalaureate fellows program in the lab of Dr. Michael Ombrello in the National Institute of
-Arthritis and Musculoskeletal and Skin diseases (NIAMS), where I worked for one year on identification of
-ultra-rare genetic variants associated with systemic juvenile idiopathic arthritis (sJIA). sJIA is a
-form of childhood arthritis that develops in \textasciitilde{}1/100,000 children each year. sJIA is a genetically
-complex inflammatory disease, but we do not understand its etiology or genetic risk factors. Using a
-Targeted Deep Resequencing pipeline with a genetically matched collection of 587/401 cases/controls
-and an ensemble of statistical tests for determining association with phenotype in extremely low
-frequency variants, we identified variants in 7 different genes associated with sJIA, including
-previously reported sJIA-associated genes (\emph{IL36G}, \emph{IL18RAP}), genes implicated as GWAS candidate loci
-in a parallel study (\emph{RIN3}, \emph{THAP10}, \emph{ART4}), and a gene associated with hereditary periodic fever
-syndrome (\emph{IL1RN}), a related condition. My research was approximately 20\% wet lab (DNA extraction and
-library preparation) and 80\% computational (alignment/variant calling/annotation on the
-supercomputing cluster and statistical analysis with R). Due to the relative brevity of my time
-spent in Dr. Ombrello's lab, no publication was produced. However, the experience was very valuable
-for me to develop my R programming skills and continue my wet lab training, as well as gaining
-experience with supercomputing, and participating in the excellent journal clubs and bioinformatics
-seminars offered at the NIH. I was also able to continue my education through night classes at the
-Foundation for Advanced Education, where I learned more about general bioinformatics concepts as
-well as gained basic proficiency in the Python coding language. At the end of the year I presented
-my work at Postbac Poster Day as well as the NIAMS retreat, where I won an award for best poster.
+\textbf{National Institutes of Health}: Following my undergraduate education, I
+was accepted into the postbaccalaureate fellows program in the lab of
+Dr. Michael Ombrello in the National Institute of Arthritis and
+Musculoskeletal and Skin diseases (NIAMS), where I worked for one year
+on identification of ultra-rare genetic variants associated with
+systemic juvenile idiopathic arthritis (sJIA). sJIA is a form of
+childhood arthritis that develops in \textasciitilde{}1/100,000 children each
+year. sJIA is a genetically complex inflammatory disease, but we do
+not understand its etiology or genetic risk factors. Using a Targeted
+Deep Resequencing pipeline with a genetically matched collection of
+587/401 cases/controls and an ensemble of statistical tests for
+determining association with phenotype in extremely low frequency
+variants, we identified variants in 7 different genes associated with
+sJIA, including previously reported sJIA-associated genes (\emph{IL36G},
+\emph{IL18RAP}), genes implicated as GWAS candidate loci in a parallel study
+(\emph{RIN3}, \emph{THAP10}, \emph{ART4}), and a gene associated with hereditary periodic
+fever syndrome (\emph{IL1RN}), a related condition. My research was
+approximately 20\% wet lab (DNA extraction and library preparation) and
+80\% computational (alignment/variant calling/annotation on the
+supercomputing cluster and statistical analysis with R). Due to the
+relative brevity of my time spent in Dr. Ombrello's lab, no
+publication was produced. However, the experience was very valuable
+for me to develop my R programming skills and continue my wet lab
+training, as well as gaining experience with supercomputing, and
+participating in the excellent journal clubs and bioinformatics
+seminars offered at the NIH. I was also able to continue my education
+through night classes at the Foundation for Advanced Education, where
+I learned more about general bioinformatics concepts as well as gained
+basic proficiency in the Python coding language. At the end of the
+year I presented my work at Postbac Poster Day as well as the NIAMS
+retreat, where I won an award for best poster.
 
 \pagebreak
 
 \section*{B) Training Goals and Objectives}
-\label{sec:org87ef93b}
-This fellowship would allow me to continue my education both in the classroom as well as in the
-laboratory. In my training I hope to gain greater experience in advanced R programming topics such
-as package development and R shiny development, as well as experience in other languages important
-to the field of bioinformatics like Python, MySQL, and bash. Being the primary investigator on an R
-package/RShiny development project would be highly beneficial in helping me attain all the skills
-needed to be a consummate R developer, such as use of the devtools package, performing run time
-analysis, and maintaining/updating the package following release. This fellowship would
-also afford me more free time to devote to independent study of other languages using online
-resources such as Codecademy and DataCamp. I also intend to improve my understanding of techniques
-and practices in machine learning, both through online courses such as the Coursera courses taught
-by Andrew Ng (Machine Learning) and Daphne Koller (Probabilistic Graph Models), as well as through a
-future course at OSU taught by my co-sponsors Dr. Mathe and Dr. Coombes, Machine Learning for
-Bioinformatics. Increasing the breadth and depth of my programming knowledge will be essential for
-future projects later in my career to continue to create innovative software that is valuable to the
-research community.
+\label{sec:org017d19a}
+The first goal of my activity during this fellowship will be to
+develop an integrative lipidomics pathway database as an extension to
+the RaMP database developed by our group. The database will include an
+associated R package for ORA of lipid
+pathways, as well as a user-friendly interface. The approach will be
+tested on a variety of real and simulated lipid data sets to
+demonstrate the increased capacity of the approach to detect altered
+lipid pathways. The second goal of my activity during this fellowship
+will be to rigorously evaluate the proposed similarity network fusion
+methodology in a variety of real and simulated data sets,
+demonstrating it's capacity to detect biologically relevant pathways
+that are not detected by conventional methodology. The results will be
+summarized in a manuscript to be submitted in high-impact
+metabolomic/bioinformatics journals such as \emph{Metabolomics} or \emph{BMC
+Bioinformatics}. The publication will be accompanied by an open-source
+R-package and RShiny app, as well as example data sets to ensure
+maximum reproducibility of findings. If successful, this framework
+could be extended beyond the metabolomics/lipidomics context, and be
+applied to many different types of omics data, provided that there is
+prior information available that could be integrated into a consensus
+similarity network.
 
-The primary goal of my activity during this fellowship will be to rigorously evaluate the proposed
-Bayesian network methodology in a variety of real and simulated data sets. The method will be
-compared to commonly employed univariate as well as multivariate approaches, and the results will be
-summarized in a manuscript to be submitted in high-impact metabolomic/bioinformatics journals such
-as \emph{Metabolomics} or \emph{BMC Bioinformatics}. The publication will be accompanied by an open-source
-R-package and RShiny app, as well as example data sets to ensure maximum reproducibility of
-findings. This publication will be followed up by a publication focusing on the utility of our
-proposed approach as an integrative method, focusing not just on differentially abundant analytes,
-but also the relationships detected between them. If successful, this framework could be extended
-beyond the metabolomics/transcriptomics context, and be applied to many different types of omics
-data, provided that there is prior information available that could be integrated into a network prior.
+This fellowship would allow me to continue my education both in the
+classroom as well as in a computational research setting. In my
+training I hope to gain greater experience in advanced R programming
+topics such as package development and R shiny development. To this
+end I plan on attending future meetings of the BioConductor conference
+series, where leading bioinformaticians provide workshops for best
+practices in R package development as well as sharing their work in
+open source bioinformatics software development. Further, being the
+primary investigator on an R package/RShiny development project would
+be highly beneficial in helping me attain all the skills needed to be
+a consummate R developer, such as use of the devtools package,
+performing run time analysis, and maintaining/updating the package
+following release. In order to learn more about networks and their
+applications in computational biology, I also intend to attend more
+computationally oriented workshops such as the Canadian Bioinformatics
+Workshop series, the West Coast metabolomics center workshop series,
+the Translational Data Analytics Institute at Ohio State,
+or the Cold Spring Harbor Metabolomics course, as well as more
+computationally oriented conferences, such as the International
+Conference on Bioinformatics and Computational Biology series (BICOB
+or GLBIO).
 
-During the course of the award I will be able to benefit immensely from the support of my
-interdisciplinary mentorship team. My primary mentor, Dr. Mathe, is an experienced metabolomics
-expert and bioinformatician who has and will continue to mentor me in all aspects of metabolomics
-research, from experimental design and data generation to analysis and interpretation. She has also
-contributed to multiple R packages/Shiny apps and MySQL databases, and has helped me learn other
-skills necessary for collaborative software development. My co-sponsor Dr. Coombes is an
-accomplished statistician as well as an advocate for reproducible research. His input on my project
-as well as his courses (Rigor and Reproducibility \& Machine Learning) will be strong assets for my
-research in guiding my research questions and leading to scientifically robust and valid results. My
-committee other members Dr. Kopec and Dr. Li were also chosen due to their relevant areas of
-expertise to my proposal. Dr. Kopec is a metabolomics expert who has collaborated with our group and
-served as a resource to improve my biological understanding of metabolomics data. She and Dr. Mathe
-have allowed me to sit in on their Metabolomics course (Spring 2019), which has further
-increased my understanding of current trends and techniques in metabolomics research. Dr. Li's group
-has hosted me at their lab meetings, as some of their members conduct Bayesian network analysis
-of transcriptomic data for inference of relationships between transcripts. This has lead to many
-fruitful discussions of my research ideas, and has a high potential for scientific collaboration in
-the future, particularly in the software development area.
+This fellowship would also afford me more free time to devote to
+independent study of other languages using online resources such as
+Codecademy and DataCamp. I also intend to improve my understanding of
+techniques and practices in machine learning, both through online
+courses such as the Coursera courses taught by Andrew Ng (Machine
+Learning) and Daphne Koller (Probabilistic Graph Models), as well as
+through a future course at OSU taught by my co-sponsors Dr. Mathe and
+Dr. Coombes, Machine Learning for Bioinformatics. Increasing the
+breadth and depth of my programming knowledge will be essential for
+future projects later in my career to continue to create innovative
+software that is valuable to the research community.
 
-Following my graduate training, I intend to obtain a post-doctoral position in a lab that is leading
-the way in increasing the ability of biomedical researchers to obtain and analyze metabolomics data,
-such as the lab of Dr. Oliver Fiehn at UC Davis, or Dr. Gary Siuzdak at the Scripps Research
-Institute. To support my postdoctoral research I plan to apply for further funding through an F32 or
-K series award. Successful completion of the aims of this proposal would be a tremendous asset
-towards giving the skills needed to be an independent, rigorous and reproducible researcher
-following my graduation from OSU. In the long term, I hope to lead my own group in computational
-metabolomics research, following the example of the many talented and passionate computational
-biologists I worked with at the NIH as well as here at OSU. I have constructed my research goals at
-OSU to give me the skills necessary to accomplish this later in my career. As a relatively unstudied
-field, there are major computational challenges that remain unsolved in analyzing and interpreting
-metabolomic data, with much work to be done in characterizing new metabolites and their functions,
-developing data normalization and statistical methods, increasing reproducibility, and refining
-pathway analysis tools. Given my training and research in computational biology and
-metabolomics, I am excited to make my contribution to this growing field.
+During the course of the award I will be able to benefit immensely
+from the support of my interdisciplinary mentorship team. My primary
+mentor, Dr. Mathe, is an experienced metabolomics expert and
+bioinformatician who has and will continue to mentor me in all aspects
+of metabolomics research, from experimental design and data generation
+to analysis and interpretation. She has also contributed to multiple R
+packages/Shiny apps and MySQL databases, and has helped me learn other
+skills necessary for collaborative software development. My co-sponsor
+Dr. Coombes is an accomplished statistician as well as an advocate for
+reproducible research. His input on my project as well as his courses
+(Rigor and Reproducibility \& Machine Learning) will be strong assets
+for my research in guiding my research questions and leading to
+scientifically robust and valid results. My other committee members
+Dr. Kopec and Dr. Li were also chosen due to their relevant areas of
+expertise to my proposal. Dr. Kopec is a metabolomics expert who has
+collaborated with our group and served as a resource to improve my
+biological understanding of metabolomics data. She and Dr. Mathe have
+allowed me to sit in on their Metabolomics course (Spring 2019), which
+has further increased my understanding of current trends and
+techniques in metabolomics research. Dr. Li's group has hosted me at
+their lab meetings to critique some of my thesis ideas. This has lead
+to many fruitful discussions of my research ideas, and has a high
+potential for scientific collaboration in the future, particularly in
+the software development area.
+
+Following my graduate training, I intend to obtain a post-doctoral
+position in a lab that will help me continue my training towards my
+ultimate goal of becoming a computational metabolomics researcher,
+such as the lab of Dr. Oliver Fiehn at UC Davis, David Wishart at the
+University of Alberta, or Dr. Gary Siuzdak at the Scripps Research
+Institute. To support my postdoctoral research I plan to apply for
+further funding through an F32 or K series award. Successful
+completion of the aims of this proposal would be a tremendous asset
+towards giving me the skills needed to be an independent, rigorous and
+reproducible researcher following my graduation from OSU. In the long
+term, I hope to lead my own group in computational metabolomics
+research, following the example of the many talented and passionate
+computational biologists I worked with at the NIH as well as here at
+OSU. I have constructed my research goals at OSU to give me the skills
+necessary to accomplish this later in my career. As a relatively
+unstudied field, there are major computational challenges that remain
+unsolved in analyzing and interpreting metabolomic data, with much
+work to be done in characterizing new metabolites and their functions,
+developing data normalization and statistical methods, increasing
+reproducibility, and refining pathway analysis tools. Given my
+training and research in computational biology and metabolomics, I am
+excited to make my contribution to this growing field.
 
 \section*{C) Activities Planned Under This Award}
-\label{sec:org1b1cb7b}
+\label{sec:org2a87a28}
 
 \begin{center}
 \begin{tabular}{|l|l|l|l|l|}
@@ -248,9 +358,7 @@ metabolomics, I am excited to make my contribution to this growing field.
 \hline
 Coursework & Machine Learning for Bioinformatics & 5\% & 0\% & 0\% \\
 \cline{2-5}
- & Rigor and Reproducibility & 5\% & 0\% & 0\% \\
-\cline{2-5}
- & Lake Louise Tandem MS Workshop & 1\% & 0\% & 0\% \\
+ & Rigor and Reproducibility & 6\% & 0\% & 0\% \\
 \cline{2-5}
  & Cold Spring Harbor Laboratory & 0\% & 1\% & 0\% \\
  & Metabolomics & & & \\
@@ -294,13 +402,12 @@ Aims Completed & & Aim 1 & Aim 3 & Aim 2 \\
 \end{tabular}
 \end{center}
 
-\textbf{Aims 1 \& 3 Manuscript:} Testing utility of Bayesian networks with informative priors in identifying
-differentially abundant metabolites \& creating associated software.
+\textbf{Aims 1 \& 3 Manuscript:} Developing lipid pathway database with
+ORA support \& user interface.
 
-\textbf{Aim 2 \& 3 Manuscript}: Testing utility of Bayesian networks with informative priors in identifying
-phenotype-dependent relationships between analytes \& creating associated software.
-
-\textbf{Programming Skills}: R, Python, Bash, MySQL
+\textbf{Aim 2 \& 3 Manuscript}: Testing utility of consensus similarity networks
+in identifying phenotype-dependent relationships between analytes \&
+creating associated software.
 
 \textbf{Conferences:} Preliminary results will be submitted to the American Society for Mass Spectrometry
  annual meeting as well as the annual Metabolomics Society meeting and the International Conference
@@ -308,9 +415,14 @@ phenotype-dependent relationships between analytes \& creating associated softwa
  the Ohio State University Cancer Care Center meeting, The Ohio Mass Spectrometry and Metabolomics
  Symposium (OMSMS), and the Biomedical Sciences Graduate Program Student Research Day.
 
-\textbf{Career Development:} I am a member of the American Society for Mass Spectrometry, which provides many
- resources for career advancement through workshops and networking opportunities/resources hosted on
- their website. I am also a regular attendee of Friday afternoon luncheons with guest speakers
- hosted by the BMI department, which allows me to network with a wide variety of bioinformaticians
- both from OSU and elsewhere.
+\textbf{Career Development:} I am a member of the American Society for Mass
+ Spectrometry, which provides many resources for career advancement
+ through workshops and networking opportunities/resources hosted on
+ their website. I am also a regular attendee of Friday afternoon
+ luncheons with guest speakers hosted by the BMI department, which
+ allows me to network with a wide variety of bioinformaticians both
+ from OSU and elsewhere. OSU also offers career counseling services
+ which I intend to take advantage of. Additionally I plan to get involved with
+ early-career societies for metabolomics researchers, such as the
+ Metabolomics Society Early-career Members Network.
 \end{document}

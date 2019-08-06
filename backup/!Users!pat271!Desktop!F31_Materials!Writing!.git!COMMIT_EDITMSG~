@@ -3,10 +3,11 @@
 # with '#' will be ignored, and an empty message aborts the commit.
 #
 # On branch master
-# Your branch is ahead of 'origin/master' by 2 commits.
+# Your branch is ahead of 'origin/master' by 1 commit.
 #   (use "git push" to publish your local commits)
 #
 # Changes to be committed:
-#	modified:   Applicant_background_and_goals.org
-#	modified:   krc-notes.md
+#	modified:   Specific_aims.bbl
+#	modified:   Specific_aims.pdf
+#	modified:   Specific_aims.tex
 #

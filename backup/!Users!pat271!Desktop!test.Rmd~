@@ -1,27 +1,15 @@
 ---
-title: "Regex & Unix Text Processing"
-author: "Garrett Kinnebrew"
-date: "4/11/2019"
-output:
-  slidy_presentation: default
-  ioslides_presentation: default
+title: "Test"
+author: "Andrew Patt"
+output: pdf_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-
-library(magrittr)
+```{r,echo=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE,warning=FALSE, 
+    fig.height=6,fig.width = 12,fig.fullwidth = TRUE,tidy=TRUE)
 ```
 
-## Regex
+```{r}
+print("hello world")
+```
 
-Regular Expressions (aka regex) are a text pattern matching tool build into many programming languages and unix utilities.
-
-The are made up of the recursive combination of 3 elements
-
-  - Atomic Matches
-    - The simplest expressions. They match a single character.
-  - Sequences
-    - The sequencial combination of 2 regular expression
-  - Alternation
-    - Will match if either of the sub expressions are matched

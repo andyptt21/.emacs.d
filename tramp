@@ -1,4 +1,4 @@
-;; -*- emacs-lisp -*- <19/05/03 16:45:56 /Users/pat271/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <19/05/20 14:36:02 /Users/pat271/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; You can delete it, forcing Tramp to reapply the checks.
 
@@ -9,11 +9,19 @@
   ("remote-path"
    ("/usr/bin" "/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin"))
   ("remote-shell" "/bin/sh")
-  ("id" "/usr/bin/id")
-  ("gid-integer" 4687)
-  ("readlink" "\\readlink")
   ("stat" "env QUOTING_STYLE=locale \\stat")
   ("file-exists" "test -e")
-  ("case-insensitive" nil)
+  ("id" "/usr/bin/id")
   ("gid-string" "PAS1143")
-  ("uid-integer" 22134)))
+  ("gid-integer" 4687)
+  ("readlink" "\\readlink")
+  ("case-insensitive" nil)
+  ("ls" "/usr/bin/ls --color=never")
+  ("ls-quoting-style" t)
+  ("ls-dired" t)
+  ("perl-file-spec" t)
+  ("perl-cwd-realpath" t)
+  ("perl" "\\perl")
+  ("bzr" "\\bzr")
+  ("git" "\\git")
+  ("hg" "\\hg")))
