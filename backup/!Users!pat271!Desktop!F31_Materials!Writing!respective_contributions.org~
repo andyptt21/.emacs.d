@@ -1,8 +1,0 @@
-#+DESCRIPTION: Respective Contributions
-#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
-#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
-#+LATEX_HEADER: \usepackage{helvet} 
-#+LATEX_HEADER: \usepackage{enumitem}
-#+LATEX_HEADER: \usepackage{wrapfig}
-#+LATEX_HEADER: \usepackage[font=small,labelfont=bf]{caption}
-#+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault} 

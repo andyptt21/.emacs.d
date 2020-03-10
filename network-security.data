@@ -1,9 +1,0 @@
-(
- (:id "sha1:ccfd2cc2a08c89a9b10969be8c1e926954d53e28" :fingerprint "sha1:f2:08:a5:85:30:e5:e9:b5:36:0c:ca:b3:86:41:b2:68:6d:85:31:34" :host "stable.melpa.org:443" :conditions (:insecure :unknown-ca :invalid))
- (:id "sha1:94d2871de2888c9ffba1fe9192961d71490944a7" :fingerprint "sha1:28:94:6f:ab:19:9e:d8:d6:fe:16:11:be:c1:24:fc:ee:06:bb:22:b5")
- (:id "sha1:48b782e8bce37ceb74d927ab890dc76a7bd45cbd" :fingerprint "sha1:ac:b9:e3:56:9a:9f:3e:69:a5:49:2a:74:13:58:82:03:78:14:ca:5c" :host "eutils.ncbi.nlm.nih.gov:443" :conditions (:insecure :unknown-ca :invalid))
- (:id "sha1:85457c729378cc93c732b6a3941c8e4f9c2e60f3" :fingerprint "sha1:ab:a6:d7:6a:b3:d3:63:fa:19:0d:65:41:60:23:6e:ef:d3:2a:46:dc" :host "marmalade-repo.org:443" :conditions (:expired :insecure :unknown-ca :invalid))
- (:id "sha1:f0b78c860a50ee347860b531ad99a8f30b596a68" :fingerprint "sha1:66:14:c3:bb:58:32:73:27:e8:21:93:cc:55:37:e5:17:64:99:fb:67" :host "www.doi.org:443" :conditions (:insecure :unknown-ca :invalid))
- (:id "sha1:67a1d742b13d9418d25cc5cd239b16edbadf03ad" :fingerprint "sha1:b9:36:48:5d:a8:b3:6a:7a:d5:7f:fc:54:73:7d:db:53:0f:13:f2:de" :host "data.crossref.org:443" :conditions (:insecure :unknown-ca :invalid))
- (:id "sha1:60580955a2f8bbfc40d97ebbaa2d9c9320eee866" :fingerprint "sha1:92:a5:ee:cb:d2:73:7e:c3:5d:73:51:a2:cf:0c:8d:76:fb:23:65:28" :host "thescientificshrimper.wordpress.com:443" :conditions (:insecure :unknown-ca :invalid))
-)
