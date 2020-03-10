@@ -1,9 +1,7 @@
-~/.emacs.d/backup
-~/.emacs.d/auto-save-list
-~/.emacs.d/games
-~/.emacs.d/elisp/blog_and_osc_login.el
-~/.emacs.d/tramp
-~/.emacs.d/.emacs.desktop
-~/.emacs.d/elisp/
-/auto-save-list/*
-/backup/*
+# Ignore everything
+*
+
+# Besides init file, custom elisp, etc.
+!init.el
+!elisp/*
+!custom.el
