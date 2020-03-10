@@ -735,3 +735,67 @@ pages = {333-7},
 doi = {10.1038/nmeth.2810}
 }
 
+@article{Kullback51klDivergence,
+  added-at = {2010-10-31T19:59:47.000+0100},
+  author = {Kullback, S. and Leibler, R. A.},
+  biburl = {https://www.bibsonomy.org/bibtex/2560a5719c537c5c4a496bfebd4a21603/lee_peck},
+  description = {Kullback , Leibler : On Information and Sufficiency},
+  interhash = {f9d41d76a07383cca4c3a1a94c24d533},
+  intrahash = {560a5719c537c5c4a496bfebd4a21603},
+  journal = {Ann. Math. Statist.},
+  keywords = {51 Kullback Leibler divergence kl},
+  number = 1,
+  pages = {79-86},
+  timestamp = {2010-10-31T19:59:47.000+0100},
+  title = {On Information and Sufficiency},
+  volume = 22,
+  year = 1951
+}
+@article{pmid12904817,
+author = {Nicholson, J. K. and Wilson, I. D.},
+title = {{Opinion: understanding 'global' systems biology: metabonomics and the continuum of metabolism.}},
+journal = {{Nat Rev Drug Discov}},
+year = {2003},
+volume = {2},
+pages = {668-76},
+doi = {10.1038/nrd1157}
+}
+
+@article{pmid24443383,
+author = {Silva, R. R. and Jourdan, F. and Salvanha, D. M. and Letisse, F. and Jamin, E. L. and Guidetti-Gonzalez, S. and Labate, C. A. and Vêncio, R. Z.},
+title = {{ProbMetab: an R package for Bayesian probabilistic annotation of LC-MS-based metabolomics.}},
+journal = {{Bioinformatics}},
+year = {2014},
+volume = {30},
+pages = {1336-7},
+doi = {10.1093/bioinformatics/btu019}
+}
+
+@article{pmid27681505,
+author = {Gogoshin, G. and Boerwinkle, E. and Rodin, A. S.},
+title = {{New Algorithm and Software (BNOmics) for Inferring and Visualizing Bayesian Networks from Heterogeneous Big Biological and Genetic Data.}},
+journal = {{J Comput Biol}},
+year = {2017},
+volume = {24},
+pages = {340-356},
+doi = {10.1089/cmb.2016.0100}
+}
+
+@article{pmid27807752,
+author = {Tian, T.},
+title = {{Bayesian Computation Methods for Inferring Regulatory Network Models Using Biomedical Data.}},
+journal = {{Adv Exp Med Biol}},
+year = {2016},
+volume = {939},
+pages = {289-307},
+doi = {10.1007/978-981-10-1503-8_12}
+}
+
+@article{pmid30590505,
+author = {Shaddox, E. and Peterson, C. B. and Stingo, F. C. and Hanania, N. A. and Cruickshank-Quinn, C. and Kechris, K. and Bowler, R. and Vannucci, M.},
+title = {{Bayesian inference of networks across multiple sample groups and data types.}},
+journal = {{Biostatistics}},
+year = {2018},
+doi = {10.1093/biostatistics/kxy078}
+}
+

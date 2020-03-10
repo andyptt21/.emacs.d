@@ -91,12 +91,12 @@
   (ess-toggle-underscore nil)
   (add-to-list 'load-path "/elpa/ess-18.10.2")
   ;;(setq inferior-R-program-name "/usr/local/bin/R")
-  (setq ess-use-auto-complete t)
-  (require 'auto-complete)
-  (require 'auto-complete-config)
-  (add-to-list 'ac-dictionary-directories "~/.emacs.d/site-lisp/auto-complete/dict")
-  (ac-config-default)
-  (auto-complete-mode)
+  ;;(setq ess-use-auto-complete t)
+  ;;(require 'auto-complete)
+  ;;(require 'auto-complete-config)
+  ;;(add-to-list 'ac-dictionary-directories "~/.emacs.d/site-lisp/auto-complete/dict")
+  ;;(ac-config-default)
+  ;;(auto-complete-mode)
   (setq ess-eval-visibly 'nowait))
 
 ;; elpy (for python editing)
@@ -122,7 +122,7 @@
 	'((:startgroup . nil)
 	  ("LIPOSARCOMA" . ?h) 
 	  ("PROTEOGENOMICS" . ?r)
-	  ("F31" . ?t)
+	  ("THESIS" . ?t)
 	  ("LIFE" . ?y)
 	  (:endgroup . nil)
 	  (:startgroup . nil)
@@ -140,7 +140,7 @@
 	'(
 	  ("LIPOSARCOMA" . (:foreground "GoldenRod" :weight bold))
 	  ("PROTEOGENOMICS" . (:foreground "Red" :weight bold))
-	  ("F31" . (:foreground "SkyBlue" :weight bold))
+	  ("THESIS" . (:foreground "SkyBlue" :weight bold))
 	  ("LIFE" . (:foreground "Purple" :weight bold))
 	  ("EASY" . (:foreground "LimeGreen" :weight bold))  
 	  ("MEDIUM" . (:foreground "OrangeRed" :weight bold))  
@@ -157,7 +157,13 @@
        (python . t)
        (sql . t))))
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
-  (add-hook 'org-mode-hook 'turn-on-flyspell))
+  (add-hook 'org-mode-hook 'turn-on-flyspell)
+  (setq org-odt-preferred-output-format "docx"))
+
+(with-eval-after-load 'org
+  ; max newlines 
+  (setcar (nthcdr 4 org-emphasis-regexp-components) 30)
+  (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components))
 
 ;; Org Ref
 (use-package org-ref
@@ -283,10 +289,19 @@
 ;; (use-package pdf-tools
 ;;   :ensure t
 ;;   :config
-;;   ;(pdf-tools-install)
+;;   (pdf-tools-install)
 ;;   (setq-default pdf-view-display-size 'fit-page)
 ;;   (use-package org-pdfview
 ;;     :ensure t))
+
+(require 'init-ivy)
+
+(use-package flyspell-correct-ivy
+  :bind ("C-M-;" . flyspell-correct-wrapper)
+  :init
+  (setq flyspell-correct-interface #'flyspell-correct-ivy))
+
+(use-package ox-pandoc)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Linking to my wordpress blog and OSC account
@@ -303,12 +318,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'init-ivy)
-
-(use-package flyspell-correct-ivy
-  :bind ("C-M-;" . flyspell-correct-wrapper)
-  :init
-  (setq flyspell-correct-interface #'flyspell-correct-ivy))
 
 ;; Ensure the correct $PATH variables are inherited on Mac
 (when (memq window-system '(mac ns x))
@@ -375,7 +384,11 @@ will be copied as well."
 (show-paren-mode 1)
 
 ;; Re-load your buffers from the previous session on startup
-(desktop-save-mode 1)
+;; (desktop-save-mode 1)
+
+;; Prevent loading with locked desktop file
+;; (setq desktop-load-locked-desktop t)
+;; (call-interactively 'desktop-read t (vector "~/.emacs.d/desktops/" t))
 
 ;; Prevent upcase-region (annoying when I'm spamming undo)
 (put 'upcase-region 'disabled nil)
@@ -405,6 +418,8 @@ will be copied as well."
 ;;     (setq openwith-associations '(("\\.pdf\\'" "/Applications/Preview.app/Contents/MacOS/Preview" (file))))          
 ;; )
 
+(delete-selection-mode 1)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom Functions                                                       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -413,7 +428,7 @@ will be copied as well."
 (global-set-key (kbd "C-c I") (lambda() (interactive)(find-file "~/.emacs.d/init.el")))
 
 ;; Open up your init file for editing
-(global-set-key (kbd "C-c p") (lambda() (interactive)(find-file "~/Desktop/my-planner.org")))
+(global-set-key (kbd "C-c p") (lambda() (interactive)(find-file "~/Documents/my-planner.org")))
 
 ;; Transpose buffer location with C-x 4 t
 (defun transpose-windows (arg)
@@ -600,9 +615,8 @@ date: \"`r format(Sys.time(), '%d %B, %Y')`\"
 output:
   html_document:
     code_folding: hide
-    toc: true
-    toc_float:
-      collapsed: false
+    theme: cerulean
+    highlight: tango
 ---
 
 ```{r,echo=FALSE}
@@ -612,12 +626,14 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE,
   ) )
 (define-key markdown-mode-map (kbd "\C-c H") 'rmd-insert-header)
 
-(defun rmd-send-chunk ()
-  "Send current R chunk to ess process."
-  (interactive)
-  (and (eq (oref pm/chunkmode :mode) 'r-mode) 
-       (pm-with-narrowed-to-span nil
-         (goto-char (point-min))
-         (forward-line)
-         (ess-eval-region (point) (point-max) nil nil 'R)))) 
-(define-key ess-mode-map (kbd "\C-c RET") 'rmd-send-chunk)
+;; (defun rmd-send-chunk ()
+;;   "Send current R chunk to ess process."
+;;   (interactive)
+;;   (and (eq (oref pm/chunkmode :mode) 'r-mode) 
+;;        (pm-with-narrowed-to-span nil
+;;          (goto-char (point-min))
+;;          (forward-line)
+;;          (ess-eval-region (point) (point-max) nil nil 'R)))) 
+;; (define-key ess-mode-map (kbd "\C-c RET") 'rmd-send-chunk)
+
+(define-key ess-mode-map (kbd "\C-c RET") 'polymode-eval-chunk)

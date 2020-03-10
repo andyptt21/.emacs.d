@@ -36,7 +36,7 @@
 \cvjobtitle{Ph.D Candidate} % Job title/career
 
 \cvdate{21 April 1993} % Date of birth
-\cvaddress{5353 N. High St. \newline Apartment 1004 \newline Columbus OH 43214} % Short address/location, use \newline if more than 1 line is required
+\cvaddress{136 W. Pacemont Rd \newline Columbus OH 43202} % Short address/location, use \newline if more than 1 line is required
 \cvnumberphone{(518) 366-4293} % Phone number
 \cvsite{https://github.com/andyptt21} % Personal website
 \cvmail{patt.14@osu.edu} % Email address
@@ -65,7 +65,7 @@
 \skillstext{}
 %----------------------------------------------------------------------------------------
 
-\tools{\textbf{Development:} \newline Emacs, Rstudio, Git/Github/Gitlab, RShiny, Rmarkdown, Org-mode, Tidyverse, Devtools \newline \textbf{Metabolomic Data Analysis:} \newline mzMine, OSC Supercomputer Cluster, LipidMatch, Metaboanalyst, RaMP, MS-Dial}
+\tools{\textbf{Development:} \newline Emacs, Rstudio, Git/Github/Gitlab, RShiny, Rmarkdown, Org-mode, Tidyverse, Devtools \newline \textbf{Metabolomic Data Analysis:} \newline mzMine, XCMS, Ohio Supercomputer Cluster, LipidMatch, Metaboanalyst, RaMP, MS-DIAL}
 
 \makeprofile % Print the sidebar
 
@@ -96,11 +96,11 @@ Metabolomics, Lipidomics, Integrative 'Omics, Machine Learning, Mass Spectrometr
 \section{Awards}
 
 \begin{twentyshort} % Environment for a short list with no descriptions
-  \twentyitemshort{2017-19}{Systems and Integrative Biology Training Program Fellow (Biomedical Sciences Graduate Program T32 Award)}
+  \twentyitemshort{2017-19}{Systems and Integrative Biology Training Program Fellow (T32)}
   \twentyitemshort{2019}{American Society of Mass Spectrometry Travel Award}
   \twentyitemshort{2018}{May Institute Travel Award (Northeastern University)}
   \twentyitemshort{2018}{American Society of Mass Spectrometry Travel Award}
-  \twentyitemshort{2016-17}{Multi-Modeling and Integrative Data Analytics Training Program Fellow, (Biomedical Informatics Department T15 award)}
+  \twentyitemshort{2016-17}{Multi-Modeling and Integrative Data Analytics Training Program Fellow, (T15)}
   \twentyitemshort{2016}{Best Poster Award, NIAMS Scientific Planning Retreat}
   \twentyitemshort{2014}{Summer Undergraduate Research Fellowship, University at Buffalo (funded by the American Society for Pharmacology and Experimental Therapeutics)}
   %\twentyitemshort{<dates>}{<title/description>}
@@ -120,7 +120,7 @@ Metabolomics, Lipidomics, Integrative 'Omics, Machine Learning, Mass Spectrometr
 \section{In Review}
 
 \begin{twentyshort}
-	\twentyitemshort{2019}{Eicher, T.; \underline{Patt, A.}; Kautto, E.; Machiraju, R.; Mathe, E.A.; Zhang, Y. \emph{Challenges in proteogenomics: a comparison of analysis methods with the case study of the DREAM Proteogenomics Sub-Challenge}. ICIBM 2019.}
+	\twentyitemshort{2019}{\underline{Patt, A.}; Eicher, T.; Kautto, E.; Machiraju, R.; Mathe, E.A.; Zhang, Y. \emph{Challenges in proteogenomics: a comparison of analysis methods with the case study of the DREAM Proteogenomics Sub-Challenge}. ICIBM 2019.}
 \end{twentyshort}
 
 \section{Textbook Chapters}
@@ -132,19 +132,21 @@ Metabolomics, Lipidomics, Integrative 'Omics, Machine Learning, Mass Spectrometr
 \section{Selected Presentations}
 
 \begin{twenty}
-  \twentyitem{6/2019}{\emph{MDM2 Copy Number Aberrations Alter Ceramide Glycosylation in Liposarcoma Tumors, Impacting Drug Response}}{Poster}{American Society for Mass Spectrometry,Atlanta, GA}
+  \twentyitem{6/2019}{\emph{Challenges in proteogenomics: a comparison of analysis methods with the case study of the DREAM Proteogenomics Sub-Challenge}}{20 minute talk}{International Conference on Intelligent Biology and Medicine, Columbus, OH}  
+  \twentyitem{6/2019}{\emph{MDM2 Copy Number Aberrations Alter Ceramide Glycosylation in Liposarcoma Tumors, Impacting Drug Response}}{Poster}{American Society for Mass Spectrometry, Atlanta, GA}
   \twentyitem{6/2018}{\emph{MDM2 alterations reprogram the metabolic functioning of liposarcoma cell lines}}{Poster}{American Society for Mass Spectrometry, San Diego, CA}
   \twentyitem{6/2017}{\emph{MDM2 alterations reprogram the metabolic functioning of liposarcoma cell lines}}{5 minute talk}{National Library of Medicine Informatics Training Conference, La Jolla, CA}
-  \twentyitem{4/2016}{\emph{Targeted Deep Resequencing of Systemic Juvenile Idiopathic Arthritis Candidate Genes Identifies Rare Variant Associations}}{Poster}{NIAMS Scientific Planning Retreat, Bethesda, MD}
-  %\twentyitem{8/2014}{\emph{Sex Differences in MCT1 Tissue Expression}}{20 minute talk and poster}{UB Summer Research Symposium, Buffalo, NY}
 \end{twenty}
 
 \newpage
+
 \begin{changemargin}{-6.5cm}{1cm} 
 
   \section{Selected Presentations cont.}
   
   \begin{twentyXL}
+  \twentyitem{4/2016}{\emph{    Targeted Deep Resequencing of Systemic Juvenile \newline Idiopathic Arthritis Candidate Genes Identifies \newline Rare Variant Associations}}{Poster}{NIAMS Scientific Planning Retreat, Bethesda, MD}
+  %\twentyitem{8/2014}{\emph{Sex Differences in MCT1 Tissue Expression}}{20 minute talk and poster}{UB Summer Research Symposium, Buffalo, NY}  
     \twentyitemXL{8/2014}{\emph{   Sex Differences in MCT1 Tissue Expression}}{20 minute talk and poster}{UB Summer Research Symposium, Buffalo, NY}
   \end{twentyXL}
 
@@ -159,7 +161,7 @@ Metabolomics, Lipidomics, Integrative 'Omics, Machine Learning, Mass Spectrometr
   \twentyitemXL{2016-Now}{   Graduate Research Assistant}{Biomedical Informatics Department, The Ohio State University}{Working in the lab of Dr. Ewy Mathe. Investigating metabolomic and transcriptomic differences between dedifferentiated liposarcoma tumors with high and low MDM2 copy number. Also investigating novel methods of class comparison between tumors on a metabolomic level using Bayesian Networks with informative priors. Working extensively in R using a wide variety of bioconductor packages as well as developing R Shiny applications.}
 	\twentyitemXL{2015-16}{Postbaccalaureate Fellow}{National Institute of Arthritis, Musculoskeletal and Skin diseases}{Worked in the lab of Dr. Michael Ombrello. Studied the genetic background of Systemic Juvenile Idiopathic Arthritis in a targeted resequencing project. Used Illumina sequencing kits as well as GATK and annovar softwares. Wrote R, excel and bash scripts for pipeline execution as well as data sorting, manipulation and analysis, and gained experience working with supercomputing clusters.}
 	\twentyitemXL{2014-15}{Undergraduate Researcher}{Biology Department, State University of New York at Geneseo}{Worked in the lab of Dr. Isidro Bosch. Worked towards identifying the species of a starfish larval sample from coastal Florida by attempting to sequence the RuBisCO gene of a symbiotic cyanobacterial species found in the larvae. Results were inconclusive.}
-        \twentyitemXL{2014}{Summer Undergraduate Research Fellowship Scholar}{Pharmaceutical Science Department, University at Buffalo}{Funded by the American Society of Pharmacology and Experimental Therapeutics. Worked in the lab of Dr. Marilyn Morris. Examined sex dependent tissue expression of the monocarboxylate transporter MCT1 in rats. Discovered a significantly lower level of MCT1 expression in the livers of female rats per gram of tissue, which could suggest a similar disparity in humans, leading to a difference in the time monocarboxylate compounds including the date rape drug GHB remain in the bloodstream.}
+        \twentyitemXL{2014}{Summer Undergraduate Research Fellowship Scholar}{Pharmaceutical Science Department, University at Buffalo}{Funded by the American Society of Pharmacology and Experimental Therapeutics. Worked in the lab of Dr. Marilyn Morris. Discovered a significantly lower level of monocarboxylate transporter expression in the livers of female rats per gram of tissue, potentially leading to differences in metabolism of monocarboxylate pharmaceutic compounds such as GHB.}
 	%\twentyitemXL{<dates>}{<title>}{<location>}{<description>}
 \end{twentyXL}
 

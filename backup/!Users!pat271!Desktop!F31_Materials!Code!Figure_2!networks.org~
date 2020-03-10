@@ -71,7 +71,7 @@ reaction_igraph<-graph.adjacency(reaction_adjacency_matrix,mode="undirected",wei
 reaction_igraph<-igraph::delete.vertices(reaction_igraph,igraph::degree(reaction_igraph)==0)
 reaction_modules<-cluster_fast_greedy(reaction_igraph)
 reaction_membership<-membership(reaction_modules)
-igraph_plot<-plot.modules(reaction_igraph,mod.lab=TRUE, ##mod.list = reaction_membership,
+igraph_plot<-plot.modules(reaction_igraph,mod.lab=FALSE, mod.list = reaction_modules,
                           mod.edge.col="white",color.random = TRUE,
                           ed.color="grey28", sf=15, v.size=1,layout.function=layout.graphopt,
                           lab.color="white", modules.name.num=FALSE, lab.cex=2, lab.dist=5)
@@ -193,7 +193,7 @@ classyfire_table <- as.data.frame(fread("/Users/pat271/Desktop/F31_Materials/Dat
 
 classyfire_AM <- apply(classyfire_table, 1, function(x){
   column <- apply(classyfire_table, 1, function(y){
-    return(length(which(intersect(as.matrix(x[7:17]),as.matrix(y[7:17]))!="")))
+    return(length(which(intersect(as.matrix(x[8:11]),as.matrix(y[8:11]))!="")))
   })
   return(column)
 })
@@ -210,16 +210,59 @@ colnames(classyfire_AM) <- rownames(classyfire_AM) <- classyfire_table$V1
 structure_igraph<-graph.adjacency(classyfire_AM,mode="undirected",weighted=TRUE,diag=F)
 structure_igraph<-igraph::delete.vertices(structure_igraph,igraph::degree(structure_igraph)==0)
 structure_modules<-cluster_fast_greedy(structure_igraph)
+structure_module_list<-as.list(structure_modules$membership)
 structure_membership<-membership(structure_modules)
-igraph_plot<-plot.modules(structure_igraph,mod.lab=FALSE, ##mod.list = structure_modules$modularity,
+igraph_plot<-plot.modules(structure_igraph,mod.lab=FALSE, ##mod.list = structure_module_list,
                           mod.edge.col="white",color.random = TRUE,
                           ed.color="grey28", sf=15, v.size=1,layout.function=layout.graphopt,
                           lab.color="white", modules.name.num=FALSE, lab.cex=2, lab.dist=5)
+modularity(structure_igraph,structure_membership)
 
 #+END_SRC
 
 #+RESULTS: structure_network
-r[[file:structure_network.png]]
+[[file:structure_network.png]]
 
 * Pathway Similarity
 * Consensus network
+First need to make similarity networks from our networks. I'm going to
+treat the existing networks as distance networks, which seems
+appropriate (big numbers mean further distance however)
+#+NAME: consensus_network
+#+header: :width 1000 :height 1000 :R-dev-args
+#+BEGIN_SRC R :session "global" :file consensus_network.png :results output graphics :export both
+library(SNFtool)
+
+reaction_distance<-distances(reaction_igraph)
+structure_distance<-distances(structure_igraph)
+
+reaction_distance<-reaction_distance[intersect(colnames(structure_distance),colnames(reaction_distance)),intersect(colnames(structure_distance),colnames(reaction_distance))]
+structure_distance<-structure_distance[intersect(colnames(structure_distance),colnames(reaction_distance)),intersect(colnames(structure_distance),colnames(reaction_distance))]
+
+reaction_affinity <- affinityMatrix(reaction_distance, K = 20, sigma = 0.5)
+structure_affinity <- affinityMatrix(structure_distance, K = 20, sigma = 0.5)
+
+##displayClustersWithHeatmap(reaction_affinity, spectralClustering(reaction_affinity, K = 9))
+##displayClustersWithHeatmap(structure_affinity, spectralClustering(structure_affinity, K = 16))
+
+W = SNF(list(reaction_affinity,structure_affinity), 20, 20)
+consensus_igraph<-graph.adjacency(W,mode="undirected",weighted=TRUE,diag=F)
+igraph_plot<-plot.modules(consensus_igraph,mod.lab=FALSE, ##mod.list = structure_module_list,
+                          mod.edge.col="white",color.random = TRUE,
+                          ed.color="grey28", sf=15, v.size=1,layout.function=layout.graphopt,
+                          lab.color="white", modules.name.num=FALSE, lab.cex=2, lab.dist=5)
+modularity(consensus_igraph,membership(cluster_fast_greedy(consensus_igraph)))
+#+END_SRC
+
+#+RESULTS: consensus_network
+[[file:consensus_network.png]]
+
+The Reaction network is pretty modular (0.322) but the structural
+network is not modular (0.0009) which to me is unintuitive. The
+consensus network becomes very unmodular as a result.
+
+Try making the structure network with rCDK.
+
+However, when we remove a few levels of specificity, the structural
+graph becomes extremely modular (0.62). The consensus network does not
+change in modularity however. Maybe this is a scale issue.

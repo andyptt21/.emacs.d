@@ -1,0 +1,3 @@
+[submodule "elpa/doodle"]
+	path = elpa/doodle
+	url = https://github.com/docker/doodle.git

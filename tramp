@@ -1,27 +1,28 @@
-;; -*- emacs-lisp -*- <19/05/20 14:36:02 /Users/pat271/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <19/12/26 10:55:19 /Users/pat271/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; You can delete it, forcing Tramp to reapply the checks.
 
 (((tramp-file-name "ssh" "osu8143" nil "owens.osc.edu" nil nil nil)
-  ("uname" "Linux 3.10.0-862.25.3.el7.x86_64")
+  ("uname" "Linux 3.10.0-957.35.2.el7.x86_64")
   ("locale" "LC_ALL=en_US.utf8")
   ("test" "test")
   ("remote-path"
    ("/usr/bin" "/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin"))
   ("remote-shell" "/bin/sh")
-  ("stat" "env QUOTING_STYLE=locale \\stat")
   ("file-exists" "test -e")
-  ("id" "/usr/bin/id")
-  ("gid-string" "PAS1143")
-  ("gid-integer" 4687)
-  ("readlink" "\\readlink")
-  ("case-insensitive" nil)
   ("ls" "/usr/bin/ls --color=never")
   ("ls-quoting-style" t)
   ("ls-dired" t)
+  ("stat" "env QUOTING_STYLE=locale \\stat")
+  ("id" "/usr/bin/id")
+  ("gid-integer" 4687)
+  ("case-insensitive" nil)
   ("perl-file-spec" t)
   ("perl-cwd-realpath" t)
   ("perl" "\\perl")
+  ("readlink" "\\readlink")
+  ("gid-string" "PAS1143")
   ("bzr" "\\bzr")
   ("git" "\\git")
-  ("hg" "\\hg")))
+  ("hg" "\\hg")
+  ("uid-integer" 22134)))

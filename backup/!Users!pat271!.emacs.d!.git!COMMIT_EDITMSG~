@@ -6,888 +6,1284 @@
 # Your branch is up to date with 'origin/master'.
 #
 # Changes to be committed:
-#	new file:   .cache/treemacs-persist
-#	new file:   .emacs.desktop
-#	new file:   .emacs.desktop.lock
-#	new file:   SessionDesktop.el
-#	new file:   ac-comphist.dat
-#	new file:   auto-save-list/.saves-78283-cvm-3061.osumc.edu~
-#	new file:   auto-save-list/.saves-87935-ISYS-NC062546.local~
-#	new file:   backup/!Users!pat271!.emacs.d!.cache!treemacs-persist~
-#	new file:   backup/!Users!pat271!.emacs.d!.git!COMMIT_EDITMSG~
-#	new file:   backup/!Users!pat271!.emacs.d!custom.el~
-#	new file:   backup/!Users!pat271!.emacs.d!init.el~
-#	new file:   backup/!Users!pat271!.emacs.d!recentf~
-#	new file:   backup/!Users!pat271!.emacs.d!url!cookies~
-#	new file:   backup/!Users!pat271!Desktop!F31 Materials!Candidacy_Written.org~
-#	new file:   backup/!Users!pat271!Desktop!F31 Materials!Candidacy_Written.tex~
-#	new file:   backup/!Users!pat271!Desktop!F31 Materials!Data!Reactions!save_connected_inchis_metacyc.py~
-#	new file:   backup/!Users!pat271!Desktop!F31 Materials!My Application!Specific_Aims.org~
-#	new file:   backup/!Users!pat271!Desktop!F31 Materials!My Application!Specific_Aims.tex~
-#	new file:   backup/!Users!pat271!Desktop!F31 Materials!Writing!.git!COMMIT_EDITMSG~
-#	new file:   backup/!Users!pat271!Desktop!F31 Materials!Writing!F31_Proposal.org~
-#	new file:   backup/!Users!pat271!Desktop!F31 Materials!Writing!F31_Proposal.tex~
-#	new file:   backup/!Users!pat271!Desktop!F31_Materials!Code!Figure_2!networks.org~
-#	new file:   backup/!Users!pat271!Desktop!F31_Materials!Code!Figure_2!prior_network.org~
-#	new file:   backup/!Users!pat271!Desktop!F31_Materials!Code!Figure_2!reaction_networks.org~
-#	new file:   backup/!Users!pat271!Desktop!F31_Materials!Code!Figure_2!reaction_networks.tex~
-#	new file:   backup/!Users!pat271!Desktop!F31_Materials!Data!Reactions!make_inchis_hmdb_key.py~
-#	new file:   backup/!Users!pat271!Desktop!F31_Materials!Data!Reactions!save_connected_inchis_metacyc.py~
-#	new file:   backup/!Users!pat271!Desktop!F31_Materials!Data!tanimoto_similarity!make_tanimoto_adj_list.r~
-#	new file:   backup/!Users!pat271!Desktop!F31_Materials!Writing!.git!COMMIT_EDITMSG~
-#	new file:   backup/!Users!pat271!Desktop!F31_Materials!Writing!Applicant_background_and_goals.org~
-#	new file:   backup/!Users!pat271!Desktop!F31_Materials!Writing!Applicant_background_and_goals.tex~
-#	new file:   backup/!Users!pat271!Desktop!F31_Materials!Writing!F31_Proposal.org~
-#	new file:   backup/!Users!pat271!Desktop!F31_Materials!Writing!F31_Proposal.tex~
-#	new file:   backup/!Users!pat271!Desktop!F31_Materials!Writing!RCR.org~
-#	new file:   backup/!Users!pat271!Desktop!F31_Materials!Writing!RCR.tex~
-#	new file:   backup/!Users!pat271!Desktop!F31_Materials!Writing!resource_sharing_plan.org~
-#	new file:   backup/!Users!pat271!Desktop!F31_Materials!Writing!respective_contributions.org~
-#	new file:   backup/!Users!pat271!Desktop!F31_Materials!Writing!respective_contributions.tex~
-#	new file:   backup/!Users!pat271!Desktop!F31_Materials!Writing!selection_of_mentor_and_institution.org~
-#	new file:   backup/!Users!pat271!Desktop!F31_Materials!Writing!selection_of_mentor_and_institution.tex~
-#	new file:   backup/!Users!pat271!Desktop!LipidMatch!pathway_analysis!Research_plan_1_24.org~
-#	new file:   backup/!Users!pat271!Desktop!LipidMatch!pathway_analysis!Research_plan_1_24.tex~
-#	new file:   backup/!Users!pat271!Desktop!Lipid_table.org~
-#	new file:   backup/!Users!pat271!Desktop!Lipid_table.tex~
-#	new file:   backup/!Users!pat271!Desktop!Liposarcoma project!Gene Microarray Analysis!Barretina_analysis.org~
-#	new file:   backup/!Users!pat271!Desktop!Liposarcoma project!Gene Microarray Analysis!Final_transcriptomic_figures.Rmd~
-#	new file:   backup/!Users!pat271!Desktop!Liposarcoma project!Gene Microarray Analysis!MetaAnalysis.org~
-#	new file:   backup/!Users!pat271!Desktop!Liposarcoma project!final_figures!Chibon_and_Cell_analysis.org~
-#	new file:   backup/!Users!pat271!Desktop!Liposarcoma project!final_figures!final_figures_org_file!UGCG_survival.Rmd~
-#	new file:   backup/!Users!pat271!Desktop!Liposarcoma project!final_figures!final_figures_org_file!final_figures.org~
-#	new file:   backup/!Users!pat271!Desktop!Liposarcoma project!final_figures!final_figures_org_file!final_figures.tex~
-#	new file:   backup/!Users!pat271!Desktop!Liposarcoma project!final_figures!final_figures_org_file!paired_lipidomics_analysis.org~
-#	new file:   backup/!Users!pat271!Desktop!Liposarcoma project!final_figures!final_figures_org_file!paired_lipidomics_analysis.tex~
-#	new file:   backup/!Users!pat271!Desktop!Liposarcoma project!final_figures!lipidomics_preprocessing.Rnw~
-#	new file:   backup/!Users!pat271!Desktop!Liposarcoma project!final_figures!lipidomics_preprocessing[woven].tex~
-#	new file:   backup/!Users!pat271!Desktop!Reactions!save_connected_inchis_metacyc.py~
-#	new file:   backup/!Users!pat271!Desktop!my-planner.org~
-#	new file:   backup/!Users!pat271!Desktop!test.Rmd~
-#	new file:   backup/!Users!pat271!Desktop!test.R~
-#	new file:   backup/!Users!pat271!Documents!CV!template.tex~
-#	new file:   backup/!Users!pat271!Documents!CV!twentysecondcv.cls~
-#	new file:   backup/!Users!pat271!Documents!Fantasy_App_2019!Deployable_App!app.R~
-#	new file:   backup/!Users!pat271!Documents!Fantasy_App_2019!Deployable_App!init.R~
-#	new file:   backup/!Users!pat271!Documents!Fantasy_App_2019!Deployable_App!scraper.py~
-#	new file:   backup/!Users!pat271!Documents!Fantasy_App_2019!Deployable_App!server.R~
-#	new file:   backup/!Users!pat271!Documents!Fantasy_App_2019!Deployable_App!ui.R~
-#	new file:   backup/!Users!pat271!Documents!Fantasy_App_2019!app commit.R~
-#	new file:   backup/!Users!pat271!Documents!Fantasy_App_2019!app.r~
-#	new file:   backup/!Users!pat271!Documents!Fantasy_App_2019!development.R~
-#	new file:   backup/!Users!pat271!Documents!Fantasy_App_2019!scraper.py~
-#	new file:   backup/!Users!pat271!Documents!Greenswell_results.R~
-#	new file:   backup/!Users!pat271!Documents!Kelsey chats!Master_Presentation.Rnw~
-#	new file:   backup/!Users!pat271!Documents!Notes!Guan_talk.org~
-#	new file:   backup/!Users!pat271!Documents!Notes!Mark_Chance.org~
-#	new file:   backup/!Users!pat271!Documents!Notes!Metabolomics.org~
-#	new file:   backup/!Users!pat271!Documents!Notes!Metabolomics_BNs_3_5_2019.org~
-#	new file:   backup/!Users!pat271!Documents!Notes!OSC_notes.org~
-#	new file:   backup/!Users!pat271!Documents!Notes!Steve_Qin_3_22.org~
-#	new file:   backup/!Users!pat271!Documents!Notes!sarcoma_samples.org~
-#	new file:   backup/!Users!pat271!Documents!PMT!app.R~
-#	new file:   backup/!Users!pat271!Documents!TechnicalWorkshopsBioinf!.git!COMMIT_EDITMSG~
-#	new file:   backup/!Users!pat271!Documents!TechnicalWorkshopsBioinf!workshop_3_Emacs!Emacs.org~
-#	new file:   backup/!Users!pat271!Documents!TechnicalWorkshopsBioinf!workshop_4_tidyverse!tidyverse.org~
-#	new file:   backup/!Users!pat271!Documents!TechnicalWorkshopsBioinf!workshop_4_tidyverse!tidyverse.tex~
-#	new file:   backup/!Users!pat271!Documents!The_Scientific_Shrimper!posts!fantasy_report_template.org~
-#	new file:   backup/!Users!pat271!Documents!The_Scientific_Shrimper!posts!week16_20.org~
-#	new file:   backup/!Users!pat271!Documents!The_Scientific_Shrimper!posts!week17_19.org~
-#	new file:   backup/!Users!pat271!Documents!The_Scientific_Shrimper!posts!week17_2_19.org~
-#	new file:   backup/!Users!pat271!Documents!The_Scientific_Shrimper!posts!week18_19.org~
-#	new file:   backup/!Users!pat271!Documents!The_Scientific_Shrimper!posts!week19_19.org~
-#	new file:   backup/!Users!pat271!Documents!emacs_files!journal!20190411~
-#	new file:   backup/!Users!pat271!Documents!emacs_files!journal!20190415~
-#	new file:   backup/!Users!pat271!Documents!emacs_files!references.bib~
-#	new file:   backup/!Users!pat271!Downloads!Candidacy_Written.org~
-#	new file:   backup/!Users!pat271!Downloads!org-mode+Reveal.js Slides.html~
-#	new file:   backup/!Users!pat271!org!.org2blog.org~
-#	new file:   backup/!ssh:osu8143@owens.osc.edu:!users!PAS1143!osu8143!Proteogenomics_project!LASSO_results!Breast!calculate_LASSO_1_2000.R~
-#	new file:   backup/!ssh:osu8143@owens.osc.edu:!users!PAS1143!osu8143!Proteogenomics_project!test.Rmd~
-#	new file:   custom.el
-#	new file:   elisp/blog_and_osc_login.el
-#	new file:   elisp/init-const.el
-#	new file:   elisp/init-custom.el
-#	new file:   elisp/init-ivy.el
-#	new file:   elpa/all-the-icons-20190320.1809/all-the-icons-autoloads.el
-#	new file:   elpa/all-the-icons-20190320.1809/all-the-icons-faces.el
-#	new file:   elpa/all-the-icons-20190320.1809/all-the-icons-faces.elc
-#	new file:   elpa/all-the-icons-20190320.1809/all-the-icons-pkg.el
-#	new file:   elpa/all-the-icons-20190320.1809/all-the-icons.el
-#	new file:   elpa/all-the-icons-20190320.1809/all-the-icons.elc
-#	new file:   elpa/all-the-icons-20190320.1809/data/data-alltheicons.el
-#	new file:   elpa/all-the-icons-20190320.1809/data/data-alltheicons.elc
-#	new file:   elpa/all-the-icons-20190320.1809/data/data-faicons.el
-#	new file:   elpa/all-the-icons-20190320.1809/data/data-faicons.elc
-#	new file:   elpa/all-the-icons-20190320.1809/data/data-fileicons.el
-#	new file:   elpa/all-the-icons-20190320.1809/data/data-fileicons.elc
-#	new file:   elpa/all-the-icons-20190320.1809/data/data-material.el
-#	new file:   elpa/all-the-icons-20190320.1809/data/data-material.elc
-#	new file:   elpa/all-the-icons-20190320.1809/data/data-octicons.el
-#	new file:   elpa/all-the-icons-20190320.1809/data/data-octicons.elc
-#	new file:   elpa/all-the-icons-20190320.1809/data/data-weathericons.el
-#	new file:   elpa/all-the-icons-20190320.1809/data/data-weathericons.elc
+#	modified:   .cache/treemacs-persist
+#	modified:   .emacs.desktop
+#	modified:   .emacs.desktop.lock
+#	modified:   .gitignore
+#	modified:   ac-comphist.dat
+#	new file:   amx-items
+#	deleted:    auto-save-list/.saves-87935-ISYS-NC062546.local~
+#	modified:   backup/!Users!pat271!.emacs.d!.git!COMMIT_EDITMSG~
+#	modified:   backup/!Users!pat271!.emacs.d!recentf~
+#	modified:   backup/!Users!pat271!Desktop!F31_Materials!Code!Figure_2!prior_network.org~
+#	modified:   backup/!Users!pat271!Desktop!F31_Materials!Writing!.git!COMMIT_EDITMSG~
+#	modified:   backup/!Users!pat271!Desktop!F31_Materials!Writing!Applicant_background_and_goals.tex~
+#	modified:   backup/!Users!pat271!Desktop!F31_Materials!Writing!F31_Proposal.tex~
+#	modified:   backup/!Users!pat271!Desktop!Liposarcoma project!final_figures!final_figures_org_file!UGCG_survival.Rmd~
+#	modified:   backup/!Users!pat271!Desktop!Liposarcoma project!final_figures!final_figures_org_file!final_figures.org~
+#	modified:   backup/!Users!pat271!Desktop!Liposarcoma project!final_figures!final_figures_org_file!final_figures.tex~
+#	modified:   backup/!Users!pat271!Desktop!Liposarcoma project!final_figures!final_figures_org_file!paired_lipidomics_analysis.org~
+#	modified:   backup/!Users!pat271!Desktop!Liposarcoma project!final_figures!final_figures_org_file!paired_lipidomics_analysis.tex~
+#	modified:   backup/!Users!pat271!Desktop!my-planner.org~
+#	modified:   backup/!Users!pat271!Desktop!test.Rmd~
+#	modified:   backup/!Users!pat271!Desktop!test.R~
+#	modified:   backup/!Users!pat271!Documents!CV!template.tex~
+#	modified:   backup/!Users!pat271!Documents!Notes!OSC_notes.org~
+#	modified:   backup/!Users!pat271!Documents!Notes!sarcoma_samples.org~
+#	modified:   backup/!ssh:osu8143@owens.osc.edu:!users!PAS1143!osu8143!Proteogenomics_project!LASSO_results!Breast!calculate_LASSO_1_2000.R~
+#	modified:   custom.el
+#	deleted:    elpa/ace-window-0.9.0/ace-window-pkg.el
+#	deleted:    elpa/ace-window-0.9.0/ace-window.el
+#	deleted:    elpa/ace-window-0.9.0/ace-window.elc
+#	renamed:    elpa/ace-window-0.9.0/ace-window-autoloads.el -> elpa/ace-window-20190420.840/ace-window-autoloads.el
+#	new file:   elpa/ace-window-20190420.840/ace-window-pkg.el
+#	new file:   elpa/ace-window-20190420.840/ace-window.el
+#	new file:   elpa/ace-window-20190420.840/ace-window.elc
+#	deleted:    elpa/aggressive-indent-1.8.3/aggressive-indent-autoloads.el
+#	deleted:    elpa/aggressive-indent-1.8.3/aggressive-indent-pkg.el
+#	deleted:    elpa/aggressive-indent-1.8.3/aggressive-indent.el
+#	deleted:    elpa/aggressive-indent-1.8.3/aggressive-indent.elc
 #	modified:   elpa/archives/gnu/archive-contents
 #	modified:   elpa/archives/melpa-stable/archive-contents
 #	modified:   elpa/archives/melpa/archive-contents
-#	new file:   elpa/auctex-12.1.2/.elpaignore
-#	new file:   elpa/auctex-12.1.2/.gitignore
-#	new file:   elpa/auctex-12.1.2/COPYING
-#	new file:   elpa/auctex-12.1.2/ChangeLog-preview
-#	new file:   elpa/auctex-12.1.2/ChangeLog-preview.1
-#	new file:   elpa/auctex-12.1.2/ChangeLog.1
-#	new file:   elpa/auctex-12.1.2/GNUmakefile
-#	new file:   elpa/auctex-12.1.2/Makefile.in
-#	new file:   elpa/auctex-12.1.2/README
-#	new file:   elpa/auctex-12.1.2/README.GIT
-#	new file:   elpa/auctex-12.1.2/RELEASE
-#	new file:   elpa/auctex-12.1.2/aclocal.m4
-#	new file:   elpa/auctex-12.1.2/auctex.el
-#	new file:   elpa/auctex-12.1.2/auctex.el.in
-#	new file:   elpa/auctex-12.1.2/auctex.info
-#	new file:   elpa/auctex-12.1.2/auctex.spec
-#	new file:   elpa/auctex-12.1.2/autogen.sh
-#	new file:   elpa/auctex-12.1.2/bib-cite.el
-#	new file:   elpa/auctex-12.1.2/build-aux/gitlog-to-auctexlog
-#	new file:   elpa/auctex-12.1.2/build-aux/gitlog-to-changelog
-#	new file:   elpa/auctex-12.1.2/circ.tex
-#	new file:   elpa/auctex-12.1.2/configure.ac
-#	new file:   elpa/auctex-12.1.2/context-en.el
-#	new file:   elpa/auctex-12.1.2/context-nl.el
-#	new file:   elpa/auctex-12.1.2/context.el
-#	new file:   elpa/auctex-12.1.2/dir
-#	new file:   elpa/auctex-12.1.2/doc/.gitignore
-#	new file:   elpa/auctex-12.1.2/doc/Makefile.in
-#	new file:   elpa/auctex-12.1.2/doc/auctex.texi
-#	new file:   elpa/auctex-12.1.2/doc/changes.texi
-#	new file:   elpa/auctex-12.1.2/doc/copying.texi
-#	new file:   elpa/auctex-12.1.2/doc/faq.texi
-#	new file:   elpa/auctex-12.1.2/doc/fdl.texi
-#	new file:   elpa/auctex-12.1.2/doc/history.texi
-#	new file:   elpa/auctex-12.1.2/doc/install.texi
-#	new file:   elpa/auctex-12.1.2/doc/intro.texi
-#	new file:   elpa/auctex-12.1.2/doc/macros.texi
-#	new file:   elpa/auctex-12.1.2/doc/preview-dtxdoc.pl
-#	new file:   elpa/auctex-12.1.2/doc/preview-faq.texi
-#	new file:   elpa/auctex-12.1.2/doc/preview-latex.texi
-#	new file:   elpa/auctex-12.1.2/doc/preview-problems.texi
-#	new file:   elpa/auctex-12.1.2/doc/preview-readme.texi
-#	new file:   elpa/auctex-12.1.2/doc/preview-todo.texi
-#	new file:   elpa/auctex-12.1.2/doc/quickstart.texi
-#	new file:   elpa/auctex-12.1.2/doc/tex-ref.tex
-#	new file:   elpa/auctex-12.1.2/doc/todo.texi
-#	new file:   elpa/auctex-12.1.2/doc/wininstall.texi
-#	new file:   elpa/auctex-12.1.2/etc/auctex-logo.tex
-#	new file:   elpa/auctex-12.1.2/font-latex.el
-#	new file:   elpa/auctex-12.1.2/images/amstex.xpm
-#	new file:   elpa/auctex-12.1.2/images/bibtex.xpm
-#	new file:   elpa/auctex-12.1.2/images/dropdown.xpm
-#	new file:   elpa/auctex-12.1.2/images/dvipdf.xpm
-#	new file:   elpa/auctex-12.1.2/images/dvips.xpm
-#	new file:   elpa/auctex-12.1.2/images/error.xpm
-#	new file:   elpa/auctex-12.1.2/images/exec.xpm
-#	new file:   elpa/auctex-12.1.2/images/execbibtex.xpm
-#	new file:   elpa/auctex-12.1.2/images/execdvips.xpm
-#	new file:   elpa/auctex-12.1.2/images/execerror.xpm
-#	new file:   elpa/auctex-12.1.2/images/execpdftex.xpm
-#	new file:   elpa/auctex-12.1.2/images/exectex.xpm
-#	new file:   elpa/auctex-12.1.2/images/execviewdvi.xpm
-#	new file:   elpa/auctex-12.1.2/images/execviewpdf.xpm
-#	new file:   elpa/auctex-12.1.2/images/execviewps.xpm
-#	new file:   elpa/auctex-12.1.2/images/gv.xpm
-#	new file:   elpa/auctex-12.1.2/images/jumpdvi.xpm
-#	new file:   elpa/auctex-12.1.2/images/ltx-symb-turn-off.xpm
-#	new file:   elpa/auctex-12.1.2/images/ltx-symb-turn-on.xpm
-#	new file:   elpa/auctex-12.1.2/images/pdftex.xpm
-#	new file:   elpa/auctex-12.1.2/images/prverr16.xpm
-#	new file:   elpa/auctex-12.1.2/images/prverr20.xpm
-#	new file:   elpa/auctex-12.1.2/images/prverr24.xbm
-#	new file:   elpa/auctex-12.1.2/images/prverr24.xpm
-#	new file:   elpa/auctex-12.1.2/images/prvtex-cap-up.xpm
-#	new file:   elpa/auctex-12.1.2/images/prvtex12.xbm
-#	new file:   elpa/auctex-12.1.2/images/prvtex12.xpm
-#	new file:   elpa/auctex-12.1.2/images/prvtex16.xbm
-#	new file:   elpa/auctex-12.1.2/images/prvtex16.xpm
-#	new file:   elpa/auctex-12.1.2/images/prvtex20.xpm
-#	new file:   elpa/auctex-12.1.2/images/prvtex24.xbm
-#	new file:   elpa/auctex-12.1.2/images/prvtex24.xpm
-#	new file:   elpa/auctex-12.1.2/images/prvwrk12.xpm
-#	new file:   elpa/auctex-12.1.2/images/prvwrk14.xpm
-#	new file:   elpa/auctex-12.1.2/images/prvwrk16.xpm
-#	new file:   elpa/auctex-12.1.2/images/prvwrk20.xpm
-#	new file:   elpa/auctex-12.1.2/images/prvwrk24.xbm
-#	new file:   elpa/auctex-12.1.2/images/prvwrk24.xpm
-#	new file:   elpa/auctex-12.1.2/images/pspdf.xpm
-#	new file:   elpa/auctex-12.1.2/images/sep.xpm
-#	new file:   elpa/auctex-12.1.2/images/spell.xpm
-#	new file:   elpa/auctex-12.1.2/images/tex.xpm
-#	new file:   elpa/auctex-12.1.2/images/view.xpm
-#	new file:   elpa/auctex-12.1.2/images/viewdvi.xpm
-#	new file:   elpa/auctex-12.1.2/images/viewpdf.xpm
-#	new file:   elpa/auctex-12.1.2/images/viewps.xpm
-#	new file:   elpa/auctex-12.1.2/install-sh
-#	new file:   elpa/auctex-12.1.2/latex-flymake.el
-#	new file:   elpa/auctex-12.1.2/latex.el
-#	new file:   elpa/auctex-12.1.2/latex/.gitignore
-#	new file:   elpa/auctex-12.1.2/latex/Makefile.in
-#	new file:   elpa/auctex-12.1.2/latex/README
-#	new file:   elpa/auctex-12.1.2/latex/bootstrap.ins
-#	new file:   elpa/auctex-12.1.2/latex/preview.dtx
-#	new file:   elpa/auctex-12.1.2/lpath.el
-#	new file:   elpa/auctex-12.1.2/mkinstalldirs
-#	new file:   elpa/auctex-12.1.2/multi-prompt.el
-#	new file:   elpa/auctex-12.1.2/plain-tex.el
-#	new file:   elpa/auctex-12.1.2/preview-latex.info
-#	new file:   elpa/auctex-12.1.2/preview-latex.spec
-#	new file:   elpa/auctex-12.1.2/prv-emacs.el
-#	new file:   elpa/auctex-12.1.2/style/.nosearch
-#	new file:   elpa/auctex-12.1.2/style/Alegreya.el
-#	new file:   elpa/auctex-12.1.2/style/AlegreyaSans.el
-#	new file:   elpa/auctex-12.1.2/style/AnonymousPro.el
-#	new file:   elpa/auctex-12.1.2/style/CJK.el
-#	new file:   elpa/auctex-12.1.2/style/CJKutf8.el
-#	new file:   elpa/auctex-12.1.2/style/FiraMono.el
-#	new file:   elpa/auctex-12.1.2/style/FiraSans.el
-#	new file:   elpa/auctex-12.1.2/style/MinionPro.el
-#	new file:   elpa/auctex-12.1.2/style/MyriadPro.el
-#	new file:   elpa/auctex-12.1.2/style/XCharter.el
-#	new file:   elpa/auctex-12.1.2/style/acro.el
-#	new file:   elpa/auctex-12.1.2/style/acronym.el
-#	new file:   elpa/auctex-12.1.2/style/afterpage.el
-#	new file:   elpa/auctex-12.1.2/style/alltt.el
-#	new file:   elpa/auctex-12.1.2/style/alphanum.el
-#	new file:   elpa/auctex-12.1.2/style/amsart.el
-#	new file:   elpa/auctex-12.1.2/style/amsbook.el
-#	new file:   elpa/auctex-12.1.2/style/amsbsy.el
-#	new file:   elpa/auctex-12.1.2/style/amsfonts.el
-#	new file:   elpa/auctex-12.1.2/style/amsmath.el
-#	new file:   elpa/auctex-12.1.2/style/amsopn.el
-#	new file:   elpa/auctex-12.1.2/style/amssymb.el
-#	new file:   elpa/auctex-12.1.2/style/amstex.el
-#	new file:   elpa/auctex-12.1.2/style/amstext.el
-#	new file:   elpa/auctex-12.1.2/style/amsthm.el
-#	new file:   elpa/auctex-12.1.2/style/arabxetex.el
-#	new file:   elpa/auctex-12.1.2/style/array.el
-#	new file:   elpa/auctex-12.1.2/style/article.el
-#	new file:   elpa/auctex-12.1.2/style/attachfile.el
-#	new file:   elpa/auctex-12.1.2/style/australian.el
-#	new file:   elpa/auctex-12.1.2/style/austrian.el
-#	new file:   elpa/auctex-12.1.2/style/babel.el
-#	new file:   elpa/auctex-12.1.2/style/baskervaldx.el
-#	new file:   elpa/auctex-12.1.2/style/beamer.el
-#	new file:   elpa/auctex-12.1.2/style/biblatex.el
-#	new file:   elpa/auctex-12.1.2/style/bicaption.el
-#	new file:   elpa/auctex-12.1.2/style/bidi.el
-#	new file:   elpa/auctex-12.1.2/style/bidibeamer.el
-#	new file:   elpa/auctex-12.1.2/style/bigdelim.el
-#	new file:   elpa/auctex-12.1.2/style/bigstrut.el
-#	new file:   elpa/auctex-12.1.2/style/bm.el
-#	new file:   elpa/auctex-12.1.2/style/book.el
-#	new file:   elpa/auctex-12.1.2/style/booktabs.el
-#	new file:   elpa/auctex-12.1.2/style/breqn.el
-#	new file:   elpa/auctex-12.1.2/style/bulgarian.el
-#	new file:   elpa/auctex-12.1.2/style/canadian.el
-#	new file:   elpa/auctex-12.1.2/style/captcont.el
-#	new file:   elpa/auctex-12.1.2/style/caption.el
-#	new file:   elpa/auctex-12.1.2/style/cleveref.el
-#	new file:   elpa/auctex-12.1.2/style/color.el
-#	new file:   elpa/auctex-12.1.2/style/colortbl.el
-#	new file:   elpa/auctex-12.1.2/style/commath.el
-#	new file:   elpa/auctex-12.1.2/style/comment.el
-#	new file:   elpa/auctex-12.1.2/style/csquotes.el
-#	new file:   elpa/auctex-12.1.2/style/currvita.el
-#	new file:   elpa/auctex-12.1.2/style/czech.el
-#	new file:   elpa/auctex-12.1.2/style/danish.el
-#	new file:   elpa/auctex-12.1.2/style/dashundergaps.el
-#	new file:   elpa/auctex-12.1.2/style/dcolumn.el
-#	new file:   elpa/auctex-12.1.2/style/dinbrief.el
-#	new file:   elpa/auctex-12.1.2/style/dk-bib.el
-#	new file:   elpa/auctex-12.1.2/style/dk.el
-#	new file:   elpa/auctex-12.1.2/style/doc.el
-#	new file:   elpa/auctex-12.1.2/style/dutch.el
-#	new file:   elpa/auctex-12.1.2/style/emp.el
-#	new file:   elpa/auctex-12.1.2/style/empheq.el
-#	new file:   elpa/auctex-12.1.2/style/english.el
-#	new file:   elpa/auctex-12.1.2/style/enumitem.el
-#	new file:   elpa/auctex-12.1.2/style/environ.el
-#	new file:   elpa/auctex-12.1.2/style/epigraph.el
-#	new file:   elpa/auctex-12.1.2/style/epsf.el
-#	new file:   elpa/auctex-12.1.2/style/erewhon.el
-#	new file:   elpa/auctex-12.1.2/style/eso-pic.el
-#	new file:   elpa/auctex-12.1.2/style/everysel.el
-#	new file:   elpa/auctex-12.1.2/style/exam.el
-#	new file:   elpa/auctex-12.1.2/style/exercise.el
-#	new file:   elpa/auctex-12.1.2/style/expl3.el
-#	new file:   elpa/auctex-12.1.2/style/fancyhdr.el
-#	new file:   elpa/auctex-12.1.2/style/fancynum.el
-#	new file:   elpa/auctex-12.1.2/style/fancyref.el
-#	new file:   elpa/auctex-12.1.2/style/fancyvrb.el
-#	new file:   elpa/auctex-12.1.2/style/fbb.el
-#	new file:   elpa/auctex-12.1.2/style/filecontents.el
-#	new file:   elpa/auctex-12.1.2/style/flashcards.el
-#	new file:   elpa/auctex-12.1.2/style/floatrow.el
-#	new file:   elpa/auctex-12.1.2/style/foils.el
-#	new file:   elpa/auctex-12.1.2/style/fontaxes.el
-#	new file:   elpa/auctex-12.1.2/style/fontenc.el
-#	new file:   elpa/auctex-12.1.2/style/fontspec.el
-#	new file:   elpa/auctex-12.1.2/style/footmisc.el
-#	new file:   elpa/auctex-12.1.2/style/framed.el
-#	new file:   elpa/auctex-12.1.2/style/francais.el
-#	new file:   elpa/auctex-12.1.2/style/french.el
-#	new file:   elpa/auctex-12.1.2/style/frenchb.el
-#	new file:   elpa/auctex-12.1.2/style/fvextra.el
-#	new file:   elpa/auctex-12.1.2/style/geometry.el
-#	new file:   elpa/auctex-12.1.2/style/german.el
-#	new file:   elpa/auctex-12.1.2/style/gloss-italian.el
-#	new file:   elpa/auctex-12.1.2/style/graphics.el
-#	new file:   elpa/auctex-12.1.2/style/graphicx.el
-#	new file:   elpa/auctex-12.1.2/style/harvard.el
-#	new file:   elpa/auctex-12.1.2/style/hologo.el
-#	new file:   elpa/auctex-12.1.2/style/hyperref.el
-#	new file:   elpa/auctex-12.1.2/style/icelandic.el
-#	new file:   elpa/auctex-12.1.2/style/ifluatex.el
-#	new file:   elpa/auctex-12.1.2/style/imakeidx.el
-#	new file:   elpa/auctex-12.1.2/style/index.el
-#	new file:   elpa/auctex-12.1.2/style/inputenc.el
-#	new file:   elpa/auctex-12.1.2/style/italian.el
-#	new file:   elpa/auctex-12.1.2/style/j-article.el
-#	new file:   elpa/auctex-12.1.2/style/j-book.el
-#	new file:   elpa/auctex-12.1.2/style/j-report.el
-#	new file:   elpa/auctex-12.1.2/style/jarticle.el
-#	new file:   elpa/auctex-12.1.2/style/jbook.el
-#	new file:   elpa/auctex-12.1.2/style/jreport.el
-#	new file:   elpa/auctex-12.1.2/style/jsarticle.el
-#	new file:   elpa/auctex-12.1.2/style/jsbook.el
-#	new file:   elpa/auctex-12.1.2/style/jsreport.el
-#	new file:   elpa/auctex-12.1.2/style/jura.el
-#	new file:   elpa/auctex-12.1.2/style/jurabib.el
-#	new file:   elpa/auctex-12.1.2/style/kantlipsum.el
-#	new file:   elpa/auctex-12.1.2/style/kpfonts.el
-#	new file:   elpa/auctex-12.1.2/style/latexinfo.el
-#	new file:   elpa/auctex-12.1.2/style/letter.el
-#	new file:   elpa/auctex-12.1.2/style/lettrine.el
-#	new file:   elpa/auctex-12.1.2/style/lipsum.el
-#	new file:   elpa/auctex-12.1.2/style/listings.el
-#	new file:   elpa/auctex-12.1.2/style/longtable.el
-#	new file:   elpa/auctex-12.1.2/style/lscape.el
-#	new file:   elpa/auctex-12.1.2/style/ltablex.el
-#	new file:   elpa/auctex-12.1.2/style/ltx-base.el
-#	new file:   elpa/auctex-12.1.2/style/ltxdoc.el
-#	new file:   elpa/auctex-12.1.2/style/ltxtable.el
-#	new file:   elpa/auctex-12.1.2/style/luacode.el
-#	new file:   elpa/auctex-12.1.2/style/luatextra.el
-#	new file:   elpa/auctex-12.1.2/style/makeidx.el
-#	new file:   elpa/auctex-12.1.2/style/marginnote.el
-#	new file:   elpa/auctex-12.1.2/style/mathtools.el
-#	new file:   elpa/auctex-12.1.2/style/mdframed.el
-#	new file:   elpa/auctex-12.1.2/style/mdsymbol.el
-#	new file:   elpa/auctex-12.1.2/style/mdwlist.el
-#	new file:   elpa/auctex-12.1.2/style/memoir.el
-#	new file:   elpa/auctex-12.1.2/style/menukeys.el
-#	new file:   elpa/auctex-12.1.2/style/metalogo.el
-#	new file:   elpa/auctex-12.1.2/style/mflogo.el
-#	new file:   elpa/auctex-12.1.2/style/minted.el
-#	new file:   elpa/auctex-12.1.2/style/mn2e.el
-#	new file:   elpa/auctex-12.1.2/style/mnras.el
-#	new file:   elpa/auctex-12.1.2/style/moodle.el
-#	new file:   elpa/auctex-12.1.2/style/multicol.el
-#	new file:   elpa/auctex-12.1.2/style/multido.el
-#	new file:   elpa/auctex-12.1.2/style/multind.el
-#	new file:   elpa/auctex-12.1.2/style/multirow.el
-#	new file:   elpa/auctex-12.1.2/style/nameref.el
-#	new file:   elpa/auctex-12.1.2/style/natbib.el
-#	new file:   elpa/auctex-12.1.2/style/naustrian.el
-#	new file:   elpa/auctex-12.1.2/style/newfloat.el
-#	new file:   elpa/auctex-12.1.2/style/newpxmath.el
-#	new file:   elpa/auctex-12.1.2/style/newpxtext.el
-#	new file:   elpa/auctex-12.1.2/style/newtxmath.el
-#	new file:   elpa/auctex-12.1.2/style/newtxsf.el
-#	new file:   elpa/auctex-12.1.2/style/newtxtext.el
-#	new file:   elpa/auctex-12.1.2/style/newtxttt.el
-#	new file:   elpa/auctex-12.1.2/style/newzealand.el
-#	new file:   elpa/auctex-12.1.2/style/ngerman.el
-#	new file:   elpa/auctex-12.1.2/style/nicefrac.el
-#	new file:   elpa/auctex-12.1.2/style/nomencl.el
-#	new file:   elpa/auctex-12.1.2/style/ntheorem.el
-#	new file:   elpa/auctex-12.1.2/style/ocg-p.el
-#	new file:   elpa/auctex-12.1.2/style/ocgx.el
-#	new file:   elpa/auctex-12.1.2/style/paracol.el
-#	new file:   elpa/auctex-12.1.2/style/paralist.el
-#	new file:   elpa/auctex-12.1.2/style/pdflscape.el
-#	new file:   elpa/auctex-12.1.2/style/pdfpages.el
-#	new file:   elpa/auctex-12.1.2/style/pdfsync.el
-#	new file:   elpa/auctex-12.1.2/style/placeins.el
-#	new file:   elpa/auctex-12.1.2/style/plext.el
-#	new file:   elpa/auctex-12.1.2/style/plfonts.el
-#	new file:   elpa/auctex-12.1.2/style/plhb.el
-#	new file:   elpa/auctex-12.1.2/style/polish.el
-#	new file:   elpa/auctex-12.1.2/style/polski.el
-#	new file:   elpa/auctex-12.1.2/style/polyglossia.el
-#	new file:   elpa/auctex-12.1.2/style/preview.el
-#	new file:   elpa/auctex-12.1.2/style/prosper.el
-#	new file:   elpa/auctex-12.1.2/style/psfig.el
-#	new file:   elpa/auctex-12.1.2/style/pst-grad.el
-#	new file:   elpa/auctex-12.1.2/style/pst-node.el
-#	new file:   elpa/auctex-12.1.2/style/pst-plot.el
-#	new file:   elpa/auctex-12.1.2/style/pst-slpe.el
-#	new file:   elpa/auctex-12.1.2/style/pstricks.el
-#	new file:   elpa/auctex-12.1.2/style/pythontex.el
-#	new file:   elpa/auctex-12.1.2/style/ragged2e.el
-#	new file:   elpa/auctex-12.1.2/style/relsize.el
-#	new file:   elpa/auctex-12.1.2/style/report.el
-#	new file:   elpa/auctex-12.1.2/style/ruby.el
-#	new file:   elpa/auctex-12.1.2/style/scrartcl.el
-#	new file:   elpa/auctex-12.1.2/style/scrbase.el
-#	new file:   elpa/auctex-12.1.2/style/scrbook.el
-#	new file:   elpa/auctex-12.1.2/style/scrlttr2.el
-#	new file:   elpa/auctex-12.1.2/style/scrpage2.el
-#	new file:   elpa/auctex-12.1.2/style/scrreprt.el
-#	new file:   elpa/auctex-12.1.2/style/setspace.el
-#	new file:   elpa/auctex-12.1.2/style/shortvrb.el
-#	new file:   elpa/auctex-12.1.2/style/siunitx.el
-#	new file:   elpa/auctex-12.1.2/style/slides.el
-#	new file:   elpa/auctex-12.1.2/style/slovak.el
-#	new file:   elpa/auctex-12.1.2/style/sourcecodepro.el
-#	new file:   elpa/auctex-12.1.2/style/splitidx.el
-#	new file:   elpa/auctex-12.1.2/style/subcaption.el
-#	new file:   elpa/auctex-12.1.2/style/subfigure.el
-#	new file:   elpa/auctex-12.1.2/style/subfiles.el
-#	new file:   elpa/auctex-12.1.2/style/swedish.el
-#	new file:   elpa/auctex-12.1.2/style/tabularx.el
-#	new file:   elpa/auctex-12.1.2/style/tabulary.el
-#	new file:   elpa/auctex-12.1.2/style/tarticle.el
-#	new file:   elpa/auctex-12.1.2/style/tbook.el
-#	new file:   elpa/auctex-12.1.2/style/tcolorbox.el
-#	new file:   elpa/auctex-12.1.2/style/tcolorboxlib-raster.el
-#	new file:   elpa/auctex-12.1.2/style/textcomp.el
-#	new file:   elpa/auctex-12.1.2/style/textpos.el
-#	new file:   elpa/auctex-12.1.2/style/theorem.el
-#	new file:   elpa/auctex-12.1.2/style/thm-restate.el
-#	new file:   elpa/auctex-12.1.2/style/thmtools.el
-#	new file:   elpa/auctex-12.1.2/style/tikz.el
-#	new file:   elpa/auctex-12.1.2/style/titleps.el
-#	new file:   elpa/auctex-12.1.2/style/titlesec.el
-#	new file:   elpa/auctex-12.1.2/style/titletoc.el
-#	new file:   elpa/auctex-12.1.2/style/transparent.el
-#	new file:   elpa/auctex-12.1.2/style/treport.el
-#	new file:   elpa/auctex-12.1.2/style/ulem.el
-#	new file:   elpa/auctex-12.1.2/style/unicode-math.el
-#	new file:   elpa/auctex-12.1.2/style/units.el
-#	new file:   elpa/auctex-12.1.2/style/url.el
-#	new file:   elpa/auctex-12.1.2/style/varioref.el
-#	new file:   elpa/auctex-12.1.2/style/verbatim.el
-#	new file:   elpa/auctex-12.1.2/style/virtex.el
-#	new file:   elpa/auctex-12.1.2/style/vwcol.el
-#	new file:   elpa/auctex-12.1.2/style/wrapfig.el
-#	new file:   elpa/auctex-12.1.2/style/xcolor.el
-#	new file:   elpa/auctex-12.1.2/style/xltabular.el
-#	new file:   elpa/auctex-12.1.2/style/xparse.el
-#	new file:   elpa/auctex-12.1.2/style/xspace.el
-#	new file:   elpa/auctex-12.1.2/style/zlmtt.el
-#	new file:   elpa/auctex-12.1.2/tests/context/context-indentation-in.tex
-#	new file:   elpa/auctex-12.1.2/tests/context/context-indentation-out.tex
-#	new file:   elpa/auctex-12.1.2/tests/context/context-test.el
-#	new file:   elpa/auctex-12.1.2/tests/japanese/error-parsing.el
-#	new file:   elpa/auctex-12.1.2/tests/japanese/parse-timing-test.tex
-#	new file:   elpa/auctex-12.1.2/tests/japanese/parse-timing.el
-#	new file:   elpa/auctex-12.1.2/tests/japanese/preview-error-test.tex
-#	new file:   elpa/auctex-12.1.2/tests/japanese/preview-error-test2.tex
-#	new file:   elpa/auctex-12.1.2/tests/japanese/prv-dif-code.tex
-#	new file:   elpa/auctex-12.1.2/tests/latex/fontification-general.tex
-#	new file:   elpa/auctex-12.1.2/tests/latex/fontification-verb-macros.tex
-#	new file:   elpa/auctex-12.1.2/tests/latex/latex-filling-in.tex
-#	new file:   elpa/auctex-12.1.2/tests/latex/latex-filling-out.tex
-#	new file:   elpa/auctex-12.1.2/tests/latex/latex-test.el
-#	new file:   elpa/auctex-12.1.2/tests/latex/math-indent-in.tex
-#	new file:   elpa/auctex-12.1.2/tests/latex/math-indent-out.tex
-#	new file:   elpa/auctex-12.1.2/tests/latex/preview-latex-test.el
-#	new file:   elpa/auctex-12.1.2/tests/latex/tabular-count-ampersands-in.tex
-#	new file:   elpa/auctex-12.1.2/tests/latex/tabular-count-ampersands-out.tex
-#	new file:   elpa/auctex-12.1.2/tests/latex/tabular-in.tex
-#	new file:   elpa/auctex-12.1.2/tests/latex/tabular-out.tex
-#	new file:   elpa/auctex-12.1.2/tests/make-test-deps.emacs-lisp
-#	new file:   elpa/auctex-12.1.2/tests/tex/command-expansion.el
-#	new file:   elpa/auctex-12.1.2/tests/tex/compilation-log.txt
-#	new file:   elpa/auctex-12.1.2/tests/tex/error-parsing.el
-#	new file:   elpa/auctex-12.1.2/tests/tex/path-expansion.el
-#	new file:   elpa/auctex-12.1.2/tests/tex/utility.el
-#	new file:   elpa/auctex-12.1.2/tex-bar.el
-#	new file:   elpa/auctex-12.1.2/tex-buf.el
-#	new file:   elpa/auctex-12.1.2/tex-fold.el
-#	new file:   elpa/auctex-12.1.2/tex-font.el
-#	new file:   elpa/auctex-12.1.2/tex-info.el
-#	new file:   elpa/auctex-12.1.2/tex-ispell.el
-#	new file:   elpa/auctex-12.1.2/tex-jp.el
-#	new file:   elpa/auctex-12.1.2/tex-mik.el
-#	new file:   elpa/auctex-12.1.2/tex-site.el
-#	new file:   elpa/auctex-12.1.2/tex-site.el.in
-#	new file:   elpa/auctex-12.1.2/tex-style.el
-#	new file:   elpa/auctex-12.1.2/tex-wizard.el
-#	new file:   elpa/auctex-12.1.2/tex.el
-#	new file:   elpa/auctex-12.1.2/texmathp.el
-#	new file:   elpa/auctex-12.1.2/toolbar-x.el
-#	new file:   elpa/counsel-0.11.0/counsel-autoloads.el
-#	new file:   elpa/counsel-0.11.0/counsel-pkg.el
-#	new file:   elpa/counsel-0.11.0/counsel.el
-#	new file:   elpa/counsel-0.11.0/counsel.elc
-#	new file:   elpa/counsel-readme.txt
-#	new file:   elpa/deferred-20170901.1330/deferred-autoloads.el
-#	new file:   elpa/deferred-20170901.1330/deferred-pkg.el
-#	new file:   elpa/deferred-20170901.1330/deferred.el
-#	new file:   elpa/deferred-20170901.1330/deferred.elc
-#	new file:   elpa/doom-modeline-2.0.0/doom-modeline-autoloads.el
-#	new file:   elpa/doom-modeline-2.0.0/doom-modeline-core.el
-#	new file:   elpa/doom-modeline-2.0.0/doom-modeline-core.elc
-#	new file:   elpa/doom-modeline-2.0.0/doom-modeline-env.el
-#	new file:   elpa/doom-modeline-2.0.0/doom-modeline-env.elc
-#	new file:   elpa/doom-modeline-2.0.0/doom-modeline-pkg.el
-#	new file:   elpa/doom-modeline-2.0.0/doom-modeline-segments.el
-#	new file:   elpa/doom-modeline-2.0.0/doom-modeline-segments.elc
-#	new file:   elpa/doom-modeline-2.0.0/doom-modeline.el
-#	new file:   elpa/doom-modeline-2.0.0/doom-modeline.elc
-#	new file:   elpa/doom-modeline-readme.txt
-#	new file:   elpa/doom-themes-2.1.6/doom-challenger-deep-theme.el
-#	new file:   elpa/doom-themes-2.1.6/doom-challenger-deep-theme.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-city-lights-theme.el
-#	new file:   elpa/doom-themes-2.1.6/doom-city-lights-theme.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-dracula-theme.el
-#	new file:   elpa/doom-themes-2.1.6/doom-dracula-theme.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-molokai-theme.el
-#	new file:   elpa/doom-themes-2.1.6/doom-molokai-theme.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-nord-light-theme.el
-#	new file:   elpa/doom-themes-2.1.6/doom-nord-light-theme.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-nord-theme.el
-#	new file:   elpa/doom-themes-2.1.6/doom-nord-theme.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-nova-theme.el
-#	new file:   elpa/doom-themes-2.1.6/doom-nova-theme.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-one-light-theme.el
-#	new file:   elpa/doom-themes-2.1.6/doom-one-light-theme.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-one-theme.el
-#	new file:   elpa/doom-themes-2.1.6/doom-one-theme.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-opera-light-theme.el
-#	new file:   elpa/doom-themes-2.1.6/doom-opera-light-theme.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-opera-theme.el
-#	new file:   elpa/doom-themes-2.1.6/doom-opera-theme.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-peacock-theme.el
-#	new file:   elpa/doom-themes-2.1.6/doom-peacock-theme.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-solarized-light-theme.el
-#	new file:   elpa/doom-themes-2.1.6/doom-solarized-light-theme.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-spacegrey-theme.el
-#	new file:   elpa/doom-themes-2.1.6/doom-spacegrey-theme.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-themes-autoloads.el
-#	new file:   elpa/doom-themes-2.1.6/doom-themes-common.el
-#	new file:   elpa/doom-themes-2.1.6/doom-themes-common.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-themes-neotree.el
-#	new file:   elpa/doom-themes-2.1.6/doom-themes-neotree.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-themes-org.el
-#	new file:   elpa/doom-themes-2.1.6/doom-themes-org.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-themes-pkg.el
-#	new file:   elpa/doom-themes-2.1.6/doom-themes-treemacs.el
-#	new file:   elpa/doom-themes-2.1.6/doom-themes-treemacs.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-themes.el
-#	new file:   elpa/doom-themes-2.1.6/doom-themes.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-tomorrow-day-theme.el
-#	new file:   elpa/doom-themes-2.1.6/doom-tomorrow-day-theme.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-tomorrow-night-theme.el
-#	new file:   elpa/doom-themes-2.1.6/doom-tomorrow-night-theme.elc
-#	new file:   elpa/doom-themes-2.1.6/doom-vibrant-theme.el
-#	new file:   elpa/doom-themes-2.1.6/doom-vibrant-theme.elc
-#	new file:   elpa/doom-themes-readme.txt
-#	renamed:    ess-knitr/ess-knitr.el -> elpa/ess-knitr/ess-knitr.el
-#	new file:   elpa/ess-view-20181001.1730/ess-view-autoloads.el
-#	new file:   elpa/ess-view-20181001.1730/ess-view-pkg.el
-#	new file:   elpa/ess-view-20181001.1730/ess-view.el
-#	new file:   elpa/ess-view-20181001.1730/ess-view.elc
-#	new file:   elpa/esxml-20171129.807/esxml-autoloads.el
-#	new file:   elpa/esxml-20171129.807/esxml-pkg.el
-#	new file:   elpa/esxml-20171129.807/esxml-query.el
-#	new file:   elpa/esxml-20171129.807/esxml-query.elc
-#	new file:   elpa/esxml-20171129.807/esxml.el
-#	new file:   elpa/esxml-20171129.807/esxml.elc
-#	new file:   elpa/fill-column-indicator-20171209.1924/fill-column-indicator-autoloads.el
-#	new file:   elpa/fill-column-indicator-20171209.1924/fill-column-indicator-pkg.el
-#	new file:   elpa/fill-column-indicator-20171209.1924/fill-column-indicator.el
-#	new file:   elpa/fill-column-indicator-20171209.1924/fill-column-indicator.elc
-#	new file:   elpa/ht-20190404.1202/ht-autoloads.el
-#	new file:   elpa/ht-20190404.1202/ht-pkg.el
-#	new file:   elpa/ht-20190404.1202/ht.el
-#	new file:   elpa/ht-20190404.1202/ht.elc
-#	new file:   elpa/ivy-rich-0.1.4/ivy-rich-autoloads.el
-#	new file:   elpa/ivy-rich-0.1.4/ivy-rich-pkg.el
-#	new file:   elpa/ivy-rich-0.1.4/ivy-rich.el
-#	new file:   elpa/ivy-rich-0.1.4/ivy-rich.elc
-#	new file:   elpa/ivy-rich-readme.txt
-#	new file:   elpa/memoize-20180614.1930/memoize-autoloads.el
-#	new file:   elpa/memoize-20180614.1930/memoize-pkg.el
-#	new file:   elpa/memoize-20180614.1930/memoize.el
-#	new file:   elpa/memoize-20180614.1930/memoize.elc
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f013.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f016.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f021.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f023.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f03c.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f044.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f047.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f059.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f05a.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f066.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f071.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f073.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f092.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f09c.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f0c7.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f0f6.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f11c.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f128.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f179.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f17a.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f17c.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f188.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f18e.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f1ad.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f1c6.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f1d2.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f1de.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f1ec.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f21b.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/FontAwesome-f27b.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/IcoMoon-Free-ea12.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/IcoMoon-Free-eabd.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/IcoMoon-Free-eabf.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/R.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/autohotkey.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/bash.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/bibtex.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/cl.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/coffee.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/compile.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/css.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/dim.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/docker.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/e-palm_tree.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/emacs.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/ext-png.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/ext-tex.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/ext-xpm.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/font-mfizz-f107.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/font-mfizz-f10a.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/font-mfizz-f10c.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/font-mfizz-f10d.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/font-mfizz-f115.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/font-mfizz-f116.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/font-mfizz-f126.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/font-mfizz-f12b.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/font-mfizz-f148.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/font-mfizz-f15b.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/font-mfizz-f166.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/github-octicons-f0c9.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/go.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/golden.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/haml.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/helm.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/hs.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/html.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/icy.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/infruby.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/js.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/octave.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/org.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/php.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/python.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/rails.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/rainbow.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/ruby.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/sas.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/sass.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/scheme.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/slim.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/svg.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/term.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/xml.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/yaml.xpm
-#	new file:   elpa/mode-icons-0.4.0/icons/yas.xpm
-#	new file:   elpa/mode-icons-0.4.0/mode-icons-autoloads.el
-#	new file:   elpa/mode-icons-0.4.0/mode-icons-pkg.el
-#	new file:   elpa/mode-icons-0.4.0/mode-icons.el
-#	new file:   elpa/mode-icons-0.4.0/mode-icons.elc
-#	new file:   elpa/mode-icons-readme.txt
-#	new file:   elpa/octicons-readme.txt
-#	new file:   elpa/org-journal-1.15.1/org-journal-autoloads.el
-#	new file:   elpa/org-journal-1.15.1/org-journal-pkg.el
-#	new file:   elpa/org-journal-1.15.1/org-journal.el
-#	new file:   elpa/org-journal-1.15.1/org-journal.elc
-#	new file:   elpa/org-journal-readme.txt
-#	new file:   elpa/pfuture-20190322.752/pfuture-autoloads.el
-#	new file:   elpa/pfuture-20190322.752/pfuture-pkg.el
-#	new file:   elpa/pfuture-20190322.752/pfuture.el
-#	new file:   elpa/pfuture-20190322.752/pfuture.elc
-#	new file:   elpa/poly-org-0.1.5/poly-org-autoloads.el
-#	new file:   elpa/poly-org-0.1.5/poly-org-pkg.el
-#	new file:   elpa/poly-org-0.1.5/poly-org.el
-#	new file:   elpa/poly-org-0.1.5/poly-org.elc
-#	new file:   elpa/poly-org-readme.txt
-#	new file:   elpa/pubmed-0.1/pubmed-advanced-search.el
-#	new file:   elpa/pubmed-0.1/pubmed-advanced-search.elc
-#	new file:   elpa/pubmed-0.1/pubmed-autoloads.el
-#	new file:   elpa/pubmed-0.1/pubmed-bibtex.el
-#	new file:   elpa/pubmed-0.1/pubmed-bibtex.elc
-#	new file:   elpa/pubmed-0.1/pubmed-pkg.el
-#	new file:   elpa/pubmed-0.1/pubmed-pmc.el
-#	new file:   elpa/pubmed-0.1/pubmed-pmc.elc
-#	new file:   elpa/pubmed-0.1/pubmed-scihub.el
-#	new file:   elpa/pubmed-0.1/pubmed-scihub.elc
-#	new file:   elpa/pubmed-0.1/pubmed-unpaywall.el
-#	new file:   elpa/pubmed-0.1/pubmed-unpaywall.elc
-#	new file:   elpa/pubmed-0.1/pubmed.el
-#	new file:   elpa/pubmed-0.1/pubmed.elc
-#	new file:   elpa/pubmed-readme.txt
-#	new file:   elpa/shrink-path-20170813.247/shrink-path-autoloads.el
-#	new file:   elpa/shrink-path-20170813.247/shrink-path-pkg.el
-#	new file:   elpa/shrink-path-20170813.247/shrink-path.el
-#	new file:   elpa/shrink-path-20170813.247/shrink-path.elc
-#	new file:   elpa/spaceline-all-the-icons-1.4.0/spaceline-all-the-icons-autoloads.el
-#	new file:   elpa/spaceline-all-the-icons-1.4.0/spaceline-all-the-icons-pkg.el
-#	new file:   elpa/spaceline-all-the-icons-1.4.0/spaceline-all-the-icons-segments.el
-#	new file:   elpa/spaceline-all-the-icons-1.4.0/spaceline-all-the-icons-segments.elc
-#	new file:   elpa/spaceline-all-the-icons-1.4.0/spaceline-all-the-icons-separators.el
-#	new file:   elpa/spaceline-all-the-icons-1.4.0/spaceline-all-the-icons-separators.elc
-#	new file:   elpa/spaceline-all-the-icons-1.4.0/spaceline-all-the-icons.el
-#	new file:   elpa/spaceline-all-the-icons-1.4.0/spaceline-all-the-icons.elc
-#	new file:   elpa/spaceline-all-the-icons-readme.txt
-#	new file:   elpa/swiper-20190412.1718/swiper-autoloads.el
-#	new file:   elpa/swiper-20190412.1718/swiper-pkg.el
-#	new file:   elpa/swiper-20190412.1718/swiper.el
-#	new file:   elpa/swiper-20190412.1718/swiper.elc
-#	new file:   elpa/treemacs-20190503.720/icons/asciidoc.png
-#	new file:   elpa/treemacs-20190503.720/icons/c.png
-#	new file:   elpa/treemacs-20190503.720/icons/clojure.png
-#	new file:   elpa/treemacs-20190503.720/icons/conf.png
-#	new file:   elpa/treemacs-20190503.720/icons/cpp.png
-#	new file:   elpa/treemacs-20190503.720/icons/css.png
-#	new file:   elpa/treemacs-20190503.720/icons/dart.png
-#	new file:   elpa/treemacs-20190503.720/icons/dir_closed.png
-#	new file:   elpa/treemacs-20190503.720/icons/dir_open.png
-#	new file:   elpa/treemacs-20190503.720/icons/docker.png
-#	new file:   elpa/treemacs-20190503.720/icons/elixir.png
-#	new file:   elpa/treemacs-20190503.720/icons/elixir_light.png
-#	new file:   elpa/treemacs-20190503.720/icons/emacs.png
-#	new file:   elpa/treemacs-20190503.720/icons/error.png
-#	new file:   elpa/treemacs-20190503.720/icons/git.png
-#	new file:   elpa/treemacs-20190503.720/icons/go.png
-#	new file:   elpa/treemacs-20190503.720/icons/haskell.png
-#	new file:   elpa/treemacs-20190503.720/icons/html.png
-#	new file:   elpa/treemacs-20190503.720/icons/hy.png
-#	new file:   elpa/treemacs-20190503.720/icons/image.png
-#	new file:   elpa/treemacs-20190503.720/icons/info.png
-#	new file:   elpa/treemacs-20190503.720/icons/java.png
-#	new file:   elpa/treemacs-20190503.720/icons/jinja2.png
-#	new file:   elpa/treemacs-20190503.720/icons/js.png
-#	new file:   elpa/treemacs-20190503.720/icons/json.png
-#	new file:   elpa/treemacs-20190503.720/icons/julia.png
-#	new file:   elpa/treemacs-20190503.720/icons/kotlin.png
-#	new file:   elpa/treemacs-20190503.720/icons/ledger.png
-#	new file:   elpa/treemacs-20190503.720/icons/markdown.png
-#	new file:   elpa/treemacs-20190503.720/icons/ocaml.png
-#	new file:   elpa/treemacs-20190503.720/icons/pdf.png
-#	new file:   elpa/treemacs-20190503.720/icons/puppet.png
-#	new file:   elpa/treemacs-20190503.720/icons/python.png
-#	new file:   elpa/treemacs-20190503.720/icons/root.png
-#	new file:   elpa/treemacs-20190503.720/icons/rust.png
-#	new file:   elpa/treemacs-20190503.720/icons/sbt.png
-#	new file:   elpa/treemacs-20190503.720/icons/scala.png
-#	new file:   elpa/treemacs-20190503.720/icons/shell.png
-#	new file:   elpa/treemacs-20190503.720/icons/tags-closed.png
-#	new file:   elpa/treemacs-20190503.720/icons/tags-leaf.png
-#	new file:   elpa/treemacs-20190503.720/icons/tags-open.png
-#	new file:   elpa/treemacs-20190503.720/icons/txt.png
-#	new file:   elpa/treemacs-20190503.720/icons/typescript.png
-#	new file:   elpa/treemacs-20190503.720/icons/vagrant.png
-#	new file:   elpa/treemacs-20190503.720/icons/video.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/README.txt
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/binary.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/dependencies.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/elm.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/elx.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/license.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/lisp.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/log.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/lua.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/makefile.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/nim.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/org.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/perl.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/r.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/reason.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/ruby.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/scss.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/sql.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/toml.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/vim.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/xml.png
-#	new file:   elpa/treemacs-20190503.720/icons/vsc/zip.png
-#	new file:   elpa/treemacs-20190503.720/icons/vue.png
-#	new file:   elpa/treemacs-20190503.720/icons/warning.png
-#	new file:   elpa/treemacs-20190503.720/icons/yaml.png
-#	new file:   elpa/treemacs-20190503.720/treemacs-async.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-async.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-autoloads.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-compatibility.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-compatibility.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-core-utils.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-core-utils.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-customization.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-customization.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-dirs-to-collapse.py
-#	new file:   elpa/treemacs-20190503.720/treemacs-dom.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-dom.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-extensions.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-extensions.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-faces.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-faces.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-filewatch-mode.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-filewatch-mode.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-follow-mode.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-follow-mode.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-fringe-indicator.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-fringe-indicator.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-git-status.py
-#	new file:   elpa/treemacs-20190503.720/treemacs-icons.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-icons.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-interface.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-interface.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-macros.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-macros.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-mode.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-mode.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-mouse-interface.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-mouse-interface.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-persistence.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-persistence.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-pkg.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-rendering.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-rendering.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-single-file-git-status.py
-#	new file:   elpa/treemacs-20190503.720/treemacs-tag-follow-mode.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-tag-follow-mode.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-tags.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-tags.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-visuals.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-visuals.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs-workspaces.el
-#	new file:   elpa/treemacs-20190503.720/treemacs-workspaces.elc
-#	new file:   elpa/treemacs-20190503.720/treemacs.el
-#	new file:   elpa/treemacs-20190503.720/treemacs.elc
-#	new file:   elpa/treemacs-icons-dired-2.5/treemacs-icons-dired-autoloads.el
-#	new file:   elpa/treemacs-icons-dired-2.5/treemacs-icons-dired-pkg.el
-#	new file:   elpa/treemacs-icons-dired-2.5/treemacs-icons-dired.el
-#	new file:   elpa/treemacs-icons-dired-2.5/treemacs-icons-dired.elc
-#	new file:   elpa/treemacs-icons-dired-readme.txt
-#	new file:   elpa/treemacs-readme.txt
-#	new file:   elpa/zone-rainbow-readme.txt
-#	new file:   eshell/history
+#	deleted:    elpa/async-20181224.454/async-autoloads.el
+#	deleted:    elpa/async-20181224.454/async-bytecomp.el
+#	deleted:    elpa/async-20181224.454/async-bytecomp.elc
+#	deleted:    elpa/async-20181224.454/async-pkg.el
+#	deleted:    elpa/async-20181224.454/async.el
+#	deleted:    elpa/async-20181224.454/async.elc
+#	deleted:    elpa/async-20181224.454/dired-async.el
+#	deleted:    elpa/async-20181224.454/dired-async.elc
+#	deleted:    elpa/async-20181224.454/smtpmail-async.el
+#	deleted:    elpa/async-20181224.454/smtpmail-async.elc
+#	deleted:    elpa/auto-complete-1.5.1/auto-complete-autoloads.el
+#	deleted:    elpa/auto-complete-1.5.1/auto-complete-config.el
+#	deleted:    elpa/auto-complete-1.5.1/auto-complete-config.elc
+#	deleted:    elpa/auto-complete-1.5.1/auto-complete-pkg.el
+#	deleted:    elpa/auto-complete-1.5.1/auto-complete.el
+#	deleted:    elpa/auto-complete-1.5.1/auto-complete.elc
+#	deleted:    elpa/auto-complete-1.5.1/dict/ada-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/c++-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/c-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/caml-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/clojure-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/clojurescript-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/coq-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/css-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/erlang-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/ess-julia-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/go-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/haskell-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/java-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/js-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/julia-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/lua-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/nim-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/octave-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/php-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/python-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/qml-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/ruby-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/scala-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/scheme-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/sclang-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/sh-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/tcl-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/ts-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/tuareg-mode
+#	deleted:    elpa/auto-complete-1.5.1/dict/verilog-mode
+#	deleted:    elpa/auto-complete-readme.txt
+#	deleted:    elpa/avy-0.4.0/.dir-locals.el
+#	deleted:    elpa/avy-0.4.0/ChangeLog
+#	deleted:    elpa/avy-0.4.0/Makefile
+#	deleted:    elpa/avy-0.4.0/README.md
+#	deleted:    elpa/avy-0.4.0/avy-autoloads.el
+#	deleted:    elpa/avy-0.4.0/avy-pkg.el
+#	deleted:    elpa/avy-0.4.0/avy-pkg.elc
+#	deleted:    elpa/avy-0.4.0/avy-test.el
+#	deleted:    elpa/avy-0.4.0/avy-test.elc
+#	deleted:    elpa/avy-0.4.0/avy.el
+#	deleted:    elpa/avy-0.4.0/avy.elc
+#	deleted:    elpa/avy-0.4.0/doc/Changelog.org
+#	deleted:    elpa/avy-0.4.0/targets/avy-init.el
+#	deleted:    elpa/avy-0.4.0/targets/avy-init.elc
+#	deleted:    elpa/biblio-20161014.2304/biblio-arxiv.el
+#	deleted:    elpa/biblio-20161014.2304/biblio-arxiv.elc
+#	deleted:    elpa/biblio-20161014.2304/biblio-autoloads.el
+#	deleted:    elpa/biblio-20161014.2304/biblio-crossref.el
+#	deleted:    elpa/biblio-20161014.2304/biblio-crossref.elc
+#	deleted:    elpa/biblio-20161014.2304/biblio-dblp.el
+#	deleted:    elpa/biblio-20161014.2304/biblio-dblp.elc
+#	deleted:    elpa/biblio-20161014.2304/biblio-dissemin.el
+#	deleted:    elpa/biblio-20161014.2304/biblio-dissemin.elc
+#	deleted:    elpa/biblio-20161014.2304/biblio-doi.el
+#	deleted:    elpa/biblio-20161014.2304/biblio-doi.elc
+#	deleted:    elpa/biblio-20161014.2304/biblio-download.el
+#	deleted:    elpa/biblio-20161014.2304/biblio-download.elc
+#	deleted:    elpa/biblio-20161014.2304/biblio-hal.el
+#	deleted:    elpa/biblio-20161014.2304/biblio-hal.elc
+#	deleted:    elpa/biblio-20161014.2304/biblio-pkg.el
+#	deleted:    elpa/biblio-20161014.2304/biblio.el
+#	deleted:    elpa/biblio-20161014.2304/biblio.elc
+#	deleted:    elpa/biblio-core-20160901.1815/biblio-core-autoloads.el
+#	deleted:    elpa/biblio-core-20160901.1815/biblio-core-pkg.el
+#	deleted:    elpa/biblio-core-20160901.1815/biblio-core.el
+#	deleted:    elpa/biblio-core-20160901.1815/biblio-core.elc
+#	deleted:    elpa/company-20190116.1133/company-abbrev.el
+#	deleted:    elpa/company-20190116.1133/company-abbrev.elc
+#	deleted:    elpa/company-20190116.1133/company-autoloads.el
+#	deleted:    elpa/company-20190116.1133/company-bbdb.el
+#	deleted:    elpa/company-20190116.1133/company-bbdb.elc
+#	deleted:    elpa/company-20190116.1133/company-capf.el
+#	deleted:    elpa/company-20190116.1133/company-capf.elc
+#	deleted:    elpa/company-20190116.1133/company-clang.el
+#	deleted:    elpa/company-20190116.1133/company-clang.elc
+#	deleted:    elpa/company-20190116.1133/company-cmake.el
+#	deleted:    elpa/company-20190116.1133/company-cmake.elc
+#	deleted:    elpa/company-20190116.1133/company-css.el
+#	deleted:    elpa/company-20190116.1133/company-css.elc
+#	deleted:    elpa/company-20190116.1133/company-dabbrev-code.el
+#	deleted:    elpa/company-20190116.1133/company-dabbrev-code.elc
+#	deleted:    elpa/company-20190116.1133/company-dabbrev.el
+#	deleted:    elpa/company-20190116.1133/company-dabbrev.elc
+#	deleted:    elpa/company-20190116.1133/company-eclim.el
+#	deleted:    elpa/company-20190116.1133/company-eclim.elc
+#	deleted:    elpa/company-20190116.1133/company-elisp.el
+#	deleted:    elpa/company-20190116.1133/company-elisp.elc
+#	deleted:    elpa/company-20190116.1133/company-etags.el
+#	deleted:    elpa/company-20190116.1133/company-etags.elc
+#	deleted:    elpa/company-20190116.1133/company-files.el
+#	deleted:    elpa/company-20190116.1133/company-files.elc
+#	deleted:    elpa/company-20190116.1133/company-gtags.el
+#	deleted:    elpa/company-20190116.1133/company-gtags.elc
+#	deleted:    elpa/company-20190116.1133/company-ispell.el
+#	deleted:    elpa/company-20190116.1133/company-ispell.elc
+#	deleted:    elpa/company-20190116.1133/company-keywords.el
+#	deleted:    elpa/company-20190116.1133/company-keywords.elc
+#	deleted:    elpa/company-20190116.1133/company-nxml.el
+#	deleted:    elpa/company-20190116.1133/company-nxml.elc
+#	deleted:    elpa/company-20190116.1133/company-oddmuse.el
+#	deleted:    elpa/company-20190116.1133/company-oddmuse.elc
+#	deleted:    elpa/company-20190116.1133/company-pkg.el
+#	deleted:    elpa/company-20190116.1133/company-semantic.el
+#	deleted:    elpa/company-20190116.1133/company-semantic.elc
+#	deleted:    elpa/company-20190116.1133/company-template.el
+#	deleted:    elpa/company-20190116.1133/company-template.elc
+#	deleted:    elpa/company-20190116.1133/company-tempo.el
+#	deleted:    elpa/company-20190116.1133/company-tempo.elc
+#	deleted:    elpa/company-20190116.1133/company-tng.el
+#	deleted:    elpa/company-20190116.1133/company-tng.elc
+#	deleted:    elpa/company-20190116.1133/company-xcode.el
+#	deleted:    elpa/company-20190116.1133/company-xcode.elc
+#	deleted:    elpa/company-20190116.1133/company-yasnippet.el
+#	deleted:    elpa/company-20190116.1133/company-yasnippet.elc
+#	deleted:    elpa/company-20190116.1133/company.el
+#	deleted:    elpa/company-20190116.1133/company.elc
+#	deleted:    elpa/counsel-0.11.0/counsel-autoloads.el
+#	deleted:    elpa/counsel-0.11.0/counsel-pkg.el
+#	deleted:    elpa/counsel-0.11.0/counsel.el
+#	deleted:    elpa/counsel-0.11.0/counsel.elc
+#	deleted:    elpa/dash-20180910.1856/dash-autoloads.el
+#	deleted:    elpa/dash-20180910.1856/dash-pkg.el
+#	deleted:    elpa/dash-20180910.1856/dash.el
+#	deleted:    elpa/dash-20180910.1856/dash.elc
+#	deleted:    elpa/doom-modeline-2.0.0/doom-modeline-autoloads.el
+#	deleted:    elpa/doom-modeline-2.0.0/doom-modeline-core.el
+#	deleted:    elpa/doom-modeline-2.0.0/doom-modeline-core.elc
+#	deleted:    elpa/doom-modeline-2.0.0/doom-modeline-env.el
+#	deleted:    elpa/doom-modeline-2.0.0/doom-modeline-env.elc
+#	deleted:    elpa/doom-modeline-2.0.0/doom-modeline-pkg.el
+#	deleted:    elpa/doom-modeline-2.0.0/doom-modeline-segments.el
+#	deleted:    elpa/doom-modeline-2.0.0/doom-modeline-segments.elc
+#	deleted:    elpa/doom-modeline-2.0.0/doom-modeline.el
+#	deleted:    elpa/doom-modeline-2.0.0/doom-modeline.elc
+#	deleted:    elpa/doom-modeline-readme.txt
+#	deleted:    elpa/doom-themes-2.1.6/doom-challenger-deep-theme.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-challenger-deep-theme.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-city-lights-theme.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-city-lights-theme.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-dracula-theme.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-dracula-theme.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-molokai-theme.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-molokai-theme.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-nord-light-theme.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-nord-light-theme.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-nord-theme.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-nord-theme.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-nova-theme.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-nova-theme.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-one-light-theme.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-one-light-theme.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-one-theme.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-one-theme.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-opera-light-theme.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-opera-light-theme.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-opera-theme.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-opera-theme.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-peacock-theme.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-peacock-theme.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-solarized-light-theme.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-solarized-light-theme.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-spacegrey-theme.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-spacegrey-theme.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-themes-autoloads.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-themes-common.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-themes-common.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-themes-neotree.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-themes-neotree.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-themes-org.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-themes-org.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-themes-pkg.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-themes-treemacs.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-themes-treemacs.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-themes.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-themes.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-tomorrow-day-theme.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-tomorrow-day-theme.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-tomorrow-night-theme.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-tomorrow-night-theme.elc
+#	deleted:    elpa/doom-themes-2.1.6/doom-vibrant-theme.el
+#	deleted:    elpa/doom-themes-2.1.6/doom-vibrant-theme.elc
+#	deleted:    elpa/doom-themes-readme.txt
+#	deleted:    elpa/elpy-20181228.1721/elpy-autoloads.el
+#	deleted:    elpa/elpy-20181228.1721/elpy-django.el
+#	deleted:    elpa/elpy-20181228.1721/elpy-django.elc
+#	deleted:    elpa/elpy-20181228.1721/elpy-pkg.el
+#	deleted:    elpa/elpy-20181228.1721/elpy-profile.el
+#	deleted:    elpa/elpy-20181228.1721/elpy-profile.elc
+#	deleted:    elpa/elpy-20181228.1721/elpy-refactor.el
+#	deleted:    elpa/elpy-20181228.1721/elpy-refactor.elc
+#	deleted:    elpa/elpy-20181228.1721/elpy-shell.el
+#	deleted:    elpa/elpy-20181228.1721/elpy-shell.elc
+#	deleted:    elpa/elpy-20181228.1721/elpy.el
+#	deleted:    elpa/elpy-20181228.1721/elpy.elc
+#	deleted:    elpa/elpy-20181228.1721/elpy/__init__.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/__init__.pyc
+#	deleted:    elpa/elpy-20181228.1721/elpy/__main__.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/auto_pep8.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/auto_pep8.pyc
+#	deleted:    elpa/elpy-20181228.1721/elpy/blackutil.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/blackutil.pyc
+#	deleted:    elpa/elpy-20181228.1721/elpy/compat.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/compat.pyc
+#	deleted:    elpa/elpy-20181228.1721/elpy/jedibackend.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/jedibackend.pyc
+#	deleted:    elpa/elpy-20181228.1721/elpy/pydocutils.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/pydocutils.pyc
+#	deleted:    elpa/elpy-20181228.1721/elpy/refactor.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/rpc.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/rpc.pyc
+#	deleted:    elpa/elpy-20181228.1721/elpy/server.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/server.pyc
+#	deleted:    elpa/elpy-20181228.1721/elpy/tests/__init__.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/tests/compat.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/tests/support.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/tests/test_auto_pep8.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/tests/test_black.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/tests/test_jedibackend.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/tests/test_pydocutils.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/tests/test_refactor.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/tests/test_rpc.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/tests/test_server.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/tests/test_support.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/tests/test_yapf.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/yapfutil.py
+#	deleted:    elpa/elpy-20181228.1721/elpy/yapfutil.pyc
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/.yas-setup.el
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/.yas-setup.elc
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__abs__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__add__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__and__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__bool__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__call__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__cmp__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__coerce__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__complex__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__contains__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__del__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__delattr__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__delete__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__delitem__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__div__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__divmod__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__enter__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__eq__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__exit__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__float__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__floordiv__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__ge__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__get__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__getattr__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__getattribute__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__getitem__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__gt__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__hash__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__hex__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__iadd__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__iand__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__idiv__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__ifloordiv__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__ilshift__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__imod__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__imul__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__index__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__init__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__instancecheck__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__int__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__invert__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__ior__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__ipow__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__irshift__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__isub__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__iter__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__itruediv__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__ixor__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__le__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__len__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__long__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__lshift__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__lt__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__mod__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__mul__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__ne__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__neg__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__new__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__nonzero__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__oct__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__or__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__pos__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__pow__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__radd__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__rand__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__rdivmod__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__repr__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__reversed__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__rfloordiv__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__rlshift__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__rmod__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__rmul__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__ror__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__rpow__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__rrshift__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__rshift__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__rsub__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__rtruediv__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__rxor__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__set__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__setattr__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__setitem__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__slots__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__str__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__sub__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__subclasscheck__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__truediv__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__unicode__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/__xor__
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/ase
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/asne
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/asr
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/class
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/defs
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/enc
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/env
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/from
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/pdb
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/py3
+#	deleted:    elpa/elpy-20181228.1721/snippets/python-mode/super
+#	deleted:    elpa/elpy-readme.txt
+#	deleted:    elpa/ess-20190204.1447/.dir-locals.el
+#	deleted:    elpa/ess-20190204.1447/allnews.info
+#	deleted:    elpa/ess-20190204.1447/announc.info
+#	deleted:    elpa/ess-20190204.1447/authors.info
+#	deleted:    elpa/ess-20190204.1447/bugrept.info
+#	deleted:    elpa/ess-20190204.1447/credits.info
+#	deleted:    elpa/ess-20190204.1447/currfeat.info
+#	deleted:    elpa/ess-20190204.1447/dir
+#	deleted:    elpa/ess-20190204.1447/ess-autoloads.el
+#	deleted:    elpa/ess-20190204.1447/ess-bugs-d.el
+#	deleted:    elpa/ess-20190204.1447/ess-bugs-l.el
+#	deleted:    elpa/ess-20190204.1447/ess-custom.el
+#	deleted:    elpa/ess-20190204.1447/ess-defs.info
+#	deleted:    elpa/ess-20190204.1447/ess-gretl.el
+#	deleted:    elpa/ess-20190204.1447/ess-help.el
+#	deleted:    elpa/ess-20190204.1447/ess-inf.el
+#	deleted:    elpa/ess-20190204.1447/ess-jags-d.el
+#	deleted:    elpa/ess-20190204.1447/ess-julia.el
+#	deleted:    elpa/ess-20190204.1447/ess-mode.el
+#	deleted:    elpa/ess-20190204.1447/ess-mouse.el
+#	deleted:    elpa/ess-20190204.1447/ess-pkg.el
+#	deleted:    elpa/ess-20190204.1447/ess-r-a.el
+#	deleted:    elpa/ess-20190204.1447/ess-r-completion.el
+#	deleted:    elpa/ess-20190204.1447/ess-r-flymake.el
+#	deleted:    elpa/ess-20190204.1447/ess-r-mode.el
+#	deleted:    elpa/ess-20190204.1447/ess-r-package.el
+#	deleted:    elpa/ess-20190204.1447/ess-r-syntax.el
+#	deleted:    elpa/ess-20190204.1447/ess-r-xref.el
+#	deleted:    elpa/ess-20190204.1447/ess-rd.el
+#	deleted:    elpa/ess-20190204.1447/ess-rdired.el
+#	deleted:    elpa/ess-20190204.1447/ess-roxy.el
+#	deleted:    elpa/ess-20190204.1447/ess-rutils.el
+#	deleted:    elpa/ess-20190204.1447/ess-s-lang.el
+#	deleted:    elpa/ess-20190204.1447/ess-sas-a.el
+#	deleted:    elpa/ess-20190204.1447/ess-sas-d.el
+#	deleted:    elpa/ess-20190204.1447/ess-sas-l.el
+#	deleted:    elpa/ess-20190204.1447/ess-site.el
+#	deleted:    elpa/ess-20190204.1447/ess-sp6-d.el
+#	deleted:    elpa/ess-20190204.1447/ess-stata-lang.el
+#	deleted:    elpa/ess-20190204.1447/ess-stata-mode.el
+#	deleted:    elpa/ess-20190204.1447/ess-toolbar.el
+#	deleted:    elpa/ess-20190204.1447/ess-tracebug.el
+#	deleted:    elpa/ess-20190204.1447/ess-trns.el
+#	deleted:    elpa/ess-20190204.1447/ess-utils.el
+#	deleted:    elpa/ess-20190204.1447/ess.el
+#	deleted:    elpa/ess-20190204.1447/ess.info
+#	deleted:    elpa/ess-20190204.1447/essd-els.el
+#	deleted:    elpa/ess-20190204.1447/etc/ESSR.rds
+#	deleted:    elpa/ess-20190204.1447/etc/ESSR/BUILDESSR
+#	deleted:    elpa/ess-20190204.1447/etc/ESSR/LOADREMOTE
+#	deleted:    elpa/ess-20190204.1447/etc/ESSR/R/.basic.R
+#	deleted:    elpa/ess-20190204.1447/etc/ESSR/R/.load.R
+#	deleted:    elpa/ess-20190204.1447/etc/ESSR/R/completion.R
+#	deleted:    elpa/ess-20190204.1447/etc/ESSR/R/debug.R
+#	deleted:    elpa/ess-20190204.1447/etc/ESSR/R/misc.R
+#	deleted:    elpa/ess-20190204.1447/etc/ESSR/R/mpi.R
+#	deleted:    elpa/ess-20190204.1447/etc/ESSR/R/ns-eval.R
+#	deleted:    elpa/ess-20190204.1447/etc/ESSR/R/pkg.R
+#	deleted:    elpa/ess-20190204.1447/etc/Makefile
+#	deleted:    elpa/ess-20190204.1447/etc/R-ESS-bugs.R
+#	deleted:    elpa/ess-20190204.1447/etc/R-ESS-bugs.el
+#	deleted:    elpa/ess-20190204.1447/etc/R-error-patterns.R
+#	deleted:    elpa/ess-20190204.1447/etc/completion_ideas.R
+#	deleted:    elpa/ess-20190204.1447/etc/ess-julia.jl
+#	deleted:    elpa/ess-20190204.1447/etc/ess-sas-sh-command
+#	deleted:    elpa/ess-20190204.1447/etc/gpl-check
+#	deleted:    elpa/ess-20190204.1447/etc/icons/README
+#	deleted:    elpa/ess-20190204.1447/etc/icons/rbuffer.xpm
+#	deleted:    elpa/ess-20190204.1447/etc/icons/rfunction.xpm
+#	deleted:    elpa/ess-20190204.1447/etc/icons/rline.xpm
+#	deleted:    elpa/ess-20190204.1447/etc/icons/rregion.xpm
+#	deleted:    elpa/ess-20190204.1447/etc/icons/splus_letter_small.xpm
+#	deleted:    elpa/ess-20190204.1447/etc/icons/splus_letters_large.png
+#	deleted:    elpa/ess-20190204.1447/etc/icons/splus_letters_large.xpm
+#	deleted:    elpa/ess-20190204.1447/etc/icons/spluslogo.xpm
+#	deleted:    elpa/ess-20190204.1447/etc/icons/spluslogo.xpm.safe
+#	deleted:    elpa/ess-20190204.1447/etc/icons/startr.xpm
+#	deleted:    elpa/ess-20190204.1447/etc/icons/switch_ess.xpm
+#	deleted:    elpa/ess-20190204.1447/etc/icons/switchr.xpm
+#	deleted:    elpa/ess-20190204.1447/etc/icons/switchs.xpm
+#	deleted:    elpa/ess-20190204.1447/etc/pkg-Maintainers
+#	deleted:    elpa/ess-20190204.1447/license.info
+#	deleted:    elpa/ess-20190204.1447/mailing.info
+#	deleted:    elpa/ess-20190204.1447/make-regexp.el
+#	deleted:    elpa/ess-20190204.1447/mouseme.el
+#	deleted:    elpa/ess-20190204.1447/news.info
+#	deleted:    elpa/ess-20190204.1447/onews.info
+#	deleted:    elpa/ess-20190204.1447/readme.info
+#	deleted:    elpa/ess-20190204.1447/requires.info
+#	deleted:    elpa/ess-readme.txt
+#	deleted:    elpa/exec-path-from-shell-1.11/exec-path-from-shell-autoloads.el
+#	deleted:    elpa/exec-path-from-shell-1.11/exec-path-from-shell-pkg.el
+#	deleted:    elpa/exec-path-from-shell-1.11/exec-path-from-shell.el
+#	deleted:    elpa/exec-path-from-shell-1.11/exec-path-from-shell.elc
+#	deleted:    elpa/exec-path-from-shell-readme.txt
+#	deleted:    elpa/f-20180106.922/f-autoloads.el
+#	deleted:    elpa/f-20180106.922/f-pkg.el
+#	deleted:    elpa/f-20180106.922/f.el
+#	deleted:    elpa/f-20180106.922/f.elc
+#	deleted:    elpa/find-file-in-project-20181217.246/find-file-in-project-autoloads.el
+#	deleted:    elpa/find-file-in-project-20181217.246/find-file-in-project-pkg.el
+#	deleted:    elpa/find-file-in-project-20181217.246/find-file-in-project.el
+#	deleted:    elpa/find-file-in-project-20181217.246/find-file-in-project.elc
+#	deleted:    elpa/flycheck-31/flycheck-autoloads.el
+#	deleted:    elpa/flycheck-31/flycheck-buttercup.el
+#	deleted:    elpa/flycheck-31/flycheck-ert.el
+#	deleted:    elpa/flycheck-31/flycheck-ert.elc
+#	deleted:    elpa/flycheck-31/flycheck-pkg.el
+#	deleted:    elpa/flycheck-31/flycheck.el
+#	deleted:    elpa/flycheck-31/flycheck.elc
+#	deleted:    elpa/flycheck-readme.txt
+#	deleted:    elpa/git-commit-20190102.107/git-commit-autoloads.el
+#	deleted:    elpa/git-commit-20190102.107/git-commit-pkg.el
+#	deleted:    elpa/git-commit-20190102.107/git-commit.el
+#	deleted:    elpa/git-commit-20190102.107/git-commit.elc
+#	deleted:    elpa/helm-20190123.1456/emacs-helm.sh
+#	deleted:    elpa/helm-20190123.1456/helm-adaptive.el
+#	deleted:    elpa/helm-20190123.1456/helm-adaptive.elc
+#	deleted:    elpa/helm-20190123.1456/helm-autoloads.el
+#	deleted:    elpa/helm-20190123.1456/helm-bookmark.el
+#	deleted:    elpa/helm-20190123.1456/helm-bookmark.elc
+#	deleted:    elpa/helm-20190123.1456/helm-buffers.el
+#	deleted:    elpa/helm-20190123.1456/helm-buffers.elc
+#	deleted:    elpa/helm-20190123.1456/helm-color.el
+#	deleted:    elpa/helm-20190123.1456/helm-color.elc
+#	deleted:    elpa/helm-20190123.1456/helm-command.el
+#	deleted:    elpa/helm-20190123.1456/helm-command.elc
+#	deleted:    elpa/helm-20190123.1456/helm-config.el
+#	deleted:    elpa/helm-20190123.1456/helm-config.elc
+#	deleted:    elpa/helm-20190123.1456/helm-dabbrev.el
+#	deleted:    elpa/helm-20190123.1456/helm-dabbrev.elc
+#	deleted:    elpa/helm-20190123.1456/helm-easymenu.el
+#	deleted:    elpa/helm-20190123.1456/helm-easymenu.elc
+#	deleted:    elpa/helm-20190123.1456/helm-elisp-package.el
+#	deleted:    elpa/helm-20190123.1456/helm-elisp-package.elc
+#	deleted:    elpa/helm-20190123.1456/helm-elisp.el
+#	deleted:    elpa/helm-20190123.1456/helm-elisp.elc
+#	deleted:    elpa/helm-20190123.1456/helm-eshell.el
+#	deleted:    elpa/helm-20190123.1456/helm-eshell.elc
+#	deleted:    elpa/helm-20190123.1456/helm-eval.el
+#	deleted:    elpa/helm-20190123.1456/helm-eval.elc
+#	deleted:    elpa/helm-20190123.1456/helm-external.el
+#	deleted:    elpa/helm-20190123.1456/helm-external.elc
+#	deleted:    elpa/helm-20190123.1456/helm-files.el
+#	deleted:    elpa/helm-20190123.1456/helm-files.elc
+#	deleted:    elpa/helm-20190123.1456/helm-find.el
+#	deleted:    elpa/helm-20190123.1456/helm-find.elc
+#	deleted:    elpa/helm-20190123.1456/helm-font.el
+#	deleted:    elpa/helm-20190123.1456/helm-font.elc
+#	deleted:    elpa/helm-20190123.1456/helm-for-files.el
+#	deleted:    elpa/helm-20190123.1456/helm-for-files.elc
+#	deleted:    elpa/helm-20190123.1456/helm-grep.el
+#	deleted:    elpa/helm-20190123.1456/helm-grep.elc
+#	deleted:    elpa/helm-20190123.1456/helm-help.el
+#	deleted:    elpa/helm-20190123.1456/helm-help.elc
+#	deleted:    elpa/helm-20190123.1456/helm-id-utils.el
+#	deleted:    elpa/helm-20190123.1456/helm-id-utils.elc
+#	deleted:    elpa/helm-20190123.1456/helm-imenu.el
+#	deleted:    elpa/helm-20190123.1456/helm-imenu.elc
+#	deleted:    elpa/helm-20190123.1456/helm-info.el
+#	deleted:    elpa/helm-20190123.1456/helm-info.elc
+#	deleted:    elpa/helm-20190123.1456/helm-locate.el
+#	deleted:    elpa/helm-20190123.1456/helm-locate.elc
+#	deleted:    elpa/helm-20190123.1456/helm-man.el
+#	deleted:    elpa/helm-20190123.1456/helm-man.elc
+#	deleted:    elpa/helm-20190123.1456/helm-misc.el
+#	deleted:    elpa/helm-20190123.1456/helm-misc.elc
+#	deleted:    elpa/helm-20190123.1456/helm-mode.el
+#	deleted:    elpa/helm-20190123.1456/helm-mode.elc
+#	deleted:    elpa/helm-20190123.1456/helm-net.el
+#	deleted:    elpa/helm-20190123.1456/helm-net.elc
+#	deleted:    elpa/helm-20190123.1456/helm-org.el
+#	deleted:    elpa/helm-20190123.1456/helm-org.elc
+#	deleted:    elpa/helm-20190123.1456/helm-pkg.el
+#	deleted:    elpa/helm-20190123.1456/helm-regexp.el
+#	deleted:    elpa/helm-20190123.1456/helm-regexp.elc
+#	deleted:    elpa/helm-20190123.1456/helm-ring.el
+#	deleted:    elpa/helm-20190123.1456/helm-ring.elc
+#	deleted:    elpa/helm-20190123.1456/helm-semantic.el
+#	deleted:    elpa/helm-20190123.1456/helm-semantic.elc
+#	deleted:    elpa/helm-20190123.1456/helm-sys.el
+#	deleted:    elpa/helm-20190123.1456/helm-sys.elc
+#	deleted:    elpa/helm-20190123.1456/helm-tags.el
+#	deleted:    elpa/helm-20190123.1456/helm-tags.elc
+#	deleted:    elpa/helm-20190123.1456/helm-types.el
+#	deleted:    elpa/helm-20190123.1456/helm-types.elc
+#	deleted:    elpa/helm-20190123.1456/helm-utils.el
+#	deleted:    elpa/helm-20190123.1456/helm-utils.elc
+#	deleted:    elpa/helm-20190123.1456/helm-x-files.el
+#	deleted:    elpa/helm-20190123.1456/helm-x-files.elc
+#	deleted:    elpa/helm-bibtex-20190113.1845/bibtex-completion.el
+#	deleted:    elpa/helm-bibtex-20190113.1845/bibtex-completion.elc
+#	deleted:    elpa/helm-bibtex-20190113.1845/helm-bibtex-autoloads.el
+#	deleted:    elpa/helm-bibtex-20190113.1845/helm-bibtex-pkg.el
+#	deleted:    elpa/helm-bibtex-20190113.1845/helm-bibtex.el
+#	deleted:    elpa/helm-bibtex-20190113.1845/helm-bibtex.elc
+#	deleted:    elpa/helm-core-20190122.549/helm-core-autoloads.el
+#	deleted:    elpa/helm-core-20190122.549/helm-core-pkg.el
+#	deleted:    elpa/helm-core-20190122.549/helm-lib.el
+#	deleted:    elpa/helm-core-20190122.549/helm-lib.elc
+#	deleted:    elpa/helm-core-20190122.549/helm-multi-match.el
+#	deleted:    elpa/helm-core-20190122.549/helm-multi-match.elc
+#	deleted:    elpa/helm-core-20190122.549/helm-source.el
+#	deleted:    elpa/helm-core-20190122.549/helm-source.elc
+#	deleted:    elpa/helm-core-20190122.549/helm.el
+#	deleted:    elpa/helm-core-20190122.549/helm.elc
+#	deleted:    elpa/hydra-0.14.0/.dir-locals.el
+#	deleted:    elpa/hydra-0.14.0/.elpaignore
+#	deleted:    elpa/hydra-0.14.0/.travis.yml
+#	deleted:    elpa/hydra-0.14.0/ChangeLog
+#	deleted:    elpa/hydra-0.14.0/Makefile
+#	deleted:    elpa/hydra-0.14.0/README.md
+#	deleted:    elpa/hydra-0.14.0/hydra-autoloads.el
+#	deleted:    elpa/hydra-0.14.0/hydra-examples.el
+#	deleted:    elpa/hydra-0.14.0/hydra-ox.el
+#	deleted:    elpa/hydra-0.14.0/hydra-ox.elc
+#	deleted:    elpa/hydra-0.14.0/hydra-pkg.el
+#	deleted:    elpa/hydra-0.14.0/hydra-pkg.elc
+#	deleted:    elpa/hydra-0.14.0/hydra-test.el
+#	deleted:    elpa/hydra-0.14.0/hydra-test.elc
+#	deleted:    elpa/hydra-0.14.0/hydra.el
+#	deleted:    elpa/hydra-0.14.0/hydra.elc
+#	deleted:    elpa/hydra-0.14.0/lv.el
+#	deleted:    elpa/hydra-0.14.0/lv.elc
+#	deleted:    elpa/hydra-0.14.0/targets/hydra-init.el
+#	deleted:    elpa/hydra-0.14.0/targets/hydra-init.elc
+#	deleted:    elpa/ivy-20190116.1140/colir.el
+#	deleted:    elpa/ivy-20190116.1140/colir.elc
+#	deleted:    elpa/ivy-20190116.1140/dir
+#	deleted:    elpa/ivy-20190116.1140/ivy-autoloads.el
+#	deleted:    elpa/ivy-20190116.1140/ivy-help.org
+#	deleted:    elpa/ivy-20190116.1140/ivy-overlay.el
+#	deleted:    elpa/ivy-20190116.1140/ivy-overlay.elc
+#	deleted:    elpa/ivy-20190116.1140/ivy-pkg.el
+#	deleted:    elpa/ivy-20190116.1140/ivy.el
+#	deleted:    elpa/ivy-20190116.1140/ivy.elc
+#	deleted:    elpa/ivy-20190116.1140/ivy.info
+#	deleted:    elpa/ivy-rich-0.1.4/ivy-rich-autoloads.el
+#	deleted:    elpa/ivy-rich-0.1.4/ivy-rich-pkg.el
+#	deleted:    elpa/ivy-rich-0.1.4/ivy-rich.el
+#	deleted:    elpa/ivy-rich-0.1.4/ivy-rich.elc
+#	deleted:    elpa/ivy-rich-readme.txt
+#	deleted:    elpa/julia-mode-20190111.2044/julia-latexsubs.el
+#	deleted:    elpa/julia-mode-20190111.2044/julia-latexsubs.elc
+#	deleted:    elpa/julia-mode-20190111.2044/julia-mode-autoloads.el
+#	deleted:    elpa/julia-mode-20190111.2044/julia-mode-pkg.el
+#	deleted:    elpa/julia-mode-20190111.2044/julia-mode.el
+#	deleted:    elpa/julia-mode-20190111.2044/julia-mode.elc
+#	deleted:    elpa/magit-20190113.1949/AUTHORS.md
+#	deleted:    elpa/magit-20190113.1949/LICENSE
+#	deleted:    elpa/magit-20190113.1949/dir
+#	deleted:    elpa/magit-20190113.1949/git-rebase.el
+#	deleted:    elpa/magit-20190113.1949/git-rebase.elc
+#	deleted:    elpa/magit-20190113.1949/magit-apply.el
+#	deleted:    elpa/magit-20190113.1949/magit-apply.elc
+#	deleted:    elpa/magit-20190113.1949/magit-autoloads.el
+#	deleted:    elpa/magit-20190113.1949/magit-autorevert.el
+#	deleted:    elpa/magit-20190113.1949/magit-autorevert.elc
+#	deleted:    elpa/magit-20190113.1949/magit-bisect.el
+#	deleted:    elpa/magit-20190113.1949/magit-bisect.elc
+#	deleted:    elpa/magit-20190113.1949/magit-blame.el
+#	deleted:    elpa/magit-20190113.1949/magit-blame.elc
+#	deleted:    elpa/magit-20190113.1949/magit-bookmark.el
+#	deleted:    elpa/magit-20190113.1949/magit-bookmark.elc
+#	deleted:    elpa/magit-20190113.1949/magit-branch.el
+#	deleted:    elpa/magit-20190113.1949/magit-branch.elc
+#	deleted:    elpa/magit-20190113.1949/magit-clone.el
+#	deleted:    elpa/magit-20190113.1949/magit-clone.elc
+#	deleted:    elpa/magit-20190113.1949/magit-commit.el
+#	deleted:    elpa/magit-20190113.1949/magit-commit.elc
+#	deleted:    elpa/magit-20190113.1949/magit-core.el
+#	deleted:    elpa/magit-20190113.1949/magit-core.elc
+#	deleted:    elpa/magit-20190113.1949/magit-diff.el
+#	deleted:    elpa/magit-20190113.1949/magit-diff.elc
+#	deleted:    elpa/magit-20190113.1949/magit-ediff.el
+#	deleted:    elpa/magit-20190113.1949/magit-ediff.elc
+#	deleted:    elpa/magit-20190113.1949/magit-extras.el
+#	deleted:    elpa/magit-20190113.1949/magit-extras.elc
+#	deleted:    elpa/magit-20190113.1949/magit-fetch.el
+#	deleted:    elpa/magit-20190113.1949/magit-fetch.elc
+#	deleted:    elpa/magit-20190113.1949/magit-files.el
+#	deleted:    elpa/magit-20190113.1949/magit-files.elc
+#	deleted:    elpa/magit-20190113.1949/magit-git.el
+#	deleted:    elpa/magit-20190113.1949/magit-git.elc
+#	deleted:    elpa/magit-20190113.1949/magit-gitignore.el
+#	deleted:    elpa/magit-20190113.1949/magit-gitignore.elc
+#	deleted:    elpa/magit-20190113.1949/magit-imenu.el
+#	deleted:    elpa/magit-20190113.1949/magit-imenu.elc
+#	deleted:    elpa/magit-20190113.1949/magit-log.el
+#	deleted:    elpa/magit-20190113.1949/magit-log.elc
+#	deleted:    elpa/magit-20190113.1949/magit-margin.el
+#	deleted:    elpa/magit-20190113.1949/magit-margin.elc
+#	deleted:    elpa/magit-20190113.1949/magit-merge.el
+#	deleted:    elpa/magit-20190113.1949/magit-merge.elc
+#	deleted:    elpa/magit-20190113.1949/magit-mode.el
+#	deleted:    elpa/magit-20190113.1949/magit-mode.elc
+#	deleted:    elpa/magit-20190113.1949/magit-notes.el
+#	deleted:    elpa/magit-20190113.1949/magit-notes.elc
+#	deleted:    elpa/magit-20190113.1949/magit-obsolete.el
+#	deleted:    elpa/magit-20190113.1949/magit-obsolete.elc
+#	deleted:    elpa/magit-20190113.1949/magit-patch.el
+#	deleted:    elpa/magit-20190113.1949/magit-patch.elc
+#	deleted:    elpa/magit-20190113.1949/magit-pkg.el
+#	deleted:    elpa/magit-20190113.1949/magit-process.el
+#	deleted:    elpa/magit-20190113.1949/magit-process.elc
+#	deleted:    elpa/magit-20190113.1949/magit-pull.el
+#	deleted:    elpa/magit-20190113.1949/magit-pull.elc
+#	deleted:    elpa/magit-20190113.1949/magit-push.el
+#	deleted:    elpa/magit-20190113.1949/magit-push.elc
+#	deleted:    elpa/magit-20190113.1949/magit-refs.el
+#	deleted:    elpa/magit-20190113.1949/magit-refs.elc
+#	deleted:    elpa/magit-20190113.1949/magit-remote.el
+#	deleted:    elpa/magit-20190113.1949/magit-remote.elc
+#	deleted:    elpa/magit-20190113.1949/magit-repos.el
+#	deleted:    elpa/magit-20190113.1949/magit-repos.elc
+#	deleted:    elpa/magit-20190113.1949/magit-reset.el
+#	deleted:    elpa/magit-20190113.1949/magit-reset.elc
+#	deleted:    elpa/magit-20190113.1949/magit-section.el
+#	deleted:    elpa/magit-20190113.1949/magit-section.elc
+#	deleted:    elpa/magit-20190113.1949/magit-sequence.el
+#	deleted:    elpa/magit-20190113.1949/magit-sequence.elc
+#	deleted:    elpa/magit-20190113.1949/magit-stash.el
+#	deleted:    elpa/magit-20190113.1949/magit-stash.elc
+#	deleted:    elpa/magit-20190113.1949/magit-status.el
+#	deleted:    elpa/magit-20190113.1949/magit-status.elc
+#	deleted:    elpa/magit-20190113.1949/magit-submodule.el
+#	deleted:    elpa/magit-20190113.1949/magit-submodule.elc
+#	deleted:    elpa/magit-20190113.1949/magit-subtree.el
+#	deleted:    elpa/magit-20190113.1949/magit-subtree.elc
+#	deleted:    elpa/magit-20190113.1949/magit-tag.el
+#	deleted:    elpa/magit-20190113.1949/magit-tag.elc
+#	deleted:    elpa/magit-20190113.1949/magit-utils.el
+#	deleted:    elpa/magit-20190113.1949/magit-utils.elc
+#	deleted:    elpa/magit-20190113.1949/magit-wip.el
+#	deleted:    elpa/magit-20190113.1949/magit-wip.elc
+#	deleted:    elpa/magit-20190113.1949/magit-worktree.el
+#	deleted:    elpa/magit-20190113.1949/magit-worktree.elc
+#	deleted:    elpa/magit-20190113.1949/magit.el
+#	deleted:    elpa/magit-20190113.1949/magit.elc
+#	deleted:    elpa/magit-20190113.1949/magit.info
+#	deleted:    elpa/magit-20190113.1949/magit.info-1
+#	deleted:    elpa/magit-20190113.1949/magit.info-2
+#	deleted:    elpa/magit-popup-20181204.2031/dir
+#	deleted:    elpa/magit-popup-20181204.2031/magit-popup-autoloads.el
+#	deleted:    elpa/magit-popup-20181204.2031/magit-popup-pkg.el
+#	deleted:    elpa/magit-popup-20181204.2031/magit-popup.el
+#	deleted:    elpa/magit-popup-20181204.2031/magit-popup.elc
+#	deleted:    elpa/magit-popup-20181204.2031/magit-popup.info
+#	deleted:    elpa/markdown-mode-20181229.1430/markdown-mode-autoloads.el
+#	deleted:    elpa/markdown-mode-20181229.1430/markdown-mode-pkg.el
+#	deleted:    elpa/markdown-mode-20181229.1430/markdown-mode.el
+#	deleted:    elpa/markdown-mode-20181229.1430/markdown-mode.elc
+#	deleted:    elpa/markdown-mode-readme.txt
+#	deleted:    elpa/metaweblog-20171217.240/metaweblog-autoloads.el
+#	deleted:    elpa/metaweblog-20171217.240/metaweblog-pkg.el
+#	deleted:    elpa/metaweblog-20171217.240/metaweblog.el
+#	deleted:    elpa/metaweblog-20171217.240/metaweblog.elc
+#	deleted:    elpa/metaweblog-20171217.240/test-metaweblog.el
+#	deleted:    elpa/metaweblog-20171217.240/test-metaweblog.elc
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f013.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f016.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f021.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f023.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f03c.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f044.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f047.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f059.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f05a.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f066.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f071.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f073.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f092.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f09c.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f0c7.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f0f6.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f11c.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f128.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f179.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f17a.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f17c.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f188.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f18e.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f1ad.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f1c6.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f1d2.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f1de.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f1ec.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f21b.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/FontAwesome-f27b.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/IcoMoon-Free-ea12.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/IcoMoon-Free-eabd.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/IcoMoon-Free-eabf.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/R.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/autohotkey.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/bash.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/bibtex.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/cl.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/coffee.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/compile.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/css.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/dim.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/docker.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/e-palm_tree.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/emacs.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/ext-png.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/ext-tex.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/ext-xpm.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/font-mfizz-f107.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/font-mfizz-f10a.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/font-mfizz-f10c.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/font-mfizz-f10d.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/font-mfizz-f115.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/font-mfizz-f116.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/font-mfizz-f126.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/font-mfizz-f12b.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/font-mfizz-f148.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/font-mfizz-f15b.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/font-mfizz-f166.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/github-octicons-f0c9.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/go.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/golden.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/haml.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/helm.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/hs.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/html.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/icy.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/infruby.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/js.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/octave.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/org.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/php.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/python.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/rails.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/rainbow.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/ruby.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/sas.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/sass.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/scheme.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/slim.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/svg.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/term.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/xml.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/yaml.xpm
+#	deleted:    elpa/mode-icons-0.4.0/icons/yas.xpm
+#	deleted:    elpa/mode-icons-0.4.0/mode-icons-autoloads.el
+#	deleted:    elpa/mode-icons-0.4.0/mode-icons-pkg.el
+#	deleted:    elpa/mode-icons-0.4.0/mode-icons.el
+#	deleted:    elpa/mode-icons-0.4.0/mode-icons.elc
+#	deleted:    elpa/mode-icons-readme.txt
+#	deleted:    elpa/org-9.2/COPYING
+#	deleted:    elpa/org-9.2/README_ELPA
+#	deleted:    elpa/org-9.2/dir
+#	deleted:    elpa/org-9.2/etc/ORG-NEWS
+#	deleted:    elpa/org-9.2/etc/styles/OrgOdtContentTemplate.xml
+#	deleted:    elpa/org-9.2/etc/styles/OrgOdtStyles.xml
+#	deleted:    elpa/org-9.2/etc/styles/README
+#	deleted:    elpa/org-9.2/ob-C.el
+#	deleted:    elpa/org-9.2/ob-C.elc
+#	deleted:    elpa/org-9.2/ob-J.el
+#	deleted:    elpa/org-9.2/ob-J.elc
+#	deleted:    elpa/org-9.2/ob-R.el
+#	deleted:    elpa/org-9.2/ob-R.elc
+#	deleted:    elpa/org-9.2/ob-abc.el
+#	deleted:    elpa/org-9.2/ob-abc.elc
+#	deleted:    elpa/org-9.2/ob-asymptote.el
+#	deleted:    elpa/org-9.2/ob-asymptote.elc
+#	deleted:    elpa/org-9.2/ob-awk.el
+#	deleted:    elpa/org-9.2/ob-awk.elc
+#	deleted:    elpa/org-9.2/ob-calc.el
+#	deleted:    elpa/org-9.2/ob-calc.elc
+#	deleted:    elpa/org-9.2/ob-clojure.el
+#	deleted:    elpa/org-9.2/ob-clojure.elc
+#	deleted:    elpa/org-9.2/ob-comint.el
+#	deleted:    elpa/org-9.2/ob-comint.elc
+#	deleted:    elpa/org-9.2/ob-coq.el
+#	deleted:    elpa/org-9.2/ob-coq.elc
+#	deleted:    elpa/org-9.2/ob-core.el
+#	deleted:    elpa/org-9.2/ob-core.elc
+#	deleted:    elpa/org-9.2/ob-css.el
+#	deleted:    elpa/org-9.2/ob-css.elc
+#	deleted:    elpa/org-9.2/ob-ditaa.el
+#	deleted:    elpa/org-9.2/ob-ditaa.elc
+#	deleted:    elpa/org-9.2/ob-dot.el
+#	deleted:    elpa/org-9.2/ob-dot.elc
+#	deleted:    elpa/org-9.2/ob-ebnf.el
+#	deleted:    elpa/org-9.2/ob-ebnf.elc
+#	deleted:    elpa/org-9.2/ob-emacs-lisp.el
+#	deleted:    elpa/org-9.2/ob-emacs-lisp.elc
+#	deleted:    elpa/org-9.2/ob-eval.el
+#	deleted:    elpa/org-9.2/ob-eval.elc
+#	deleted:    elpa/org-9.2/ob-exp.el
+#	deleted:    elpa/org-9.2/ob-exp.elc
+#	deleted:    elpa/org-9.2/ob-forth.el
+#	deleted:    elpa/org-9.2/ob-forth.elc
+#	deleted:    elpa/org-9.2/ob-fortran.el
+#	deleted:    elpa/org-9.2/ob-fortran.elc
+#	deleted:    elpa/org-9.2/ob-gnuplot.el
+#	deleted:    elpa/org-9.2/ob-gnuplot.elc
+#	deleted:    elpa/org-9.2/ob-groovy.el
+#	deleted:    elpa/org-9.2/ob-groovy.elc
+#	deleted:    elpa/org-9.2/ob-haskell.el
+#	deleted:    elpa/org-9.2/ob-haskell.elc
+#	deleted:    elpa/org-9.2/ob-hledger.el
+#	deleted:    elpa/org-9.2/ob-hledger.elc
+#	deleted:    elpa/org-9.2/ob-io.el
+#	deleted:    elpa/org-9.2/ob-io.elc
+#	deleted:    elpa/org-9.2/ob-java.el
+#	deleted:    elpa/org-9.2/ob-java.elc
+#	deleted:    elpa/org-9.2/ob-js.el
+#	deleted:    elpa/org-9.2/ob-js.elc
+#	deleted:    elpa/org-9.2/ob-keys.el
+#	deleted:    elpa/org-9.2/ob-keys.elc
+#	deleted:    elpa/org-9.2/ob-latex.el
+#	deleted:    elpa/org-9.2/ob-latex.elc
+#	deleted:    elpa/org-9.2/ob-ledger.el
+#	deleted:    elpa/org-9.2/ob-ledger.elc
+#	deleted:    elpa/org-9.2/ob-lilypond.el
+#	deleted:    elpa/org-9.2/ob-lilypond.elc
+#	deleted:    elpa/org-9.2/ob-lisp.el
+#	deleted:    elpa/org-9.2/ob-lisp.elc
+#	deleted:    elpa/org-9.2/ob-lob.el
+#	deleted:    elpa/org-9.2/ob-lob.elc
+#	deleted:    elpa/org-9.2/ob-lua.el
+#	deleted:    elpa/org-9.2/ob-lua.elc
+#	deleted:    elpa/org-9.2/ob-makefile.el
+#	deleted:    elpa/org-9.2/ob-makefile.elc
+#	deleted:    elpa/org-9.2/ob-matlab.el
+#	deleted:    elpa/org-9.2/ob-matlab.elc
+#	deleted:    elpa/org-9.2/ob-maxima.el
+#	deleted:    elpa/org-9.2/ob-maxima.elc
+#	deleted:    elpa/org-9.2/ob-mscgen.el
+#	deleted:    elpa/org-9.2/ob-mscgen.elc
+#	deleted:    elpa/org-9.2/ob-ocaml.el
+#	deleted:    elpa/org-9.2/ob-ocaml.elc
+#	deleted:    elpa/org-9.2/ob-octave.el
+#	deleted:    elpa/org-9.2/ob-octave.elc
+#	deleted:    elpa/org-9.2/ob-org.el
+#	deleted:    elpa/org-9.2/ob-org.elc
+#	deleted:    elpa/org-9.2/ob-perl.el
+#	deleted:    elpa/org-9.2/ob-perl.elc
+#	deleted:    elpa/org-9.2/ob-picolisp.el
+#	deleted:    elpa/org-9.2/ob-picolisp.elc
+#	deleted:    elpa/org-9.2/ob-plantuml.el
+#	deleted:    elpa/org-9.2/ob-plantuml.elc
+#	deleted:    elpa/org-9.2/ob-processing.el
+#	deleted:    elpa/org-9.2/ob-processing.elc
+#	deleted:    elpa/org-9.2/ob-python.el
+#	deleted:    elpa/org-9.2/ob-python.elc
+#	deleted:    elpa/org-9.2/ob-ref.el
+#	deleted:    elpa/org-9.2/ob-ref.elc
+#	deleted:    elpa/org-9.2/ob-ruby.el
+#	deleted:    elpa/org-9.2/ob-ruby.elc
+#	deleted:    elpa/org-9.2/ob-sass.el
+#	deleted:    elpa/org-9.2/ob-sass.elc
+#	deleted:    elpa/org-9.2/ob-scheme.el
+#	deleted:    elpa/org-9.2/ob-scheme.elc
+#	deleted:    elpa/org-9.2/ob-screen.el
+#	deleted:    elpa/org-9.2/ob-screen.elc
+#	deleted:    elpa/org-9.2/ob-sed.el
+#	deleted:    elpa/org-9.2/ob-sed.elc
+#	deleted:    elpa/org-9.2/ob-shell.el
+#	deleted:    elpa/org-9.2/ob-shell.elc
+#	deleted:    elpa/org-9.2/ob-shen.el
+#	deleted:    elpa/org-9.2/ob-shen.elc
+#	deleted:    elpa/org-9.2/ob-sql.el
+#	deleted:    elpa/org-9.2/ob-sql.elc
+#	deleted:    elpa/org-9.2/ob-sqlite.el
+#	deleted:    elpa/org-9.2/ob-sqlite.elc
+#	deleted:    elpa/org-9.2/ob-stan.el
+#	deleted:    elpa/org-9.2/ob-stan.elc
+#	deleted:    elpa/org-9.2/ob-table.el
+#	deleted:    elpa/org-9.2/ob-table.elc
+#	deleted:    elpa/org-9.2/ob-tangle.el
+#	deleted:    elpa/org-9.2/ob-tangle.elc
+#	deleted:    elpa/org-9.2/ob-vala.el
+#	deleted:    elpa/org-9.2/ob-vala.elc
+#	deleted:    elpa/org-9.2/ob.el
+#	deleted:    elpa/org-9.2/ob.elc
+#	deleted:    elpa/org-9.2/org
+#	deleted:    elpa/org-9.2/org-agenda.el
+#	deleted:    elpa/org-9.2/org-agenda.elc
+#	deleted:    elpa/org-9.2/org-archive.el
+#	deleted:    elpa/org-9.2/org-archive.elc
+#	deleted:    elpa/org-9.2/org-attach.el
+#	deleted:    elpa/org-9.2/org-attach.elc
+#	deleted:    elpa/org-9.2/org-autoloads.el
+#	deleted:    elpa/org-9.2/org-bbdb.el
+#	deleted:    elpa/org-9.2/org-bbdb.elc
+#	deleted:    elpa/org-9.2/org-bibtex.el
+#	deleted:    elpa/org-9.2/org-bibtex.elc
+#	deleted:    elpa/org-9.2/org-capture.el
+#	deleted:    elpa/org-9.2/org-capture.elc
+#	deleted:    elpa/org-9.2/org-clock.el
+#	deleted:    elpa/org-9.2/org-clock.elc
+#	deleted:    elpa/org-9.2/org-colview.el
+#	deleted:    elpa/org-9.2/org-colview.elc
+#	deleted:    elpa/org-9.2/org-compat.el
+#	deleted:    elpa/org-9.2/org-compat.elc
+#	deleted:    elpa/org-9.2/org-crypt.el
+#	deleted:    elpa/org-9.2/org-crypt.elc
+#	deleted:    elpa/org-9.2/org-ctags.el
+#	deleted:    elpa/org-9.2/org-ctags.elc
+#	deleted:    elpa/org-9.2/org-datetree.el
+#	deleted:    elpa/org-9.2/org-datetree.elc
+#	deleted:    elpa/org-9.2/org-docview.el
+#	deleted:    elpa/org-9.2/org-docview.elc
+#	deleted:    elpa/org-9.2/org-duration.el
+#	deleted:    elpa/org-9.2/org-duration.elc
+#	deleted:    elpa/org-9.2/org-element.el
+#	deleted:    elpa/org-9.2/org-element.elc
+#	deleted:    elpa/org-9.2/org-entities.el
+#	deleted:    elpa/org-9.2/org-entities.elc
+#	deleted:    elpa/org-9.2/org-eshell.el
+#	deleted:    elpa/org-9.2/org-eshell.elc
+#	deleted:    elpa/org-9.2/org-eww.el
+#	deleted:    elpa/org-9.2/org-eww.elc
+#	deleted:    elpa/org-9.2/org-faces.el
+#	deleted:    elpa/org-9.2/org-faces.elc
+#	deleted:    elpa/org-9.2/org-feed.el
+#	deleted:    elpa/org-9.2/org-feed.elc
+#	deleted:    elpa/org-9.2/org-footnote.el
+#	deleted:    elpa/org-9.2/org-footnote.elc
+#	deleted:    elpa/org-9.2/org-gnus.el
+#	deleted:    elpa/org-9.2/org-gnus.elc
+#	deleted:    elpa/org-9.2/org-goto.el
+#	deleted:    elpa/org-9.2/org-goto.elc
+#	deleted:    elpa/org-9.2/org-habit.el
+#	deleted:    elpa/org-9.2/org-habit.elc
+#	deleted:    elpa/org-9.2/org-id.el
+#	deleted:    elpa/org-9.2/org-id.elc
+#	deleted:    elpa/org-9.2/org-indent.el
+#	deleted:    elpa/org-9.2/org-indent.elc
+#	deleted:    elpa/org-9.2/org-info.el
+#	deleted:    elpa/org-9.2/org-info.elc
+#	deleted:    elpa/org-9.2/org-inlinetask.el
+#	deleted:    elpa/org-9.2/org-inlinetask.elc
+#	deleted:    elpa/org-9.2/org-install.el
+#	deleted:    elpa/org-9.2/org-irc.el
+#	deleted:    elpa/org-9.2/org-irc.elc
+#	deleted:    elpa/org-9.2/org-lint.el
+#	deleted:    elpa/org-9.2/org-lint.elc
+#	deleted:    elpa/org-9.2/org-list.el
+#	deleted:    elpa/org-9.2/org-list.elc
+#	deleted:    elpa/org-9.2/org-loaddefs.el
+#	deleted:    elpa/org-9.2/org-macro.el
+#	deleted:    elpa/org-9.2/org-macro.elc
+#	deleted:    elpa/org-9.2/org-macs.el
+#	deleted:    elpa/org-9.2/org-macs.elc
+#	deleted:    elpa/org-9.2/org-mhe.el
+#	deleted:    elpa/org-9.2/org-mhe.elc
+#	deleted:    elpa/org-9.2/org-mobile.el
+#	deleted:    elpa/org-9.2/org-mobile.elc
+#	deleted:    elpa/org-9.2/org-mouse.el
+#	deleted:    elpa/org-9.2/org-mouse.elc
+#	deleted:    elpa/org-9.2/org-pcomplete.el
+#	deleted:    elpa/org-9.2/org-pcomplete.elc
+#	deleted:    elpa/org-9.2/org-pkg.el
+#	deleted:    elpa/org-9.2/org-pkg.elc
+#	deleted:    elpa/org-9.2/org-plot.el
+#	deleted:    elpa/org-9.2/org-plot.elc
+#	deleted:    elpa/org-9.2/org-protocol.el
+#	deleted:    elpa/org-9.2/org-protocol.elc
+#	deleted:    elpa/org-9.2/org-rmail.el
+#	deleted:    elpa/org-9.2/org-rmail.elc
+#	deleted:    elpa/org-9.2/org-src.el
+#	deleted:    elpa/org-9.2/org-src.elc
+#	deleted:    elpa/org-9.2/org-table.el
+#	deleted:    elpa/org-9.2/org-table.elc
+#	deleted:    elpa/org-9.2/org-tempo.el
+#	deleted:    elpa/org-9.2/org-tempo.elc
+#	deleted:    elpa/org-9.2/org-timer.el
+#	deleted:    elpa/org-9.2/org-timer.elc
+#	deleted:    elpa/org-9.2/org-version.el
+#	deleted:    elpa/org-9.2/org-w3m.el
+#	deleted:    elpa/org-9.2/org-w3m.elc
+#	deleted:    elpa/org-9.2/org.el
+#	deleted:    elpa/org-9.2/org.elc
+#	deleted:    elpa/org-9.2/orgcard.pdf
+#	deleted:    elpa/org-9.2/ox-ascii.el
+#	deleted:    elpa/org-9.2/ox-ascii.elc
+#	deleted:    elpa/org-9.2/ox-beamer.el
+#	deleted:    elpa/org-9.2/ox-beamer.elc
+#	deleted:    elpa/org-9.2/ox-html.el
+#	deleted:    elpa/org-9.2/ox-html.elc
+#	deleted:    elpa/org-9.2/ox-icalendar.el
+#	deleted:    elpa/org-9.2/ox-icalendar.elc
+#	deleted:    elpa/org-9.2/ox-latex.el
+#	deleted:    elpa/org-9.2/ox-latex.elc
+#	deleted:    elpa/org-9.2/ox-man.el
+#	deleted:    elpa/org-9.2/ox-man.elc
+#	deleted:    elpa/org-9.2/ox-md.el
+#	deleted:    elpa/org-9.2/ox-md.elc
+#	deleted:    elpa/org-9.2/ox-odt.el
+#	deleted:    elpa/org-9.2/ox-odt.elc
+#	deleted:    elpa/org-9.2/ox-org.el
+#	deleted:    elpa/org-9.2/ox-org.elc
+#	deleted:    elpa/org-9.2/ox-publish.el
+#	deleted:    elpa/org-9.2/ox-publish.elc
+#	deleted:    elpa/org-9.2/ox-texinfo.el
+#	deleted:    elpa/org-9.2/ox-texinfo.elc
+#	deleted:    elpa/org-9.2/ox.el
+#	deleted:    elpa/org-9.2/ox.elc
+#	deleted:    elpa/org-journal-1.15.1/org-journal-autoloads.el
+#	deleted:    elpa/org-journal-1.15.1/org-journal-pkg.el
+#	deleted:    elpa/org-journal-1.15.1/org-journal.el
+#	deleted:    elpa/org-journal-1.15.1/org-journal.elc
+#	deleted:    elpa/org-journal-readme.txt
+#	deleted:    elpa/org-re-reveal-20190202.847/LICENSES/CC0-1.0.txt
+#	deleted:    elpa/org-re-reveal-20190202.847/LICENSES/GPL-3.0-or-later.txt
+#	deleted:    elpa/org-re-reveal-20190202.847/Readme.org
+#	deleted:    elpa/org-re-reveal-20190202.847/images/adult-education-3258944_640.jpg
+#	deleted:    elpa/org-re-reveal-20190202.847/images/adult-education-3258944_640.jpg.license
+#	deleted:    elpa/org-re-reveal-20190202.847/images/hlevel.png
+#	deleted:    elpa/org-re-reveal-20190202.847/images/hlevel2.png
+#	deleted:    elpa/org-re-reveal-20190202.847/local.css
+#	deleted:    elpa/org-re-reveal-20190202.847/org-re-reveal-autoloads.el
+#	deleted:    elpa/org-re-reveal-20190202.847/org-re-reveal-pkg.el
+#	deleted:    elpa/org-re-reveal-20190202.847/org-re-reveal.el
+#	deleted:    elpa/org-re-reveal-20190202.847/org-re-reveal.elc
+#	deleted:    elpa/org-re-reveal-readme.txt
+#	deleted:    elpa/org-ref-1.1.1/citeproc/csl/acs-nano.csl
+#	deleted:    elpa/org-ref-1.1.1/citeproc/csl/author-year.el
+#	deleted:    elpa/org-ref-1.1.1/citeproc/csl/author-year.elc
+#	deleted:    elpa/org-ref-1.1.1/citeproc/csl/unsrt-footnote.el
+#	deleted:    elpa/org-ref-1.1.1/citeproc/csl/unsrt-footnote.elc
+#	deleted:    elpa/org-ref-1.1.1/citeproc/csl/unsrt-paren.el
+#	deleted:    elpa/org-ref-1.1.1/citeproc/csl/unsrt-paren.elc
+#	deleted:    elpa/org-ref-1.1.1/citeproc/csl/unsrt.el
+#	deleted:    elpa/org-ref-1.1.1/citeproc/csl/unsrt.elc
+#	deleted:    elpa/org-ref-1.1.1/citeproc/readme-author-year.org
+#	deleted:    elpa/org-ref-1.1.1/citeproc/readme-unsrt.org
+#	deleted:    elpa/org-ref-1.1.1/citeproc/readme.bib
+#	deleted:    elpa/org-ref-1.1.1/citeproc/readme.org
+#	deleted:    elpa/org-ref-1.1.1/doi-utils.el
+#	deleted:    elpa/org-ref-1.1.1/doi-utils.elc
+#	deleted:    elpa/org-ref-1.1.1/nist-webbook.el
+#	deleted:    elpa/org-ref-1.1.1/nist-webbook.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-arxiv.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-arxiv.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-autoloads.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-bibtex.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-bibtex.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-citeproc.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-citeproc.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-core.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-core.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-glossary.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-glossary.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-helm-bibtex.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-helm-bibtex.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-helm-cite.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-helm-cite.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-helm.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-helm.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-isbn.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-isbn.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-ivy-cite.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-ivy-cite.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-ivy.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-ivy.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-latex.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-latex.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-pdf.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-pdf.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-pkg.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-pubmed.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-pubmed.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-reftex.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-reftex.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-sci-id.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-sci-id.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-scifinder.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-scifinder.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-scopus.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-scopus.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-url-utils.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-url-utils.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-utils.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-utils.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-worldcat.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-worldcat.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref-wos.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref-wos.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref.bib
+#	deleted:    elpa/org-ref-1.1.1/org-ref.el
+#	deleted:    elpa/org-ref-1.1.1/org-ref.elc
+#	deleted:    elpa/org-ref-1.1.1/org-ref.org
+#	deleted:    elpa/org-ref-1.1.1/x2bib.el
+#	deleted:    elpa/org-ref-1.1.1/x2bib.elc
+#	deleted:    elpa/org-ref-readme.txt
+#	deleted:    elpa/org2blog-20171219.311/org2blog-autoloads.el
+#	deleted:    elpa/org2blog-20171219.311/org2blog-pkg.el
+#	deleted:    elpa/org2blog-20171219.311/org2blog.el
+#	deleted:    elpa/org2blog-20171219.311/org2blog.elc
+#	deleted:    elpa/org2blog-20171219.311/ox-wp.el
+#	deleted:    elpa/org2blog-20171219.311/ox-wp.elc
+#	deleted:    elpa/pfuture-20190322.752/pfuture-autoloads.el
+#	deleted:    elpa/pfuture-20190322.752/pfuture-pkg.el
+#	deleted:    elpa/pfuture-20190322.752/pfuture.el
+#	deleted:    elpa/pfuture-20190322.752/pfuture.elc
+#	deleted:    elpa/poly-R-0.1.5/poly-R-autoloads.el
+#	deleted:    elpa/poly-R-0.1.5/poly-R-pkg.el
+#	deleted:    elpa/poly-R-0.1.5/poly-R.el
+#	deleted:    elpa/poly-R-0.1.5/poly-R.elc
+#	deleted:    elpa/poly-markdown-0.1.5/poly-markdown-autoloads.el
+#	deleted:    elpa/poly-markdown-0.1.5/poly-markdown-pkg.el
+#	deleted:    elpa/poly-markdown-0.1.5/poly-markdown.el
+#	deleted:    elpa/poly-markdown-0.1.5/poly-markdown.elc
+#	deleted:    elpa/poly-noweb-20190102.1938/poly-noweb-autoloads.el
+#	deleted:    elpa/poly-noweb-20190102.1938/poly-noweb-pkg.el
+#	deleted:    elpa/poly-noweb-20190102.1938/poly-noweb.el
+#	deleted:    elpa/poly-noweb-20190102.1938/poly-noweb.elc
+#	deleted:    elpa/poly-org-0.1.5/poly-org-autoloads.el
+#	deleted:    elpa/poly-org-0.1.5/poly-org-pkg.el
+#	deleted:    elpa/poly-org-0.1.5/poly-org.el
+#	deleted:    elpa/poly-org-0.1.5/poly-org.elc
+#	deleted:    elpa/poly-org-readme.txt
 #	modified:   init.el
-#	new file:   network-security.data
-#	new file:   recentf
-#	new file:   tramp
-#	new file:   url/cookies
+#	modified:   recentf
+#	modified:   tramp
+#
+# Untracked files:
+#	elpa/aggressive-indent-20190218.2331/
+#	elpa/all-the-icons-ivy-20190508.1803/
+#	elpa/amx-3.2/
+#	elpa/amx-readme.txt
+#	elpa/async-20190503.656/
+#	elpa/auto-complete-20170125.245/
+#	elpa/avy-20190506.1506/
+#	elpa/biblio-20190215.307/
+#	elpa/biblio-core-20190215.243/
+#	elpa/company-20190430.1852/
+#	elpa/counsel-20190508.1342/
+#	elpa/dash-20190424.1804/
+#	elpa/doodle/
+#	elpa/doom-modeline-20190510.615/
+#	elpa/doom-themes-20190424.2243/
+#	elpa/elpy-20190508.1521/
+#	elpa/ess-20190510.1025/
+#	elpa/exec-path-from-shell-20190426.2227/
+#	elpa/f-20190109.906/
+#	elpa/find-file-in-project-20190408.325/
+#	elpa/flx-0.6.1/
+#	elpa/flx-readme.txt
+#	elpa/flycheck-20190503.853/
+#	elpa/flyspell-correct-20190408.1010/
+#	elpa/flyspell-correct-ivy-20181205.1932/
+#	elpa/flyspell-correct-ivy-readme.txt
+#	elpa/git-commit-20190501.1823/
+#	elpa/helm-20190509.558/
+#	elpa/helm-bibtex-20190430.1818/
+#	elpa/helm-core-20190426.1525/
+#	elpa/hydra-20190408.1006/
+#	elpa/ivy-20190509.1436/
+#	elpa/ivy-hydra-0.11.0/
+#	elpa/ivy-hydra-readme.txt
+#	elpa/ivy-rich-20190317.615/
+#	elpa/julia-mode-20190407.2119/
+#	elpa/lv-20181110.1740/
+#	elpa/magit-20190508.655/
+#	elpa/magit-popup-20190223.2234/
+#	elpa/markdown-mode-20190305.319/
+#	elpa/metaweblog-20190212.238/
+#	elpa/mode-icons-20190429.2053/
+#	elpa/org-9.2.3/
+#	elpa/org-journal-20190423.1849/
+#	elpa/org-pdfview-20180225.1006/
+#	elpa/org-re-reveal-20190509.753/
+#	elpa/org-ref-20190422.1744/
+#	elpa/org2blog-20190309.442/
+#	elpa/pdf-tools-20190413.2018/
+#	elpa/pfuture-20190505.1006/
+#	elpa/pointback-readme.txt
+#	elpa/poly-R-20190504.1020/
+#	elpa/poly-markdown-20190415.1547/
+#	elpa/poly-markdown-readme.txt
+#	elpa/poly-noweb-20190317.1352/
+#	elpa/poly-noweb-readme.txt
+#	elpa/poly-org-20190510.840/
+#	elpa/polymode-20190508.1847/
+#	elpa/popup-complete-20141109.308/
+#	elpa/powerline-20190323.213/
+#	elpa/pubmed-20190502.2121/
+#	elpa/spaceline-20181223.2024/
+#	elpa/spaceline-all-the-icons-20190325.1602/
+#	elpa/swiper-20190509.1957/
+#	elpa/tablist-20190414.643/
+#	elpa/transient-20190509.1025/
+#	elpa/treemacs-20190507.1902/
+#	elpa/treemacs-icons-dired-20190327.1558/
+#	elpa/use-package-20190405.2047/
+#	elpa/which-key-20190315.1248/
+#	elpa/with-editor-20190508.1354/
+#	elpa/yasnippet-20190502.2214/
+#	transient/
 #

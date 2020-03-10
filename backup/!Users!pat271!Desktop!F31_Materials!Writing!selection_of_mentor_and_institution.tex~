@@ -1,4 +1,4 @@
-% Created 2019-04-03 Wed 10:19
+% Created 2019-12-04 Wed 21:40
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -32,78 +32,98 @@
  pdftitle={},
  pdfkeywords={},
  pdfsubject={Selection of Mentor and Institution},
- pdfcreator={Emacs 25.3.1 (Org mode 9.2)}, 
+ pdfcreator={Emacs 26.3 (Org mode 9.2)}, 
  pdflang={English}}
 \begin{document}
 
 
 \section*{Selection of Mentor and Institution}
-\label{sec:org7a70bee}
+\label{sec:org9e90ad0}
 
-I chose the Ohio State University (OSU) Biomedical Sciences Graduate Program (BSGP) due to the
-excellent informatics resources available, as well as the rich educational environment fostered by
-the Umbrella Program setup, which allows me to interact with other early-career scientists as well
-as faculty from a variety of research backgrounds and interests. The BSGP curriculum is mainly
-centered around reading and discussing papers, technical writing/communication, and ethics
-education, providing students with a solid understanding of topical subjects in biomedical research
-today. The program also offers eleven areas of research interest, including Computational Biology
-and Bioinformatics, which requires several electives taught through the Biomedical Informatics
-department as well as electives taken through the computer science and statistics departments. The
-diverse courses required by the Bioinformatics curriculum have deepened my understanding of
-Bioinformatics and Biomedical Research topics, and helped me refine my research questions as well as
-develop my writing. Participating in the BSGP has also given me ample funding opportunities in the
-past, as I was funded by the BMI departmental T15 grant in my first year, and was chosen to be one of the
-four in my cohort of 16 to receive two years of funding from a BSGP departmental T32 training grant
-for my second and third years. These funding opportunities allowed me to attend extra conferences
-such as the NLM training conference in 2017, where I was able to network with bioinformatics
-trainees from other institutions, as well as take the special T32 seminar, which gave me a weekly
-journal club setting with other fellows in which we could discuss papers and our research progress
-in a small setting. I have also benefited from access to the Ohio Super Computer
-resource, which allows me to run memory-intensive scripts without tying up my laptop. This will
-prove to be a valuable asset as I continue to experiment with the intensive algorithms used to infer
-network structures in high-dimensional data. Ohio State also offers a rich mass spectrometry
-research community, with two active cores that investigate a wide variety of topics relating to
-food/crop science and human health, and preeminent metabolomics/proteomics researchers, including my
-PI Dr. Mathe and committee member Dr. Kopec. Lastly, I have immensely benefited from close proximity
-to the Ohio State University Comprehensive Care Center (CCC), the home of more than 300 cancer
-researchers and their research groups, which has maintained its NCI-designated CCC status since
-1976, and in its most recent site visit (May 2015) received a perfect 10/10 score from the NCI. The
-OSUCCC provides lectures, intramural conferences, and rich collaboration opportunities, such as my
-work with Dr. Jim Chen. I am fortunate and proud to be routinely exposed to so many talented
-researchers and trainees at Ohio State.
+I chose the Ohio State University (OSU) Biomedical Sciences Graduate
+Program (BSGP) due to the excellent informatics resources available,
+as well as the rich educational environment fostered by the Umbrella
+Program setup, which allows me to interact with other early-career
+scientists as well as faculty from a variety of research backgrounds
+and interests. The BSGP curriculum is mainly centered around reading
+and discussing papers, technical writing/communication, and ethics
+education, providing students with a solid understanding of topical
+subjects in biomedical research today. Participating in the BSGP has
+also given me ample funding opportunities, as I was funded by the BMI
+departmental T15 grant in my first year, and was chosen to be one of
+the four in my cohort of 16 to receive two years of funding from a
+BSGP departmental T32 training grant for my second and third
+years. These opportunities allowed me to attend conferences such as
+the NLM training conference in 2017, where I was able to network with
+bioinformatics trainees from other institutions, as well as take the
+special T32 seminar, which gave me a weekly journal club setting with
+other fellows in which we could discuss papers and our research
+progress in a small setting. I have also benefited from access to the
+Ohio Super Computer resource, which allows me to perform the high
+powered computations needed for high dimensional omics research. This
+will be a valuable asset as I continue to experiment with the
+intensive algorithms used to infer network structures in
+high-dimensional data. Ohio State also offers a rich mass spectrometry
+research community, with two active research facilities/shared
+resources, as well as preeminent metabolomics/proteomics researchers,
+including my PI Dr. Mathe and committee member Dr. Kopec (see
+LOR). Lastly, I have immensely benefited from close proximity to the
+Ohio State University Comprehensive Care Center (CCC), the home of
+more than 300 cancer researchers and their research groups, which has
+maintained its NCI-designated CCC status since 1976, and in its most
+recent site visit (May 2015) received a perfect 10/10 score from the
+NCI. The OSUCCC provides lectures, intramural conferences, and rich
+collaboration opportunities, such as my work with Dr. Jim Chen (see
+LOR), whose data will be used for biological validation of my
+computational work. I am fortunate and proud to be routinely exposed
+to so many talented researchers and trainees at Ohio State.
 
-Entering the BSGP, I was looking for a mentor who was an accomplished bioinformatician with a
-productive publication record who would take a personal interest in my training, and who had a
-history of successfully obtaining NIH funding. Dr. Mathe and her group at OSU met those
-requirements, and since joining her group I have benefited immensely from Dr. Mathe's devoted
-mentorship. Dr. Mathe's passion for training has been evident during my time working with her, as I
-am able to interact with her weekly in our lab meetings as well as our one-on-one meetings, and
-frequently via email and impromptu meetings. Dr. Mathe has consistently helped push me to find
-opportunities to communicate my work at internal and external conferences. She has also helped me
-apply for and obtain funding through the T32, by reviewing my writing and helping me prepare the
-oral presentation required for the fellowship. She also has helped me in organizing a biweekly
-bioinformatics technical skills workshop, which is meant to communicate essential bioinformatics
-skills to members of our group and others in the department in an interactive workshop setting. This
-has aided in my communication skills and helped round out my toolkit as a bioinformatics
-researcher. These examples demonstrate the high degree of interest and enthusiasm Dr. Mathe has
-displayed in ensuring I develop my career as a researcher. She is also never hesitant to offer me
-advice and constructive feedback on my research progress, as well as answer any questions I have
-about goals and opportunities following my graduation from the program.
+Entering the BSGP, I was looking for a mentor who was an accomplished
+bioinformatician with a productive publication record who would take a
+personal interest in my training, and who had a history of
+successfully obtaining NIH funding.  Dr. Mathe leads a productive
+metabolomics/integrative omics group, and has published articles in
+high impact journals such as \emph{Cell} and \emph{Cancer Research}, and thus was a
+perfect fit for my ambitions. Dr. Mathe's passion for training has
+been evident during my time working with her, as I am able to interact
+with her weekly in our lab meetings as well as our weekly individual
+meetings and frequent impromptu meetings. Dr. Mathe has consistently
+helped push me to find opportunities to communicate my work at
+internal and external conferences. She has also helped me apply for
+and obtain funding through the T32, by reviewing my writing and
+helping me prepare the oral presentation required for the
+fellowship. She also has helped me in organizing a biweekly
+bioinformatics technical skills workshop, which is meant to
+communicate essential bioinformatics skills to members of our group
+and others in the department in an interactive workshop setting. This
+has aided in my communication skills and helped round out my toolkit
+as a bioinformatics researcher. These examples demonstrate the high
+degree of interest and enthusiasm Dr. Mathe has displayed in ensuring
+I develop my career as a researcher. She is also never hesitant to
+offer me advice and constructive feedback on my research progress, as
+well as answer any questions I have about goals and opportunities
+following my graduation from the program.
 
-My co-sponsor, Dr. Coombes, is an experienced mathematician and bioinformatician, with an extensive
-history of NIH funding and high-impact publications in the genomics and proteomics of breast cancer
-and other cancers, including articles in \emph{Nature}, \emph{Cancer Cell}, and \emph{Genome Biology.} He has also
-achieved notoriety for his work as a forensic bioinformatician, using aspects of raw data and
-reported results to infer missing methodology from published works to ensure that reported scientific
-results are valid, and not skewed by analytical error. His work in this field has resulted in press
-coverage on \emph{60 Minutes}, the \emph{New York Times}, and \emph{Nature News}. Outside of his extensive resume of
-mentoring successful graduate students, Dr. Coombes has taught or co-taught a large variety of
-courses in our department, and instills his values in students by teaching how to properly document
-computational methodology through well-written, well-annotated code. As a co-mentor he has
-frequently weighed in on my research questions to ensure that my experimental setups are
-hypothesis-driven and able to be scientifically validated. He has also introduced me to the
-post-doctoral trainees working in his group, who have provided me with an extensive amount of
-training and career guidance in the past as well. My co-mentors are an outstanding team of
-accomplished bioinformaticians who will provide me with exceptional support and guidance throughout
-the proposed research project.
+My co-sponsor, Dr. Coombes, is an experienced mathematician and
+bioinformatician, with an extensive history of NIH funding and
+high-impact publications in the genomics and proteomics of breast
+cancer and other cancers, including articles in \emph{Nature}, \emph{Cancer Cell},
+and \emph{Genome Biology.} He has also achieved notoriety for his work as a
+forensic bioinformatician, using aspects of raw data and reported
+results to infer missing methodology from published works to ensure
+that reported scientific results are valid, and not skewed by
+analytical error. His work in this field has resulted in press
+coverage on \emph{60 Minutes}, the \emph{New York Times}, and \emph{Nature News}. Outside
+of his extensive resume of mentoring successful graduate students,
+Dr. Coombes has taught or co-taught a large variety of courses in our
+department, and instills his values in students by teaching how to
+properly document computational methodology through well-written,
+well-annotated code. As a co-mentor he has frequently weighed in on my
+research questions to ensure that my experimental setups are
+hypothesis-driven and able to be scientifically validated. He has also
+introduced me to the post-doctoral trainees working in his group, who
+have provided me with an extensive amount of training and career
+guidance in the past as well. My co-mentors are an outstanding team of
+accomplished bioinformaticians who will provide me with exceptional
+support and guidance throughout the proposed research project.
 \end{document}

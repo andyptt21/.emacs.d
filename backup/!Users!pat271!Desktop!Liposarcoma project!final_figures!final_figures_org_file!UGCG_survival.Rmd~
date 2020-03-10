@@ -83,7 +83,8 @@ DDLPS_SampleType<-sarcSampleType[match(DDLPS_ids,sarcSampleID)]
 sarc_01<-DDLPS[,DDLPS_SampleType == "01"]
 
 ## Log transform
-NS <- log2(1 + sarc_01)
+##NS <- log2(1 + sarc_01)
+NS <- sarc_01
 NS<-NS[,which(!is.na(colnames(NS)))]
 ## Get gene names and remove duplicates
 gn <- unlist(lapply(strsplit(rownames(NS), "\\|"), function(x) x[1]))
@@ -94,6 +95,7 @@ gn <- gn[!dup]
 ```
 
 ```{r,filterAndScale}
+
 library(tidyverse)
 library(cowplot)
 filterAndPlot<-function(data,med_cutoff=.25,SD_cutoff=.25,gn.=gn){
@@ -163,11 +165,11 @@ pcaPlot<-function(data){
     return(p)
 }
 
-filtered_data<-filterAndPlot(NS,med_cutoff=0.4,SD_cutoff=0.25)
+filtered_data<-filterAndPlot(NS,med_cutoff=0.01,SD_cutoff=0.01)
 NS<-filtered_data[[1]]
 gn<-filtered_data[[2]]
 plotlist<-filtered_data[[3]]
-##plot_grid(plotlist=plotlist,ncol=2)
+plot_grid(plotlist=plotlist,ncol=2)
 ```
 
 ```{r, PCA_plot}
@@ -175,6 +177,7 @@ plotlist<-filtered_data[[3]]
 
 MDM2_ind<-which(gn=="MDM2")
 UGCG_ind<-which(gn=="UGCG")
+ASAH1_ind<-which(gn=="ASAH1")
 UGCG_TCGA<-data.frame(MDM2=NS[MDM2_ind,],UGCG=NS[UGCG_ind,])
 
 TCGA_Z_Scores<-scale(NS)
@@ -196,6 +199,7 @@ reorder_cd <- reorder_cd[!is.na(reorder_cd)]
 clinical_data <- clinical_data[as.numeric(reorder_cd),]
 clinical_data$UGCG_expression <- NS[UGCG_ind,]
 clinical_data$MDM2_expression <- NS[MDM2_ind,]
+clinical_data$ASAH1_expression <- NS[ASAH1_ind,]
 
 days_to_death_numeric<-apply(clinical_data,1, function(x){ifelse(x[16]=="--",return(as.numeric(x[25])),return(as.numeric(x[16])))})
 status<-sapply(as.vector(clinical_data$days_to_death),function(x) ifelse(x=="--",return(0),return(1)))
@@ -221,6 +225,58 @@ summary(fitcox)
 
 No dice.
 
+7/17 - going to try with Dr. Awasthi's survival data. Also looking at the MDM2/ASH1 ratio
+
+I notice that the histograms I generate for each transcript
+distribution is different from his. There's clearly some preprocessing
+done to mine that's missing in his data set. Even after removing the
+log transform, his values are an order of magnitude higher than mine.
+
+```{r, newSurvivalData,echo=TRUE}
+survival_data_new <- read.csv("~/Desktop/Liposarcoma project/final_figures/final_figures_org_file/DDLPS_TCGA_survival.csv")
+
+clinical_data = clinical_data %>% dplyr::rename(Patient.ID=submitter_id)
+
+survival_data_new <- left_join(survival_data_new, clinical_data, by = "Patient.ID")
+
+hist(survival_data_new$UGCG_expression)
+hist(survival_data_new$MDM2_expression)
+hist(survival_data_new$ASAH1_expression)
+
+sf <- survfit( Surv(OS..Months., OS.Status) ~ 1, data = survival_data_new)
+ggsurvplot(sf,ggtheme = theme_minimal())
+
+fitcox <- coxph(Surv(OS..Months., OS.Status) ~ UGCG_expression, data = survival_data_new)
+summary(fitcox)
+
+fitcox <- coxph(Surv(OS..Months., OS.Status) ~ MDM2_expression + age_at_diagnosis, data = survival_data_new)
+summary(fitcox)
+
+fitcox <- coxph(Surv(OS..Months., OS.Status) ~ ASAH1_expression + age_at_diagnosis, data = survival_data_new)
+summary(fitcox)
+
+survival_data_new$glycosylation_ratio<-survival_data_new$ASAH1_expression/survival_data_new$UGCG_expression
+
+fitcox <- coxph(Surv(OS..Months., OS.Status) ~ glycosylation_ratio, data = survival_data_new)
+summary(fitcox)
+
+```
+
+Testing as dichotomous variables
+```{r, KMmodels}
+survival_data_new$UGCG_dichotomous <- ifelse(survival_data_new$UGCG_expression < 300,"Low","High")
+ggsurvplot(survfit(Surv(OS..Months.,OS.Status) ~ UGCG_dichotomous,data = survival_data_new))
+surv_pvalue(survfit(Surv(OS..Months.,OS.Status) ~ UGCG_dichotomous,data = survival_data_new))
+
+survival_data_new$MDM2_dichotomous <- ifelse(survival_data_new$MDM2_expression < 3000,"Low","High")
+ggsurvplot(survfit(Surv(OS..Months.,OS.Status) ~ MDM2_dichotomous,data = survival_data_new))
+surv_pvalue(survfit(Surv(OS..Months.,OS.Status) ~ MDM2_dichotomous,data = survival_data_new))
+
+survival_data_new$ASAH1_dichotomous <- ifelse(survival_data_new$ASAH1_expression < 4000,"Low","High")
+ggsurvplot(survfit(Surv(OS..Months.,OS.Status) ~ ASAH1_dichotomous,data = survival_data_new))
+surv_pvalue(survfit(Surv(OS..Months.,OS.Status) ~ ASAH1_dichotomous,data = survival_data_new))
+```
+<!--
 # Survival Analysis with Full Cohort
 
 Now trying in the full sarcoma cohort of 256 rather than the 54 DDLPS samples (It appears that the original study by Jim's postdoc was done on the 54 however). Again I was unable to reproduce.
@@ -273,7 +329,7 @@ UGCG_TCGA<-data.frame(MDM2=NS[MDM2_ind,],UGCG=NS[UGCG_ind,])
 TCGA_Z_Scores<-scale(NS)
 ```
 
-```{r, survivalAnalysis_fullCohort,echo=TRUE}
+```{r, survivalAnalysis_fullCohort,eval=FALSE}
 
 UGCG_ind <- which(gn=="UGCG")
 
@@ -300,8 +356,11 @@ summary(fitcox)
 
 ```
 
-```{r, survival_MDM2_fullCohort,echo=TRUE}
+```{r, survival_MDM2_fullCohort,eval=FALSE}
 fitcox <- coxph(Surv(days_to_death, status) ~ MDM2_expression + age_at_diagnosis, data = clinical_data)
 summary(fitcox)
 
 ```
+
+
+-->

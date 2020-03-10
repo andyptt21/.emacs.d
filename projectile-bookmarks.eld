@@ -1,0 +1,1 @@
+("~/.emacs.d/" "~/Documents/andyptt21.github.io/" "~/Documents/GitHub/OboToTerm/" "~/Documents/GitHub/LION-web/" "~/Desktop/F31_Materials/Writing/" "~/Documents/Fantasy_App_2020/" "~/Documents/Aquarium-sales/")

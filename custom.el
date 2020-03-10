@@ -1,3 +1,5 @@
+;;(setq centaur-theme 'light)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -5,10 +7,10 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#d2ceda" "#f2241f" "#67b11d" "#b1951d" "#3a81c3" "#a31db1" "#21b8c7" "#655370"])
- '(custom-enabled-themes (quote (doom-one)))
+ '(custom-enabled-themes (quote (doom-one-light)))
  '(custom-safe-themes
    (quote
-    ("b54826e5d9978d59f9e0a169bbd4739dd927eead3ef65f56786621b53c031a7c" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
+    ("728eda145ad16686d4bbb8e50d540563573592013b10c3e2defc493f390f7d83" "2d1fe7c9007a5b76cea4395b0fc664d0c1cfd34bb4f1860300347cdad67fb2f9" "b54826e5d9978d59f9e0a169bbd4739dd927eead3ef65f56786621b53c031a7c" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
  '(ess-swv-pdflatex-commands (quote ("pdflatex" "texi2pdf" "make")))
  '(hl-todo-keyword-faces
    (quote
@@ -30,6 +32,7 @@
      ("???" . "#dc752f"))))
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(org-confirm-babel-evaluate nil)
+ '(org2blog/wp-show-post-in-browser (quote show))
  '(package-archives
    (quote
     (("melpa-stable" . "https://stable.melpa.org/packages/")
@@ -37,8 +40,9 @@
      ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(package-selected-packages
    (quote
-    (ivy-hydra flyspell-correct-ivy poly-noweb poly-R amx flx counsel all-the-icons-ivy org-pdfview treemacs-icons-dired treemacs doom-themes doom-modeline ivy-rich spaceline-all-the-icons mode-icons all-the-icons org-journal pubmed fill-column-indicator auctex poly-org ess-view exec-path-from-shell ess-smart-underscore pdf-tools org-ref popup-complete auto-complete spaceline-config persp-mode spaceline openwith org2blog elpy poly-markdown ess diminish use-package spacemacs-theme magit org org-bullets markdown-mode markchars)))
+    (org2blog comment-tags ivy-xref counsel-projectile ox-pandoc ivy-hydra flyspell-correct-ivy poly-noweb poly-R amx flx counsel all-the-icons-ivy org-pdfview treemacs-icons-dired treemacs doom-themes doom-modeline ivy-rich spaceline-all-the-icons mode-icons all-the-icons org-journal pubmed fill-column-indicator auctex poly-org ess-view exec-path-from-shell ess-smart-underscore pdf-tools org-ref popup-complete auto-complete spaceline-config persp-mode spaceline openwith elpy poly-markdown ess diminish use-package spacemacs-theme magit org org-bullets markdown-mode markchars)))
  '(pdf-view-midnight-colors (quote ("#655370" . "#fbf8ef"))))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -46,4 +50,4 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Menlo"))))
  '(font-lock-comment-face ((t (:foreground "dark gray"))))
- '(mouse ((t (:background "white smoke")))))
+ '(mouse ((t (:background "black")))))

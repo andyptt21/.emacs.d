@@ -1,4 +1,4 @@
-% Created 2019-04-01 Mon 16:27
+% Created 2019-12-04 Wed 21:46
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -32,38 +32,57 @@
  pdftitle={},
  pdfkeywords={},
  pdfsubject={Respective Contributions},
- pdfcreator={Emacs 25.3.1 (Org mode 9.2)}, 
+ pdfcreator={Emacs 26.3 (Org mode 9.2)}, 
  pdflang={English}}
 \begin{document}
 
 
 \section*{Respective Contributions}
-\label{sec:org0d9063f}
-\textbf{\uline{Andrew Patt, B.Sc.:}} I developed the ideas for this proposal with the help of Dr. Mathe and
-Dr. Coombes, in weekly meetings and via emails with Dr. Mathe, as well as regular meetings with
-Dr. Coombes and members of his group. I was responsible for cleaning the data used in the proposal,
-including filtration for missing values and variance, and identifying biological pathways of
-interest that could be used to generate a figure. I also wrote all code used to generate the figures
-in the proposal.The data used in the proposal comes from THESE PUBLICATIONS (). I am the primary
-author of this proposal but I received editorial feedback from each member of my thesis committee:
-Dr. Mathe, Dr. Coombes, Dr. Li and Dr. Kopec. I will perform the required analyses of the proposal
-as well as be the primary developer of the associated R package and RShiny app.
+\label{sec:org68c12b7}
+\textbf{\uline{Andrew Patt, B.Sc.:}} I developed the ideas for this proposal with the
+help of Dr. Mathe and Dr. Coombes, in weekly in person meetings emails
+with Dr. Mathe, as well as regular weekly personal meetings with
+Dr. Coombes and members of his group. I was responsible for analyzing
+the liposarcoma cell line data used in the proposal, including
+filtration for missing values and variance, and identifying biological
+pathways of interest that could be used to generate the figures. I
+also wrote all code used to generate the figures in the proposal. The
+data used in the proposal was generated in collaboration with
+Dr. James Chen (see LOR). I am the primary author of this proposal but
+I received editorial feedback from Dr. Mathe and Dr. Coombes. Dr. Li
+(see LOR) and Dr. Kopec (see LOR) provided feedback on the direction
+of the research in committee meetings as well as individual meetings..
 
-\textbf{\uline{Ewy Mathe, PhD:}} Dr. Mathe will be the primary mentor for the proposed project. She will provide
-her R programming expertise to instruct me in best practices for software development, and help me
-troubleshoot difficulties with software. She will also be a resource for help with supercomputing as
-well as publicly hosting the Shiny app that results from the project. Through monthly presentations
-to our group I will receive regular feedback on my progress from my peers. I will also have
-one-on-one meetings with Ewy personally to discuss ideas and issues, and receive more directed
-feedback. Ewy has also provided me a desk space with an additional computer monitor to work
-with. Ewy is partially funded by the Translational Data Analytics at OSU initiative, and has
-received numerous NIH grants for data analytics and metabolomics.
+I will develop and implement the proposed methodology of the proposal,
+and be the primary developer of the associated mySQL relational
+database, R package, and RShiny app.
 
-\textbf{\uline{Kevin Combes, PhD:}} Dr. Coombes has a long history of successful mentorship of Graduate students
-and will provide me with feedback and guidance during his weekly lab meetings. Dr. Coombes'
-expertise in Machine Learning and Bayesian statistics will be invaluable in ensuring the scientific
-validity of my methodology. Dr. Coombes' office is very close to mine for immediate feedback, and
-the postdoctoral members of his group will also continue to meet with me frequently for further
-research advisement as well as serving as resources for career development advice. Dr. Coombes also
+\textbf{\uline{Ewy Mathe, PhD:}} Dr. Mathe will be the primary mentor for the
+proposed project. She will provide her R programming expertise to
+instruct me in best practices for software development, and help me
+troubleshoot difficulties with software. Additionally, she will guide
+me in developing the proposed methodology and in the biological
+interpretation of the resulting networks, to ensure the biological
+validity of any assumptions made in the methodology. She will also be
+a resource for help with supercomputing as well as publicly hosting
+the Shiny app that results from the project. Through monthly
+presentations to our group I will receive regular feedback on my
+progress from my peers. I will also continue to have weekly (often
+more frequently) one-on-one meetings with Ewy personally to discuss
+ideas and issues, and receive more directed feedback. Ewy has also
+provided me a desk space with an additional computer monitor to work
+with. Ewy is partially funded by the Translational Data Analytics at
+OSU initiative, and has received numerous NIH grants for data
+analytics and metabolomics.
+
+\textbf{\uline{Kevin Coombes, PhD:}} Dr. Coombes has a long history of successful
+mentorship of Graduate students and will provide me with feedback and
+guidance during his weekly lab meetings. Dr. Coombes' expertise in
+statistics and biological network analysis will be invaluable in
+ensuring the scientific validity of my methodology. Dr. Coombes'
+office is very close to mine as well as Dr. Mathe's for immediate
+feedback, and the postdoctoral members of his group will also continue
+to meet with me frequently for further research advisement as well as
+serving as resources for career development advice. Dr. Coombes also
 has also received extensive funding from OSU as well as the NIH.
 \end{document}

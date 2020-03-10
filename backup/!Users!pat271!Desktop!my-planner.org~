@@ -2,25 +2,85 @@
 #+AUTHOR: Andy Patt
 
 * To do (URGENT):
-** TODO :LIPOSARCOMA: Missing samples:
-*** Samples:
-   | Missing samples        | Number |                              Run Order |
-   |------------------------+--------+----------------------------------------|
-   | 224A DMEM Atorvastatin |     83 | 14(??? Files list at 04 and 83 in NEG) |
-   | 141 DMEM Untreated     |      3 |                                     40 |
-   | 863 DMEM Atorvastatin  |    190 |                                     48 |
-*** Rerun in individual modes
-*** LipidMatch
-*** Notes 
-**** Used [[https://www.youtube.com/watch?v=VS_Zpyl5chQ][this video]] for missing parameters. Should probably look for proper sciex parameters
-**** Altered "LIPNEG17MAR_52-3.mzML". Deleted all the crazy crap at the end and replaced with the footer from "LIPNEG17MAR_83-83.mzML".
-**** MS2 files??
-**** Do I have to rerun everything? Seems like missing features from different samples are "imputed"
-**** No centroided data points message in peak detection
-**** Consider using Jeremy's batch file on rerun
-** TODO :LIFE: Lab Presentation
-** TODO :LIPOSARCOMA: TCGA survival analysis
-** TODO :LIPOSARCOMA: Fill out lipidomic results sheets
+** TODO :F31: Finalize training plan
+- P.2: Consider writing a few sentences on you passing your
+  candidacy and who your committee members are, that part looks
+  like a copy/paste from your CV.
+- P.3.: “I plan to achieve this by developing a database…”.  This
+  sentence is hard to understand I think.  Reviewers won’t know
+  what you mean by addressing differences in structural
+  resolution between databases.  Also, is doing an ORA that you
+  propose in this sentence still part of the plan?
+- P.3.: Focus #2: the novelty is not necessarily in the random
+  walk algorithm, but in how you’re building the network that
+  aggregates multiple types of information.
+- P.3: Focus #3: I that really a focus?  ORA is not novel at all.
+- I think your training goals/objectives are clear, Your aim
+  about developing programming skills though is a little week.
+  You should push this further, maybe going the route of adopting
+  best practices (FAIR) of open source community…
+- P.4.: Consider publishing in Metabolites, not Metabolomics,
+  since Metabolites is now the official journal of the
+  Metabolomics Society.  Also consider changing BMC
+  Bioinformatics to Bioinformatics (BMC is not high impact).
+- P.4.: If you propose to work with the core here, then you
+  should get an LOS from them. You can talk to Maciej.
+- P.4.: You mention the machine learning course but Kevin and I
+  are not co-teaching it.  You also do not mention any courses
+  about statistical knowledge (It'll be taught by Qin Ma in the future)
+- Regarding your graph theory part, Lang doesn’t use only Bayesian
+  networks.  Talk to him and see what other resources you could learn.
+  Also talk to Tara and see if she has any suggestions, she knows the
+  CSE courses quite well.
+- When you refer to people for which you have an LOS, make a note
+  of that. Eg.g. Dr. Ewy Mathe (mentor, see LOS).
+- P.5: You’ve listed the top people in the field for your
+  post-doc, I would consider adding potentially others…how about
+  Tim Garrett in Florida?
+- P.5: I would rephrase Dr. Li’s involvement in your candidacy
+  here and be more specific.
+- What is the difference between your committee members for your
+  thesis and your mentors for the grant?
+- Your last statement could include something about how you want
+  to have an impact in the field of xxx.
+- Include a paragraph about what the relationship with the
+  mentors is going to be like (meeting frequency)
+- Mention computational systems biology group
+
+** TODO :F31: Draft LOSs
+   - Dr. Garrett
+   - Dr. Willigagen
+** TODO :F31: Begin Background work
+** TODO :F31: Network fusion approaches table
+**** What are advantages and disadvantages of methods to merge networks
+***** Grassmann manifold
+***** Similarity network fusion
+***** Ensemble learning
+***** Bayesian Networks(?)
+***** Look to protein protein interaction networks for ideas
+***** Come up with criteria for what models you want to use
+**** Parameters
+**** Assumptions made
+**** Include references
+** TODO :F31: Talk to Beth, get Jim as comentor
+** TODO :LIPOSARCOMA: Work on manuscript
+*** Update results section
+** TODO Update drivers on your laptop
+* To do:
+** TODO Update RaMP front end
+*** Make instructions for entering metabolite IDs more visible
+*** Make drop down menu for ID type when entering metabolites
+** TODO :LIPOSARCOMA: Look at all the genes associated with HMDB0004971 in cell line data
+*** Correlate with the lipid abundance (HMDB0004971) (use the cell line data for this)
+*** Then if you find that, use that to look in human survival data
+** TODO :F31: Lit review of multiomic pathway analysis strategies
+** TODO Career development with MANA
+** TODO :LIPOSARCOMA: Organize your metabolomic code into something for submission
+*** No preprocessing, just statistics and plotting
+*** MUST be self-contained
+** TODO :LIFE: Shop for new auto insurance
+*** Progressive
+*** Nationwide
 ** TODO :F31: Wednesday Meeting
 *** Metabolomics Database development workshop (Ask Rachel for suggestions, maybe food science)
 *** Find specific data sets for specific aims
@@ -28,42 +88,34 @@
 *** Make aim 2 more crosstalker specific
 **** Cross-talker does not treat pathways as independent
 *** Start working on research plan
-** TODO :LIPOSARCOMA: Redo figures:
-*** 1C
-*** S1B
-*** Figure 2
-*** 3C
-*** S3B
-*** S3D
-*** S4A
-** TODO :LIPOSARCOMA: Cutoff p value of .1
-** TODO :LIPOSARCOMA: Combination treatment effect stratified by MDM2 status
-** TODO :LIFE: Schedule committee meeting
-** TODO :LIFE: Renew health insurance
-** TODO :LIFE: Shop for new auto insurance
-* To do:
+*** CCLE has pan-cancer and treatment response. Want to build context specific networks
+*** Translatability from model to human
+*** Meta-analysis method for combining results from different cohorts to demonstrate reproducibility
+*** Central biological question
+**** Model to human (show you get similar results with the same method in vitro and in vivo)
+**** Pan cancer (you can translate results from one disease to another)
+**** Metanalysis (combine results from independent cohorts)
+*** Can you combine independent analyses in different omes or do you have to integrate while analysing?
+*** Pathways:
+**** Biochemical pathways
+**** Molecular pathways
+**** KEGG is the only database that draws this distinction. Is this significant?
+**** TOPPGene returns different types of annotations. How is this done? Where is their info derived from?
+*** Central theme of translatability
+
 ** TODO :LIFE: Renew passport
-** TODO :F31: Ask for letters of recommendation again
-*** Jeff Parvin
-*** Jim Chen
-*** Rachel Kopec
-*** Lang Li
-*** Mike Ombrello
+** TODO :LIPOSARCOMA: Transcriptomic analysis
+*** Multiple test correction for UGCG (apply same cutoff for all genes)
+*** Correlate your values with Achal's
 ** TODO :F31: Get letters of support
     - Tim Garrett
     - Peter Karp
     - Mark Chance
     - Egon Willighagen
-** TODO :LIPOSARCOMA: Correlate ceramides with MDM2 expression (continuous)
-** TODO :LIPOSARCOMA: Fill out tables
-** TODO :LIPOSARCOMA: Lipidomics PCA
 ** TODO :LIPOSARCOMA: Add MDM2 status into the model
-** TODO :LIFE: Schedule lawyer meeting
 ** TODO :LIPOSARCOMA: Look at ratios of related transcripts (UGCG and antagonist)
 ** TODO :LIFE: eRequests for other expenses
 ** TODO :LIFE: CITI Training
-** TODO :LIPOSARCOMA: Ceramide trends as validation between data sets (PCA)
-** TODO :LIPOSARCOMA: Ratios of glycosylated to nonglycosylated ceramides according to condition
 ** TODO :LIPOSARCOMA: Find 1:1 mappings between metabolon and lipidomic set and show they have same directionality
 ** TODO :F31: Research Plan
 *** TODO Add negative control metabolites to the experiment (metabolites you DON'T think are altered)
@@ -116,14 +168,6 @@
    - Look for a conference that has Bayesian network workshops
    - Email McGeachie and ask about that
    - ISMB
-** TODO :LIFE: Reimbursements
-   | Expense                       | Price | Status    |
-   |-------------------------------+-------+-----------|
-   | ICIBM Conference Registration |   350 | Submitted |
-   | ASMS Membership               |    40 |           |
-   | ASMS Poster                   |  38.7 |           |
-   | ICIBM Poster                  |  38.7 |           |
-   | Total                         | 467.4 |           |
 ** TODO :LIFE: Get new BuckID
 ** TODO Fix RaMP pathway clustering
 *** Make it so clusters return pathway name
@@ -131,9 +175,9 @@
 ** Graduation Checklist
 *** Graduation Checklist [0/10]:
     1) [ ] MDM2-dependent liposarcoma differences/Ceramides contribute to
-       chemoresistance in liposarcoma <2019-08-15 Thu>
-    2) [ ] F31 Draft <2019-10-15 Tue>
-    3) [ ] Committee meeting <2019-10-15 Tue>
+       chemoresistance in liposarcoma 
+    2) [ ] F31 Draft <2019-11-15 Tue>
+    3) [ ] Committee meeting <2019-10-23 Tue>
     4) [ ] Review paper <2019-11-08 Fri>
     5) [ ] Submit F31 <2019-12-01 Sun>
     6) [ ] Lipid pathway annotation complete draft <2020-01-15 Wed>
@@ -141,7 +185,9 @@
     8) [ ] Similarity network fusion/crosstalker <2020-11-18 Wed>
     9) [ ] Committee meeting <2020-10-15 Thu>
     10) [ ] Defend either November 2020 or March 2021
-** Core problem: Current metabolomic pathway analysis has poor sensitivity due to lack of annotations, missing identifications, 
+** Core problem: 
+   - Current lipidomic pathway analysis has poor sensitivity due to
+     lack of annotations, missing identifications,
 ** Thesis chapters:
 **** Part I: Metabolomics and Lipidomics: Applications in biomedical sciences (Introduction)
       - Applications (why do people care? Also mention liposarcoma and
@@ -191,7 +237,10 @@
 **** What's been done?
 **** What hasn't been done?
 **** What will your contribution be?
+*** Applicant Background and Goals
 *** Research plan notes:
+  - Segue your research experience into what you want your training
+    goals to be
   - You need to make the connect between what you want to accomplish
     and how you want to do it
   - See if you can find classes or faculty that can help you
@@ -215,11 +264,10 @@
 **** RaMP Schematic 
 *** TODO Learn about network fusion approaches/multi-layer networks to build a prior. [[~/Desktop/Pathway_Analysis/multilayer_networks.org][Notes from lecture here.]]
 *** TODO Recon2 as an alternative to MetRxn
-*** TODO Learn about historical priors
 *** TODO Include clinical features in informative priors, e.g. mutational status
 *** eRA
-**** u:PATT.14
-**** p:E-_____1!!!
+**** u:patt.14
+**** p:E-_____1?
 *** My writing
    | Portion                                     | Sample length  | Max length  | Due date  | Completed?  |
    |---------------------------------------------+----------------+-------------+-----------+-------------|
@@ -321,6 +369,9 @@
 ** TODO Set up Roth IRA
 * Life
 ** Personal shopping list
+*** Padded bike shorts
+*** Doughnut pillow
+*** Standing desk
 *** Bike
 **** Test it out but you should be fine with a 21 inch (53 cm) frame. 
   | Bike               | Year | Size  | Wheel size | Weight   | Material | Color | Price | Link | Notes                                                            | Available           |
@@ -449,4 +500,3 @@
 *** C-c C-e export menu
 *** [[http://jr0cket.co.uk/slides/revealjs.html][Check out org-reveal for cool html slideshows]]
 *** Check out texmed.el next time you're doing citations in LaTeX
-

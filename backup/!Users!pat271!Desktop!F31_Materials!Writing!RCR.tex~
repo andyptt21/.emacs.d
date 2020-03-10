@@ -1,4 +1,4 @@
-% Created 2019-04-01 Mon 15:40
+% Created 2019-12-04 Wed 21:52
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -24,7 +24,7 @@
 \titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
 \titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
 \titlespacing\subsubsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
-\renewcommand{\@listI}{\itemsep=0pt}
+\usepackage{nopageno}
 \author{Patt}
 \date{\today}
 \title{}
@@ -33,13 +33,12 @@
  pdftitle={},
  pdfkeywords={},
  pdfsubject={Training in the Responsible Conduct of Research},
- pdfcreator={Emacs 25.3.1 (Org mode 9.2)}, 
+ pdfcreator={Emacs 26.3 (Org mode 9.2)}, 
  pdflang={English}}
 \begin{document}
 
-
 \section*{Training in the Responsible Conduct of Research}
-\label{sec:org343a8b6}
+\label{sec:org4c89d49}
 As part of the core curriculum of the Biomedical Sciences Graduate Program (BSGP), I was required to
 take the semester-long BIOPHRM 7510: Ethical Issues in Biomedical Science course. Credit was 2
 graduate semester hours. The course was taught by two faculty members as well as a small rotation of
@@ -49,7 +48,8 @@ students on potential ethical issues facing biomedical researchers, and guide st
 make ethical decisions when confronted with those situations. The class contained around 40 students
 both part of BSGP as well as MD/PhD and Pharmacy students, which ensured a variety of perspectives
 on different ethical matters. Grades were participation-based. Topics included:
-\begin{itemize}
+
+\begin{itemize}[noitemsep]
 \item Mentor-student relationships
 \item Research integrity (falsification/fabrication)
 \item Publication and plagiarism
@@ -63,7 +63,7 @@ on different ethical matters. Grades were participation-based. Topics included:
 
 In addition to this course I have completed a variety of online training courses through OSU, which
 include:
-\begin{itemize}
+\begin{itemize}[noitemsep]
 \item HIPAA Privacy and Research
 \item CITI Biomedical responsible conduct of research
 \item Infection Prevention and Patient Safety (Non-Clinical)
