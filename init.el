@@ -64,7 +64,7 @@
      ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(package-selected-packages
    (quote
-    (spaceline-all-the-icons mode-icons all-the-icons org-journal pubmed fill-column-indicator auctex poly-org ess-view exec-path-from-shell ess-smart-underscore pdf-tools org-ref popup-complete auto-complete spaceline-config persp-mode spaceline openwith org2blog elpy poly-R poly-markdown ess diminish use-package spacemacs-theme magit org org-bullets markdown-mode markchars)))
+    (spaceline-all-the-icons mode-icons all-the-icons org-journal pubmed fill-column-indicator auctex poly-org ess-view ess-smart-underscore pdf-tools org-ref popup-complete auto-complete spaceline-config persp-mode spaceline openwith org2blog elpy poly-R poly-markdown ess diminish use-package spacemacs-theme magit org org-bullets markdown-mode markchars)))
  '(pdf-view-midnight-colors (quote ("#655370" . "#fbf8ef"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -121,7 +121,7 @@
   (setq org-tag-persistent-alist 
 	'((:startgroup . nil)
 	  ("LIPOSARCOMA" . ?h) 
-	  ("PROTEOGENOMICS" . ?r)
+	  ("METABOSPAN" . ?r)
 	  ("THESIS" . ?t)
 	  ("LIFE" . ?y)
 	  (:endgroup . nil)
@@ -139,7 +139,7 @@
   (setq org-tag-faces
 	'(
 	  ("LIPOSARCOMA" . (:foreground "GoldenRod" :weight bold))
-	  ("PROTEOGENOMICS" . (:foreground "Red" :weight bold))
+	  ("METABOSPAN" . (:foreground "Red" :weight bold))
 	  ("THESIS" . (:foreground "SkyBlue" :weight bold))
 	  ("LIFE" . (:foreground "Purple" :weight bold))
 	  ("EASY" . (:foreground "LimeGreen" :weight bold))  
@@ -239,7 +239,13 @@
   :ensure t)
 
 (use-package poly-R
-   :ensure t)
+  :ensure t)
+
+(use-package tex
+  :defer t
+  :ensure auctex
+  :config
+  (setq TeX-auto-save t))
 
 ;;Magit
 (use-package magit
@@ -301,7 +307,7 @@
   :init
   (setq flyspell-correct-interface #'flyspell-correct-ivy))
 
-(use-package ox-pandoc)
+;;(use-package ox-pandoc)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Linking to my wordpress blog and OSC account
@@ -320,8 +326,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Ensure the correct $PATH variables are inherited on Mac
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
+;; (when (memq window-system '(mac ns x))
+;;   (exec-path-from-shell-initialize))
 
 ;; Command-S to save, C to copy, V to paste, etc.
 (defun sj/copy-keys-from-keymap (from-map keys &optional to-map)
@@ -430,6 +436,12 @@ will be copied as well."
 ;; Open up your init file for editing
 (global-set-key (kbd "C-c p") (lambda() (interactive)(find-file "~/Documents/my-planner.org")))
 
+;; Better buffer switching
+(global-set-key (kbd "C-x <up>") 'windmove-up)
+(global-set-key (kbd "C-x <down>") 'windmove-down)
+(global-set-key (kbd "C-x <left>") 'windmove-left)
+(global-set-key (kbd "C-x <right>") 'windmove-right)
+
 ;; Transpose buffer location with C-x 4 t
 (defun transpose-windows (arg)
   "Transpose the buffers shown in two windows."
@@ -515,17 +527,9 @@ BEG and END default to the buffer boundaries."
 (global-set-key (kbd "C-c b b") 'bjm-comment-box)
 
 ;; Copy current line
-(defun copy-line (&optional arg)
-  "Do a kill-line but copy rather than kill.  This function directly calls
-    kill-line, so see documentation of kill-line for how to use it including prefix
-    argument and relevant variables.  This function works by temporarily making the
-    buffer read-only."
-  (interactive "P")
-  (let ((buffer-read-only t)
-	(kill-read-only-ok t))
-    (kill-line arg)))
-;; optional key binding
-(global-set-key "\C-c\C-k" 'copy-line)
+(fset 'copy-and-paste-line
+   [?\C-a ?\C-  ?\C-e escape ?w return ?\C-y])
+(global-set-key (kbd "C-c y") 'copy-and-paste-line)
 
 ;; Insert R code blocks in org-mode with C-c R
 (defun org-insert-source-block (name)
@@ -636,4 +640,9 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE,
 ;;          (ess-eval-region (point) (point-max) nil nil 'R)))) 
 ;; (define-key ess-mode-map (kbd "\C-c RET") 'rmd-send-chunk)
 
-(define-key ess-mode-map (kbd "\C-c RET") 'polymode-eval-chunk)
+(define-key ess-mode-map (kbd "\C-c \C-e") 'polymode-eval-chunk)
+
+(fset 'eval-chunk-and-move
+   [?\C-c ?\C-e ?\M-n ?\C-n ?\M-n ?\C-n])
+
+(define-key ess-mode-map (kbd "\C-c RET") 'eval-chunk-and-move)

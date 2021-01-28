@@ -1,7 +1,5 @@
 * Default Workspace
-** .emacs.d
- - path :: /Users/pat271/.emacs.d
-** Liposarcoma project
- - path :: /Users/pat271/Desktop/Liposarcoma project
-** F31_Materials
- - path :: /Users/pat271/Desktop/F31_Materials
+** MetaboSPAN
+ - path :: ~/Desktop/MetaboSPAN
+** andyptt21.github.io
+ - path :: ~/Documents/andyptt21.github.io
