@@ -1,11 +1,9 @@
-;;; init.el --- Andy Patt's emacs configuration
-;; This initialization file mostly provides support for writing literate R code with org-babel, Rmarkdown or Rnw in emacs
-;; I also use org-mode a lot, and occasionally upload to my wordpress blog
-;; The theme is doom-one (basically ripped off the emacs centaur look)
-;; I am currently running Emacs 25.3.1 on macOS Mojave Version 10.14.1
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; use-package
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;: Commentary:
+;;.emacs
+;; (setq url-proxy-services '(("https" . "http://dtn01-e0:3128")
+;;  			   ("http" . "http://dtn01-e0:3128")))
+
+;;; Code:
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
@@ -22,24 +20,19 @@
 (require 'diminish)
 (require 'bind-key)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Custom set stuff
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#d2ceda" "#f2241f" "#67b11d" "#b1951d" "#3a81c3" "#a31db1" "#21b8c7" "#655370"])
- ;;'(custom-enabled-themes (quote (spacemacs-light)))
  '(custom-safe-themes
-   (quote
-    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
- '(ess-swv-pdflatex-commands (quote ("pdflatex" "texi2pdf" "make")))
+   '("70ed3a0f434c63206a23012d9cdfbe6c6d4bb4685ad64154f37f3c15c10f3b90" "b35a14c7d94c1f411890d45edfb9dc1bd61c5becd5c326790b51df6ebf60f402" "d2e9c7e31e574bf38f4b0fb927aaff20c1e5f92f72001102758005e53d77b8c9" "fe666e5ac37c2dfcf80074e88b9252c71a22b6f5d2f566df9a7aa4f9bea55ef8" "4697a2d4afca3f5ed4fdf5f715e36a6cac5c6154e105f3596b44a4874ae52c45" "b54826e5d9978d59f9e0a169bbd4739dd927eead3ef65f56786621b53c031a7c" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" "77113617a0642d74767295c4408e17da3bfd9aa80aaa2b4eeb34680f6172d71a" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default))
+ '(diff-switches "-u")
+ '(ess-swv-pdflatex-commands '("pdflatex" "texi2pdf" "make"))
+ '(grep-find-command
+   '("find . -type f -exec grep --color -nH --null -e  \\{\\} +" . 49))
  '(hl-todo-keyword-faces
-   (quote
-    (("TODO" . "#dc752f")
+   '(("TODO" . "#dc752f")
      ("NEXT" . "#dc752f")
      ("THEM" . "#2d9574")
      ("PROG" . "#3a81c3")
@@ -54,35 +47,33 @@
      ("FIXME" . "#dc752f")
      ("XXX" . "#dc752f")
      ("XXXX" . "#dc752f")
-     ("???" . "#dc752f"))))
- '(initial-frame-alist (quote ((fullscreen . maximized))))
+     ("???" . "#dc752f")))
+ '(initial-frame-alist '((fullscreen . maximized)))
  '(org-confirm-babel-evaluate nil)
  '(package-archives
-   (quote
-    (("melpa-stable" . "https://stable.melpa.org/packages/")
+   '(("melpa-stable" . "http://stable.melpa.org/packages/")
      ("gnu" . "http://elpa.gnu.org/packages/")
-     ("melpa" . "http://melpa.milkbox.net/packages/"))))
+     ("melpa" . "http://melpa.org/packages/")))
  '(package-selected-packages
-   (quote
-    (spaceline-all-the-icons mode-icons all-the-icons org-journal pubmed fill-column-indicator auctex poly-org ess-view exec-path-from-shell ess-smart-underscore pdf-tools org-ref popup-complete auto-complete spaceline-config persp-mode spaceline openwith org2blog elpy poly-R poly-markdown ess diminish use-package spacemacs-theme magit org org-bullets markdown-mode markchars)))
- '(pdf-view-midnight-colors (quote ("#655370" . "#fbf8ef"))))
+   '(exec-path-from-shell major-mode-hydra reformatter flycheck mood-modeline mood-line ess-view-data csv-mode counsel treemacs-icons-dired treemacs doom-modeline poly-noweb org-plus-contrib spaceline-all-the-icons mode-icons all-the-icons org-journal pubmed fill-column-indicator auctex poly-org ess-view ess-smart-underscore pdf-tools org-ref popup-complete auto-complete spaceline-config persp-mode spaceline openwith org2blog elpy poly-R poly-markdown ess diminish use-package spacemacs-theme magit org org-bullets markdown-mode markchars))
+ '(pdf-view-midnight-colors '("#655370" . "#fbf8ef")))
+
+;;; uncomment for CJK utf-8 support for non-Asian users
+;; (require 'un-define)
+(load-theme 'doom-nord)
+(normal-erase-is-backspace-mode 1)
+(delete-selection-mode 1)
+(electric-pair-mode 1)
+(show-paren-mode 1)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Menlo"))))
- ;;'(mouse ((t (:background "black"))))
- ;;'(org-table ((t (:background "#D8C3E5" :foreground "#655370"))))
- )
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Menlo")))))
 
-(defun update-load-path (&rest _)
-  "Update `load-path'."
-  (push (expand-file-name "elisp" user-emacs-directory) load-path))
-(update-load-path)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Packages
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;use-package
+
 ;; ESS
 (use-package ess
   :ensure t
@@ -90,13 +81,15 @@
   :config
   (ess-toggle-underscore nil)
   (add-to-list 'load-path "/elpa/ess-18.10.2")
-  ;;(setq inferior-R-program-name "/usr/local/bin/R")
+  (setq inferior-R-program-name "/usr/local/bin/R")
   ;;(setq ess-use-auto-complete t)
   ;;(require 'auto-complete)
   ;;(require 'auto-complete-config)
   ;;(add-to-list 'ac-dictionary-directories "~/.emacs.d/site-lisp/auto-complete/dict")
   ;;(ac-config-default)
   ;;(auto-complete-mode)
+  (require 'ess-site)
+  (ess-toggle-underscore nil)
   (setq ess-eval-visibly 'nowait))
 
 ;; elpy (for python editing)
@@ -104,12 +97,12 @@
    :ensure t
    :config (elpy-enable))
 
-;; flycheck for python syntax checking
-;; Suspending for now, seems to freeze up python buffers and not helpful
- (use-package flycheck
-   :config (when (require 'flycheck nil t)
- 	    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
- 	    (add-hook 'elpy-mode-hook 'flycheck-mode)))
+(use-package flycheck
+  :defer 2
+  :diminish
+  :init (global-flycheck-mode)
+  :custom
+  (flycheck-display-errors-delay .3))
 
 ;; Org mode
 (use-package org
@@ -174,15 +167,15 @@
 	org-ref-default-bibliography '("~/Documents/emacs_files/references.bib")
 	org-ref-pdf-directory "~/Desktop/Papers_of_Interest/")
 
-  (setq helm-bibtex-bibliography "~/Documents/emacs_files/references.bib")
+  (setq helm-completion-bibliography "~/Documents/emacs_files/references.bib")
   (setq org-latex-pdf-process
 	'("pdflatex %f" "bibtex %b" "pdflatex %f" "pdflatex %f"))
-  (setq helm-bibtex-library-path "~/Desktop/Papers_of_Interest/")
+  (setq helm-completion-library-path "~/Desktop/Papers_of_Interest/")
 
-  (setq helm-bibtex-pdf-open-function
+  (setq helm-completion-pdf-open-function
         (lambda (fpath)
           (start-process "open" "*open*" "open" fpath)))
-  (setq helm-bibtex-notes-path "~/Documents/emacs_files/notes.org")
+  (setq helm-completion-notes-path "~/Documents/emacs_files/notes.org")
   :config
   (key-chord-define-global "uu" 'org-ref-cite-hydra/body)
   ;; variables that control bibtex key format for auto-generation
@@ -207,21 +200,16 @@
 
 (use-package persp-mode)
 
-;; ess-view, REQUIRES "TAD" CSV VIEWER APP
-;; (use-package ess-view
-;;  :ensure t
-;;  :config (setq ess-view--spreadsheet-program "/Applications/Tad.app/Contents/MacOS/Tad"))
+;; Start a new journal entry with C-c C-j
+(use-package org-journal
+  :ensure t
+  :defer t
+  :config
+  (setq org-journal-dir "~/Documents/emacs_files/journal/"))
 
-;; Markdown-mode (needed for Rmarkdown)
-(use-package markdown-mode
-   :ensure t
-   :commands (markdown-mode gfm-mode)
-   :mode (("\.text\'" . markdown-mode)
-	  ("README\\.md\\'" . gfm-mode)
-          ("\\.md\\'" . markdown-mode)
-          ("\\.markdown\\'" . markdown-mode)))
+(use-package counsel
+  :ensure t)
 
-;; poly-R and poly-markdown also used for Rmarkdown 
 (use-package polymode
   :ensure t
   :pin melpa-stable
@@ -232,6 +220,14 @@
   (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode)) ; RMarkdown files
   )
 
+(use-package markdown-mode
+   :ensure t
+   :commands (markdown-mode gfm-mode)
+   :mode (("\.text\'" . markdown-mode)
+	  ("README\\.md\\'" . gfm-mode)
+          ("\\.md\\'" . markdown-mode)
+          ("\\.markdown\\'" . markdown-mode)))
+
 (use-package poly-noweb
   :ensure t)
 
@@ -239,39 +235,33 @@
   :ensure t)
 
 (use-package poly-R
-   :ensure t)
+  :ensure t)
 
-;;Magit
 (use-package magit
   :ensure t)
 (global-set-key (kbd "C-x g") 'magit-status)
 
-;;Fill column indicator to keep code pretty. Toggle with 'fci-mode'
-(use-package fill-column-indicator
-  :ensure t
-  :defer t
-  :config
-  (setq fci-rule-width 1)
-  (setq fci-rule-color "gainsboro")
-  (setq fci-rule-use-dashes t))
-
-;; Start a new journal entry with C-c C-j
-(use-package org-journal
-  :ensure t
-  :defer t
-  :config
-  (setq org-journal-dir "~/Documents/emacs_files/journal/"))
 
 ;; Download all icons needed for spaceline
 (use-package all-the-icons
   :ensure t)
 
 ;; Doom modeline for cool, informative modeline
+;; (use-package mood-line
+;;   :ensure t
+;;   :init
+;;   (mood-line-mode))
+
 (use-package doom-modeline
-  :ensure t
-  :config
-  (doom-modeline-mode)
-  (setq doom-modeline-minor-modes t))
+:ensure t
+:defer t
+:hook (after-init . doom-modeline-mode))
+
+(use-package all-the-icons
+  :if (display-graphic-p)
+  :commands all-the-icons-install-fonts
+  :config (unless (find-font (font-spec :name "all-the-icons"))
+            (all-the-icons-install-fonts t)))
 
 ;; Easier file access with treemacs
 (use-package treemacs
@@ -285,152 +275,229 @@
   :config
   (treemacs-icons-dired-mode))
 
-;; Can't get pdf-tools to install at the moment but I hear it's very good. Seems like a permissions issue
-;; (use-package pdf-tools
-;;   :ensure t
-;;   :config
-;;   (pdf-tools-install)
-;;   (setq-default pdf-view-display-size 'fit-page)
-;;   (use-package org-pdfview
-;;     :ensure t))
 
-(require 'init-ivy)
+(use-package csv-mode
+  :ensure t)
 
-(use-package flyspell-correct-ivy
-  :bind ("C-M-;" . flyspell-correct-wrapper)
-  :init
-  (setq flyspell-correct-interface #'flyspell-correct-ivy))
+(use-package reformatter
+  :config
+  (defconst Rscript-command "Rscript")
+  (reformatter-define styler
+    :program Rscript-command
+    :args (list "--vanilla" "-e" "con <- file(\"stdin\")
+out <- styler::style_text(readLines(con))
+close(con)
+out")
+    :lighter " styler"))
 
-(use-package ox-pandoc)
+(use-package exec-path-from-shell
+  :config
+  (exec-path-from-shell-initialize))
+
+
+(use-package hydra
+  :bind (("C-c M" . hydra-merge/body)
+         ("C-c f" . hydra-flycheck/body)
+	 ("C-c w" . hydra-window/body)))
+
+(use-package major-mode-hydra
+  :after hydra
+  :preface
+  (defun with-alltheicon (icon str &optional height v-adjust face)
+    "Display an icon from all-the-icon."
+    (s-concat (all-the-icons-alltheicon icon :v-adjust (or v-adjust 0) :height (or height 1) :face face) " " str))
+
+  (defun with-faicon (icon str &optional height v-adjust face)
+    "Display an icon from Font Awesome icon."
+    (s-concat (all-the-icons-faicon icon ':v-adjust (or v-adjust 0) :height (or height 1) :face face) " " str))
+
+  (defun with-fileicon (icon str &optional height v-adjust face)
+    "Display an icon from the Atom File Icons package."
+    (s-concat (all-the-icons-fileicon icon :v-adjust (or v-adjust 0) :height (or height 1) :face face) " " str))
+
+  (defun with-octicon (icon str &optional height v-adjust face)
+    "Display an icon from the GitHub Octicons."
+    (s-concat (all-the-icons-octicon icon :v-adjust (or v-adjust 0) :height (or height 1) :face face) " " str)))
+
+;; Hydras
+(pretty-hydra-define hydra-merge
+  (:hint nil :color pink :quit-key "q" :title (with-octicon "mark-github" "Magit" 1 -0.05))
+  ("Move"
+   (("n" smerge-next "next")
+    ("p" smerge-prev "previous"))
+   "Keep"
+   (("RET" smerge-keep-current "current")
+    ("a" smerge-keep-all "all")
+    ("b" smerge-keep-base "base")
+    ("l" smerge-keep-lower "lower")
+    ("u" smerge-keep-upper "upper"))
+   "Diff"
+   (("<" smerge-diff-base-upper "upper/base")
+    ("=" smerge-diff-upper-lower "upper/lower")
+    (">" smerge-diff-base-lower "base/lower")
+    ("R" smerge-refine "redefine")
+    ("E" smerge-ediff "ediff"))
+   "Other"
+   (("C" smerge-combine-with-next "combine")
+    ("r" smerge-resolve "resolve")
+    ("k" smerge-kill-current "kill current"))))
+
+(pretty-hydra-define hydra-flycheck
+  (:hint nil :color teal :quit-key "q" :title (with-faicon "plane" "Flycheck" 1 -0.05))
+  ("Checker"
+   (("?" flycheck-describe-checker "describe")
+    ("d" flycheck-disable-checker "disable")
+    ("m" flycheck-mode "mode")
+    ("s" flycheck-select-checker "select"))
+   "Errors"
+   (("<" flycheck-previous-error "previous" :color pink)
+    (">" flycheck-next-error "next" :color pink)
+    ("f" flycheck-buffer "check")
+    ("l" flycheck-list-errors "list"))
+   "Other"
+   (("M" flycheck-manual "manual")
+    ("v" flycheck-verify-setup "verify setup"))))
+
+(defhydra hydra-window (:color pink :hint nil :timeout 20)
+  "
+         Move                    Resize                      Swap              Split
+╭─────────────────────────────────────────────────────────────────────────────────────────┐
+         ^_<up>_^                    ^_C-<up>_^                      ^_M-<up>_^            [_v_]ertical
+          ^^▲^^                         ^^▲^^                           ^^▲^^              [_h_]orizontal
+ _<left>_ ◀   ▶ _<right>_    _C-<left>_ ◀   ▶ _C-<right>_    _M-<left>_ ◀   ▶ _M-<right>_
+          ^^▼^^                         ^^▼^^                           ^^▼^^              ╭──────────┐
+        ^_<down>_^                  ^_C-<down>_^                    ^_M-<down>_^           quit : [_SPC_]
+"
+  ("<left>" windmove-left)
+  ("<down>" windmove-down)
+  ("<up>" windmove-up)
+  ("<right>" windmove-right)
+  ("h" split-window-below)
+  ("v" split-window-right)
+  ("C-<up>" hydra-move-splitter-up) 
+  ("C-<down>" hydra-move-splitter-down)
+  ("C-<left>" hydra-move-splitter-left)
+  ("C-<right>" hydra-move-splitter-right)
+  ("M-<up>" buf-move-up)
+  ("M-<down>" buf-move-down)
+  ("M-<left>" buf-move-left)
+  ("M-<right>" buf-move-right)
+  ("SPC" nil))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Linking to my wordpress blog and OSC account
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (if (file-exists-p "~/.emacs.d/elisp/blog_and_osc_login.el") (load "~/.emacs.d/elisp/blog_and_osc_login.el") nil)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Aesthetics
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Never show line numbers
-;;(global-linum-mode nil)
-;;(setq linum-format "%4d \u2502 ")
+;;Other stuff
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Settings
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Make ESS buffers appear in the RStudio configuration by default
+;; (setq display-buffer-alist
+;;       `(("^\\*R Dired"
+;;          (display-buffer-reuse-window display-buffer-in-side-window)
+;;          (side . right)
+;;          (slot . -1)
+;;          (window-width . 0.5)
+;;          (reusable-frames . nil))
+;;         ("^\\*R"
+;;          (display-buffer-reuse-window display-buffer-in-side-window)
+;;          (side . right)
+;;          (slot . 1)
+;;          (window-width . 0.5)
+;;          (reusable-frames . nil))))
 
-;; Ensure the correct $PATH variables are inherited on Mac
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
+(setq inhibit-startup-screen t)
 
-;; Command-S to save, C to copy, V to paste, etc.
-(defun sj/copy-keys-from-keymap (from-map keys &optional to-map)
-  "Copy the definitions of key sequences in `keys' from `from-map' to `to-map'.
-A new keymap is created if `to-map' is nil.  `keys' should be a
-list of the keys whose bindings are to be copied.  Each entry may
-also be of the form (from-key . to-key) if the keys differ in the
-two keymaps.
-Example:
-  (\"a\" [backspace]
-   (\"v\"  . \"k\")
-   ([?v] . [?\C-o])
-   (\"\C-y\" . \"x\"))
-The keymap will have `from-map's bindings for \"v\" on \"k\" and \"\C-o\",
-and the binding for \"\C-y\" on \"x\". The bindings for \"a\" and [backspace]
-will be copied as well."
-  (let ((new-map (or to-map (make-sparse-keymap))))
-    (dolist (entry keys)
-      (let ((from-key (if (listp entry) (car entry) entry))
-	    (to-key   (if (listp entry) (cdr entry) entry)))
-	(define-key new-map to-key (lookup-key from-map from-key))))
-     new-map))
 
-;; Distinguish between various Emacs ports to OS X
-(cond 
- ;; ns port
- ((boundp 'ns-version-string)
-  (setq ns-antialias-text t
-	ns-option-modifier 'meta)
-  (define-key global-map [ns-drag-file] 'ns-find-file))
- ;; mac port
- ((boundp 'mac-carbon-version-string)
-  (setq mac-command-modifier 'super
-	mac-option-modifier  'meta)
-  ;; Command-S to save, C to copy, V to paste, etc.
-  (let ((keys '(("\C-x\C-s"    . [(super s)])
-		("\C-w"        . [(super x)])
-		("\M-w"        . [(super c)])
-		("\C-y"        . [(super v)])
-		([(control /)] . [(super z)]))))
-(sj/copy-keys-from-keymap global-map keys global-map))))
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq ivy-count-format "(%d/%d) ")
+(global-set-key (kbd "C-s") 'swiper-isearch)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "M-y") 'counsel-yank-pop)
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> l") 'counsel-find-library)
+(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+(global-set-key (kbd "<f2> j") 'counsel-set-variable)
+(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+(global-set-key (kbd "C-c v") 'ivy-push-view)
+(global-set-key (kbd "C-c V") 'ivy-pop-view)
 
-;; Turn off excessive alarm bell
-(setq ring-bell-function
-      (lambda ()
-        (let ((orig-fg (face-foreground 'mode-line)))
-          (set-face-foreground 'mode-line "#F2804F")
-          (run-with-idle-timer 0.1 nil
-                               (lambda (fg) (set-face-foreground 'mode-line fg))
-                               orig-fg))))
+(defun split-window-sensibly-prefer-horizontal (&optional window)
+"Based on split-window-sensibly, but designed to prefer a horizontal split,
+i.e. windows tiled side-by-side."
+  (let ((window (or window (selected-window))))
+    (or (and (window-splittable-p window t)
+         ;; Split window horizontally
+         (with-selected-window window
+           (split-window-right)))
+    (and (window-splittable-p window)
+         ;; Split window vertically
+         (with-selected-window window
+           (split-window-below)))
+    (and
+         ;; If WINDOW is the only usable window on its frame (it is
+         ;; the only one or, not being the only one, all the other
+         ;; ones are dedicated) and is not the minibuffer window, try
+         ;; to split it horizontally disregarding the value of
+         ;; `split-height-threshold'.
+         (let ((frame (window-frame window)))
+           (or
+            (eq window (frame-root-window frame))
+            (catch 'done
+              (walk-window-tree (lambda (w)
+                                  (unless (or (eq w window)
+                                              (window-dedicated-p w))
+                                    (throw 'done nil)))
+                                frame)
+              t)))
+     (not (window-minibuffer-p window))
+     (let ((split-width-threshold 0))
+       (when (window-splittable-p window t)
+         (with-selected-window window
+           (split-window-right))))))))
 
-;; autocomplete paired brackets (don't autocomplete '<')
-(electric-pair-mode 1)
-(setq electric-pair-inhibit-predicate
-      `(lambda (c)
-         (if (char-equal c ?\<) t (,electric-pair-inhibit-predicate c))))
-(setq electric-pair-preserve-balance nil)
+(defun split-window-really-sensibly (&optional window)
+  (let ((window (or window (selected-window))))
+    (if (> (window-total-width window) (* 2 (window-total-height window)))
+        (with-selected-window window (split-window-sensibly-prefer-horizontal window))
+      (with-selected-window window (split-window-sensibly window)))))
 
-;;enable parentheses matching
-(show-paren-mode 1)
+;; (setq
+;;    split-height-threshold 4
+;;    split-width-threshold 40 
+;;    split-window-preferred-function 'split-window-really-sensibly)
 
-;; Re-load your buffers from the previous session on startup
-;; (desktop-save-mode 1)
+;; (menu-bar-mode -1)
+(tool-bar-mode -1)
 
-;; Prevent loading with locked desktop file
-;; (setq desktop-load-locked-desktop t)
-;; (call-interactively 'desktop-read t (vector "~/.emacs.d/desktops/" t))
+(defun set-frame-size-according-to-resolution ()
+  (interactive)
+  (if window-system
+  (progn
+    ;; use 120 char wide window for largeish displays
+    ;; and smaller 80 column windows for smaller displays
+    ;; pick whatever numbers make sense for you
+    (if (> (x-display-pixel-width) 1280)
+           (add-to-list 'default-frame-alist (cons 'width 120))
+           (add-to-list 'default-frame-alist (cons 'width 80)))
+    ;; for the height, subtract a couple hundred pixels
+    ;; from the screen height (for panels, menubars and
+    ;; whatnot), then divide by the height of a char to
+    ;; get the height we want
+    (add-to-list 'default-frame-alist 
+         (cons 'height (/ (- (x-display-pixel-height) 200)
+                             (frame-char-height)))))))
 
-;; Prevent upcase-region (annoying when I'm spamming undo)
-(put 'upcase-region 'disabled nil)
+(set-frame-size-according-to-resolution)
 
-;; Disable the splash screen (to enable it agin, replace the t with 0)
-(setq inhibit-splash-screen t)
+(set-face-attribute 'default nil :height 120)
 
-;; Enable transient mark mode
-(transient-mark-mode 1)
-
-;; Automatically enter debug mode upon error
-;;(setq debug-on-error t)
-
-;; backup in one place. flat, no tree structure
-(setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
-
-;; Have locate use spotlight search (Mac only)
-(setq locate-command "mdfind")
-
-;; Make pdflatex the default Tex exporter
-(setq latex-run-command "pdflatex")
-
-;; Make Preview the default pdf viewer
-;; (progn					
-;;     (require 'openwith)                                                    
-;;     (openwith-mode t)                                                      
-;;     (setq openwith-associations '(("\\.pdf\\'" "/Applications/Preview.app/Contents/MacOS/Preview" (file))))          
-;; )
-
-(delete-selection-mode 1)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Custom Functions                                                       ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Open up your init file for editing
 (global-set-key (kbd "C-c I") (lambda() (interactive)(find-file "~/.emacs.d/init.el")))
 
-;; Open up your init file for editing
-(global-set-key (kbd "C-c p") (lambda() (interactive)(find-file "~/Documents/my-planner.org")))
-
-;; Transpose buffer location with C-x 4 t
 (defun transpose-windows (arg)
   "Transpose the buffers shown in two windows."
   (interactive "p")
@@ -443,6 +510,88 @@ will be copied as well."
 	(select-window (funcall selector)))
       (setq arg (if (plusp arg) (1- arg) (1+ arg))))))
 (define-key ctl-x-4-map (kbd "t") 'transpose-windows)
+
+(defun rmd-insert-source-block (name)
+  "Asks name
+Inserts Rmarkdown source code snippet"
+  (interactive "sname? ")
+  (insert 
+   (if (string= name "")
+       "```{r}
+```"
+     (format        "```{r, %s}
+```" name
+)
+     ) )
+  (forward-line -1)
+  (goto-char (line-end-position))
+  )
+(define-key markdown-mode-map (kbd "\C-c R") 'rmd-insert-source-block)
+
+(defun rmd-insert-header (type)
+  "Asks title
+Inserts Rmarkdown header and default options chunk"
+  (interactive "spdf_or_html?")
+  (insert
+   (if (string= type "pdf")
+   "---
+title:
+author: \"Andrew Patt\"
+date: \"`r format(Sys.time(), '%d %B, %Y')`\"
+output:
+  pdf_document
+---
+```{r,echo=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE,warning=FALSE, 
+    fig.height=6,fig.width = 12,fig.fullwidth = TRUE,tidy=TRUE)
+```"
+      "---
+title:
+author: \"Andrew Patt\"
+date: \"`r format(Sys.time(), '%d %B, %Y')`\"
+output:
+  html_document:
+    code_folding: hide
+    theme: cerulean
+    highlight: tango
+---
+```{r,echo=FALSE}
+knitr::opts_chunk$set(message=FALSE,warning=FALSE, 
+    fig.height=6,fig.width = 12,fig.fullwidth = TRUE,tidy=TRUE)
+```")
+  ) )
+(define-key markdown-mode-map (kbd "\C-c H") 'rmd-insert-header)
+
+;; (defun rmd-send-chunk ()
+;;   "Send current R chunk to ess process."
+;;   (interactive)
+;;   (and (eq (oref pm/chunkmode :mode) 'r-mode) 
+;;        (pm-with-narrowed-to-span nil
+;;          (goto-char (point-min))
+;;          (forward-line)
+;;          (ess-eval-region (point) (point-max) nil nil 'R)))) 
+;; (define-key ess-mode-map (kbd "\C-c RET") 'rmd-send-chunk)
+
+(define-key ess-mode-map (kbd "\C-c \C-e") 'polymode-eval-chunk)
+
+(fset 'eval-chunk-and-move
+   [?\C-c ?\C-e ?\M-n ?\C-n ?\M-n ?\C-n])
+
+(define-key ess-mode-map (kbd "\C-c RET") 'eval-chunk-and-move)
+
+(global-set-key (kbd "C-c p") (lambda() (interactive)(find-file "~/planner.org")))
+
+(eval-after-load "ansi-term"
+  '(define-key ansi-term-raw-map (kbd "C-c C-y") 'term-paste))
+
+(setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
+
+(setq grep-command "grep -rnw ")
+
+(add-hook 'image-mode-hook
+  (lambda ()
+    (auto-revert-mode)
+    (auto-image-file-mode)))
 
 ;; Display pdfs inline in org-mode
 (setq image-file-name-extensions
@@ -501,32 +650,6 @@ BEG and END default to the buffer boundaries."
                                (list 'org-display-inline-remove-overlay))
                   (push ov org-inline-image-overlays))))))))))
 
-;; Add pretty comment boxes to code
-(defun bjm-comment-box (b e)
-"Draw a box comment around the region but arrange for the region to extend to at least the fill column. Place the point after the comment box."
-(interactive "r")
-(let ((e (copy-marker e t)))
-  (goto-char b)
-  (end-of-line)
-  (insert-char ?  (- fill-column (current-column)))
-  (comment-box b e 1)
-  (goto-char e)
-  (set-marker e nil)))
-(global-set-key (kbd "C-c b b") 'bjm-comment-box)
-
-;; Copy current line
-(defun copy-line (&optional arg)
-  "Do a kill-line but copy rather than kill.  This function directly calls
-    kill-line, so see documentation of kill-line for how to use it including prefix
-    argument and relevant variables.  This function works by temporarily making the
-    buffer read-only."
-  (interactive "P")
-  (let ((buffer-read-only t)
-	(kill-read-only-ok t))
-    (kill-line arg)))
-;; optional key binding
-(global-set-key "\C-c\C-k" 'copy-line)
-
 ;; Insert R code blocks in org-mode with C-c R
 (defun org-insert-source-block (name)
   "Asks name
@@ -542,98 +665,9 @@ Inserts org-mode source code snippet"
 #+BEGIN_SRC R :session \"global\" :file %s.png :results output graphics :export both
 
 #+END_SRC" name name
-)
-     ) )
-  (forward-line -1)
-  (goto-char (line-end-position))
-  ;;(org-edit-src-code)
-  )
-(define-key org-mode-map (kbd "\C-c R") 'org-insert-source-block)
+))))
 
-;; Start up OSC interactive node
-(defun start-interactive-node (arg)
-  "Log in to OSC and request interactive node"
-  (interactive "P")
-  (shell)
-  (process-send-string "shell" "ssh -X -C osu8143@owens.osc.edu\n")
-  (sleep-for 1)
-  (process-send-string "shell" (concat (concat "qsub -I -l nodes=1:ppn=12 -l walltime=" (read-from-minibuffer "Walltime (hh:mm:ss):" "1:00:00")) " -A PCON0005\n"))
-  (setq load-R (read-from-minibuffer "Load R (y/n)? "))
-  (if (string= load-R "y")
-      (progn
-	(process-send-string "shell" "module load R\n")
-	     (process-send-string "shell" "R\n")
-	     (ess-remote "shell" "R"))
-    (message "Done"))
-  ;;this doesn't work
-  ;;(dired "/ssh:osu8143@owens.osc.edu:/users/PAS1143/osu8143/")
-  )
+(setq treemacs-show-hidden-files nil)
 
-;; Insert R code blocks in Rmarkdown files with C-c R
-(defun rmd-insert-source-block (name)
-  "Asks name
-Inserts Rmarkdown source code snippet"
-  (interactive "sname? ")
-  (insert 
-   (if (string= name "")
-       "```{r}
-
-```"
-     (format        "```{r, %s}
-
-```" name
-)
-     ) )
-  (forward-line -1)
-  (goto-char (line-end-position))
-  )
-(define-key markdown-mode-map (kbd "\C-c R") 'rmd-insert-source-block)
-
-(defun rmd-insert-header (type)
-  "Asks title
-Inserts Rmarkdown header and default options chunk"
-  (interactive "spdf_or_html?")
-  (insert
-   (if (string= type "pdf")
-   "---
-title:
-author: \"Andrew Patt\"
-date: \"`r format(Sys.time(), '%d %B, %Y')`\"
-output:
-  tufte::tufte_handout:
-    keep_tex: true
----
-
-```{r,echo=FALSE}
-knitr::opts_chunk$set(echo=FALSE, message=FALSE,warning=FALSE, 
-    fig.height=6,fig.width = 12,fig.fullwidth = TRUE,tidy=TRUE)
-```"
-      "---
-title:
-author: \"Andrew Patt\"
-date: \"`r format(Sys.time(), '%d %B, %Y')`\"
-output:
-  html_document:
-    code_folding: hide
-    theme: cerulean
-    highlight: tango
----
-
-```{r,echo=FALSE}
-knitr::opts_chunk$set(message=FALSE,warning=FALSE, 
-    fig.height=6,fig.width = 12,fig.fullwidth = TRUE,tidy=TRUE)
-```")
-  ) )
-(define-key markdown-mode-map (kbd "\C-c H") 'rmd-insert-header)
-
-;; (defun rmd-send-chunk ()
-;;   "Send current R chunk to ess process."
-;;   (interactive)
-;;   (and (eq (oref pm/chunkmode :mode) 'r-mode) 
-;;        (pm-with-narrowed-to-span nil
-;;          (goto-char (point-min))
-;;          (forward-line)
-;;          (ess-eval-region (point) (point-max) nil nil 'R)))) 
-;; (define-key ess-mode-map (kbd "\C-c RET") 'rmd-send-chunk)
-
-(define-key ess-mode-map (kbd "\C-c RET") 'polymode-eval-chunk)
+(which-function-mode 1)
+(setq pandoc-binary "/usr/local/bin/pandoc")
