@@ -114,7 +114,7 @@
   (setq org-tag-persistent-alist 
 	'((:startgroup . nil)
 	  ("LIPOSARCOMA" . ?h) 
-	  ("PROTEOGENOMICS" . ?r)
+	  ("METABOSPAN" . ?r)
 	  ("THESIS" . ?t)
 	  ("LIFE" . ?y)
 	  (:endgroup . nil)
@@ -132,7 +132,7 @@
   (setq org-tag-faces
 	'(
 	  ("LIPOSARCOMA" . (:foreground "GoldenRod" :weight bold))
-	  ("PROTEOGENOMICS" . (:foreground "Red" :weight bold))
+	  ("METABOSPAN" . (:foreground "Red" :weight bold))
 	  ("THESIS" . (:foreground "SkyBlue" :weight bold))
 	  ("LIFE" . (:foreground "Purple" :weight bold))
 	  ("EASY" . (:foreground "LimeGreen" :weight bold))  
@@ -236,6 +236,12 @@
 
 (use-package poly-R
   :ensure t)
+
+(use-package tex
+  :defer t
+  :ensure auctex
+  :config
+  (setq TeX-auto-save t))
 
 (use-package magit
   :ensure t)
@@ -498,6 +504,16 @@ i.e. windows tiled side-by-side."
 
 (global-set-key (kbd "C-c I") (lambda() (interactive)(find-file "~/.emacs.d/init.el")))
 
+;; Open up your init file for editing
+(global-set-key (kbd "C-c p") (lambda() (interactive)(find-file "~/Documents/my-planner.org")))
+
+;; Better buffer switching
+(global-set-key (kbd "C-x <up>") 'windmove-up)
+(global-set-key (kbd "C-x <down>") 'windmove-down)
+(global-set-key (kbd "C-x <left>") 'windmove-left)
+(global-set-key (kbd "C-x <right>") 'windmove-right)
+
+;; Transpose buffer location with C-x 4 t
 (defun transpose-windows (arg)
   "Transpose the buffers shown in two windows."
   (interactive "p")
@@ -650,6 +666,24 @@ BEG and END default to the buffer boundaries."
                                (list 'org-display-inline-remove-overlay))
                   (push ov org-inline-image-overlays))))))))))
 
+;; Add pretty comment boxes to code
+(defun bjm-comment-box (b e)
+"Draw a box comment around the region but arrange for the region to extend to at least the fill column. Place the point after the comment box."
+(interactive "r")
+(let ((e (copy-marker e t)))
+  (goto-char b)
+  (end-of-line)
+  (insert-char ?  (- fill-column (current-column)))
+  (comment-box b e 1)
+  (goto-char e)
+  (set-marker e nil)))
+(global-set-key (kbd "C-c b b") 'bjm-comment-box)
+
+;; Copy current line
+(fset 'copy-and-paste-line
+   [?\C-a ?\C-  ?\C-e escape ?w return ?\C-y])
+(global-set-key (kbd "C-c y") 'copy-and-paste-line)
+
 ;; Insert R code blocks in org-mode with C-c R
 (defun org-insert-source-block (name)
   "Asks name
@@ -671,3 +705,9 @@ Inserts org-mode source code snippet"
 
 (which-function-mode 1)
 (setq pandoc-binary "/usr/local/bin/pandoc")
+(define-key ess-mode-map (kbd "\C-c \C-e") 'polymode-eval-chunk)
+
+(fset 'eval-chunk-and-move
+   [?\C-c ?\C-e ?\M-n ?\C-n ?\M-n ?\C-n])
+
+(define-key ess-mode-map (kbd "\C-c RET") 'eval-chunk-and-move)
