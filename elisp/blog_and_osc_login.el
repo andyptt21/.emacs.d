@@ -14,7 +14,12 @@
 ;; Connect to Owens (OSC)
 (defun connect-remote ()
   (interactive)
-  (dired "/ssh:osu8143@owens.osc.edu:/users/PAS1143/osu8143/"))
+  (dired "/ssh:pattac@biowulf.nih.gov:/home/pattac"))
+
+(defun biowulf-term ()
+    (interactive)
+    (let ((default-directory "/ssh:pattac@biowulf.nih.gov:/home/pattac"))
+      (shell)))
 
 ;; Pubmed for searching for bibtex references in emacs (API key is private)
 ;; Use pubmed-search to search, m to mark (u to unmark) and a to append

@@ -25,9 +25,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auth-source-save-behavior nil)
  '(custom-safe-themes
-   '("70ed3a0f434c63206a23012d9cdfbe6c6d4bb4685ad64154f37f3c15c10f3b90" "b35a14c7d94c1f411890d45edfb9dc1bd61c5becd5c326790b51df6ebf60f402" "d2e9c7e31e574bf38f4b0fb927aaff20c1e5f92f72001102758005e53d77b8c9" "fe666e5ac37c2dfcf80074e88b9252c71a22b6f5d2f566df9a7aa4f9bea55ef8" "4697a2d4afca3f5ed4fdf5f715e36a6cac5c6154e105f3596b44a4874ae52c45" "b54826e5d9978d59f9e0a169bbd4739dd927eead3ef65f56786621b53c031a7c" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" "77113617a0642d74767295c4408e17da3bfd9aa80aaa2b4eeb34680f6172d71a" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default))
+   '("3a3de615f80a0e8706208f0a71bbcc7cc3816988f971b6d237223b6731f91605" "1704976a1797342a1b4ea7a75bdbb3be1569f4619134341bd5a4c1cfb16abad4" "70ed3a0f434c63206a23012d9cdfbe6c6d4bb4685ad64154f37f3c15c10f3b90" "b35a14c7d94c1f411890d45edfb9dc1bd61c5becd5c326790b51df6ebf60f402" "d2e9c7e31e574bf38f4b0fb927aaff20c1e5f92f72001102758005e53d77b8c9" "fe666e5ac37c2dfcf80074e88b9252c71a22b6f5d2f566df9a7aa4f9bea55ef8" "4697a2d4afca3f5ed4fdf5f715e36a6cac5c6154e105f3596b44a4874ae52c45" "b54826e5d9978d59f9e0a169bbd4739dd927eead3ef65f56786621b53c031a7c" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" "77113617a0642d74767295c4408e17da3bfd9aa80aaa2b4eeb34680f6172d71a" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default))
  '(diff-switches "-u")
+ '(dired-single-use-magic-buffer t)
  '(ess-swv-pdflatex-commands '("pdflatex" "texi2pdf" "make"))
  '(grep-find-command
    '("find . -type f -exec grep --color -nH --null -e  \\{\\} +" . 49))
@@ -55,12 +57,12 @@
      ("gnu" . "http://elpa.gnu.org/packages/")
      ("melpa" . "http://melpa.org/packages/")))
  '(package-selected-packages
-   '(exec-path-from-shell major-mode-hydra reformatter flycheck mood-modeline mood-line ess-view-data csv-mode counsel treemacs-icons-dired treemacs doom-modeline poly-noweb org-plus-contrib spaceline-all-the-icons mode-icons all-the-icons org-journal pubmed fill-column-indicator auctex poly-org ess-view ess-smart-underscore pdf-tools org-ref popup-complete auto-complete spaceline-config persp-mode spaceline openwith org2blog elpy poly-R poly-markdown ess diminish use-package spacemacs-theme magit org org-bullets markdown-mode markchars))
- '(pdf-view-midnight-colors '("#655370" . "#fbf8ef")))
+   '(company quelpa lsp-julia lsp-mode julia-mode helm-bibtex true dired-single quarto-mode exec-path-from-shell major-mode-hydra reformatter flycheck mood-modeline mood-line ess-view-data csv-mode counsel treemacs-icons-dired treemacs doom-modeline poly-noweb org-plus-contrib spaceline-all-the-icons mode-icons all-the-icons org-journal pubmed fill-column-indicator auctex poly-org ess-view ess-smart-underscore pdf-tools org-ref popup-complete auto-complete spaceline-config persp-mode spaceline openwith org2blog elpy poly-R poly-markdown ess diminish use-package spacemacs-theme magit org org-bullets markdown-mode markchars))
+ '(python-shell-interpreter "python3"))
 
 ;;; uncomment for CJK utf-8 support for non-Asian users
 ;; (require 'un-define)
-(load-theme 'doom-nord)
+(load-theme 'doom-nord-light)
 (normal-erase-is-backspace-mode 1)
 (delete-selection-mode 1)
 (electric-pair-mode 1)
@@ -70,32 +72,71 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Menlo")))))
+ )
 
 ;;use-package
+
+;; (use-package company
+;;   :ensure t)
+
+(use-package julia-mode
+  :ensure t)
+
+(use-package quelpa
+  :ensure t)
+(quelpa '(lsp-julia :fetcher github
+                    :repo "gdkrmr/lsp-julia"
+                    :files (:defaults "languageserver")))
+
+;; (use-package lsp-mode
+;;   :ensure t)
+
+;; (add-hook 'ess-julia-mode-hook #'lsp-mode)
+;; (use-package lsp-julia
+;;   :config
+;;   (setq lsp-julia-default-environment "~/.julia/environments/v1.8"))
+;; (add-hook 'julia-mode-hook #'lsp-mode)
+;; (setq lsp-julia-package-dir nil)
+;; (setq lsp-enable-folding t)
 
 ;; ESS
 (use-package ess
   :ensure t
-  :init (require 'ess-r-mode)
+  :init
+  (require 'ess-r-mode)
+  (require 'ess-site)
   :config
   (ess-toggle-underscore nil)
   (add-to-list 'load-path "/elpa/ess-18.10.2")
-  (setq inferior-R-program-name "/usr/local/bin/R")
-  ;;(setq ess-use-auto-complete t)
-  ;;(require 'auto-complete)
-  ;;(require 'auto-complete-config)
-  ;;(add-to-list 'ac-dictionary-directories "~/.emacs.d/site-lisp/auto-complete/dict")
-  ;;(ac-config-default)
-  ;;(auto-complete-mode)
+  (setq inferior-ess-r-program "/usr/local/bin/R")
+  (setq ess-indent-with-fancy-comments nil)
+  (auto-complete-mode)
   (require 'ess-site)
   (ess-toggle-underscore nil)
-  (setq ess-eval-visibly 'nowait))
+  (setq ess-eval-visibly 'nowait)
+  (setq ess-style 'RStudio)
+  (defun myindent-ess-hook ()
+    (setq ess-indent-offset 2)
+    (setq ess-offset-arguments-newline '(prev-line 2))
+    )
+  (add-hook 'ess-mode-hook 'myindent-ess-hook)
+  (when (string= system-type "darwin")
+    (setq inferior-julia-program
+          "/Applications/Julia-1.8.app/Contents/Resources/julia/bin/julia"))
+  (setq inferior-julia-args "--color=yes")
+  (require 'ess-julia)
+  (add-hook 'ess-r-mode-hook
+	    (lambda ()
+	      (display-line-numbers-mode 1))))
+
+
 
 ;; elpy (for python editing)
  (use-package elpy
    :ensure t
-   :config (elpy-enable))
+   :config (elpy-enable)
+   (setq python-shell-completion-native-enable nil))
+
 
 (use-package flycheck
   :defer 2
@@ -159,35 +200,35 @@
   (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components))
 
 ;; Org Ref
-(use-package org-ref
-  :after org
-  :init
-  (setq reftex-default-bibliography '("~/Documents/emacs_files/references.bib"))
-  (setq org-ref-bibliography-notes "~/Documents/emacs_files/notes.org"
-	org-ref-default-bibliography '("~/Documents/emacs_files/references.bib")
-	org-ref-pdf-directory "~/Desktop/Papers_of_Interest/")
+;; (use-package org-ref
+;;   :after org
+;;   :init
+;;   (setq reftex-default-bibliography '("~/Documents/emacs_files/references.bib"))
+;;   (setq org-ref-bibliography-notes "~/Documents/emacs_files/notes.org"
+;; 	org-ref-default-bibliography '("~/Documents/emacs_files/references.bib")
+;; 	org-ref-pdf-directory "~/Desktop/Papers_of_Interest/")
 
-  (setq helm-completion-bibliography "~/Documents/emacs_files/references.bib")
-  (setq org-latex-pdf-process
-	'("pdflatex %f" "bibtex %b" "pdflatex %f" "pdflatex %f"))
-  (setq helm-completion-library-path "~/Desktop/Papers_of_Interest/")
+;;   (setq helm-completion-bibliography "~/Documents/emacs_files/references.bib")
+;;   (setq org-latex-pdf-process
+;; 	'("pdflatex %f" "bibtex %b" "pdflatex %f" "pdflatex %f"))
+;;   (setq helm-completion-library-path "~/Desktop/Papers_of_Interest/")
 
-  (setq helm-completion-pdf-open-function
-        (lambda (fpath)
-          (start-process "open" "*open*" "open" fpath)))
-  (setq helm-completion-notes-path "~/Documents/emacs_files/notes.org")
-  :config
-  (key-chord-define-global "uu" 'org-ref-cite-hydra/body)
-  ;; variables that control bibtex key format for auto-generation
-  ;; I want firstauthor-year-title-words
-  ;; this usually makes a legitimate filename to store pdfs under.
-  (setq bibtex-autokey-year-length 4
-        bibtex-autokey-name-year-separator "-"
-        bibtex-autokey-year-title-separator "-"
-        bibtex-autokey-titleword-separator "-"
-        bibtex-autokey-titlewords 2
-        bibtex-autokey-titlewords-stretch 1
-        bibtex-autokey-titleword-length 5))
+;;   (setq helm-completion-pdf-open-function
+;;         (lambda (fpath)
+;;           (start-process "open" "*open*" "open" fpath)))
+;;   (setq helm-completion-notes-path "~/Documents/emacs_files/notes.org")
+;;   :config
+;;   (key-chord-define-global "uu" 'org-ref-cite-hydra/body)
+;;   ;; variables that control bibtex key format for auto-generation
+;;   ;; I want firstauthor-year-title-words
+;;   ;; this usually makes a legitimate filename to store pdfs under.
+;;   (setq bibtex-autokey-year-length 4
+;;         bibtex-autokey-name-year-separator "-"
+;;         bibtex-autokey-year-title-separator "-"
+;;         bibtex-autokey-titleword-separator "-"
+;;         bibtex-autokey-titlewords 2
+;;         bibtex-autokey-titlewords-stretch 1
+;;         bibtex-autokey-titleword-length 5))
 
 ;; poly-org mode for editing R blocks inline in org files
 (use-package poly-org
@@ -235,6 +276,9 @@
   :ensure t)
 
 (use-package poly-R
+  :ensure t)
+
+(use-package quarto-mode
   :ensure t)
 
 (use-package tex
@@ -414,11 +458,59 @@ out")
 
 (setq inhibit-startup-screen t)
 
+(defun my-rstudio-layout () ""
+       (interactive)
+       (add-to-list 'display-buffer-alist
+                    '((derived-mode . ess-mode)
+                      (display-buffer-reuse-window)
+                      (side .  left)
+                      (slot . -1)
+                      (dedicated . t)
+                      (tab-group . "rstudio-1")))
+
+
+       (add-to-list 'display-buffer-alist
+                    `("^\\*help\\[R\\]\\|^\\*xwidget-webkit"
+                      (display-buffer-reuse-mode-window  display-buffer-in-side-window)
+                      (mode . '(ess-help-mode xwidget-webkit-mode))
+                      (side . right)
+                      (slot . 1)
+                      (window-width . 0.33)
+                      (dedicated . nil)))
+
+
+       (add-to-list 'display-buffer-alist
+                    `("^\\*R.*\\*"
+                      (display-buffer-reuse-mode-window display-buffer-at-bottom)
+                      (mode . ess-mode)
+                      (window-width . 0.5)
+                      (dedicated . t)
+                      (tab-group "rstudio-3")))
+
+       (add-to-list 'display-buffer-alist
+                    `("^\\*R dired\\*"
+                      (display-buffer-reuse-mode-window display-buffer-in-side-window)
+                      (mode . ess-rdired-mode)
+                      (side . right)
+                      (slot . -1)
+                      (window-width . 0.33)
+                      (dedicated . t)
+                      (reusable-frames . nil)
+                      (tab-group . "rstudio-2")))
+
+       (let ((ess-startup-directory 'default-directory)
+             (ess-ask-for-ess-directory nil))
+         (delete-other-windows)
+         (ess-switch-to-ESS t)
+         (ess-rdired)
+         (ess-help "help")
+         (tab-line-mode 1)))
 
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
 (setq ivy-count-format "(%d/%d) ")
 (global-set-key (kbd "C-s") 'swiper-isearch)
+(global-set-key (kbd "C-x a s") 'swiper-all)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "M-y") 'counsel-yank-pop)
@@ -544,12 +636,13 @@ Inserts Rmarkdown source code snippet"
   )
 (define-key markdown-mode-map (kbd "\C-c R") 'rmd-insert-source-block)
 
-(defun rmd-insert-header (type)
+(defun rmd-insert-header (type format)
   "Asks title
 Inserts Rmarkdown header and default options chunk"
-  (interactive "spdf_or_html?")
+  (interactive "sqmd_or_rmd?
+spdf_or_html?")
   (insert
-   (if (string= type "pdf")
+   (cond ((and (string= type "rmd") (string= format "pdf"))
    "---
 title:
 author: \"Andrew Patt\"
@@ -560,7 +653,8 @@ output:
 ```{r,echo=FALSE}
 knitr::opts_chunk$set(echo=FALSE, message=FALSE,warning=FALSE, 
     fig.height=6,fig.width = 12,fig.fullwidth = TRUE,tidy=TRUE)
-```"
+```")
+	 ((and (string= type "rmd") (string= format "html"))
       "---
 title:
 author: \"Andrew Patt\"
@@ -575,25 +669,32 @@ output:
 knitr::opts_chunk$set(message=FALSE,warning=FALSE, 
     fig.height=6,fig.width = 12,fig.fullwidth = TRUE,tidy=TRUE)
 ```")
-  ) )
+	 ((string= type "qmd")
+"---
+title:
+author: \"Andrew Patt\"
+date: \"`r format(Sys.time(), '%d %B, %Y')`\"
+fig-height: 5
+fig-width: 10
+execute:
+  message: false
+  warning: false
+page-layout: full
+self-contained: true
+format:
+  html
+---")
+	 ))) 
 (define-key markdown-mode-map (kbd "\C-c H") 'rmd-insert-header)
 
-;; (defun rmd-send-chunk ()
-;;   "Send current R chunk to ess process."
-;;   (interactive)
-;;   (and (eq (oref pm/chunkmode :mode) 'r-mode) 
-;;        (pm-with-narrowed-to-span nil
-;;          (goto-char (point-min))
-;;          (forward-line)
-;;          (ess-eval-region (point) (point-max) nil nil 'R)))) 
-;; (define-key ess-mode-map (kbd "\C-c RET") 'rmd-send-chunk)
+;; (fset 'eval-chunk-and-move
+;;    [?\C-c ?\C-e ?\M-n ?\C-n ?\M-n ?\C-n])
 
-(define-key ess-mode-map (kbd "\C-c \C-e") 'polymode-eval-chunk)
-
-(fset 'eval-chunk-and-move
-   [?\C-c ?\C-e ?\M-n ?\C-n ?\M-n ?\C-n])
-
-(define-key ess-mode-map (kbd "\C-c RET") 'eval-chunk-and-move)
+(define-key ess-mode-map (kbd "\C-c RET") (lambda () (interactive)
+  (progn (polymode-eval-chunk (point))
+  (polymode-next-chunk 2)
+  ;; (polymode-next-chunk)
+  )))
 
 (global-set-key (kbd "C-c p") (lambda() (interactive)(find-file "~/planner.org")))
 
@@ -705,9 +806,17 @@ Inserts org-mode source code snippet"
 
 (which-function-mode 1)
 (setq pandoc-binary "/usr/local/bin/pandoc")
-(define-key ess-mode-map (kbd "\C-c \C-e") 'polymode-eval-chunk)
 
-(fset 'eval-chunk-and-move
-   [?\C-c ?\C-e ?\M-n ?\C-n ?\M-n ?\C-n])
+(put 'dired-find-alternate-file 'disabled nil)
 
-(define-key ess-mode-map (kbd "\C-c RET") 'eval-chunk-and-move)
+;; Anchor current window
+(defun anchor-window (&optional arg)
+  "Set current window to be dedicated.
+With prefix ARG, undedicate it. (Prefix by typing C-u M-x instead of M-x)"
+  (interactive "P")
+  (set-window-dedicated-p (get-buffer-window (current-buffer)) (not arg))
+  (message (if arg
+               "Window '%s' is normal"
+             "Window '%s' is dedicated")
+           (current-buffer)))
+
